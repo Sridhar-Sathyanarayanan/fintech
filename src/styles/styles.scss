@@ -1,0 +1,44 @@
+@use "@angular/material" as mat;
+
+@font-face {
+  font-family: ThemeFont-Regular;
+  src: url(/assets/fonts/Lato-Regular.woff2);
+}
+@font-face {
+  font-family: ThemeFont-Semibold;
+  src: url(/assets/fonts/Lato-Semibold.woff2);
+}
+
+$color1: #f2e5dc;
+$color2: orange;
+$color3: #08545c;
+$color4: #e8dacb;
+$color5: yellow;
+$color6: #cda990;
+$black : #000000;
+$white : #ffffff;
+$color7: #dea883;
+$color8: #e6d7cd;
+
+
+html,
+body {
+  background: $color4;
+  font-family: "ThemeFont-Regular", "Trebuchet MS", "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+.themeBGColor1 {
+  background-color: $color1;
+}
+.themeBGColor3 {
+  background-color: $color3;
+}
+.height100vh {
+  height: 100vh;
+}
+.infoIcon {
+  color: $color2;
+}

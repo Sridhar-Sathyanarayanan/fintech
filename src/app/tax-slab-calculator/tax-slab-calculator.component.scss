@@ -1,0 +1,39 @@
+.tax-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.mat-header-cell {
+  background-color: #3f51b5;
+  color: white;
+  font-weight: bold;
+}
+
+.mat-cell {
+  font-size: 15px;
+  padding: 12px 16px;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+.tax-table {
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.rate-lower {
+  background-color: #d4edda; /* light green */
+  color: #155724; /* dark green */
+  font-weight: 600;
+}
+
+.rate-higher {
+  background-color: #f8d7da; /* light red */
+  color: #721c24; /* dark red */
+  font-weight: 600;
+}
+

@@ -1,0 +1,63 @@
+<div class="page-wrapper d-flex flex-column min-vh-100">
+  <!-- Responsive Navbar -->
+  <nav class="navbar navbar-expand-md App__background p-2">
+    <div class="container-fluid">
+      
+      <!-- Logo on the left (shown only once) -->
+      <a class="navbar-brand d-flex align-items-center" routerLink="">
+        <img src="assets/images/logo.png" alt="Logo" class="imgLogo" />
+      </a>
+  
+      <!-- Hamburger toggler for mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Collapsible menu -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+        <ul class="navbar-nav ms-auto d-flex flex-column flex-md-row align-items-start align-items-md-center pe-2">
+          <li class="nav-item">
+            <a class="nav-link custom-tab px-md-5" routerLink="" routerLinkActive="active-tab" [routerLinkActiveOptions]="{ exact: true }">
+              <strong>Home</strong>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-tab px-md-5" routerLink="income-tax-calculator" routerLinkActive="active-tab">
+              <strong>Calculate Tax</strong>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-tab px-md-5" routerLink="tax-slabs" routerLinkActive="active-tab">
+              <strong>Tax Slabs</strong>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-tab px-md-5" routerLink="/privacy-policy" routerLinkActive="active-tab">
+              <strong>Privacy</strong>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-tab px-md-5" routerLink="/contact" routerLinkActive="active-tab">
+              <strong>Contact</strong>
+            </a>
+          </li>
+        </ul>
+        
+      </div>
+  
+    </div>
+  </nav>
+  
+  <!-- Main Content -->
+  <div class="flex-grow-1 App__background">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- Sticky Footer -->
+  <footer class="text-black text-center py-3 themeBGColor3 mt-auto App__background p-0">
+    <div class="container">
+      <small>&copy; AMKRTech. All rights reserved.</small>
+    </div>
+  </footer>
+</div>
