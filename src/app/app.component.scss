@@ -1,0 +1,124 @@
+@use "../styles/styles.scss" as styles;
+.App {
+  &__background {
+    background: linear-gradient(
+      90deg,
+      styles.$color7,
+      styles.$color6,
+      rgba(0, 51, 141, 0),
+      rgba(0, 51, 141, 0)
+    );
+  }
+  &__menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+  }
+}
+.imgLogo {
+  position: absolute;
+  height: 68px;
+  top: 10px;
+}
+
+.App__menu .nav-link {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.footer {
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.custom-tab {
+  padding: 0.75rem 1.25rem;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.custom-tab:hover {
+  background-color: styles.$color3;
+  text-decoration: none;
+  color: #fff;
+}
+
+.active-tab {
+  border-bottom: 3px solid styles.$color3;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(rgb(226 210 199 / 50%), rgb(226 210 199 / 30%)),
+    url("../assets/images/home_page3.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .App {
+    &__mobileLogo {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .imgLogo {
+    position: relative;
+    height: 46px;
+    margin-top: -10px;
+  }
+  .App {
+    &__mobileLogo {
+      display: block;
+    }
+    &__wideScreenLogo {
+      display: none;
+    }
+  }
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+
+  .nav-item {
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav-link.custom-tab {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .custom-tab {
+    padding: 0.75rem 1.25rem;
+    display: block;
+    transition: background-color 0.3s ease;
+    color: styles.$black;
+  }
+
+  .custom-tab:hover {
+    //background-color: #343a40;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .active-tab {
+    background-color: none;
+    border-bottom: 3px solid styles.$color3;
+  }
+  // .navbar-collapse {
+  //   background-color: rgba(0, 0, 0, 0.85); // Optional: background behind collapsed menu
+  // }
+}

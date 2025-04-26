@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone:false,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  template: ` <router-outlet></router-outlet> `,
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'tax-calculator';
+  isSmallScreen = false;
+
+  constructor(private breakpointObserver: BreakpointObserver) {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      this.isSmallScreen = result.matches;
+    });
+  }
 }

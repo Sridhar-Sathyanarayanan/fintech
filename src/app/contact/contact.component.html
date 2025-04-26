@@ -1,0 +1,31 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+      <mat-card class="p-4 shadow rounded-4 w-100 mx-auto">
+        <h2 class="text-primary mb-4 text-center text-md-start">Contact Us</h2>
+
+        <form (ngSubmit)="sendEmail(contactForm.value)" #contactForm="ngForm" class="d-flex flex-column gap-3">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Your Name</mat-label>
+            <input matInput name="name" ngModel required />
+          </mat-form-field>
+
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Your Email</mat-label>
+            <input matInput name="email" ngModel type="email" required />
+          </mat-form-field>
+
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Your Message</mat-label>
+            <textarea matInput name="message" ngModel rows="5" required></textarea>
+          </mat-form-field>
+
+          <div class="d-flex align-items-center gap-3">
+            <button mat-raised-button color="primary" type="submit" [disabled]="loading">Send</button>
+            <mat-spinner *ngIf="loading" diameter="24" strokeWidth="3"></mat-spinner>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
