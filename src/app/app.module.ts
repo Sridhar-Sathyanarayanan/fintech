@@ -27,7 +27,11 @@ import { ContactComponent } from './contact/contact.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-import { NgChartsModule } from 'ng2-charts';
+import {
+  BaseChartDirective,
+  provideCharts,
+  withDefaultRegisterables,
+} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -60,9 +64,9 @@ import { NgChartsModule } from 'ng2-charts';
     MatTooltipModule,
     MatProgressSpinner,
     MatTableModule,
-    NgChartsModule
+    BaseChartDirective,
   ],
-  providers: [provideRouter(routes)],
+  providers: [provideRouter(routes), provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
