@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tax-calculator": {
+    "amkrtech": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/tax-calculator",
+            "outputPath": "dist/amkrtech",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -46,7 +46,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                "maximumWarning": "300kb",
+                  "maximumWarning": "300kb",
                   "maximumError": "400kb"
                 }
               ],
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tax-calculator:build:production"
+              "buildTarget": "amkrtech:build:production"
             },
             "development": {
-              "buildTarget": "tax-calculator:build:development"
+              "buildTarget": "amkrtech:build:development"
             }
           },
           "defaultConfiguration": "development"

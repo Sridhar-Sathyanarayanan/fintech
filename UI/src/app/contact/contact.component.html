@@ -4,7 +4,7 @@
       <mat-card class="p-4 shadow rounded-4 w-100 mx-auto">
         <h2 class="text-primary mb-4 text-center text-md-start">Contact Us</h2>
 
-        <form (ngSubmit)="sendEmail(contactForm.value)" #contactForm="ngForm" class="d-flex flex-column gap-3">
+        <form (ngSubmit)="sendFeedback(contactForm.value)" #contactForm="ngForm" class="d-flex flex-column gap-3">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Your Name</mat-label>
             <input matInput name="name" ngModel required />

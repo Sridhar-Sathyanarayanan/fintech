@@ -32,12 +32,16 @@ import {
   provideCharts,
   withDefaultRegisterables,
 } from 'ng2-charts';
+import { SipCalculatorComponent } from './sip-calculator/sip-calculator.component';
+import { MatDivider } from '@angular/material/divider';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaxCalculatorComponent,
     TaxSlabCalculatorComponent,
+    SipCalculatorComponent,
     HomeComponent,
     PrivacyComponent,
     ContactComponent,
@@ -65,8 +69,9 @@ import {
     MatProgressSpinner,
     MatTableModule,
     BaseChartDirective,
+    MatDivider
   ],
-  providers: [provideRouter(routes), provideCharts(withDefaultRegisterables())],
+  providers: [provideRouter(routes), provideCharts(withDefaultRegisterables()), provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

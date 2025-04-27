@@ -1,0 +1,38 @@
+{
+  "name": "amkrtech-midtier",
+  "version": "1.0.0",
+  "description": "This is the middle tier for our application",
+  "main": "server.ts",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "start:dev": "SET NODE_ENV=development&&nodemon --exec node --loader ts-node/esm server.ts",
+    "start:prod": "SET NODE_ENV=production&&node build/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amkrtech": "file:..",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/nodemailer": "^6.4.17",
+    "dotenv": "^16.5.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

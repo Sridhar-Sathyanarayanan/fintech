@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
+import { SipCalculatorComponent } from './sip-calculator/sip-calculator.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,10 @@ export const routes: Routes = [
   {
     path: 'income-tax-calculator',
     component: TaxCalculatorComponent,
+  },
+  {
+    path: 'sip',
+    component: SipCalculatorComponent,
   },
   { path: 'privacy-policy', component: PrivacyComponent },
   { path: 'contact', component: ContactComponent },

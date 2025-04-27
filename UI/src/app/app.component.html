@@ -22,11 +22,16 @@
               <strong>Home</strong>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link custom-tab px-md-5" routerLink="income-tax-calculator" routerLinkActive="active-tab">
-              <strong>Calculate Tax</strong>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <strong>Calculator</strong>
             </a>
+            <ul class="dropdown-menu">
+              <li><a class="nav-link custom-tab px-md-2" routerLink="income-tax-calculator" routerLinkActive="active-tab">Income Tax Calculator</a></li>
+              <li><a class="nav-link custom-tab px-md-2" routerLink="sip">SIP Calculator</a></li>
+            </ul>
           </li>
+  
           <li class="nav-item">
             <a class="nav-link custom-tab px-md-5" routerLink="tax-slabs" routerLinkActive="active-tab">
               <strong>Tax Slabs</strong>
