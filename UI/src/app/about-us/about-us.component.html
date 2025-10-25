@@ -1,130 +1,341 @@
-<div class="aboutus-page">
-  <section class="hero-section text-center">
-    <div class="hero-content">
-      <h1>About <span class="brand">FinTech Solutions</span></h1>
-      <p class="subtitle">
-        Empowering financial growth through innovation, technology, and trust.
+<div class="about-page">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <mat-icon>corporate_fare</mat-icon>
+          <span>About AMKRTech</span>
+        </div>
+        <h1 class="hero-title">
+          Empowering Your
+          <span class="gradient-text">Financial Journey</span>
+        </h1>
+        <p class="hero-subtitle">
+          We're on a mission to make financial planning accessible,
+          understandable, and actionable for every Indian household through
+          intelligent technology and education.
+        </p>
+        <div class="hero-actions">
+          <button mat-raised-button color="primary" (click)="scrollToSection('mission')">
+            <mat-icon>explore</mat-icon>
+            Our Mission
+          </button>
+          <button mat-button class="secondary-button" (click)="scrollToSection('team')">
+            <mat-icon>groups</mat-icon>
+            Meet the Team
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-decoration decoration-1"></div>
+        <div class="visual-decoration decoration-2"></div>
+        <div class="hero-image-wrapper">
+          <img src="assets/images/about-illustration.svg" alt="About AMKRTech" class="hero-image" />
+        </div>
+        <div class="floating-card card-1">
+          <mat-icon>school</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Financial Literacy</span>
+            <span class="card-value">For Everyone</span>
+          </div>
+        </div>
+        <div class="floating-card card-2">
+          <mat-icon>security</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Data Security</span>
+            <span class="card-value">100% Safe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      @for (stat of stats; track stat.label) {
+      <div class="stat-card" matRipple>
+        <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+        <div class="stat-content">
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+      }
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section" id="mission">
+    <div class="mission-container">
+      <div class="mission-content">
+        <div class="section-badge">
+          <mat-icon>flag</mat-icon>
+          <span>Our Mission</span>
+        </div>
+        <h2 class="section-title">
+          Building Financial Confidence for Indian Families
+        </h2>
+        <p class="mission-text">
+          In a rapidly evolving economy, financial literacy has become more
+          crucial than ever. At AMKRTech, we believe that every family deserves
+          access to professional-grade financial planning tools without the
+          complexity or cost.
+        </p>
+        <p class="mission-text">
+          <strong>Why Financial Planning Matters:</strong> A well-planned family
+          budget is the foundation of financial security. It helps you track
+          expenses, save for goals, prepare for emergencies, and build long-term
+          wealth. Our calculators demystify complex financial decisions—from
+          choosing the right tax regime to planning your home loan EMIs.
+        </p>
+        <p class="mission-text">
+          Through innovative technology and user-friendly design, we're
+          transforming how Indians approach personal finance, one calculation at
+          a time.
+        </p>
+      </div>
+      <div class="mission-visual">
+        <img src="assets/images/mission-illustration.svg" alt="Our Mission" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="values-container">
+      <div class="section-header">
+        <div class="section-badge">
+          <mat-icon>favorite</mat-icon>
+          <span>Our Values</span>
+        </div>
+        <h2 class="section-title">What Drives Us Forward</h2>
+        <p class="section-subtitle">
+          Our core values shape everything we do, from product development to
+          customer support
+        </p>
+      </div>
+      <div class="values-grid">
+        @for (value of values; track value.title) {
+        <mat-card class="value-card">
+          <div class="value-icon-wrapper">
+            <mat-icon class="value-icon">{{ value.icon }}</mat-icon>
+          </div>
+          <h3 class="value-title">{{ value.title }}</h3>
+          <p class="value-description">{{ value.description }}</p>
+        </mat-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-container">
+      <div class="section-header">
+        <div class="section-badge">
+          <mat-icon>widgets</mat-icon>
+          <span>Our Solutions</span>
+        </div>
+        <h2 class="section-title">Comprehensive Financial Tools</h2>
+        <p class="section-subtitle">
+          Everything you need to plan, track, and optimize your financial life
+        </p>
+      </div>
+      <div class="features-grid">
+        @for (feature of features; track feature.title) {
+        <mat-card class="feature-card" [class]="feature.color">
+          <div class="feature-icon-wrapper">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <mat-card-content>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
+            <button mat-button class="feature-link">
+              <span>Explore</span>
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Budget Matters Section -->
+  <section class="budget-importance-section">
+    <div class="budget-container">
+      <div class="budget-visual">
+        <img src="assets/images/budget-illustration.svg" alt="Family Budget" />
+        <div class="budget-stats">
+          <div class="budget-stat">
+            <mat-icon>trending_up</mat-icon>
+            <span>30% Average Savings Increase</span>
+          </div>
+          <div class="budget-stat">
+            <mat-icon>emergency</mat-icon>
+            <span>Better Emergency Preparedness</span>
+          </div>
+        </div>
+      </div>
+      <div class="budget-content">
+        <div class="section-badge">
+          <mat-icon>account_balance_wallet</mat-icon>
+          <span>Financial Wellness</span>
+        </div>
+        <h2 class="section-title">The Importance of Family Budget Planning</h2>
+        <div class="budget-points">
+          <div class="budget-point">
+            <div class="point-icon">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="point-content">
+              <h4>Control Your Spending</h4>
+              <p>
+                Track where your money goes and identify areas to cut
+                unnecessary expenses.
+              </p>
+            </div>
+          </div>
+          <div class="budget-point">
+            <div class="point-icon">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="point-content">
+              <h4>Build Emergency Fund</h4>
+              <p>
+                Save 3-6 months of expenses to protect against unexpected
+                financial shocks.
+              </p>
+            </div>
+          </div>
+          <div class="budget-point">
+            <div class="point-icon">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="point-content">
+              <h4>Achieve Goals Faster</h4>
+              <p>
+                Whether it's buying a home or planning retirement, budgets make
+                goals achievable.
+              </p>
+            </div>
+          </div>
+          <div class="budget-point">
+            <div class="point-icon">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="point-content">
+              <h4>Reduce Financial Stress</h4>
+              <p>
+                Clear financial plans eliminate anxiety and improve overall
+                family well-being.
+              </p>
+            </div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" routerLink="/calculator">
+          <mat-icon>calculate</mat-icon>
+          Start Budgeting Now
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="timeline-container">
+      <div class="section-header">
+        <div class="section-badge">
+          <mat-icon>timeline</mat-icon>
+          <span>Our Journey</span>
+        </div>
+        <h2 class="section-title">Milestones That Define Us</h2>
+      </div>
+      <div class="timeline">
+        @for (milestone of milestones; track milestone.year) {
+        <div class="timeline-item">
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-year">{{ milestone.year }}</div>
+          </div>
+          <mat-card class="timeline-card">
+            <h3 class="timeline-title">{{ milestone.title }}</h3>
+            <p class="timeline-description">{{ milestone.description }}</p>
+          </mat-card>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section" id="team">
+    <div class="team-container">
+      <div class="section-header">
+        <div class="section-badge">
+          <mat-icon>groups</mat-icon>
+          <span>Our Team</span>
+        </div>
+        <h2 class="section-title">Meet the People Behind AMKRTech</h2>
+        <p class="section-subtitle">
+          A passionate team of fintech experts, developers, and financial
+          advisors
+        </p>
+      </div>
+      <div class="team-grid">
+        @for (member of team; track member.name) {
+        <mat-card class="team-card">
+          <div class="member-image">
+            <img [src]="member.image" [alt]="member.name" />
+          </div>
+          <mat-card-content>
+            <h3 class="member-name">{{ member.name }}</h3>
+            <p class="member-role">{{ member.role }}</p>
+            <p class="member-bio">{{ member.bio }}</p>
+            <div class="member-social">
+              @if (member.social.linkedin) {
+              <a [href]="member.social.linkedin" target="_blank" mat-icon-button>
+                <mat-icon>linkedin</mat-icon>
+              </a>
+              } @if (member.social.twitter) {
+              <a [href]="member.social.twitter" target="_blank" mat-icon-button>
+                <mat-icon>twitter</mat-icon>
+              </a>
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <mat-icon class="cta-icon">rocket_launch</mat-icon>
+      <h2>Ready to Take Control of Your Finances?</h2>
+      <p>
+        Join thousands of families who are already making smarter financial
+        decisions with AMKRTech
       </p>
+      <div class="cta-actions">
+        <button mat-raised-button color="primary" routerLink="/calculator">
+          <mat-icon>calculate</mat-icon>
+          Start Calculating
+        </button>
+        <button mat-stroked-button routerLink="/contact">
+          <mat-icon>contact_mail</mat-icon>
+          Get in Touch
+        </button>
+      </div>
     </div>
-  </section>
-
-  <section class="intro-section container">
-    <mat-card class="intro-card shadow-sm">
-      <mat-card-content>
-        <p>
-          At <strong>FinTech Solutions</strong>, we are a next-generation
-          <strong>financial technology company</strong> providing digital tools
-          that simplify and transform the way individuals and businesses manage
-          money.
-        </p>
-        <p>
-          Our mission is to bridge the gap between
-          <strong>finance and technology</strong> — creating smart, intuitive,
-          and reliable solutions that make financial management easier, more
-          transparent, and accessible to everyone.
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </section>
-
-  <section class="values-section container">
-    <h2 class="section-title text-center">Our Core Values</h2>
-
-    <div class="values-grid">
-      <mat-card class="value-card">
-        <mat-icon color="primary">lightbulb</mat-icon>
-        <h4>Innovation</h4>
-        <p>
-          We constantly evolve, using technology to create meaningful financial
-          tools that solve real-world problems.
-        </p>
-      </mat-card>
-
-      <mat-card class="value-card">
-        <mat-icon color="primary">verified_user</mat-icon>
-        <h4>Integrity</h4>
-        <p>
-          Transparency, honesty, and trust form the foundation of our business
-          and customer relationships.
-        </p>
-      </mat-card>
-
-      <mat-card class="value-card">
-        <mat-icon color="primary">groups</mat-icon>
-        <h4>Customer First</h4>
-        <p>
-          Every product we build is centered around user needs — simple,
-          efficient, and secure.
-        </p>
-      </mat-card>
-
-      <mat-card class="value-card">
-        <mat-icon color="primary">trending_up</mat-icon>
-        <h4>Excellence</h4>
-        <p>
-          We take pride in delivering quality, precision, and performance in all
-          our financial technology solutions.
-        </p>
-      </mat-card>
-    </div>
-  </section>
-
-  <section class="vision-section container">
-    <mat-card class="vision-card">
-      <mat-card-content>
-        <h2 class="section-title">Our Vision</h2>
-        <p>
-          To become a trusted partner in <strong>financial empowerment</strong>,
-          enabling individuals and businesses to manage, grow, and secure their
-          finances using intelligent technology.
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </section>
-
-  <section class="solutions-section container">
-    <h2 class="section-title text-center">What We Offer</h2>
-    <div class="solutions-grid">
-      <mat-card class="solution-card">
-        <mat-icon color="accent">calculate</mat-icon>
-        <h4>Personal Finance Tools</h4>
-        <p>
-          Smart calculators, budgeting assistants, and planners to manage your
-          money better.
-        </p>
-      </mat-card>
-      <mat-card class="solution-card">
-        <mat-icon color="accent">business</mat-icon>
-        <h4>Business Solutions</h4>
-        <p>
-          Custom fintech software and tools for organizations and financial
-          institutions.
-        </p>
-      </mat-card>
-      <mat-card class="solution-card">
-        <mat-icon color="accent">receipt_long</mat-icon>
-        <h4>Tax & Compliance</h4>
-        <p>
-          Automated tools for income tax and compliance management — faster and
-          more accurate.
-        </p>
-      </mat-card>
-      <mat-card class="solution-card">
-        <mat-icon color="accent">analytics</mat-icon>
-        <h4>Data Insights</h4>
-        <p>
-          AI-powered dashboards for smarter decision-making and financial
-          intelligence.
-        </p>
-      </mat-card>
-    </div>
-  </section>
-
-  <section class="cta-section text-center">
-    <h2>Join Us on Our Journey</h2>
-    <p>
-      We’re shaping the future of financial technology — one solution at a time.
-    </p>
-    <button mat-raised-button color="primary">Contact Us</button>
   </section>
 </div>

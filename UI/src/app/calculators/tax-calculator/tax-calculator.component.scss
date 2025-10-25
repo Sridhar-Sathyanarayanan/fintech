@@ -1,194 +1,1600 @@
-@use '../../../styles/styles.scss' as styles;
-.taxCalculator.modern-ui {
-  background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 100%);
+@use "@angular/material" as mat;
+@use "../../../styles/styles.scss" as *;
+
+// Mixins
+@mixin smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin card-hover {
+  @include smooth-transition;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+}
+
+// Animations
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Tax Calculator Page
+.tax-calculator-page {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
+  background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
+}
+
+// Hero Section
+.calc-hero {
+  position: relative;
   padding: 2rem;
+  overflow: hidden;
+  background: $primary-gradient;
+  color: white;
 
-  .calculator-shell {
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 850px;
-    border-radius: 18px;
-    padding: 2rem;
-    background: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-    &:hover {
-      transform: translateY(-4px);
+    height: 100%;
+    overflow: hidden;
+
+    .gradient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 8s ease-in-out infinite;
+
+      &.orb-1 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.4) 0%,
+          transparent 70%
+        );
+        top: -200px;
+        right: -100px;
+      }
+
+      &.orb-2 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(240, 147, 251, 0.4) 0%,
+          transparent 70%
+        );
+        bottom: -150px;
+        left: -100px;
+        animation-delay: 2s;
+      }
+
+      &.orb-3 {
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.3) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        animation-delay: 4s;
+      }
     }
   }
 
-  .header-section {
-    margin-bottom: 2rem;
-    h1 {
-      font-weight: 700;
-      color: #0d47a1;
-      margin-bottom: 0.3rem;
-    }
-    .subtitle {
-      color: #6c757d;
-      font-size: 0.95rem;
-    }
-  }
-
-  .modern-stepper {
-    --mdc-filled-button-container-shape: 20px;
-    .mat-step-label {
-      font-weight: 600;
-    }
-  }
-
-  .step-form {
-    margin-top: 1rem;
-  }
-
-  .form-grid {
+  .hero-content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content {
+    animation: slideUp 0.6s ease-out;
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+
+      mat-icon {
+        font-size: 1.125rem;
+        width: 1.125rem;
+        height: 1.125rem;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      line-height: 1.2;
+
+      .gradient-text {
+        display: block;
+        background: linear-gradient(90deg, #fff 0%, #ffd4e5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.7;
+      opacity: 0.95;
+      margin: 0 0 2rem;
+      max-width: 600px;
+    }
+
+    .hero-features {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+
+      .feature-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 0.75rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        @include smooth-transition;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.25);
+          transform: translateY(-2px);
+        }
+
+        mat-icon {
+          font-size: 1.125rem;
+          width: 1.125rem;
+          height: 1.125rem;
+        }
+      }
+    }
+  }
+
+  .hero-visual {
+    position: relative;
+    animation: slideUp 0.6s ease-out 0.2s both;
+
+    .visual-decoration {
+      position: absolute;
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+
+      &.decoration-1 {
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.2) 0%,
+          transparent 70%
+        );
+        top: 10%;
+        left: -5%;
+        animation-delay: 0s;
+      }
+
+      &.decoration-2 {
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(
+          circle,
+          rgba(240, 147, 251, 0.25) 0%,
+          transparent 70%
+        );
+        bottom: 15%;
+        right: -5%;
+        animation-delay: 2s;
+      }
+
+      &.decoration-3 {
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.15) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: 4s;
+      }
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+
+      .hero-image {
+        width: 90%;
+        max-width: 550px;
+        height: auto;
+        filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.2));
+        animation: floatImage 6s ease-in-out infinite;
+        border-radius: 10px;
+        &:hover {
+          animation-play-state: paused;
+          transform: scale(1.05) rotate(2deg);
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+
+    .floating-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.25rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+      animation: floatCard 4s ease-in-out infinite;
+
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+        background: $primary-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .card-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .card-label {
+          font-size: 0.75rem;
+          color: #666;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .card-value {
+          font-size: 1.25rem;
+          font-weight: 700;
+          background: $primary-gradient;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      }
+
+      &.card-1 {
+        top: 10%;
+        right: 10%;
+        animation-delay: 0s;
+      }
+
+      &.card-2 {
+        top: 50%;
+        right: 5%;
+        animation-delay: 1.5s;
+        transform: translateY(-50%);
+      }
+
+      &.card-3 {
+        bottom: 15%;
+        right: 15%;
+        animation-delay: 3s;
+      }
+    }
+  }
+
+  @keyframes floatImage {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-15px) rotate(-2deg);
+    }
+    50% {
+      transform: translateY(-25px) rotate(0deg);
+    }
+    75% {
+      transform: translateY(-15px) rotate(2deg);
+    }
+  }
+
+  @keyframes floatCard {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+}
+
+// Calculator Section
+.calculator-section {
+  padding: 3rem 1rem;
+  position: relative;
+  margin-top: -2rem;
+  z-index: 2;
+
+  .calculator-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .calculator-card {
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    animation: slideUp 0.6s ease-out 0.3s both;
+  }
+}
+
+// Stepper Styles
+.tax-stepper {
+  background: transparent;
+
+  ::ng-deep {
+    .mat-stepper-horizontal,
+    .mat-stepper-vertical {
+      background: transparent;
+    }
+
+    .mat-step-header {
+      padding: 1.5rem 1rem;
+      border-radius: 12px;
+      @include smooth-transition;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.05);
+      }
+
+      &.cdk-keyboard-focused,
+      &.cdk-program-focused {
+        background: rgba(102, 126, 234, 0.1);
+      }
+
+      .mat-step-icon {
+        background: $primary-gradient;
+        width: 40px;
+        height: 40px;
+      }
+
+      .mat-step-icon-selected {
+        background: $primary-gradient;
+      }
+
+      .mat-step-icon-state-edit {
+        background: $color12;
+      }
+    }
+
+    .mat-horizontal-stepper-header {
+      margin-bottom: 2rem;
+    }
+
+    .mat-stepper-horizontal-line {
+      margin: 0 -1rem;
+      border-top-width: 2px;
+    }
+  }
+
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+
+    mat-icon {
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    span {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+}
+
+// Step Content
+.step-content {
+  padding: 2rem 0;
+
+  .step-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 0.5rem;
+  }
+
+  .step-description {
+    font-size: 1rem;
+    color: #666;
+    margin: 0 0 2rem;
+  }
+}
+
+// Form Styles
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.modern-field {
+  width: 100%;
+
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      border-radius: 12px;
+    }
+
+    .mat-mdc-form-field-icon-prefix,
+    .mat-mdc-form-field-icon-suffix {
+      color: #667eea;
+    }
+
+    .mat-mdc-form-field-focus-overlay {
+      background-color: rgba(102, 126, 234, 0.05);
+    }
+  }
+}
+
+// Age Selection
+.age-selection {
+  .field-label {
+    display: block;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
   }
 
   .age-radio-group {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
 
-    mat-radio-button {
-      background-color: #f0f4ff;
-      padding: 0.6rem 1rem;
-      border-radius: 25px;
-      transition: 0.3s ease;
-      &:hover {
-        background-color: #e3e8ff;
+    .age-option {
+      flex: 1;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 1rem;
+      @include smooth-transition;
+
+      ::ng-deep {
+        .mdc-radio {
+          display: none;
+        }
+
+        .mdc-form-field {
+          width: 100%;
+        }
       }
-      &.mat-radio-checked {
-        background-color: #0d47a1;
-        color: #fff;
+
+      .option-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+
+        mat-icon {
+          font-size: 2rem;
+          width: 2rem;
+          height: 2rem;
+          color: #667eea;
+        }
+
+        span {
+          font-weight: 600;
+          font-size: 0.875rem;
+        }
+      }
+
+      &:hover {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.05);
+      }
+
+      &.mat-mdc-radio-checked {
+        background: $primary-gradient;
+        border-color: transparent;
+        color: white;
+
+        .option-content mat-icon {
+          color: white;
+        }
       }
     }
+  }
+}
+
+// Income Summary
+.income-summary {
+  background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .summary-label {
+      font-weight: 600;
+      color: #666;
+    }
+
+    .summary-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: $primary-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+}
+
+// Info Banner
+.info-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border-left: 4px solid #ff9800;
+
+  mat-icon {
+    color: #ff9800;
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .banner-content {
+    flex: 1;
+    font-size: 0.875rem;
+    color: #5d4037;
+
+    strong {
+      font-weight: 700;
+    }
+  }
+}
+
+// Deductions Grid
+.deductions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  .deduction-field {
+    ::ng-deep {
+      .mat-mdc-form-field-hint {
+        color: #4caf50;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Step Actions
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  .back-button {
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .action-button,
+  .calculate-button {
+    padding: 0 2rem;
+    height: 48px;
+    font-weight: 600;
+    border-radius: 12px;
+
+    mat-icon {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .calculate-button {
+    mat-icon {
+      margin-right: 0.5rem;
+      margin-left: 0;
+    }
+  }
+}
+
+// Results Section
+.results-section {
+  margin-top: 3rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+// Comparison Cards
+.comparison-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.regime-card {
+  position: relative;
+  padding: 2rem;
+  border-radius: 20px;
+  @include card-hover;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+  }
+
+  &.old-regime::before {
+    background: linear-gradient(135deg, #ff9800 0%, #ff6f00 100%);
+  }
+
+  &.new-regime::before {
+    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  }
+
+  &.recommended {
+    box-shadow: 0 8px 32px rgba(76, 175, 80, 0.2);
+    border: 2px solid #4caf50;
+  }
+
+  .recommended-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: $color12;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    animation: pulse 2s ease-in-out infinite;
+
+    mat-icon {
+      font-size: 1rem;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .regime-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.old {
+        background: linear-gradient(135deg, #ff9800 0%, #ff6f00 100%);
+      }
+
+      &.new {
+        background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+      }
+
+      mat-icon {
+        color: white;
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    .regime-info {
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 0.25rem;
+        color: #1a1a1a;
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: #666;
+        margin: 0;
+      }
+    }
+  }
+
+  .tax-amount {
+    text-align: center;
+    padding: 1.5rem 0;
+
+    .currency {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .amount {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-left: 0.25rem;
+    }
+  }
+
+  .tax-breakdown {
+    margin-top: 1.5rem;
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #666;
+      margin: 0 0 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .breakdown-item {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+
+      .slab-label {
+        font-weight: 500;
+        color: #1a1a1a;
+      }
+
+      .slab-rate {
+        text-align: center;
+        color: #667eea;
+        font-weight: 600;
+      }
+
+      .slab-amount {
+        text-align: right;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+    }
+  }
+}
+
+// Savings Summary
+.savings-summary {
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+  .summary-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .summary-icon {
+      width: 56px;
+      height: 56px;
+      font-size: 2.5rem;
+      background: $success-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.25rem;
+      color: #1a1a1a;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: #666;
+      margin: 0;
+    }
+  }
+
+  .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 500;
+      }
+
+      .stat-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1a1a1a;
+
+        &.highlight {
+          background: $success-gradient;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      }
+    }
+  }
+
+  // Comparison Chart
+  .comparison-chart {
+    margin: 2rem 0;
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #666;
+      margin: 0 0 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chart-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chart-item {
+      .bar-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+      }
+
+      .bar-container {
+        height: 40px;
+        background: #e0e0e0;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+
+        .bar {
+          height: 100%;
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          padding-right: 1rem;
+          @include smooth-transition;
+          animation: slideInBar 1s ease-out;
+
+          .bar-value {
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+
+  // Recommendation Box
+  .recommendation-box {
+    margin-top: 2rem;
+
+    .recommendation {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+
+      &.success {
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        border-left: 4px solid #4caf50;
+      }
+
+      &.neutral {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border-left: 4px solid #2196f3;
+      }
+
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+        color: #4caf50;
+      }
+
+      &.neutral mat-icon {
+        color: #2196f3;
+      }
+
+      .rec-content {
+        flex: 1;
+
+        strong {
+          display: block;
+          font-size: 1.125rem;
+          color: #1a1a1a;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 0.875rem;
+          color: #666;
+          margin: 0;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--bar-width);
+  }
+}
+
+// Results Actions
+.results-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    padding: 0 2rem;
+    height: 48px;
+    font-weight: 600;
+    border-radius: 12px;
+
+    mat-icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+// Info Section
+.info-section {
+  padding: 5rem 1rem;
+  background: white;
+
+  .info-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .info-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    text-align: center;
+    color: #1a1a1a;
+    margin: 0 0 3rem;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .info-card {
+    padding: 2rem;
+    border-radius: 20px;
+    @include card-hover;
+    text-align: center;
+
+    .info-icon {
+      width: 64px;
+      height: 64px;
+      font-size: 3rem;
+      margin: 0 auto 1rem;
+      background: $primary-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #666;
+      margin: 0 0 1.5rem;
+    }
+
+    mat-chip-set {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    mat-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  }
+}
+
+// RESPONSIVE DESIGN
+@media (max-width: 1024px) {
+  .comparison-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .savings-summary .summary-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .calc-hero {
+    padding: 4rem 1.5rem 3rem;
+
+    .hero-content-wrapper {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .hero-content {
+      text-align: center;
+
+      .hero-subtitle {
+        max-width: 100%;
+      }
+
+      .hero-features {
+        justify-content: center;
+      }
+    }
+
+    .hero-visual {
+      height: 450px;
+
+      .hero-image-wrapper .hero-image {
+        max-width: 400px;
+      }
+
+      .floating-card {
+        padding: 1rem;
+
+        &.card-1 {
+          top: 8%;
+          right: 5%;
+        }
+
+        &.card-2 {
+          top: 50%;
+          right: 2%;
+        }
+
+        &.card-3 {
+          bottom: 10%;
+          right: 8%;
+        }
+
+        mat-icon {
+          font-size: 1.5rem;
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
+        .card-text {
+          .card-label {
+            font-size: 0.65rem;
+          }
+
+          .card-value {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .visual-decoration {
+        &.decoration-1 {
+          width: 80px;
+          height: 80px;
+        }
+
+        &.decoration-2 {
+          width: 60px;
+          height: 60px;
+        }
+
+        &.decoration-3 {
+          width: 70px;
+          height: 70px;
+        }
+      }
+    }
+  }
+
+  .calculator-section {
+    padding: 2rem 1rem;
+  }
+
+  .calculator-card {
+    padding: 1.5rem;
+  }
+
+  .form-grid,
+  .deductions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .step-content {
+    padding: 1.5rem 0;
+
+    .step-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .age-selection .age-radio-group {
+    flex-direction: column;
+
+    .age-option {
+      .option-content {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  }
+
+  .step-actions {
+    flex-direction: column;
+
+    .back-button,
+    .action-button,
+    .calculate-button {
+      width: 100%;
+    }
+  }
+
+  .regime-card {
+    .tax-amount .amount {
+      font-size: 2.5rem;
+    }
+
+    .tax-breakdown .breakdown-item {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+
+      .slab-rate,
+      .slab-amount {
+        text-align: left;
+      }
+    }
+  }
+
+  .results-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .info-section {
+    padding: 3rem 1rem;
+
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .calc-hero {
+    padding: 3rem 1rem 2rem;
+
+    .hero-content-wrapper {
+      gap: 2rem;
+    }
+
+    .hero-content {
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 1rem;
+
+        mat-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-features {
+        flex-direction: column;
+        align-items: center;
+
+        .feature-chip {
+          width: 100%;
+          justify-content: center;
+          max-width: 250px;
+        }
+      }
+    }
+
+    .hero-visual {
+      height: 350px;
+
+      .hero-image-wrapper .hero-image {
+        max-width: 300px;
+      }
+
+      .floating-card {
+        padding: 0.75rem;
+
+        &.card-1 {
+          top: 5%;
+          right: 0;
+        }
+
+        &.card-2 {
+          top: 50%;
+          right: 0;
+        }
+
+        &.card-3 {
+          bottom: 8%;
+          right: 5%;
+        }
+
+        mat-icon {
+          font-size: 1.25rem;
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+
+        .card-text {
+          .card-label {
+            font-size: 0.6rem;
+          }
+
+          .card-value {
+            font-size: 0.875rem;
+          }
+        }
+      }
+
+      .visual-decoration {
+        &.decoration-1 {
+          width: 60px;
+          height: 60px;
+        }
+
+        &.decoration-2 {
+          width: 50px;
+          height: 50px;
+        }
+
+        &.decoration-3 {
+          width: 55px;
+          height: 55px;
+        }
+      }
+    }
+  }
+
+  .calculator-card {
+    padding: 1rem;
+  }
+
+  .step-content {
+    .step-title {
+      font-size: 1.25rem;
+    }
+
+    .step-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  .regime-card {
+    padding: 1.5rem;
+
+    .tax-amount {
+      .currency {
+        font-size: 1.25rem;
+      }
+
+      .amount {
+        font-size: 2rem;
+      }
+    }
+
+    .recommended-badge {
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.625rem;
+    }
+  }
+
+  .savings-summary {
+    padding: 1.5rem;
+
+    .summary-header {
+      flex-direction: column;
+      text-align: center;
+
+      h3 {
+        font-size: 1.25rem;
+      }
+    }
+
+    .summary-stats .stat-item {
+      padding: 1rem;
+
+      .stat-value {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Print Styles
+@media print {
+  .calc-hero,
+  .info-section,
+  .step-actions,
+  .results-actions {
+    display: none;
+  }
+
+  .calculator-section {
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .calculator-card {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+  }
+
+  .results-section {
+    margin-top: 1rem;
+  }
+
+  .regime-card,
+  .savings-summary {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    page-break-inside: avoid;
+  }
+}
+
+// Dark Mode Support (Optional)
+@media (prefers-color-scheme: dark) {
+  .tax-calculator-page {
+    background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
+  }
+
+  .calc-hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+
+  .calculator-card {
+    background: #1e1e1e;
+    color: #e0e0e0;
+
+    .step-content {
+      .step-title {
+        color: #e0e0e0;
+      }
+
+      .step-description {
+        color: #b0b0b0;
+      }
+    }
+  }
+
+  .regime-card,
+  .savings-summary {
+    background: #1e1e1e;
+    color: #e0e0e0;
+
+    .card-header .regime-info h3,
+    .tax-amount .amount,
+    .summary-header h3 {
+      color: #e0e0e0;
+    }
+
+    .card-header .regime-info p,
+    .tax-amount .currency,
+    .summary-header p {
+      color: #b0b0b0;
+    }
+
+    .tax-breakdown .breakdown-item,
+    .summary-stats .stat-item {
+      background: #2a2a2a;
+
+      .slab-label,
+      .slab-amount,
+      .stat-value {
+        color: #e0e0e0;
+      }
+    }
+  }
+
+  .info-section {
+    background: #0f0f0f;
+
+    .info-title {
+      color: #e0e0e0;
+    }
+
+    .info-card {
+      background: #1e1e1e;
+
+      h3 {
+        color: #e0e0e0;
+      }
+
+      p {
+        color: #b0b0b0;
+      }
+    }
+  }
+
+  .income-summary {
+    background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
   }
 
   .info-banner {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 8px;
-    margin: 1rem 0;
-    background-color: #fff4e5;
-    padding: 0.75rem 1rem;
-    color: #5d4037;
-    font-weight: 500;
-  }
+    background: linear-gradient(135deg, #ff980020 0%, #ff6f0020 100%);
 
-  .actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1.5rem;
-  }
-
-  .result-section {
-    margin-top: 3rem;
-    animation: fadeIn 0.5s ease;
-  }
-
-  .result-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .tax-card {
-    border-radius: 16px;
-    padding: 1.5rem;
-    position: relative;
-    text-align: center;
-    transition: all 0.3s ease;
-
-    &.old {
-      background: #fffdf6;
-      border-left: 6px solid #ffc107;
-    }
-    &.new {
-      background: #f6fff9;
-      border-left: 6px solid #4caf50;
-    }
-
-    mat-card-header {
-      font-weight: 700;
-      color: #343a40;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      color: #212529;
-      margin: 0.5rem 0;
-    }
-
-    .success {
-      color: #2e7d32;
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      transform: scale(1.2);
+    .banner-content {
+      color: #ffb74d;
     }
   }
 
-  .tax-summary {
-    margin-top: 2rem;
-    text-align: center;
-    border-radius: 16px;
-    background: #f9fbff;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    h4 {
-      color: #0d47a1;
-      font-weight: 700;
+  .recommendation {
+    &.success {
+      background: linear-gradient(135deg, #4caf5020 0%, #2e7d3220 100%);
     }
-    .diff-amount {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 1rem 0;
-      color: #1976d2;
+
+    &.neutral {
+      background: linear-gradient(135deg, #2196f320 0%, #1976d220 100%);
     }
-    .alert {
-      border-radius: 12px;
-      padding: 0.75rem;
-      &.success {
-        background-color: #e6f5ea;
-        color: #256029;
+
+    .rec-content {
+      strong {
+        color: #e0e0e0;
       }
-      &.neutral {
-        background-color: #e7f3fe;
-        color: #084298;
-      }
-    }
-  }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 600px) {
-    padding: 1rem;
-    .calculator-shell {
-      padding: 1rem;
-    }
-    .actions {
-      flex-direction: column;
-      gap: 0.75rem;
-      button {
-        width: 100%;
+      p {
+        color: #b0b0b0;
       }
     }
   }
