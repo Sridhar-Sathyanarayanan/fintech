@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MaterialModules } from '../shared/material.standalone';
 
 @Component({
-  selector: 'app-privacy',
+  selector: 'app-about-us',
   standalone: true,
   imports: [CommonModule, MaterialModules],
-  templateUrl: './privacy.component.html',
-  styleUrl: './privacy.component.css',
+  templateUrl: './about-us.component.html',
+  styleUrls: ['./about-us.component.scss'],
 })
-export class PrivacyComponent {}
+export class AboutUsComponent {}

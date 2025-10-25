@@ -1,31 +1,231 @@
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-      <mat-card class="p-4 shadow rounded-4 w-100 mx-auto">
-        <h2 class="text-primary mb-4 text-center text-md-start">Contact Us</h2>
-
-        <form (ngSubmit)="sendFeedback(contactForm.value)" #contactForm="ngForm" class="d-flex flex-column gap-3">
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Your Name</mat-label>
-            <input matInput name="name" ngModel required />
-          </mat-form-field>
-
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Your Email</mat-label>
-            <input matInput name="email" ngModel type="email" required />
-          </mat-form-field>
-
-          <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Your Message</mat-label>
-            <textarea matInput name="message" ngModel rows="5" required></textarea>
-          </mat-form-field>
-
-          <div class="d-flex align-items-center gap-3">
-            <button mat-raised-button color="primary" type="submit" [disabled]="loading">Send</button>
-            <mat-spinner *ngIf="loading" diameter="24" strokeWidth="3"></mat-spinner>
-          </div>
-        </form>
-      </mat-card>
+<div class="contact-page">
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
     </div>
-  </div>
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <mat-icon>support_agent</mat-icon>
+          <span>We're Here to Help</span>
+        </div>
+        <h1 class="hero-title">Get in Touch</h1>
+        <p class="hero-subtitle">
+          Have questions or feedback? We'd love to hear from you. Send us a
+          message and we'll respond as soon as possible.
+        </p>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-decoration decoration-1"></div>
+        <div class="visual-decoration decoration-2"></div>
+        <div class="visual-decoration decoration-3"></div>
+        <div class="hero-image-wrapper">
+          <img src="assets/images/contact-us.jpg" alt="Contact Us" class="hero-image" />
+        </div>
+        <div class="floating-card card-1">
+          <mat-icon>mark_email_read</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Quick Response</span>
+            <span class="card-value">&lt; 24 hrs</span>
+          </div>
+        </div>
+        <div class="floating-card card-2">
+          <mat-icon>support_agent</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Support Team</span>
+            <span class="card-value">24/7 Available</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="contact-content">
+    <div class="content-container">
+      <!-- Contact Form -->
+      <div class="form-section">
+        <mat-card class="form-card">
+          <div class="card-header">
+            <mat-icon class="header-icon">email</mat-icon>
+            <div>
+              <h2 class="card-title">Send us a Message</h2>
+              <p class="card-subtitle">
+                Fill out the form below and we'll get back to you shortly
+              </p>
+            </div>
+          </div>
+
+          <form [formGroup]="contactForm" (ngSubmit)="sendFeedback()" class="contact-form">
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Your Name</mat-label>
+                <input matInput formControlName="name" placeholder="John Doe" />
+                <mat-icon matPrefix>person</mat-icon>
+                @if (name?.invalid && name?.touched) {
+                <mat-error>
+                  @if (name?.errors?.['required']) { Name is required } @if
+                  (name?.errors?.['minlength']) { Name must be at least 2
+                  characters }
+                </mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Your Email</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="john@example.com" />
+                <mat-icon matPrefix>email</mat-icon>
+                @if (email?.invalid && email?.touched) {
+                <mat-error>
+                  @if (email?.errors?.['required']) { Email is required } @if
+                  (email?.errors?.['email']) { Please enter a valid email }
+                </mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Subject</mat-label>
+              <input matInput formControlName="subject" placeholder="How can we help you?" />
+              <mat-icon matPrefix>subject</mat-icon>
+              @if (subject?.invalid && subject?.touched) {
+              <mat-error>Subject is required</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Your Message</mat-label>
+              <textarea matInput formControlName="message" rows="6"
+                placeholder="Tell us more about your inquiry..."></textarea>
+              <mat-icon matPrefix>message</mat-icon>
+              @if (message?.invalid && message?.touched) {
+              <mat-error>
+                @if (message?.errors?.['required']) { Message is required } @if
+                (message?.errors?.['minlength']) { Message must be at least 10
+                characters }
+              </mat-error>
+              }
+            </mat-form-field>
+
+            <div class="form-actions">
+              @if (!loading()) {
+              <button mat-raised-button color="primary" type="submit" class="submit-button">
+                <mat-icon>send</mat-icon>
+                Send Message
+              </button>
+              } @else {
+              <button mat-raised-button color="primary" type="button" class="submit-button" disabled>
+                <mat-spinner diameter="24" strokeWidth="3"></mat-spinner>
+                Sending...
+              </button>
+              } @if (formSubmitted()) {
+              <div class="success-message">
+                <mat-icon>check_circle</mat-icon>
+                <span>Message sent successfully!</span>
+              </div>
+              }
+            </div>
+          </form>
+        </mat-card>
+      </div>
+
+      <!-- Contact Info Sidebar -->
+      <div class="info-section">
+        <!-- Contact Details -->
+        <mat-card class="info-card">
+          <h3 class="info-title">
+            <mat-icon>contact_phone</mat-icon>
+            Contact Information
+          </h3>
+          <div class="contact-details">
+            @for (info of contactInfo; track info.title) {
+            <div class="contact-item" [class.clickable]="info.link" (click)="openLink(info.link)" matRipple>
+              <div class="item-icon">
+                <mat-icon>{{ info.icon }}</mat-icon>
+              </div>
+              <div class="item-content">
+                <span class="item-title">{{ info.title }}</span>
+                <span class="item-value">{{ info.value }}</span>
+              </div>
+            </div>
+            }
+          </div>
+        </mat-card>
+
+        <!-- Social Links -->
+        <mat-card class="social-card">
+          <h3 class="info-title">
+            <mat-icon>share</mat-icon>
+            Connect With Us
+          </h3>
+          <div class="social-links">
+            @for (social of socialLinks; track social.name) {
+            <a [href]="social.url" target="_blank" class="social-link" [style.background-color]="social.color"
+              matRipple>
+              <mat-icon>{{ social.icon }}</mat-icon>
+              <span>{{ social.name }}</span>
+            </a>
+            }
+          </div>
+        </mat-card>
+
+        <!-- Quick FAQ -->
+        <mat-card class="faq-card">
+          <h3 class="info-title">
+            <mat-icon>help_outline</mat-icon>
+            Quick FAQs
+          </h3>
+          <div class="faq-list">
+            @for (faq of faqs; track faq.question) {
+            <div class="faq-item">
+              <div class="faq-question">
+                <mat-icon>chevron_right</mat-icon>
+                <span>{{ faq.question }}</span>
+              </div>
+              <div class="faq-answer">{{ faq.answer }}</div>
+            </div>
+            }
+          </div>
+        </mat-card>
+
+        <!-- Map Preview -->
+        <mat-card class="map-card">
+          <div class="map-preview">
+            <img src="assets/images/map-preview.png" alt="Office Location" />
+            <div class="map-overlay">
+              <button mat-raised-button color="primary" (click)="openLink('https://maps.google.com')">
+                <mat-icon>map</mat-icon>
+                View on Maps
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Support Section -->
+  <section class="support-section">
+    <div class="support-container">
+      <mat-icon class="support-icon">headset_mic</mat-icon>
+      <h2>Need Immediate Assistance?</h2>
+      <p>
+        Our support team is available during business hours to help you with any
+        urgent queries.
+      </p>
+      <div class="support-actions">
+        <button mat-raised-button color="primary">
+          <mat-icon>phone</mat-icon>
+          Call Now
+        </button>
+        <button mat-stroked-button color="primary">
+          <mat-icon>chat</mat-icon>
+          Live Chat
+        </button>
+      </div>
+    </div>
+  </section>
 </div>

@@ -1,0 +1,148 @@
+<div class="container p-4 max-w-2xl mx-auto">
+  <div class="row">
+    <!-- Left: Calculator Form -->
+    <h2 class="mb-4 fw-bold color9">
+      SIP Calculator - Plan Your Investments Smartly
+    </h2>
+
+    <h3>Start Small, Grow Big: Systematic Investment Planning Made Easy</h3>
+    <p>
+      Investing through a Systematic Investment Plan (SIP) is one of the
+      smartest ways to build wealth over time. SIPs help you invest a fixed
+      amount regularly in mutual funds, ensuring financial discipline and
+      harnessing the power of compounding.
+    </p>
+
+    <p>
+      Use our SIP Calculator to estimate the future value of your investments
+      and plan your financial goals with confidence!
+    </p>
+    <div class="col-12 col-md-6">
+      <mat-card class="p-4 shadow rounded-3">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Investment Type</label>
+          <mat-radio-group [(ngModel)]="investmentType" name="investmentType"
+            class="d-flex gap-3 justify-content-center">
+            <mat-radio-button value="monthly">Monthly SIP</mat-radio-button>
+            <mat-radio-button value="lumpsum">Lumpsum</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Amount</mat-label>
+          <input matInput type="number" [(ngModel)]="amount" name="amount" />
+        </mat-form-field>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Number of Years</label>
+          <div class="d-flex align-items-center gap-3">
+            <input type="range" min="1" max="30" step="1" [(ngModel)]="years" name="years"
+              class="form-range flex-grow-1" />
+            <input type="number" [value]="years" readonly class="form-control w-25" />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Rate of Interest (%)</label>
+          <div class="d-flex align-items-center gap-3">
+            <input type="range" min="1" max="20" step="0.1" [(ngModel)]="interestRate" name="interestRate"
+              class="form-range flex-grow-1" />
+            <input type="number" [value]="interestRate" readonly class="form-control w-25" />
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button mat-raised-button color="primary" (click)="calculate()">
+            Calculate
+          </button>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Right: Summary + Chart -->
+    <div class="col-12 col-md-6 mt-4 mt-md-0">
+      <mat-card class="p-4 shadow rounded-3 h-100 d-flex flex-column justify-content-center">
+        <h3 class="text-center mb-4 fw-bold color9">Summary</h3>
+        <div *ngIf="totalValue > 0" class="mb-4 text-center">
+          <span>
+            <strong>Invested Amount:</strong>
+            <h3 class="color3">₹{{ investedAmount | number : "1.0-0" }}</h3>
+          </span>
+          <span>
+            <strong>Expected Return:</strong>
+            <h3 class="color3">₹{{ expectedReturn | number : "1.0-0" }}</h3>
+          </span>
+          <span><strong>Total Value:</strong>
+            <h3 class="color3">₹{{ totalValue | number : "1.0-0" }}</h3>
+          </span>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div style="width: 250px; height: 250px">
+            <canvas baseChart [data]="{
+                labels: doughnutChartLabels,
+                datasets: [{ data: doughnutChartData }]
+              }" [type]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <h2>How Does a SIP Calculator Help?</h2>
+    <h3>Our SIP Calculator provides quick answers to:</h3>
+    <ul>
+      <li>How much will your SIP grow over a period?</li>
+      <li>How much should you invest monthly to achieve your target amount?</li>
+      <li>The impact of expected returns (annual growth rate) over time.</li>
+    </ul>
+    <h3>This helps you:</h3>
+    <ul>
+      <li>
+        Plan for goals like buying a home, child's education, or early
+        retirement.
+      </li>
+      <li>Make informed decisions about your mutual fund investments.</li>
+    </ul>
+
+    <section class="sip-example py-5 bg-light">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Example Calculation -->
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2 class="fw-bold mb-3 text-primary">📅 Example Calculation</h2>
+            <p class="mb-2">Let's say:</p>
+            <ul class="list-unstyled mb-4">
+              <li>👉 SIP Amount = <strong>₹5,000/month</strong></li>
+              <li>
+                👉 Expected Annual Return = <strong>12%</strong> (i.e., 1%
+                monthly)
+              </li>
+              <li>👉 Tenure = <strong>10 years</strong> (120 months)</li>
+            </ul>
+            <p class="lead">
+              <strong>Future Value ≈ ₹11.61 lakhs</strong>
+            </p>
+            <p class="text-muted">
+              That’s the magic of
+              <em>small steps turning into big results</em> over time!
+            </p>
+          </div>
+
+          <!-- Start Your Wealth Journey -->
+          <div class="col-lg-6 text-center">
+            <h2 class="fw-bold mb-3 text-success">
+              🚀 Start Your Wealth Journey Today!
+            </h2>
+            <p class="mb-4">
+              Use our SIP Calculator to visualize your financial future, plan
+              your goals, and watch your investments grow effortlessly.
+            </p>
+            <a class="btn btn-primary btn-lg px-4 py-2" [routerLink]="'/sip-calculator'">
+              <i class="bi bi-calculator-fill me-2"></i>Try Our SIP Calculator
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

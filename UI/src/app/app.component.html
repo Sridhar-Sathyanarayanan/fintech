@@ -1,68 +1,188 @@
-<div class="page-wrapper d-flex flex-column min-vh-100">
-  <!-- Responsive Navbar -->
-  <nav class="navbar navbar-expand-md App__background p-2">
-    <div class="container-fluid">
-      
-      <!-- Logo on the left (shown only once) -->
-      <a class="navbar-brand d-flex align-items-center" routerLink="">
-        <img src="assets/images/logo.png" alt="Logo" class="imgLogo" />
-      </a>
-  
-      <!-- Hamburger toggler for mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Collapsible menu -->
-      <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
-        <ul class="navbar-nav ms-auto d-flex flex-column flex-md-row align-items-start align-items-md-center pe-2">
-          <li class="nav-item">
-            <a class="nav-link custom-tab px-md-5" routerLink="" routerLinkActive="active-tab" [routerLinkActiveOptions]="{ exact: true }">
-              <strong>Home</strong>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <strong>Calculator</strong>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="nav-link custom-tab px-md-2" routerLink="income-tax-calculator" routerLinkActive="active-tab">Income Tax Calculator</a></li>
-              <li><a class="nav-link custom-tab px-md-2" routerLink="sip">SIP Calculator</a></li>
-            </ul>
-          </li>
-  
-          <li class="nav-item">
-            <a class="nav-link custom-tab px-md-5" routerLink="tax-slabs" routerLinkActive="active-tab">
-              <strong>Tax Slabs</strong>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-tab px-md-5" routerLink="/privacy-policy" routerLinkActive="active-tab">
-              <strong>Privacy</strong>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link custom-tab px-md-5" routerLink="/contact" routerLinkActive="active-tab">
-              <strong>Contact</strong>
-            </a>
-          </li>
-        </ul>
-        
-      </div>
-  
-    </div>
-  </nav>
-  
-  <!-- Main Content -->
-  <div class="flex-grow-1 App__background">
-    <router-outlet></router-outlet>
-  </div>
+<div class="app-container">
+  <!-- Desktop Navigation -->
+  @if (!isMobile()) {
+  <header class="desktop-header" [class.scrolled]="isScrolled()">
+    <mat-toolbar class="main-toolbar">
+      <div class="toolbar-content">
+        <!-- Logo Section -->
+        <div class="logo-section" routerLink="/">
+          <img src="assets/images/logo.png" alt="AMKRTech Logo" class="app-logo" />
+          <div class="logo-text">
+            <span class="brand-name">AMKRTech</span>
+            <span class="brand-tagline">Financial Solutions</span>
+          </div>
+        </div>
 
-  <!-- Sticky Footer -->
-  <footer class="text-black text-center py-3 themeBGColor3 mt-auto App__background p-0">
-    <div class="container">
-      <small>&copy; AMKRTech. All rights reserved.</small>
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+          @for (item of navItems; track item.label) { @if (!item.children) {
+          <a mat-button [routerLink]="item.route" routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: item.route === '/' }" class="nav-link">
+            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </a>
+          } @else {
+          <button mat-button [matMenuTriggerFor]="calculatorMenu" class="nav-link">
+            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+            <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+          </button>
+          <mat-menu #calculatorMenu="matMenu" class="calculator-menu">
+            @for (child of item.children; track child.label) {
+            <a mat-menu-item [routerLink]="child.route" routerLinkActive="active-menu-item" class="menu-item">
+              <mat-icon>{{ child.icon }}</mat-icon>
+              <span>{{ child.label }}</span>
+            </a>
+            }
+          </mat-menu>
+          } }
+        </nav>
+
+        <!-- CTA Button -->
+      </div>
+    </mat-toolbar>
+  </header>
+  }
+
+  <!-- Mobile Navigation -->
+  @if (isMobile()) {
+  <mat-toolbar class="mobile-toolbar" [class.scrolled]="isScrolled()">
+    <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="mobile-logo" routerLink="/">
+      <img src="assets/images/logo.png" alt="AMKRTech" class="mobile-logo-img" />
+      <span class="mobile-brand-name">AMKRTech</span>
     </div>
-  </footer>
+
+    <button mat-icon-button routerLink="/income-tax-calculator" class="mobile-calc-button">
+      <mat-icon>calculate</mat-icon>
+    </button>
+  </mat-toolbar>
+  }
+
+  <!-- Main Content with Sidenav -->
+  <mat-sidenav-container class="sidenav-container">
+    <!-- Mobile Sidebar -->
+    <mat-sidenav #sidenav [mode]="isMobile() ? 'over' : 'side'" [opened]="false" class="mobile-sidenav">
+      <div class="sidenav-header">
+        <div class="sidenav-logo">
+          <img src="assets/images/logo.png" alt="AMKRTech" />
+        </div>
+        <button mat-icon-button (click)="closeSidenav()" class="close-button">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <mat-nav-list class="sidenav-list">
+        @for (item of navItems; track item.label) { @if (!item.children) {
+        <a mat-list-item [routerLink]="item.route" routerLinkActive="active-sidenav-item"
+          [routerLinkActiveOptions]="{ exact: item.route === '/' }" (click)="closeSidenav()" class="sidenav-item">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+        } @else {
+        <div class="sidenav-submenu">
+          <div class="submenu-header">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.label }}</span>
+          </div>
+          @for (child of item.children; track child.label) {
+          <a mat-list-item [routerLink]="child.route" routerLinkActive="active-sidenav-item" (click)="closeSidenav()"
+            class="sidenav-subitem">
+            <mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
+            <span matListItemTitle>{{ child.label }}</span>
+          </a>
+          }
+        </div>
+        } }
+      </mat-nav-list>
+
+      <div class="sidenav-footer">
+        <button mat-raised-button color="primary" routerLink="/income-tax-calculator" (click)="closeSidenav()"
+          class="sidenav-cta">
+          <mat-icon>calculate</mat-icon>
+          Start Calculating
+        </button>
+      </div>
+    </mat-sidenav>
+
+    <!-- Main Content Area -->
+    <mat-sidenav-content class="main-content">
+      <div class="content-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+
+      <!-- Modern Footer -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <div class="footer-grid">
+            <div class="footer-section">
+              <div class="footer-logo">
+                <img src="assets/images/logo.png" alt="AMKRTech" />
+                <span class="footer-brand">AMKRTech</span>
+              </div>
+              <p class="footer-description">
+                Empowering your financial decisions with intelligent tools and
+                insights.
+              </p>
+              <div class="footer-social">
+                <button mat-icon-button class="social-button">
+                  <mat-icon>facebook</mat-icon>
+                </button>
+                <button mat-icon-button class="social-button">
+                  <mat-icon>twitter</mat-icon>
+                </button>
+                <button mat-icon-button class="social-button">
+                  <mat-icon>linkedin</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="footer-section">
+              <h4>Quick Links</h4>
+              <ul class="footer-links">
+                <li><a routerLink="/">Home</a></li>
+                <li><a routerLink="/about-us">About Us</a></li>
+                <li><a routerLink="/tax-slabs">Tax Slabs</a></li>
+                <li><a routerLink="/contact">Contact</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h4>Calculators</h4>
+              <ul class="footer-links">
+                <li><a routerLink="/income-tax-calculator">Income Tax</a></li>
+                <li><a routerLink="/sip-calculator">SIP Calculator</a></li>
+                <li><a routerLink="/ppf-calculator">PPF Calculator</a></li>
+                <li><a routerLink="/home-loan-calculator">Home Loan</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h4>Legal</h4>
+              <ul class="footer-links">
+                <li><a routerLink="/privacy-policy">Privacy Policy</a></li>
+                <li><a routerLink="/terms">Terms of Service</a></li>
+                <li><a>Disclaimer</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <mat-divider class="footer-divider"></mat-divider>
+
+          <div class="footer-bottom">
+            <p class="copyright">&copy; 2025 AMKRTech. All rights reserved.</p>
+            <p class="made-with">
+              Made with <mat-icon class="heart-icon">favorite</mat-icon> in
+              India
+            </p>
+          </div>
+        </div>
+      </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

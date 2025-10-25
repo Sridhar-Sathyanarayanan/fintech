@@ -1,9 +1,248 @@
-<section class="Home py-5">
-  <div class="container text-center">
-    <h1 class="display-1 mb-3">Calculate Your Income Tax</h1>
-    <p class="lead">With simple and easy steps</p>
-    <button mat-raised-button color="primary" [routerLink]="'/income-tax-calculator'">
-      <mat-icon>favorite</mat-icon>Get Started
-    </button>
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-background"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>verified</mat-icon>
+        <span>Trusted by 10,000+ users</span>
+      </div>
+      <h1 class="hero-title">
+        Master Your
+        <span class="gradient-text">Financial Future</span>
+      </h1>
+      <p class="hero-subtitle">
+        Intelligent tools and insights to help you make smarter tax decisions,
+        track investments, and build lasting wealth with confidence.
+      </p>
+      <div class="hero-actions">
+        <button mat-raised-button color="primary" class="cta-button" routerLink="/calculator">
+          <mat-icon>rocket_launch</mat-icon>
+          Start Planning
+        </button>
+        <button mat-button class="secondary-button" routerLink="/learn">
+          <mat-icon>play_circle</mat-icon>
+          Watch Demo
+        </button>
+      </div>
+      <div class="hero-features">
+        <div class="feature-chip">
+          <mat-icon>check_circle</mat-icon>
+          <span>Free Forever</span>
+        </div>
+        <div class="feature-chip">
+          <mat-icon>security</mat-icon>
+          <span>100% Secure</span>
+        </div>
+        <div class="feature-chip">
+          <mat-icon>speed</mat-icon>
+          <span>Instant Results</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card card-1">
+        <mat-icon>trending_up</mat-icon>
+        <div class="card-content">
+          <span class="card-label">Portfolio Growth</span>
+          <span class="card-value">+24.5%</span>
+        </div>
+      </div>
+      <div class="hero-card card-2">
+        <mat-icon>savings</mat-icon>
+        <div class="card-content">
+          <span class="card-label">Tax Saved</span>
+          <span class="card-value">₹45,000</span>
+        </div>
+      </div>
+      <div class="hero-card card-3">
+        <mat-icon>account_balance_wallet</mat-icon>
+        <div class="card-content">
+          <span class="card-label">Monthly Savings</span>
+          <span class="card-value">₹12,500</span>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <img src="/assets/images/illustration1.svg" alt="Financial Planning" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATISTICS SECTION -->
+<section class="statistics">
+  <div class="statistics-container">
+    <div class="stat-item" *ngFor="let stat of statistics">
+      <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+      <div class="stat-content">
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE TOOLS SECTION -->
+<section class="features">
+  <div class="features-container">
+    <div class="section-header">
+      <h2 class="section-title">Powerful Financial Tools</h2>
+      <p class="section-subtitle">
+        Everything you need to take control of your finances in one place
+      </p>
+    </div>
+    <div class="feature-grid">
+      <mat-card 
+        class="feature-card" 
+        *ngFor="let tool of financialTools"
+        [routerLink]="tool.route"
+        matRipple>
+        <div class="feature-icon-wrapper" [ngClass]="tool.color">
+          <mat-icon class="feature-icon">{{ tool.icon }}</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="feature-title">{{ tool.title }}</h3>
+          <p class="feature-desc">{{ tool.desc }}</p>
+          <div class="feature-link">
+            <span>Explore tool</span>
+            <mat-icon>arrow_forward</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- CAROUSEL SECTION -->
+<section class="carousel-section">
+  <div class="carousel-wrapper">
+    <div class="carousel-container" [style.transform]="'translateX(-' + currentSlide() * 100 + '%)'">
+      <div class="carousel-slide" *ngFor="let image of financeImages">
+        <img [src]="image" alt="Financial insights" />
+        <div class="carousel-overlay">
+          <div class="carousel-content">
+            <h3>Smart Financial Planning</h3>
+            <p>Discover expert insights and strategies</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button 
+        mat-mini-fab 
+        color="primary" 
+        (click)="prevSlide()"
+        aria-label="Previous slide">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button 
+        mat-mini-fab 
+        color="primary" 
+        (click)="nextSlide()"
+        aria-label="Next slide">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="carousel-indicators">
+      <button 
+        *ngFor="let image of financeImages; let i = index"
+        class="indicator"
+        [class.active]="currentSlide() === i"
+        (click)="onSlideIndicatorClick(i)"
+        [attr.aria-label]="'Go to slide ' + (i + 1)">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIAL FACTS SECTION -->
+<section class="facts">
+  <div class="facts-container">
+    <div class="section-header">
+      <h2 class="section-title">Essential Financial Knowledge</h2>
+      <p class="section-subtitle">
+        Key insights to help you make informed financial decisions
+      </p>
+    </div>
+    <div class="facts-grid">
+      <mat-card class="fact-card" *ngFor="let fact of financialFacts">
+        <div class="fact-icon-wrapper">
+          <mat-icon>{{ fact.icon }}</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="fact-title">{{ fact.title }}</h3>
+          <p class="fact-content">{{ fact.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about">
+  <div class="about-container">
+    <div class="about-content">
+      <div class="about-badge">
+        <mat-icon>rocket</mat-icon>
+        <span>About Us</span>
+      </div>
+      <h2 class="about-title">Built by <span class="brand-name">AMKRTech</span></h2>
+      <p class="about-description">
+        We're passionate about democratizing financial planning. Our mission is to empower 
+        individuals and organizations with intuitive, data-driven tools that simplify complex 
+        financial decisions. Built with cutting-edge technology and designed with users in mind, 
+        we're transforming how people approach their financial future.
+      </p>
+      <div class="about-features">
+        <div class="about-feature">
+          <mat-icon>verified_user</mat-icon>
+          <div>
+            <strong>Secure & Private</strong>
+            <p>Your data is encrypted and never shared</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <mat-icon>update</mat-icon>
+          <div>
+            <strong>Always Updated</strong>
+            <p>Latest tax laws and regulations</p>
+          </div>
+        </div>
+        <div class="about-feature">
+          <mat-icon>support_agent</mat-icon>
+          <div>
+            <strong>Expert Support</strong>
+            <p>Help when you need it most</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-actions">
+        <button mat-raised-button color="accent" routerLink="/about">
+          Learn More About Us
+        </button>
+        <button mat-button routerLink="/contact">
+          Get in Touch
+        </button>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-image-wrapper">
+        <img src="/assets/images/illustration2.svg" alt="AMKRTech Team" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Financial Future?</h2>
+      <p>Join thousands of users who are already making smarter financial decisions</p>
+      <button mat-raised-button color="primary" class="cta-button-large" routerLink="/calculator">
+        <mat-icon>arrow_forward</mat-icon>
+        Get Started Now
+      </button>
+    </div>
   </div>
 </section>

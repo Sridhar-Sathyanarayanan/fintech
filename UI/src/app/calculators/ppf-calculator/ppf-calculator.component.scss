@@ -1,0 +1,61 @@
+.skyblue-heading {
+  color: #0ea5e9; /* sky blue */
+  font-weight: 700;
+}
+
+.skyblue-label {
+  color: #0ea5e9;
+  font-weight: 600;
+}
+
+.badge-custom {
+  background-color: #cfe2ff;  /* light blue */
+  color: #084298;             /* dark blue */
+  border: 1.5px solid #084298;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  padding: 0.45em 0.85em;
+  font-size: 1rem;
+}
+
+.badge-custom:hover,
+.badge-custom.active,
+.btn-check:checked + .badge-custom {
+  background-color: #084298; /* dark blue background */
+  color: white;
+  border-color: #084298;
+}
+
+.slider-blue {
+  accent-color: #0ea5e9; /* Bootstrap blue */
+  cursor: pointer;
+}
+/* Badge base: light sky-blue background (30% opacity), dark sky-blue border */
+.skyblue-badge {
+  display: inline-block;
+  padding: 0.3em 0.8em;
+  font-size: 0.9rem;
+  background-color: rgba(135, 206, 235, 0.3);
+  border: 1px solid #007bff;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Filled style when selected */
+.skyblue-badge.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Heading and label colors */
+.skyblue-heading {
+  color: #007bff;
+}
+
+.skyblue-label {
+  color: #007bff;
+  font-weight: 500;
+}

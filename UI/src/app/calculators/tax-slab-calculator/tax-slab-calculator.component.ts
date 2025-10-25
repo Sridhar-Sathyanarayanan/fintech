@@ -1,11 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
-import { Router } from '@angular/router';
+import { MaterialModules } from '../../shared/material.standalone';
 
 @Component({
   selector: 'app-tax-slab-calculator',
-  standalone:false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MaterialModules,
+    BaseChartDirective,
+  ],
   templateUrl: './tax-slab-calculator.component.html',
   styleUrls: ['./tax-slab-calculator.component.scss'],
 })
@@ -15,9 +22,8 @@ export class TaxSlabCalculatorComponent {
   columns = ['range', 'rate'];
   comparisonColumns = ['range', 'oldRate', 'newRate'];
   @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
- 
-  
-  comparisonData :any = {
+
+  comparisonData: any = {
     '2023-2024': [
       { range: 'Up to ₹2,50,000', oldRate: 'Nil', newRate: 'Nil' },
       { range: '₹2,50,001 – ₹5,00,000', oldRate: '5%', newRate: '5%' },
@@ -46,7 +52,7 @@ export class TaxSlabCalculatorComponent {
       { range: 'Above ₹15,00,000', oldRate: '30%', newRate: '30%' },
     ],
   };
-  
+
   slabData: any = {
     '2023–2024': {
       old: [
@@ -61,8 +67,8 @@ export class TaxSlabCalculatorComponent {
         { range: '₹6L - ₹9L', rate: '10%' },
         { range: '₹9L - ₹12L', rate: '15%' },
         { range: '₹12L - ₹15L', rate: '20%' },
-        { range: '₹15L+', rate: '30%' }
-      ]
+        { range: '₹15L+', rate: '30%' },
+      ],
     },
     '2024–2025': {
       old: [
@@ -77,8 +83,8 @@ export class TaxSlabCalculatorComponent {
         { range: '₹6L - ₹9L', rate: '10%' },
         { range: '₹9L - ₹12L', rate: '15%' },
         { range: '₹12L - ₹15L', rate: '20%' },
-        { range: '₹15L+', rate: '30%' }
-      ]
+        { range: '₹15L+', rate: '30%' },
+      ],
     },
     '2025–2026': {
       old: [
@@ -94,28 +100,27 @@ export class TaxSlabCalculatorComponent {
         { range: '₹12L - ₹16L', rate: '15%' },
         { range: '₹16L - ₹20L', rate: '20%' },
         { range: '₹20L - ₹24L', rate: '25%' },
-        { range: '₹24L+', rate: '30%' }
-      ]
-    }
+        { range: '₹24L+', rate: '30%' },
+      ],
+    },
   };
   comparisonChartType: any = 'bar';
   public chartType: string = 'bar';
 
   comparisonChartData: any = {
     labels: [],
-    datasets: []
+    datasets: [],
   };
-
 
   comparisonChartOptions: any = {
     responsive: true,
     plugins: {
       legend: { position: 'top' },
-      title: { display: true, text: 'Tax Rate Comparison (%)' }
+      title: { display: true, text: 'Tax Rate Comparison (%)' },
     },
     scales: {
-      y: { beginAtZero: true, max: 35, ticks: { stepSize: 5 } }
-    }
+      y: { beginAtZero: true, max: 35, ticks: { stepSize: 5 } },
+    },
   };
 
   constructor() {
@@ -123,50 +128,51 @@ export class TaxSlabCalculatorComponent {
   }
 
   updateComparisonChart() {
-    const oldSlabs :any = this.slabData[this.selectedYear].old;
+    const oldSlabs: any = this.slabData[this.selectedYear].old;
     const newSlabs: any = this.slabData[this.selectedYear].new;
 
     // Use the union of all ranges for labels
     const labelsSet = new Set<string>();
-    oldSlabs.forEach((s: { range: string; }) => labelsSet.add(s.range));
-    newSlabs.forEach((s: { range: string; }) => labelsSet.add(s.range));
+    oldSlabs.forEach((s: { range: string }) => labelsSet.add(s.range));
+    newSlabs.forEach((s: { range: string }) => labelsSet.add(s.range));
     const labels = Array.from(labelsSet);
 
     // Helper to convert rate string "5%" => number 5
-    const rateToNumber = (rate: string) => parseFloat(rate.replace('%', '')) || 0;
+    const rateToNumber = (rate: string) =>
+      parseFloat(rate.replace('%', '')) || 0;
 
     // Map labels to rates, default 0 if not found
-    const oldRates = labels.map(label => {
-      const slab = oldSlabs.find((s: { range: string; }) => s.range === label);
+    const oldRates = labels.map((label) => {
+      const slab = oldSlabs.find((s: { range: string }) => s.range === label);
       return slab ? rateToNumber(slab.rate) : 0;
     });
 
-    const newRates = labels.map(label => {
-      const slab = newSlabs.find((s: { range: string; }) => s.range === label);
+    const newRates = labels.map((label) => {
+      const slab = newSlabs.find((s: { range: string }) => s.range === label);
       return slab ? rateToNumber(slab.rate) : 0;
     });
 
-    this.comparisonChartData  = {
+    this.comparisonChartData = {
       labels: labels,
       datasets: [
         {
           label: 'Old Regime',
           data: oldRates,
-          backgroundColor: '#3f51b5'
+          backgroundColor: '#3f51b5',
         },
         {
           label: 'New Regime',
           data: newRates,
-          backgroundColor: '#e91e63'
-        }
-      ]
+          backgroundColor: '#e91e63',
+        },
+      ],
     };
   }
 
   exportChart() {
     if (!this.chart) return;
     const base64Image = this.chart.toBase64Image();
-    const link : any = document.createElement('a');
+    const link: any = document.createElement('a');
     link.href = base64Image;
     link.download = `tax-comparison-${this.selectedYear}.png`;
     link.click();

@@ -1,13 +1,22 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatStepper } from '@angular/material/stepper';
+import { CommonModule } from '@angular/common';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MaterialModules } from '../../shared/material.standalone';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-tax-calculator',
   templateUrl: './tax-calculator.component.html',
   styleUrls: ['./tax-calculator.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, MaterialModules],
 })
 export class TaxCalculatorComponent implements OnInit {
   @ViewChild('resultSection') resultSection!: ElementRef;
@@ -40,7 +49,6 @@ export class TaxCalculatorComponent implements OnInit {
   ];
   isSmallScreen = false;
 
-
   get deductionsFormGroup(): FormGroup {
     return this.taxCalcForm.get('deductions') as FormGroup;
   }
@@ -71,9 +79,11 @@ export class TaxCalculatorComponent implements OnInit {
   }
 
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
-      this.isSmallScreen = result.matches;
-    });
+    this.breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((result) => {
+        this.isSmallScreen = result.matches;
+      });
   }
   ngOnInit(): void {
     this.showTaxDetails = false;
@@ -296,6 +306,7 @@ export class TaxCalculatorComponent implements OnInit {
     return Math.abs(this.oldRegimeTax - this.newRegimeTax);
   }
   ngAfterViewInit() {
-    this.stepper._getIndicatorType = () => 'number';
+    // In Angular Material 20, steppers use number indicators by default
+    // No need to manually set the indicator type
   }
 }

@@ -1,0 +1,140 @@
+<div class="taxCalculator modern-ui">
+  <mat-card class="calculator-shell">
+    <div class="header-section text-center">
+      <h1>💼 Income Tax Calculator</h1>
+      <p class="subtitle">Compare Old vs New Tax Regime for India (FY 2023–26)</p>
+    </div>
+
+    <form [formGroup]="taxCalcForm">
+      <mat-stepper [orientation]="isSmallScreen ? 'vertical' : 'horizontal'" linear #stepper class="modern-stepper">
+        
+        <!-- 🧾 Step 1: Basic Details -->
+        <mat-step [stepControl]="basicFormGroup">
+          <form [formGroup]="basicFormGroup" class="step-form">
+            <ng-template matStepLabel>Basic Details</ng-template>
+
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Assessment Year</mat-label>
+                <mat-select formControlName="assessmentYear">
+                  @for (year of years; track year) {
+                    <mat-option [value]="year">{{ year }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              <div class="age-section">
+                <label class="fw-semibold mb-2 d-block">Age Group*</label>
+                <mat-radio-group formControlName="ageGroup" class="age-radio-group">
+                  <mat-radio-button value="below60">Below 60</mat-radio-button>
+                  <mat-radio-button value="senior">Above 60</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button mat-raised-button color="primary" (click)="stepper.next()" [disabled]="basicFormGroup.invalid">
+                Next <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- 💰 Step 2: Income Details -->
+        <mat-step [stepControl]="incomeFormGroup">
+          <form [formGroup]="incomeFormGroup" class="step-form">
+            <ng-template matStepLabel>Income Details</ng-template>
+
+            <div class="form-grid centered">
+              <mat-form-field appearance="outline">
+                <mat-label>Total Annual Income (₹)</mat-label>
+                <input matInput type="number" formControlName="income" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Other Income (₹)</mat-label>
+                <input matInput type="number" formControlName="otherIncome" />
+              </mat-form-field>
+            </div>
+
+            <div class="actions">
+              <button mat-stroked-button (click)="stepper.previous()">
+                <mat-icon>arrow_back</mat-icon> Back
+              </button>
+              <button mat-raised-button color="primary" (click)="stepper.next()" [disabled]="incomeFormGroup.invalid">
+                Continue <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- 🧮 Step 3: Deductions -->
+        <mat-step [stepControl]="deductionsFormGroup">
+          <form [formGroup]="deductionsFormGroup" class="step-form">
+            <ng-template matStepLabel>Deductions</ng-template>
+
+            <mat-card class="info-banner bg-warning-light">
+              <mat-icon color="warn">info</mat-icon>
+              <span>Standard deduction (₹50,000) is automatically applied.</span>
+            </mat-card>
+
+            <div class="form-grid">
+              <div *ngFor="let deduction of deductionFields">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>{{ deduction.label }}</mat-label>
+                  <input matInput type="number" [formControlName]="deduction.control" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button mat-stroked-button (click)="stepper.previous()">
+                <mat-icon>arrow_back</mat-icon> Back
+              </button>
+              <button mat-raised-button color="accent" (click)="calculateTax()">
+                <mat-icon>calculate</mat-icon> Calculate
+              </button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-stepper>
+    </form>
+
+    <!-- 📊 Result Section -->
+    <div *ngIf="showTaxDetails" #resultSection class="result-section">
+      <div class="result-grid">
+        <mat-card class="tax-card old">
+          <mat-card-header>Old Tax Regime</mat-card-header>
+          <mat-card-content>
+            <h2>₹{{ oldRegimeTax | number: '1.2-2' }}</h2>
+            <p>After deductions</p>
+            <mat-icon *ngIf="oldRegimeTax < newRegimeTax" class="success">check_circle</mat-icon>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="tax-card new">
+          <mat-card-header>New Tax Regime</mat-card-header>
+          <mat-card-content>
+            <h2>₹{{ newRegimeTax | number: '1.2-2' }}</h2>
+            <p>Without deductions</p>
+            <mat-icon *ngIf="newRegimeTax < oldRegimeTax" class="success">check_circle</mat-icon>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-card class="tax-summary">
+        <h4>Tax Difference</h4>
+        <p class="diff-amount">₹{{ taxDifference | number:'1.2-2' }}</p>
+        <div *ngIf="oldRegimeTax < newRegimeTax" class="alert success">🎉 Old regime saves you more!</div>
+        <div *ngIf="newRegimeTax < oldRegimeTax" class="alert success">🎉 New regime saves you more!</div>
+        <div *ngIf="oldRegimeTax === newRegimeTax" class="alert neutral">⚖️ Both regimes are equal.</div>
+      </mat-card>
+
+      <div class="text-center mt-4">
+        <button mat-stroked-button color="warn" (click)="resetCalculator()">
+          <mat-icon>refresh</mat-icon> Reset
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

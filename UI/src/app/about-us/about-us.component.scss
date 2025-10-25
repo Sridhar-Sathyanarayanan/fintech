@@ -1,0 +1,183 @@
+.aboutus-page {
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .container {
+    width: 100%;
+    max-width: 1100px;
+    padding: 2rem 1rem;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    width: 100%;
+    padding: 4rem 1rem 3rem;
+    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+    color: white;
+    text-align: center;
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand {
+      color: #ffca28;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  }
+
+  /* Intro Card */
+  .intro-card {
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  /* Values Section */
+  .values-section {
+    text-align: center;
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0d47a1;
+      margin-bottom: 2rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .value-card {
+      padding: 1.5rem;
+      border-radius: 14px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #f9fbff;
+      text-align: center;
+
+      mat-icon {
+        font-size: 36px;
+        margin-bottom: 0.5rem;
+      }
+
+      h4 {
+        margin-top: 0.5rem;
+        font-weight: 600;
+        color: #212121;
+      }
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  /* Vision Section */
+  .vision-card {
+    border-left: 5px solid #1976d2;
+    border-radius: 14px;
+    padding: 1.5rem;
+    background: #f4f8ff;
+
+    .section-title {
+      color: #0d47a1;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  /* Solutions Section */
+  .solutions-section {
+    text-align: center;
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0d47a1;
+      margin-bottom: 2rem;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .solution-card {
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 14px;
+      transition: 0.3s ease;
+      border: 1px solid #e3e8ef;
+      text-align: center;
+
+      mat-icon {
+        font-size: 38px;
+        margin-bottom: 0.6rem;
+      }
+
+      h4 {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      &:hover {
+        background: #f8fbff;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+        transform: translateY(-4px);
+      }
+    }
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: #e8f1ff;
+    padding: 3rem 1rem;
+    width: 100%;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0d47a1;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #37474f;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      padding: 0.75rem 2rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+      }
+    }
+  }
+}

@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "install:all":"npm i && npm --prefix ui i && npm --prefix mid-tier i",
+    "install:all": "npm i && npm --prefix ui i && npm --prefix mid-tier i",
     "dev": "concurrently -n mid-tier,ui --kill-others \"npm --prefix mid-tier run start:dev\" \"npm --prefix ui run start\""
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.2.1"
   }
 }
