@@ -1,148 +1,422 @@
-<div class="container p-4 max-w-2xl mx-auto">
-  <div class="row">
-    <!-- Left: Calculator Form -->
-    <h2 class="mb-4 fw-bold color9">
-      SIP Calculator - Plan Your Investments Smartly
-    </h2>
-
-    <h3>Start Small, Grow Big: Systematic Investment Planning Made Easy</h3>
-    <p>
-      Investing through a Systematic Investment Plan (SIP) is one of the
-      smartest ways to build wealth over time. SIPs help you invest a fixed
-      amount regularly in mutual funds, ensuring financial discipline and
-      harnessing the power of compounding.
-    </p>
-
-    <p>
-      Use our SIP Calculator to estimate the future value of your investments
-      and plan your financial goals with confidence!
-    </p>
-    <div class="col-12 col-md-6">
-      <mat-card class="p-4 shadow rounded-3">
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Investment Type</label>
-          <mat-radio-group [(ngModel)]="investmentType" name="investmentType"
-            class="d-flex gap-3 justify-content-center">
-            <mat-radio-button value="monthly">Monthly SIP</mat-radio-button>
-            <mat-radio-button value="lumpsum">Lumpsum</mat-radio-button>
-          </mat-radio-group>
-        </div>
-
-        <mat-form-field appearance="outline" class="w-100 mb-3">
-          <mat-label>Amount</mat-label>
-          <input matInput type="number" [(ngModel)]="amount" name="amount" />
-        </mat-form-field>
-
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Number of Years</label>
-          <div class="d-flex align-items-center gap-3">
-            <input type="range" min="1" max="30" step="1" [(ngModel)]="years" name="years"
-              class="form-range flex-grow-1" />
-            <input type="number" [value]="years" readonly class="form-control w-25" />
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label fw-semibold">Rate of Interest (%)</label>
-          <div class="d-flex align-items-center gap-3">
-            <input type="range" min="1" max="20" step="0.1" [(ngModel)]="interestRate" name="interestRate"
-              class="form-range flex-grow-1" />
-            <input type="number" [value]="interestRate" readonly class="form-control w-25" />
-          </div>
-        </div>
-
-        <div class="text-center">
-          <button mat-raised-button color="primary" (click)="calculate()">
-            Calculate
-          </button>
-        </div>
-      </mat-card>
+<div class="sip-calculator-page">
+  <!-- Hero Section -->
+  <section class="sip-hero">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
     </div>
-
-    <!-- Right: Summary + Chart -->
-    <div class="col-12 col-md-6 mt-4 mt-md-0">
-      <mat-card class="p-4 shadow rounded-3 h-100 d-flex flex-column justify-content-center">
-        <h3 class="text-center mb-4 fw-bold color9">Summary</h3>
-        <div *ngIf="totalValue > 0" class="mb-4 text-center">
-          <span>
-            <strong>Invested Amount:</strong>
-            <h3 class="color3">₹{{ investedAmount | number : "1.0-0" }}</h3>
-          </span>
-          <span>
-            <strong>Expected Return:</strong>
-            <h3 class="color3">₹{{ expectedReturn | number : "1.0-0" }}</h3>
-          </span>
-          <span><strong>Total Value:</strong>
-            <h3 class="color3">₹{{ totalValue | number : "1.0-0" }}</h3>
-          </span>
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <mat-icon>trending_up</mat-icon>
+          <span>Investment Planner</span>
         </div>
-
-        <div class="d-flex justify-content-center">
-          <div style="width: 250px; height: 250px">
-            <canvas baseChart [data]="{
-                labels: doughnutChartLabels,
-                datasets: [{ data: doughnutChartData }]
-              }" [type]="doughnutChartType">
-            </canvas>
+        <h1 class="hero-title">
+          SIP Calculator
+          <span class="gradient-text">Build Wealth Systematically</span>
+        </h1>
+        <p class="hero-subtitle">
+          Plan your systematic investments with precision. Calculate returns,
+          visualize growth, and make informed investment decisions for your
+          financial future.
+        </p>
+        <div class="hero-features">
+          <div class="feature-chip">
+            <mat-icon>auto_graph</mat-icon>
+            <span>Power of Compounding</span>
           </div>
-        </div>
-      </mat-card>
-    </div>
-    <h2>How Does a SIP Calculator Help?</h2>
-    <h3>Our SIP Calculator provides quick answers to:</h3>
-    <ul>
-      <li>How much will your SIP grow over a period?</li>
-      <li>How much should you invest monthly to achieve your target amount?</li>
-      <li>The impact of expected returns (annual growth rate) over time.</li>
-    </ul>
-    <h3>This helps you:</h3>
-    <ul>
-      <li>
-        Plan for goals like buying a home, child's education, or early
-        retirement.
-      </li>
-      <li>Make informed decisions about your mutual fund investments.</li>
-    </ul>
-
-    <section class="sip-example py-5 bg-light">
-      <div class="container">
-        <div class="row align-items-center">
-          <!-- Example Calculation -->
-          <div class="col-lg-6 mb-4 mb-lg-0">
-            <h2 class="fw-bold mb-3 text-primary">📅 Example Calculation</h2>
-            <p class="mb-2">Let's say:</p>
-            <ul class="list-unstyled mb-4">
-              <li>👉 SIP Amount = <strong>₹5,000/month</strong></li>
-              <li>
-                👉 Expected Annual Return = <strong>12%</strong> (i.e., 1%
-                monthly)
-              </li>
-              <li>👉 Tenure = <strong>10 years</strong> (120 months)</li>
-            </ul>
-            <p class="lead">
-              <strong>Future Value ≈ ₹11.61 lakhs</strong>
-            </p>
-            <p class="text-muted">
-              That’s the magic of
-              <em>small steps turning into big results</em> over time!
-            </p>
+          <div class="feature-chip">
+            <mat-icon>calendar_month</mat-icon>
+            <span>Monthly Discipline</span>
           </div>
-
-          <!-- Start Your Wealth Journey -->
-          <div class="col-lg-6 text-center">
-            <h2 class="fw-bold mb-3 text-success">
-              🚀 Start Your Wealth Journey Today!
-            </h2>
-            <p class="mb-4">
-              Use our SIP Calculator to visualize your financial future, plan
-              your goals, and watch your investments grow effortlessly.
-            </p>
-            <a class="btn btn-primary btn-lg px-4 py-2" [routerLink]="'/sip-calculator'">
-              <i class="bi bi-calculator-fill me-2"></i>Try Our SIP Calculator
-            </a>
+          <div class="feature-chip">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <span>Wealth Creation</span>
           </div>
         </div>
       </div>
-    </section>
-  </div>
+      <div class="hero-visual">
+        <div class="visual-decoration decoration-1"></div>
+        <div class="visual-decoration decoration-2"></div>
+        <div class="hero-image-wrapper">
+          <img src="assets/images/SIP_Calculator.jpg" alt="SIP Investment" class="hero-image" />
+        </div>
+        <div class="floating-card card-1">
+          <mat-icon>savings</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Monthly SIP</span>
+            <span class="card-value">₹5,000</span>
+          </div>
+        </div>
+        <div class="floating-card card-2">
+          <mat-icon>pie_chart</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Returns</span>
+            <span class="card-value">12% p.a.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section class="calculator-section">
+    <div class="calculator-container">
+      <div class="calculator-grid">
+        <!-- Left Side: Input Controls -->
+        <mat-card class="input-card">
+          <div class="card-header">
+            <mat-icon class="header-icon">tune</mat-icon>
+            <div>
+              <h2 class="card-title">Investment Details</h2>
+              <p class="card-subtitle">Customize your investment parameters</p>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div class="input-controls">
+            <!-- Investment Type -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>account_balance</mat-icon>
+                Investment Type
+              </label>
+              <mat-radio-group [value]="investmentType()" (change)="onInvestmentTypeChange($event.value)"
+                class="investment-type-group">
+                <mat-radio-button value="monthly" class="type-option">
+                  <div class="option-content">
+                    <mat-icon>calendar_month</mat-icon>
+                    <div>
+                      <strong>Monthly SIP</strong>
+                      <span>Regular investments</span>
+                    </div>
+                  </div>
+                </mat-radio-button>
+                <mat-radio-button value="lumpsum" class="type-option">
+                  <div class="option-content">
+                    <mat-icon>payments</mat-icon>
+                    <div>
+                      <strong>Lumpsum</strong>
+                      <span>One-time investment</span>
+                    </div>
+                  </div>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>currency_rupee</mat-icon>
+                {{ investmentType() === "monthly" ? "Monthly" : "Investment" }}
+                Amount
+              </label>
+              <mat-form-field appearance="outline" class="amount-field">
+                <span matPrefix>₹&nbsp;</span>
+                <input matInput type="number" [value]="amount()" (input)="onAmountChange($event)" min="500"
+                  max="1000000" />
+                <mat-icon matSuffix>account_balance_wallet</mat-icon>
+              </mat-form-field>
+              <mat-slider min="500" max="100000" step="500" (input)="onAmountChange($event)" class="custom-slider">
+                <input matSliderThumb [value]="amount()" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>₹500</span>
+                <span>₹1,00,000</span>
+              </div>
+            </div>
+
+            <!-- Years Slider -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>schedule</mat-icon>
+                Investment Period
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ years() }}</span>
+                <span class="value-unit">Years</span>
+              </div>
+              <mat-slider min="1" max="30" step="1" (input)="onYearsChange($event)" class="custom-slider">
+                <input matSliderThumb [value]="years()" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 Year</span>
+                <span>30 Years</span>
+              </div>
+            </div>
+
+            <!-- Interest Rate Slider -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>percent</mat-icon>
+                Expected Return Rate
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ interestRate() }}</span>
+                <span class="value-unit">% per annum</span>
+              </div>
+              <mat-slider min="1" max="30" step="0.5" (input)="onInterestRateChange($event)" class="custom-slider">
+                <input matSliderThumb [value]="interestRate()" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1%</span>
+                <span>30%</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button mat-raised-button color="primary" (click)="calculate()" class="calc-button">
+                <mat-icon>calculate</mat-icon>
+                Calculate Returns
+              </button>
+              <button mat-stroked-button (click)="resetCalculator()" class="reset-button">
+                <mat-icon>refresh</mat-icon>
+                Reset
+              </button>
+            </div>
+          </div>
+        </mat-card>
+
+        <!-- Right Side: Results -->
+        <div class="results-section">
+          <!-- Summary Cards -->
+          <div class="summary-cards">
+            <mat-card class="summary-card invested">
+              <div class="card-icon">
+                <mat-icon>account_balance_wallet</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Total Invested</span>
+                <span class="card-value">₹{{ investedAmount() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card returns">
+              <div class="card-icon">
+                <mat-icon>trending_up</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Expected Returns</span>
+                <span class="card-value">₹{{ expectedReturn() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card total">
+              <div class="card-icon">
+                <mat-icon>account_balance</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Total Value</span>
+                <span class="card-value highlight">₹{{ totalValue() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+          </div>
+
+          <!-- Charts -->
+          <mat-card class="chart-card">
+            <h3 class="chart-title">
+              <mat-icon>pie_chart</mat-icon>
+              Investment Distribution
+            </h3>
+            <div class="chart-wrapper doughnut-wrapper">
+              <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions" type="doughnut">
+              </canvas>
+            </div>
+            <div class="chart-stats">
+              <div class="stat-item">
+                <span class="stat-label">Return %</span>
+                <span class="stat-value">{{ returnPercentage | number : "1.2-2" }}%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Absolute Returns</span>
+                <span class="stat-value">₹{{ absoluteReturns | number : "1.0-0" }}</span>
+              </div>
+            </div>
+          </mat-card>
+
+          <mat-card class="chart-card">
+            <h3 class="chart-title">
+              <mat-icon>show_chart</mat-icon>
+              Growth Projection
+            </h3>
+            <div class="chart-wrapper line-wrapper">
+              <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line">
+              </canvas>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- Yearly Breakdown Table -->
+      @if (yearlyBreakdown.length > 0) {
+      <mat-card class="breakdown-card">
+        <h3 class="breakdown-title">
+          <mat-icon>table_chart</mat-icon>
+          Year-wise Breakdown
+        </h3>
+        <div class="breakdown-table-wrapper">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Invested Amount</th>
+                <th>Expected Value</th>
+                <th>Wealth Gained</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of yearlyBreakdown; track item.year) {
+              <tr>
+                <td class="year-cell">
+                  <mat-icon>calendar_today</mat-icon>
+                  Year {{ item.year }}
+                </td>
+                <td class="amount-cell">
+                  ₹{{ item.invested | number : "1.0-0" }}
+                </td>
+                <td class="value-cell">₹{{ item.value | number : "1.0-0" }}</td>
+                <td class="gain-cell">
+                  <span class="gain-badge">+₹{{ item.gain | number : "1.0-0" }}</span>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="info-section">
+    <div class="info-container">
+      <h2 class="info-title">Why Invest Through SIP?</h2>
+      <div class="info-grid">
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">auto_graph</mat-icon>
+          <h3>Power of Compounding</h3>
+          <p>
+            Earn returns on your returns. The longer you stay invested, the more
+            your money grows exponentially through the magic of compound
+            interest.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Long-term Growth</mat-chip>
+            <mat-chip>Exponential Returns</mat-chip>
+          </mat-chip-set>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">psychology</mat-icon>
+          <h3>Rupee Cost Averaging</h3>
+          <p>
+            Invest consistently regardless of market conditions. Buy more units
+            when prices are low and fewer when high, averaging out your purchase
+            cost.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Market Timing</mat-chip>
+            <mat-chip>Reduce Risk</mat-chip>
+          </mat-chip-set>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">event_available</mat-icon>
+          <h3>Financial Discipline</h3>
+          <p>
+            Build a habit of regular investing. Automated monthly investments
+            ensure you save first and spend later, creating long-term wealth
+            systematically.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Automated Saving</mat-chip>
+            <mat-chip>Goal Planning</mat-chip>
+          </mat-chip-set>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example Section -->
+  <section class="example-section">
+    <div class="example-container">
+      <div class="example-content">
+        <div class="example-badge">
+          <mat-icon>calculate</mat-icon>
+          <span>Real Example</span>
+        </div>
+        <h2 class="example-title">See the Magic of SIP</h2>
+        <p class="example-description">
+          Let's understand with a practical example how small monthly
+          investments can create substantial wealth over time.
+        </p>
+        <div class="example-stats">
+          <div class="example-stat">
+            <mat-icon>currency_rupee</mat-icon>
+            <div>
+              <span class="stat-label">Monthly Investment</span>
+              <span class="stat-value">₹5,000</span>
+            </div>
+          </div>
+          <div class="example-stat">
+            <mat-icon>schedule</mat-icon>
+            <div>
+              <span class="stat-label">Investment Period</span>
+              <span class="stat-value">10 Years</span>
+            </div>
+          </div>
+          <div class="example-stat">
+            <mat-icon>percent</mat-icon>
+            <div>
+              <span class="stat-label">Expected Returns</span>
+              <span class="stat-value">12% p.a.</span>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="example-result">
+          <div class="result-item">
+            <span class="result-label">Total Invested</span>
+            <span class="result-value">₹6,00,000</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Wealth Gained</span>
+            <span class="result-value success">₹5,61,000</span>
+          </div>
+          <div class="result-item highlight">
+            <span class="result-label">Future Value</span>
+            <span class="result-value large">₹11,61,000</span>
+          </div>
+        </div>
+        <p class="example-note">
+          <mat-icon>info</mat-icon>
+          That's nearly <strong>2x returns</strong> on your investment through
+          the power of compounding!
+        </p>
+      </div>
+      <div class="example-visual">
+        <img src="assets/images/sip_growth_illustration.svg" alt="SIP Growth" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <mat-icon class="cta-icon">rocket_launch</mat-icon>
+      <h2>Start Your Investment Journey Today</h2>
+      <p>
+        Use our calculator to plan your SIP investments and watch your wealth
+        grow systematically
+      </p>
+      <button mat-raised-button color="primary" class="cta-button" (click)="calculate()">
+        <mat-icon>calculate</mat-icon>
+        Calculate Your Returns
+      </button>
+    </div>
+  </section>
 </div>

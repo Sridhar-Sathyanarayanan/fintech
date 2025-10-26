@@ -32,13 +32,6 @@
             <span class="card-value">&lt; 24 hrs</span>
           </div>
         </div>
-        <div class="floating-card card-2">
-          <mat-icon>support_agent</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Support Team</span>
-            <span class="card-value">24/7 Available</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -173,59 +166,43 @@
         </mat-card>
 
         <!-- Quick FAQ -->
-        <mat-card class="faq-card">
-          <h3 class="info-title">
-            <mat-icon>help_outline</mat-icon>
-            Quick FAQs
-          </h3>
-          <div class="faq-list">
-            @for (faq of faqs; track faq.question) {
-            <div class="faq-item">
-              <div class="faq-question">
-                <mat-icon>chevron_right</mat-icon>
-                <span>{{ faq.question }}</span>
-              </div>
-              <div class="faq-answer">{{ faq.answer }}</div>
-            </div>
-            }
-          </div>
-        </mat-card>
-
-        <!-- Map Preview -->
-        <mat-card class="map-card">
-          <div class="map-preview">
-            <img src="assets/images/map-preview.png" alt="Office Location" />
-            <div class="map-overlay">
-              <button mat-raised-button color="primary" (click)="openLink('https://maps.google.com')">
-                <mat-icon>map</mat-icon>
-                View on Maps
-              </button>
-            </div>
-          </div>
-        </mat-card>
       </div>
     </div>
   </section>
-
+  <div class="support info-section">
+    <section class="support-section">
+      <div class="support-container">
+        <mat-icon class="support-icon">headset_mic</mat-icon>
+        <h2>Need Immediate Assistance?</h2>
+        <p>
+          Our support team is available during business hours to help you with
+          any urgent queries.
+        </p>
+        <div class="support-actions">
+          <button mat-raised-button color="primary">
+            <mat-icon>phone</mat-icon>
+            Call Now
+          </button>
+        </div>
+      </div>
+    </section>
+    <mat-card class="faq-card">
+      <h3 class="info-title">
+        <mat-icon>help_outline</mat-icon>
+        Quick FAQs
+      </h3>
+      <div class="faq-list">
+        @for (faq of faqs; track faq.question) {
+        <div class="faq-item">
+          <div class="faq-question">
+            <mat-icon>chevron_right</mat-icon>
+            <span>{{ faq.question }}</span>
+          </div>
+          <div class="faq-answer">{{ faq.answer }}</div>
+        </div>
+        }
+      </div>
+    </mat-card>
+  </div>
   <!-- Additional Support Section -->
-  <section class="support-section">
-    <div class="support-container">
-      <mat-icon class="support-icon">headset_mic</mat-icon>
-      <h2>Need Immediate Assistance?</h2>
-      <p>
-        Our support team is available during business hours to help you with any
-        urgent queries.
-      </p>
-      <div class="support-actions">
-        <button mat-raised-button color="primary">
-          <mat-icon>phone</mat-icon>
-          Call Now
-        </button>
-        <button mat-stroked-button color="primary">
-          <mat-icon>chat</mat-icon>
-          Live Chat
-        </button>
-      </div>
-    </div>
-  </section>
 </div>

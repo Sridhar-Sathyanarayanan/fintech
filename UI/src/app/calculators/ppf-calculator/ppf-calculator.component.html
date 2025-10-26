@@ -1,122 +1,411 @@
-<section class="ppf-calculator py-5">
-  <div class="text-center mb-5">
-    <h1 class="fw-bold text-success">PPF Calculator</h1>
-    <p class="lead text-muted">
-      Estimate the maturity amount of your Public Provident Fund (PPF) investment effortlessly!
-    </p>
-  </div>
-
-  <div class="d-flex flex-column align-items-center p-3 p-md-4" style="gap: 2rem;">
-    <!-- PPF Calculator Card -->
-    <mat-card class="w-100" style="max-width: 850px; padding: 1.5rem;">
-      <mat-card-title class="text-center skyblue-heading mb-4">PPF Calculator</mat-card-title>
-
-      <!-- Interest Rate Display -->
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <label class="skyblue-label mb-0">Fixed Interest Rate</label>
-        <span class="skyblue-badge">8.1%</span>
-      </div>
-
-      <!-- Frequency of Investment (Responsive) -->
-     <!-- Frequency of Investment -->
-<div class="mb-4">
-  <div class="d-flex justify-content-between align-items-center flex-wrap">
-    <label class="skyblue-label mb-2 mb-md-0">Frequency of Investment</label>
-
-    <!-- For desktop -->
-    <div class="d-none d-md-flex gap-2">
-      <span class="skyblue-badge" [class.selected]="frequency==='yearly'" (click)="frequency='yearly'">Yearly</span>
-      <span class="skyblue-badge" [class.selected]="frequency==='halfyearly'" (click)="frequency='halfyearly'">Half Yearly</span>
-      <span class="skyblue-badge" [class.selected]="frequency==='quarterly'" (click)="frequency='quarterly'">Quarterly</span>
-      <span class="skyblue-badge" [class.selected]="frequency==='monthly'" (click)="frequency='monthly'">Monthly</span>
+<div class="ppf-calculator-page">
+  <!-- Hero Section -->
+  <section class="ppf-hero">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
     </div>
-
-    <!-- For mobile -->
-    <div class="d-md-none w-100 text-end">
-      <select class="form-select w-100 mt-2" [(ngModel)]="frequency">
-        <option value="yearly">Yearly</option>
-        <option value="halfyearly">Half Yearly</option>
-        <option value="quarterly">Quarterly</option>
-        <option value="monthly">Monthly</option>
-      </select>
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <mat-icon>account_balance</mat-icon>
+          <span>Government Backed</span>
+        </div>
+        <h1 class="hero-title">
+          PPF Calculator
+          <span class="gradient-text">Public Provident Fund</span>
+        </h1>
+        <p class="hero-subtitle">
+          Plan your long-term savings with India's most trusted tax-saving
+          investment scheme. Calculate returns with complete yearly breakdowns
+          and smart projections.
+        </p>
+        <div class="hero-features">
+          <div class="feature-chip">
+            <mat-icon>verified</mat-icon>
+            <span>100% Safe</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>gavel</mat-icon>
+            <span>Govt Backed</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>money_off</mat-icon>
+            <span>Tax Free Returns</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-decoration decoration-1"></div>
+        <div class="visual-decoration decoration-2"></div>
+        <div class="hero-image-wrapper">
+          <img src="assets/images/PPF_Calculator.png" alt="PPF Investment" class="hero-image" />
+        </div>
+        <div class="floating-card card-1">
+          <mat-icon>percent</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Interest Rate</span>
+            <span class="card-value">{{ interestRate() }}%</span>
+          </div>
+        </div>
+        <div class="floating-card card-2">
+          <mat-icon>lock</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Lock-in Period</span>
+            <span class="card-value">15 Years</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
+  <!-- Calculator Section -->
+  <section class="calculator-section">
+    <div class="calculator-container">
+      <div class="calculator-grid">
+        <!-- Left Side: Input Controls -->
+        <mat-card class="input-card">
+          <div class="card-header">
+            <mat-icon class="header-icon">tune</mat-icon>
+            <div>
+              <h2 class="card-title">Investment Parameters</h2>
+              <p class="card-subtitle">Customize your PPF investment details</p>
+            </div>
+          </div>
 
-      <!-- Investment Amount -->
-      <div class="row align-items-center mb-4">
-        <div class="col-md-5">
-          <label class="form-label skyblue-label">Yearly PPF Investment</label>
-          <small class="text-muted d-block">₹500 - ₹1,50,000</small>
+          <mat-divider></mat-divider>
+
+          <div class="input-controls">
+            <!-- Interest Rate Display -->
+            <div class="rate-display">
+              <div class="rate-icon">
+                <mat-icon>percent</mat-icon>
+              </div>
+              <div class="rate-content">
+                <span class="rate-label">Current PPF Interest Rate</span>
+                <span class="rate-value">{{ interestRate() }}% per annum</span>
+                <span class="rate-note">*Subject to quarterly revision by Govt of India</span>
+              </div>
+            </div>
+
+            <!-- Frequency Selection -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>event_repeat</mat-icon>
+                Investment Frequency
+              </label>
+              <div class="frequency-chips">
+                @for (option of frequencyOptions; track option.value) {
+                <mat-chip [class.selected]="frequency() === option.value" (click)="onFrequencyChange(option.value)"
+                  class="frequency-chip">
+                  <mat-icon>{{ option.icon }}</mat-icon>
+                  {{ option.label }}
+                </mat-chip>
+                }
+              </div>
+            </div>
+
+            <!-- Yearly Investment Amount -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>currency_rupee</mat-icon>
+                Yearly Investment Amount
+              </label>
+              <mat-form-field appearance="outline" class="amount-field">
+                <span matPrefix>₹&nbsp;</span>
+                <input matInput type="number" [value]="investmentAmount()"
+                  (input)="onAmountChange($event)" min="500" max="150000" />
+                <mat-icon matSuffix>account_balance_wallet</mat-icon>
+                <mat-hint>Min: ₹500 | Max: ₹1,50,000 per year</mat-hint>
+              </mat-form-field>
+              <mat-slider min="500" max="150000" step="500" 
+                (input)="onAmountChange($event)" class="custom-slider">
+                <input matSliderThumb [value]="investmentAmount()" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>₹500</span>
+                <span>₹1,50,000</span>
+              </div>
+            </div>
+
+            <!-- Investment Period -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>schedule</mat-icon>
+                Investment Period
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ years() }}</span>
+                <span class="value-unit">Years</span>
+              </div>
+              <mat-slider min="15" max="30" step="1"  (input)="onYearsChange($event)"
+                class="custom-slider">
+                <input matSliderThumb [value]="years()" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>15 Years (Min)</span>
+                <span>30 Years</span>
+              </div>
+              <p class="slider-note">
+                <mat-icon>info</mat-icon>
+                PPF has a minimum lock-in period of 15 years
+              </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button mat-raised-button color="primary" (click)="calculatePPF()" class="calc-button">
+                <mat-icon>calculate</mat-icon>
+                Calculate Maturity
+              </button>
+              <button mat-stroked-button (click)="resetCalculator()" class="reset-button">
+                <mat-icon>refresh</mat-icon>
+                Reset
+              </button>
+            </div>
+          </div>
+        </mat-card>
+
+        <!-- Right Side: Results -->
+        <div class="results-section">
+          <!-- Summary Cards -->
+          <div class="summary-cards">
+            <mat-card class="summary-card invested">
+              <div class="card-icon">
+                <mat-icon>savings</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Total Invested</span>
+                <span class="card-value">₹{{ totalInvested() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card interest">
+              <div class="card-icon">
+                <mat-icon>trending_up</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Interest Earned</span>
+                <span class="card-value">₹{{ interestEarned() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card maturity">
+              <div class="card-icon">
+                <mat-icon>account_balance</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Maturity Amount</span>
+                <span class="card-value highlight">₹{{ maturityAmount() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+          </div>
+
+          <!-- Charts -->
+          <mat-card class="chart-card">
+            <h3 class="chart-title">
+              <mat-icon>pie_chart</mat-icon>
+              Investment Breakdown
+            </h3>
+            <div class="chart-wrapper doughnut-wrapper">
+              <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions" type="doughnut">
+              </canvas>
+            </div>
+            <div class="chart-stats">
+              <div class="stat-item">
+                <span class="stat-label">Return %</span>
+                <span class="stat-value">{{ returnPercentage | number : "1.2-2" }}%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Avg Annual Return</span>
+                <span class="stat-value">₹{{ averageAnnualReturn | number : "1.0-0" }}</span>
+              </div>
+            </div>
+          </mat-card>
+
+          <mat-card class="chart-card">
+            <h3 class="chart-title">
+              <mat-icon>show_chart</mat-icon>
+              Growth Projection
+            </h3>
+            <div class="chart-wrapper line-wrapper">
+              <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line">
+              </canvas>
+            </div>
+          </mat-card>
         </div>
-        <div class="col-md-7 d-flex align-items-center gap-3">
-          <input type="range" class="form-range slider-blue flex-grow-1" min="500" max="150000" step="500" [(ngModel)]="investmentAmount" />
-          <input type="number" class="form-control w-50 w-md-25" min="500" max="150000" step="500" [(ngModel)]="investmentAmount" />
+      </div>
+
+      <!-- Yearly Breakdown Table -->
+      @if (yearlyBreakdown.length > 0) {
+      <mat-card class="breakdown-card">
+        <h3 class="breakdown-title">
+          <mat-icon>table_chart</mat-icon>
+          Year-wise Account Statement
+        </h3>
+        <div class="breakdown-table-wrapper">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Opening Balance</th>
+                <th>Deposits</th>
+                <th>Interest Earned</th>
+                <th>Closing Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of yearlyBreakdown; track item.year) {
+              <tr>
+                <td class="year-cell">
+                  <mat-icon>calendar_today</mat-icon>
+                  Year {{ item.year }}
+                </td>
+                <td class="amount-cell">
+                  ₹{{ item.opening | number : "1.0-0" }}
+                </td>
+                <td class="deposit-cell">
+                  ₹{{ item.deposit | number : "1.0-0" }}
+                </td>
+                <td class="interest-cell">
+                  <span class="interest-badge">+₹{{ item.interest | number : "1.0-0" }}</span>
+                </td>
+                <td class="closing-cell">
+                  ₹{{ item.closing | number : "1.0-0" }}
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
         </div>
-      </div>
+      </mat-card>
+      }
+    </div>
+  </section>
 
-      <!-- Duration -->
-      <div class="row align-items-center mb-4">
-        <div class="col-md-5">
-          <label class="form-label skyblue-label">Number of Years</label>
-          <small class="text-muted d-block">1 - 30 years</small>
-        </div>
-        <div class="col-md-7 d-flex align-items-center gap-3">
-          <input type="range" class="form-range slider-blue flex-grow-1" min="1" max="30" step="1" [(ngModel)]="years" />
-          <input type="number" class="form-control w-50 w-md-25" min="1" max="30" step="1" [(ngModel)]="years" />
-        </div>
-      </div>
-
-      <!-- Calculate Button -->
-      <div class="text-center mt-4">
-        <button mat-raised-button color="primary" (click)="calculatePPF()">Calculate</button>
-      </div>
-    </mat-card>
-
-    <!-- Summary -->
-    <mat-card class="w-100 text-center" style="max-width: 850px; padding: 1.5rem;">
-      <mat-card-title class="skyblue-heading mb-3">Summary</mat-card-title>
-      <div class="skyblue-label mb-4">
-        <p><strong>Total Invested:</strong> ₹{{ totalInvested | number:'1.0-0' }}</p>
-        <p><strong>Interest Earned:</strong> ₹{{ interestEarned | number:'1.0-0' }}</p>
-        <p><strong>Maturity Amount:</strong> ₹{{ maturityAmount | number:'1.0-0' }}</p>
-      </div>
-
-      <!-- Doughnut Chart -->
-      <div style="max-width: 300px; margin: 0 auto;">
-        <canvas baseChart [data]="{ labels: doughnutChartLabels, datasets: [{ data: doughnutChartData }] }" [type]="doughnutChartType"></canvas>
-      </div>
-    </mat-card>
-
-    <!-- Info Section -->
-    <div class="container">
-      <div class="row align-items-center mt-5">
-        <!-- About PPF -->
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <h2 class="fw-bold text-primary mb-3">🧾 What is a PPF?</h2>
+  <!-- Info Section -->
+  <section class="info-section">
+    <div class="info-container">
+      <h2 class="info-title">Why Invest in PPF?</h2>
+      <div class="info-grid">
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">shield</mat-icon>
+          <h3>100% Safe Investment</h3>
           <p>
-            The <strong>Public Provident Fund (PPF)</strong> is a long-term savings scheme backed by the Government of India,
-            offering attractive interest rates and tax benefits.
+            Backed by the Government of India, PPF is one of the safest
+            investment options with guaranteed returns and no market risk.
           </p>
-          <ul class="list-unstyled">
-            <li>✅ Tax-free returns under Section 80C</li>
-            <li>✅ Safe and risk-free investment</li>
-            <li>✅ Flexible deposit options (₹500 to ₹1.5 lakh per year)</li>
-          </ul>
-        </div>
+          <mat-chip-set>
+            <mat-chip>Govt Backed</mat-chip>
+            <mat-chip>Risk Free</mat-chip>
+          </mat-chip-set>
+        </mat-card>
 
-        <!-- Example -->
-        <div class="col-lg-6 text-center">
-          <h2 class="fw-bold text-success mb-3">📈 Example Calculation</h2>
-          <p class="mb-3">Suppose you invest <strong>₹1,50,000</strong> every year for <strong>15 years</strong> at <strong>7.1%</strong> annual interest.</p>
-          <p class="lead">🔥 <strong>Estimated Maturity Amount ≈ ₹40+ Lakhs!</strong></p>
-          <p class="text-muted mb-4">(*Note: Interest rates are subject to government changes.)</p>
-          <a class="btn btn-success btn-lg px-4 py-2" [routerLink]="'/ppf-calculator'">
-            <i class="bi bi-cash-coin me-2"></i>Calculate Now
-          </a>
-        </div>
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">money_off</mat-icon>
+          <h3>Tax Benefits (EEE)</h3>
+          <p>
+            Enjoy triple tax exemption - investment deduction under 80C,
+            tax-free interest, and tax-free maturity amount.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Section 80C</mat-chip>
+            <mat-chip>Tax Free</mat-chip>
+          </mat-chip-set>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">lock_clock</mat-icon>
+          <h3>Long-term Wealth Building</h3>
+          <p>
+            Perfect for retirement planning and long-term goals with 15-year
+            lock-in. Can be extended in blocks of 5 years.
+          </p>
+          <mat-chip-set>
+            <mat-chip>15 Year Lock-in</mat-chip>
+            <mat-chip>Extendable</mat-chip>
+          </mat-chip-set>
+        </mat-card>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Example Section -->
+  <section class="example-section">
+    <div class="example-container">
+      <div class="example-content">
+        <div class="example-badge">
+          <mat-icon>calculate</mat-icon>
+          <span>Real Example</span>
+        </div>
+        <h2 class="example-title">See Your PPF Grow</h2>
+        <p class="example-description">
+          Let's understand how your small annual contributions can create
+          substantial wealth over 15 years.
+        </p>
+        <div class="example-stats">
+          <div class="example-stat">
+            <mat-icon>currency_rupee</mat-icon>
+            <div>
+              <span class="stat-label">Annual Investment</span>
+              <span class="stat-value">₹1,50,000</span>
+            </div>
+          </div>
+          <div class="example-stat">
+            <mat-icon>schedule</mat-icon>
+            <div>
+              <span class="stat-label">Investment Period</span>
+              <span class="stat-value">15 Years</span>
+            </div>
+          </div>
+          <div class="example-stat">
+            <mat-icon>percent</mat-icon>
+            <div>
+              <span class="stat-label">Interest Rate</span>
+              <span class="stat-value">7.1% p.a.</span>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="example-result">
+          <div class="result-item">
+            <span class="result-label">Total Investment</span>
+            <span class="result-value">₹22,50,000</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Interest Earned</span>
+            <span class="result-value success">₹18,25,000</span>
+          </div>
+          <div class="result-item highlight">
+            <span class="result-label">Maturity Value</span>
+            <span class="result-value large">₹40,75,000</span>
+          </div>
+        </div>
+        <p class="example-note">
+          <mat-icon>info</mat-icon>
+          That's <strong>₹40+ Lakhs</strong> of tax-free wealth in 15 years!
+        </p>
+      </div>
+      <div class="example-visual">
+        <img src="assets/images/PPF_illustration.svg" alt="PPF Growth" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <mat-icon class="cta-icon">account_balance</mat-icon>
+      <h2>Start Your PPF Journey Today</h2>
+      <p>
+        Plan your secure financial future with India's most trusted savings
+        scheme
+      </p>
+      <button mat-raised-button color="primary" class="cta-button" (click)="calculatePPF()">
+        <mat-icon>calculate</mat-icon>
+        Calculate Your Returns
+      </button>
+    </div>
+  </section>
+</div>

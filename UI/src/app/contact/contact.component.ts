@@ -1,21 +1,13 @@
-import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
 import {
-  FormsModule,
   FormBuilder,
   FormGroup,
-  Validators,
+  FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatRippleModule } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppService } from '../services/app.service';
 import { MaterialModules } from '../shared/material.standalone';
 
@@ -55,14 +47,13 @@ export class ContactComponent {
     {
       icon: 'phone',
       title: 'Call Us',
-      value: '+91 98765 43210',
-      link: 'tel:+919876543210',
+      value: '+91 9790 82 42 37',
+      link: 'tel:+919790824237',
     },
     {
       icon: 'location_on',
-      title: 'Visit Us',
-      value: 'New Delhi, India',
-      link: 'https://maps.google.com',
+      title: 'Location',
+      value: 'Chennai, India',
     },
     {
       icon: 'schedule',

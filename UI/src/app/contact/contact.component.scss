@@ -283,14 +283,8 @@
       }
 
       &.card-1 {
-        top: 15%;
-        right: 5%;
-        animation-delay: 0s;
-      }
-
-      &.card-2 {
-        bottom: 20%;
-        left: 5%;
+        bottom: 50%;
+        left: 8%;
         animation-delay: 2s;
       }
     }
@@ -325,7 +319,7 @@
 
 // Main Content
 .contact-content {
-  padding: 4rem 1rem;
+  padding: 4rem 1rem 1rem;
   position: relative;
   margin-top: -3rem;
   z-index: 2;
@@ -478,8 +472,7 @@
 
   .info-card,
   .social-card,
-  .faq-card,
-  .map-card {
+  .faq-card {
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -686,61 +679,66 @@
 }
 
 // Support Section
-.support-section {
-  padding: 4rem 1rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+.support {
+  display: grid;
+  grid-template-columns: 66% 31%;
+  gap: 1rem;
 
-  .support-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+  .support-section {
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    .support-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
 
-    .support-icon {
-      width: 80px;
-      height: 80px;
-      font-size: 4rem;
-      background: $primary-gradient;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 0 auto 1.5rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
+      .support-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 4rem;
+        background: $primary-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0 auto 1.5rem;
+        animation: pulse 2s ease-in-out infinite;
+      }
 
-    h2 {
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      font-weight: 700;
-      color: #1a1a1a;
-      margin: 0 0 1rem;
-    }
+      h2 {
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 1rem;
+      }
 
-    p {
-      font-size: 1.125rem;
-      color: #666;
-      line-height: 1.6;
-      margin: 0 0 2rem;
-    }
+      p {
+        font-size: 1.125rem;
+        color: #666;
+        line-height: 1.6;
+        margin: 0 0 2rem;
+      }
 
-    .support-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      .support-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
 
-      button {
-        height: 52px;
-        padding: 0 2rem;
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 12px;
-        @include smooth-transition;
+        button {
+          height: 52px;
+          padding: 0 2rem;
+          font-size: 1rem;
+          font-weight: 600;
+          border-radius: 12px;
+          @include smooth-transition;
 
-        mat-icon {
-          margin-right: 0.5rem;
-        }
+          mat-icon {
+            margin-right: 0.5rem;
+          }
 
-        &:hover {
-          transform: translateY(-2px);
+          &:hover {
+            transform: translateY(-2px);
+          }
         }
       }
     }
@@ -824,11 +822,6 @@
         padding: 1rem;
 
         &.card-1 {
-          top: 10%;
-          right: 2%;
-        }
-
-        &.card-2 {
           bottom: 15%;
           left: 2%;
         }
@@ -955,12 +948,7 @@
         padding: 0.75rem;
 
         &.card-1 {
-          top: 5%;
-          right: 0;
-        }
-
-        &.card-2 {
-          bottom: 10%;
+          bottom: 50%;
           left: 0;
         }
 

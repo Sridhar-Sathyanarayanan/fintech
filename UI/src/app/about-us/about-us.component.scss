@@ -88,7 +88,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 // Hero Section
 .about-hero {
   position: relative;
-  padding: 6rem 2rem 4rem;
+  padding: 2rem;
   overflow: hidden;
   background: $hero-gradient;
   color: white;
@@ -206,7 +206,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-
+      padding-bottom: 2rem;
       button {
         height: 56px;
         padding: 0 2rem;
@@ -235,7 +235,6 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 
   .hero-visual {
     position: relative;
-    height: 500px;
     animation: slideUp 0.6s ease-out 0.2s both;
 
     .visual-decoration {
@@ -348,7 +347,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 // Stats Section
 .stats-section {
   background: white;
-  padding: 3rem 1rem;
+  padding: 1rem;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
   position: relative;
   margin-top: -2rem;
@@ -440,7 +439,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 
 // Mission Section
 .mission-section {
-  padding: 5rem 1rem;
+  padding: 2rem 1rem;
 
   .mission-container {
     max-width: 1400px;
@@ -476,10 +475,11 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 
   .mission-visual {
     animation: slideUp 0.6s ease-out 0.2s both;
-
+    
     img {
       width: 100%;
       height: auto;
+      border-radius: 10px;
       filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.1));
       animation: floatImage 8s ease-in-out infinite;
     }
@@ -488,7 +488,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 
 // Values Section
 .values-section {
-  padding: 5rem 1rem;
+  padding: 2rem 1rem;
   background: linear-gradient(180deg, #ffffff 0%, #f8f9ff 100%);
 
   .values-container {
@@ -544,7 +544,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 
 // Features Section
 .features-section {
-  padding: 5rem 1rem;
+  padding: 2rem 1rem;
 
   .features-container {
     max-width: 1400px;
@@ -931,7 +931,7 @@ $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
 
 // CTA Section
 .cta-section {
-  padding: 5rem 1rem;
+  padding: 2rem 1rem;
   background: $hero-gradient;
   position: relative;
   overflow: hidden;
