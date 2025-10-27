@@ -72,6 +72,11 @@ export class AppComponent {
           label: 'Home Loan Calculator',
           route: '/home-loan-calculator',
           icon: 'home_work'
+        },
+        {
+          label: 'NPS Calculator',
+          route: '/nps-calculator',
+          icon: 'home_work'
         }
       ]
     },
@@ -79,11 +84,6 @@ export class AppComponent {
       label: 'Tax Slabs',
       route: '/tax-slabs',
       icon: 'receipt_long'
-    },
-    {
-      label: 'Privacy',
-      route: '/privacy-policy',
-      icon: 'privacy_tip'
     },
     {
       label: 'About Us',

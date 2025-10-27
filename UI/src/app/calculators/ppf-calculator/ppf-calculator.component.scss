@@ -14,7 +14,7 @@
   }
 }
 
-// Animations (same as SIP calculator)
+// Animations (same as ppf calculator)
 @keyframes float {
   0%,
   100% {
@@ -78,7 +78,7 @@
   background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
 }
 
-// Hero Section (similar to SIP but with blue theme)
+// Hero Section (similar to ppf but with blue theme)
 .ppf-hero {
   position: relative;
   padding: 2rem;
@@ -548,7 +548,7 @@
   }
 }
 
-// Amount Field & Sliders (same as SIP)
+// Amount Field & Sliders (same as ppf)
 .amount-field {
   width: 100%;
   margin-bottom: 1rem;
@@ -606,7 +606,7 @@
   }
 }
 
-// Action Buttons (same as SIP)
+// Action Buttons (same as ppf)
 .action-buttons {
   display: flex;
   gap: 1rem;
@@ -635,7 +635,7 @@
   }
 }
 
-// Results Section (same structure as SIP but blue theme)
+// Results Section (same structure as ppf but blue theme)
 .results-section {
   display: flex;
   flex-direction: column;
@@ -735,7 +735,7 @@
   }
 }
 
-// Chart Card (same as SIP)
+// Chart Card (same as ppf)
 .chart-card {
   padding: 2rem;
   border-radius: 20px;
@@ -804,7 +804,7 @@
   }
 }
 
-// Breakdown Card (same structure as SIP)
+// Breakdown Card (same structure as ppf)
 .breakdown-card {
   padding: 2rem;
   border-radius: 20px;
@@ -908,7 +908,7 @@
   }
 }
 
-// Info, Example, CTA Sections (same as SIP but adapted for PPF)
+// Info, Example, CTA Sections (same as ppf but adapted for PPF)
 .info-section {
   padding: 5rem 1rem;
   background: white;
@@ -977,7 +977,7 @@
   }
 }
 
-// Example Section (same structure as SIP)
+// Example Section (same structure as ppf)
 .example-section {
   padding: 5rem 1rem;
   background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
@@ -1224,7 +1224,7 @@
   }
 }
 
-// RESPONSIVE DESIGN (same breakpoints as SIP)
+// RESPONSIVE DESIGN (same breakpoints as ppf)
 @media (max-width: 1200px) {
   .calculator-section .calculator-grid {
     grid-template-columns: 400px 1fr;

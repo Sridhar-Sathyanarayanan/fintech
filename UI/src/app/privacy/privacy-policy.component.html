@@ -1,0 +1,398 @@
+<!-- PROGRESS BAR -->
+<div class="scroll-progress" [style.width.%]="scrollProgress"></div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-background"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>shield</mat-icon>
+        <span>Last Updated: {{ lastUpdated }}</span>
+      </div>
+      <h1 class="hero-title">
+        Privacy
+        <span class="gradient-text">Policy</span>
+      </h1>
+      <p class="hero-subtitle">
+        At <strong>AMKRTech</strong>, we are committed to protecting your
+        privacy and ensuring the security of your personal information.
+      </p>
+      <div class="hero-features">
+        <div class="feature-chip">
+          <mat-icon>check_circle</mat-icon>
+          <span>Secure Data Storage</span>
+        </div>
+        <div class="feature-chip">
+          <mat-icon>block</mat-icon>
+          <span>No Third-Party Sharing</span>
+        </div>
+        <div class="feature-chip">
+          <mat-icon>visibility</mat-icon>
+          <span>Full Transparency</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="policy-content">
+  <div class="policy-container">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="policy-sidebar">
+      <div class="sidebar-sticky">
+        <h3 class="sidebar-title">Quick Navigation</h3>
+        <nav class="sidebar-nav">
+          <button *ngFor="let section of policySections" (click)="scrollToSection(section.id)"
+            [class.active]="isActiveSection(section.id)" class="nav-item" mat-button>
+            <mat-icon>{{ section.icon }}</mat-icon>
+            <span>{{ section.title }}</span>
+          </button>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MOBILE NAVIGATION -->
+    <div class="mobile-nav">
+      <h3 class="mobile-nav-title">Quick Navigation</h3>
+      <div class="mobile-nav-grid">
+        <button *ngFor="let section of policySections" (click)="scrollToSection(section.id)"
+          [class.active]="isActiveSection(section.id)" class="mobile-nav-item" mat-button>
+          <mat-icon>{{ section.icon }}</mat-icon>
+          <span>{{ section.title }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <main class="policy-main">
+      <!-- INTRODUCTION -->
+      <section id="introduction" class="policy-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon>description</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Introduction</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              Welcome to AMKRTech's Privacy Policy. This document outlines how
+              we collect, use, protect, and handle your personal information
+              when you use our finance and tax consultancy services.
+            </p>
+            <p class="section-text">
+              We are committed to ensuring that your privacy is protected.
+              Should we ask you to provide certain information by which you can
+              be identified when using our services, you can be assured that it
+              will only be used in accordance with this privacy statement.
+            </p>
+            <p class="section-text">
+              By using our services, you agree to the collection and use of
+              information in accordance with this policy. This policy is
+              compliant with applicable data protection laws in India.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- INFORMATION COLLECTION -->
+      <section id="information-collection" class="policy-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon>visibility</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Information We Collect</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              To provide you with our finance and tax consultancy services, we
+              collect the following types of information:
+            </p>
+
+            <div class="info-grid">
+              <div class="info-card" *ngFor="let category of infoCategories">
+                <h3 class="info-title">
+                  <mat-icon class="bullet-icon">fiber_manual_record</mat-icon>
+                  {{ category.title }}
+                </h3>
+                <ul class="info-list">
+                  <li *ngFor="let item of category.items">
+                    <mat-icon>chevron_right</mat-icon>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="alert-box info">
+              <mat-icon>info</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Important Note</h4>
+                <p class="alert-text">
+                  We only collect information that is necessary for providing
+                  our services. You have the right to know what information we
+                  collect and how it is used.
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- HOW WE USE -->
+      <section id="how-we-use" class="policy-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon>settings</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">How We Use Your Information</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              The information we collect is used exclusively for the following
+              purposes:
+            </p>
+
+            <div class="usage-list">
+              <div class="usage-item" *ngFor="let usage of usageItems; let i = index">
+                <div class="usage-number">{{ i + 1 }}</div>
+                <div class="usage-content">
+                  <h3 class="usage-title">{{ usage.title }}</h3>
+                  <p class="usage-desc">{{ usage.desc }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert-box success">
+              <mat-icon>check_circle</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">No Third-Party Sharing</h4>
+                <p class="alert-text">
+                  We do not sell, rent, or share your personal information with
+                  third parties for marketing purposes. Your data remains
+                  confidential and is used solely for providing our services.
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- DATA SECURITY -->
+      <section id="data-security" class="policy-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon>lock</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Data Security</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              We implement robust security measures to protect your personal and
+              financial information from unauthorized access, alteration,
+              disclosure, or destruction.
+            </p>
+
+            <div class="security-grid">
+              <div class="security-card" *ngFor="let feature of securityFeatures">
+                <mat-icon class="security-icon">{{ feature.icon }}</mat-icon>
+                <h3 class="security-title">{{ feature.title }}</h3>
+                <p class="security-desc">{{ feature.desc }}</p>
+              </div>
+            </div>
+
+            <div class="alert-box warning">
+              <div class="alert-content">
+                <h4 class="alert-title">Data Retention</h4>
+                <p class="alert-text">
+                  We retain your information for as long as necessary to provide
+                  services and comply with legal obligations. Financial and tax
+                  records are maintained as per regulatory requirements in India
+                  (typically 7-10 years).
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- YOUR RIGHTS -->
+      <section id="your-rights" class="policy-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon>verified_user</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Your Rights</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              You have the following rights regarding your personal information:
+            </p>
+
+            <div class="rights-list">
+              <div class="right-item" *ngFor="let right of userRights">
+                <mat-icon class="right-check">check_circle</mat-icon>
+                <div class="right-content">
+                  <h3 class="right-title">{{ right.title }}</h3>
+                  <p class="right-desc">{{ right.desc }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="exercise-rights">
+              <h4 class="exercise-title">How to Exercise Your Rights</h4>
+              <p class="exercise-text">
+                To exercise any of these rights, please contact us at
+                <a href="mailto:support@amkrtech.com" class="email-link">support&#64;amkrtech.com</a>. We will respond
+                to your request within 30 days.
+              </p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- COOKIES -->
+      <section id="cookies" class="policy-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon>cookie</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Cookies & Analytics</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              We use cookies and analytics tools to enhance your experience and
+              understand how our services are used.
+            </p>
+
+            <div class="cookie-cards">
+              <div class="cookie-card" *ngFor="let info of cookieInfo" [ngClass]="info.type">
+                <h3 class="cookie-title">
+                  <mat-icon class="bullet-icon">fiber_manual_record</mat-icon>
+                  {{ info.title }}
+                </h3>
+                <p class="cookie-desc">{{ info.desc }}</p>
+                <ul class="cookie-list" *ngIf="info.items && info.items.length">
+                  <li *ngFor="let item of info.items">
+                    <mat-icon>chevron_right</mat-icon>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="policy-section">
+        <mat-card class="section-card contact-card">
+          <div class="section-header">
+            <div class="icon-wrapper light">
+              <mat-icon>contact_support</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title light">Contact Us</h2>
+              <div class="title-underline light"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text light">
+              If you have any questions about this Privacy Policy or our data
+              practices, please don't hesitate to contact us:
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <mat-icon>business</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Company Name</h4>
+                  <p class="contact-value">AMKRTech</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <mat-icon>mail</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Email Address</h4>
+                  <p class="contact-value">
+                    <a href="mailto:support@amkrtech.com">support&#64;amkrtech.com</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <mat-icon>location_on</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Location</h4>
+                  <p class="contact-value">India</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <mat-icon>schedule</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Response Time</h4>
+                  <p class="contact-value">Within 30 days</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <button mat-raised-button color="accent" class="contact-button">
+                <mat-icon>mail</mat-icon>
+                Email Us
+              </button>
+              <button mat-button class="contact-button-outline" routerLink="/">
+                <mat-icon>home</mat-icon>
+                Back to Home
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2>Questions About Your Privacy?</h2>
+      <p>
+        We're here to help. Contact us anytime for clarifications about our
+        privacy practices.
+      </p>
+      <button mat-raised-button color="primary" class="cta-button-large">
+        <mat-icon>contact_support</mat-icon>
+        Get in Touch
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NPSCalculatorComponent } from './nps-calculator.component';
 
-import { PrivacyComponent } from './privacy.component';
-
-describe('PrivacyComponent', () => {
-  let component: PrivacyComponent;
-  let fixture: ComponentFixture<PrivacyComponent>;
+describe('TaxSlabCalculatorComponent', () => {
+  let component: NPSCalculatorComponent;
+  let fixture: ComponentFixture<NPSCalculatorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PrivacyComponent]
+      imports: [NPSCalculatorComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PrivacyComponent);
+    fixture = TestBed.createComponent(NPSCalculatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

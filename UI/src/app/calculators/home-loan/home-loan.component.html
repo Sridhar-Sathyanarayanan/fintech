@@ -1,94 +1,419 @@
-<div class="container mt-5">
-  <div class="row">
-    <!-- Left Card -->
-    <div class="col-md-6 mb-4">
-      <mat-card class="p-4">
-        <h4 class="mb-4">Home Loan Calculator</h4>
-
-        <div class="form-group mb-4">
-          <label for="amount">Loan Amount (₹)</label>
-          <div class="d-flex align-items-center">
-            <input type="range" id="amount" class="form-range" min="100000" max="10000000" step="10000"
-              [(ngModel)]="loanAmount" (input)="updateCalculation()" />
-            <input type="text" class="form-control ms-3" style="width: 120px;" [(ngModel)]="loanAmount" (input)="updateCalculation()">
-          </div>
-        </div>
-
-        <div class="form-group mb-4">
-          <label for="rate">Interest Rate (%)</label>
-          <div class="d-flex align-items-center">
-            <input type="range" id="rate" class="form-range" min="5" max="15" step="0.1"
-              [(ngModel)]="interestRate" (input)="updateCalculation()" />
-            <input type="text" class="form-control ms-3" style="width: 120px;" [(ngModel)]="interestRate" (input)="updateCalculation()">
-          </div>
-        </div>
-
-        <div class="form-group mb-4">
-          <label for="tenure">Tenure (years)</label>
-          <input type="number" id="tenure" class="form-control" [(ngModel)]="loanTenure" (input)="updateCalculation()" min="1" max="30">
-        </div>
-
-        <button mat-raised-button color="primary" class="w-100" (click)="calculateEMI()">
-          Calculate
-        </button>
-      </mat-card>
+<div class="loan-calculator-page">
+  <!-- Hero Section -->
+  <section class="loan-hero">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
     </div>
-
-    <!-- Right Card -->
-    <div class="col-md-6 mb-4">
-      <mat-card class="p-4 text-center">
-        <h5 class="mb-4">Loan Summary</h5>
-
-        <div >
-          <div class="mb-4">
-            <p><strong>Monthly EMI:</strong> ₹{{ monthlyEMI | number:'1.0-2' }}</p>
-            <p><strong>Total Interest Payable:</strong> ₹{{ totalInterest | number:'1.0-2' }}</p>
-            <p><strong>Total Amount Payable:</strong> ₹{{ totalPayment | number:'1.0-2' }}</p>
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <mat-icon>home</mat-icon>
+          <span>Home Loan Planner</span>
+        </div>
+        <h1 class="hero-title">
+          Home Loan Calculator
+          <span class="gradient-text">Your Dream Home Awaits</span>
+        </h1>
+        <p class="hero-subtitle">
+          Calculate your monthly EMI, plan your budget, and understand your home
+          loan journey. Make informed decisions with accurate projections and
+          detailed breakdowns.
+        </p>
+        <div class="hero-features">
+          <div class="feature-chip">
+            <mat-icon>calculate</mat-icon>
+            <span>Instant EMI Calculation</span>
           </div>
+          <div class="feature-chip">
+            <mat-icon>analytics</mat-icon>
+            <span>Detailed Breakdown</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>savings</mat-icon>
+            <span>Plan Better</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-decoration decoration-1"></div>
+        <div class="visual-decoration decoration-2"></div>
+        <div class="hero-image-wrapper">
+          <img src="assets/images/Home_Loan_Calculator.jpeg" alt="Home Loan" class="hero-image" />
+        </div>
+        <div class="floating-card card-1">
+          <mat-icon>home_work</mat-icon>
+          <div class="card-text">
+            <span class="card-label">EMI Amount</span>
+            <span class="card-value">₹42,000</span>
+          </div>
+        </div>
+        <div class="floating-card card-2">
+          <mat-icon>trending_down</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Interest Rate</span>
+            <span class="card-value">8.5%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="d-flex justify-content-center">
-            <div style="width: 250px; height: 250px">
-              <canvas baseChart [data]="{
-                  labels: pieChartLabels,
-                  datasets: [{ data: pieChartData }]
-                }" [type]="pieChartType">
-              </canvas>
+  <!-- Calculator Section -->
+  <section class="calculator-section">
+    <div class="calculator-container">
+      <div class="calculator-grid">
+        <!-- Left Side: Input Controls -->
+        <mat-card class="input-card">
+          <div class="card-header">
+            <mat-icon class="header-icon">tune</mat-icon>
+            <div>
+              <h2 class="card-title">Loan Parameters</h2>
+              <p class="card-subtitle">Customize your home loan details</p>
             </div>
           </div>
-         </div> 
-        <ng-template #emptyState>
-          <p>Enter details and click Calculate</p>
-        </ng-template>
+
+          <mat-divider></mat-divider>
+
+          <div class="input-controls">
+            <!-- Loan Amount -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>currency_rupee</mat-icon>
+                Loan Amount
+              </label>
+              <mat-form-field appearance="outline" class="amount-field">
+                <span matPrefix>₹&nbsp;</span>
+                <input matInput type="number" [value]="loanAmount()"
+                  (input)="onAmountChange($event)" min="100000" max="100000000" />
+                <mat-icon matSuffix>home</mat-icon>
+                <mat-hint>Min: ₹1L | Max: ₹10Cr</mat-hint>
+              </mat-form-field>
+              <mat-slider min="100000" max="10000000" step="100000" 
+                (input)="onAmountChange($event)" class="custom-slider">
+                <input matSliderThumb [value]="loanAmount()"/>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>₹1L</span>
+                <span>₹10Cr</span>
+              </div>
+            </div>
+
+            <!-- Interest Rate -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>percent</mat-icon>
+                Interest Rate (per annum)
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ interestRate() }}</span>
+                <span class="value-unit">% p.a.</span>
+              </div>
+              <mat-slider min="5" max="20" step="0.1" 
+                (input)="onRateChange($event)" class="custom-slider">
+                <input matSliderThumb [value]="interestRate()"/>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>5%</span>
+                <span>20%</span>
+              </div>
+            </div>
+
+            <!-- Loan Tenure -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>schedule</mat-icon>
+                Loan Tenure
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ loanTenure() }}</span>
+                <span class="value-unit">Years</span>
+              </div>
+              <mat-slider min="1" max="30" step="1"  (input)="onTenureChange($event)"
+                class="custom-slider">
+                <input matSliderThumb [value]="loanTenure()"/>
+              </mat-slider>
+              <div class="slider-labels">
+                <span>1 Year</span>
+                <span>30 Years</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button mat-raised-button color="primary" (click)="calculateEMI()" class="calc-button">
+                <mat-icon>calculate</mat-icon>
+                Calculate EMI
+              </button>
+              <button mat-stroked-button (click)="resetCalculator()" class="reset-button">
+                <mat-icon>refresh</mat-icon>
+                Reset
+              </button>
+            </div>
+          </div>
+        </mat-card>
+
+        <!-- Right Side: Results -->
+        <div class="results-section">
+          <!-- Summary Cards -->
+          <div class="summary-cards">
+            <mat-card class="summary-card emi">
+              <div class="card-icon">
+                <mat-icon>payments</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Monthly EMI</span>
+                <span class="card-value highlight">₹{{ monthlyEMI() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card principal">
+              <div class="card-icon">
+                <mat-icon>account_balance</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Principal Amount</span>
+                <span class="card-value">₹{{ loanAmount() | number : "1.0-0" }}</span>
+                <span class="card-percentage">{{ principalPercentage | number : "1.1-1" }}%</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card interest">
+              <div class="card-icon">
+                <mat-icon>trending_up</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Total Interest</span>
+                <span class="card-value">₹{{ totalInterest() | number : "1.0-0" }}</span>
+                <span class="card-percentage">{{ interestPercentage | number : "1.1-1" }}%</span>
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card total">
+              <div class="card-icon">
+                <mat-icon>account_balance_wallet</mat-icon>
+              </div>
+              <div class="card-content">
+                <span class="card-label">Total Payment</span>
+                <span class="card-value">₹{{ totalPayment() | number : "1.0-0" }}</span>
+              </div>
+            </mat-card>
+          </div>
+
+          <!-- Charts -->
+          <mat-card class="chart-card">
+            <h3 class="chart-title">
+              <mat-icon>pie_chart</mat-icon>
+              Loan Breakdown
+            </h3>
+            <div class="chart-wrapper doughnut-wrapper">
+              <canvas baseChart [data]="doughnutChartData" [options]="doughnutChartOptions" type="doughnut">
+              </canvas>
+            </div>
+            <div class="breakdown-summary">
+              <div class="summary-item">
+                <div class="color-indicator principal-color"></div>
+                <div class="summary-details">
+                  <span class="summary-label">Principal</span>
+                  <span class="summary-value">₹{{ loanAmount() | number : "1.0-0" }}</span>
+                </div>
+              </div>
+              <div class="summary-item">
+                <div class="color-indicator interest-color"></div>
+                <div class="summary-details">
+                  <span class="summary-label">Interest</span>
+                  <span class="summary-value">₹{{ totalInterest() | number : "1.0-0" }}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+
+          <mat-card class="chart-card">
+            <h3 class="chart-title">
+              <mat-icon>show_chart</mat-icon>
+              Loan Amortization
+            </h3>
+            <div class="chart-wrapper line-wrapper">
+              <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line">
+              </canvas>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <!-- Yearly Breakdown Table -->
+      @if (yearlyBreakdown.length > 0) {
+      <mat-card class="breakdown-card">
+        <h3 class="breakdown-title">
+          <mat-icon>table_chart</mat-icon>
+          Year-wise Amortization Schedule
+        </h3>
+        <div class="breakdown-table-wrapper">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Opening Balance</th>
+                <th>EMI Paid</th>
+                <th>Principal Paid</th>
+                <th>Interest Paid</th>
+                <th>Closing Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of yearlyBreakdown; track item.year) {
+              <tr>
+                <td class="year-cell">
+                  <mat-icon>calendar_today</mat-icon>
+                  Year {{ item.year }}
+                </td>
+                <td class="amount-cell">
+                  ₹{{ item.openingBalance | number : "1.0-0" }}
+                </td>
+                <td class="emi-cell">₹{{ item.emiPaid | number : "1.0-0" }}</td>
+                <td class="principal-cell">
+                  <span class="principal-badge">₹{{ item.principal | number : "1.0-0" }}</span>
+                </td>
+                <td class="interest-cell">
+                  <span class="interest-badge">₹{{ item.interest | number : "1.0-0" }}</span>
+                </td>
+                <td class="closing-cell">
+                  ₹{{ item.closingBalance | number : "1.0-0" }}
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       </mat-card>
+      }
     </div>
-  </div>
+  </section>
 
-  <!-- New Content Section Below Cards -->
-  <div class="row mt-5">
-    <div class="col-12">
-      <mat-card class="p-4">
-        <h4>What is a Home Loan Calculator?</h4>
-        <p class="mt-3">
-          A Home Loan Calculator is an easy-to-use online tool that helps you estimate your monthly loan repayment amount (EMI)
-          based on the loan amount, interest rate, and tenure you choose. It helps you plan your finances better by giving
-          you a clear idea of the monthly commitment required before applying for a home loan.
-        </p>
+  <!-- Info Section -->
+  <section class="info-section">
+    <div class="info-container">
+      <h2 class="info-title">Understanding Home Loans</h2>
+      <div class="info-grid">
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">calculate</mat-icon>
+          <h3>What is EMI?</h3>
+          <p>
+            EMI (Equated Monthly Installment) is the fixed amount you pay every
+            month towards your home loan. It includes both principal and
+            interest components.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Fixed Payment</mat-chip>
+            <mat-chip>Monthly</mat-chip>
+          </mat-chip-set>
+        </mat-card>
 
-        <h5 class="mt-4">Benefits of Using a Home Loan Calculator</h5>
-        <ul class="mt-2">
-          <li>Quickly calculate EMI without manual formulas.</li>
-          <li>Adjust loan amount, interest rate, and tenure to see different EMI scenarios.</li>
-          <li>Plan your budget and loan repayment strategy effectively.</li>
-          <li>Understand the total interest payable over the loan period.</li>
-        </ul>
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">timeline</mat-icon>
+          <h3>Loan Amortization</h3>
+          <p>
+            Initially, a larger portion of your EMI goes towards interest. Over
+            time, the principal component increases while interest decreases.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Reducing Balance</mat-chip>
+            <mat-chip>Time-based</mat-chip>
+          </mat-chip-set>
+        </mat-card>
 
-        <h5 class="mt-4">How Does It Work?</h5>
-        <p class="mt-2">
-          Simply enter the loan amount you wish to borrow, the interest rate offered by your lender, and the tenure
-          (in years). The calculator will instantly display your Monthly EMI, total interest payable, and total repayment amount.
-          This helps you make informed decisions before committing to a loan.
-        </p>
-      </mat-card>
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">tips_and_updates</mat-icon>
+          <h3>Save on Interest</h3>
+          <p>
+            Make prepayments when possible, choose shorter tenure if affordable,
+            or negotiate for lower interest rates to reduce total interest
+            burden.
+          </p>
+          <mat-chip-set>
+            <mat-chip>Prepayment</mat-chip>
+            <mat-chip>Smart Planning</mat-chip>
+          </mat-chip-set>
+        </mat-card>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Example Section -->
+  <section class="example-section">
+    <div class="example-container">
+      <div class="example-content">
+        <div class="example-badge">
+          <mat-icon>home</mat-icon>
+          <span>Real Example</span>
+        </div>
+        <h2 class="example-title">Plan Your Dream Home</h2>
+        <p class="example-description">
+          Let's see how a typical home loan works with realistic parameters.
+        </p>
+        <div class="example-stats">
+          <div class="example-stat">
+            <mat-icon>currency_rupee</mat-icon>
+            <div>
+              <span class="stat-label">Loan Amount</span>
+              <span class="stat-value">₹50,00,000</span>
+            </div>
+          </div>
+          <div class="example-stat">
+            <mat-icon>schedule</mat-icon>
+            <div>
+              <span class="stat-label">Loan Tenure</span>
+              <span class="stat-value">20 Years</span>
+            </div>
+          </div>
+          <div class="example-stat">
+            <mat-icon>percent</mat-icon>
+            <div>
+              <span class="stat-label">Interest Rate</span>
+              <span class="stat-value">8.5% p.a.</span>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="example-result">
+          <div class="result-item">
+            <span class="result-label">Monthly EMI</span>
+            <span class="result-value emi">₹43,391</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Total Interest</span>
+            <span class="result-value interest">₹54,13,840</span>
+          </div>
+          <div class="result-item highlight">
+            <span class="result-label">Total Amount Payable</span>
+            <span class="result-value large">₹1,04,13,840</span>
+          </div>
+        </div>
+        <p class="example-note">
+          <mat-icon>info</mat-icon>
+          Plan your finances wisely to afford your
+          <strong>dream home</strong> comfortably!
+        </p>
+      </div>
+      <div class="example-visual">
+        <img src="assets/images/home_loan_illustration.jpg" alt="Dream Home" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <mat-icon class="cta-icon">home</mat-icon>
+      <h2>Ready to Calculate Your Home Loan?</h2>
+      <p>
+        Use our calculator to plan your EMI and make your dream home a reality
+      </p>
+      <button mat-raised-button color="primary" class="cta-button" (click)="calculateEMI()">
+        <mat-icon>calculate</mat-icon>
+        Calculate Now
+      </button>
+    </div>
+  </section>
 </div>

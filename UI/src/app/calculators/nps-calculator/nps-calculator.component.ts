@@ -11,10 +11,10 @@ import { MaterialModules } from '../../shared/material.standalone';
     MaterialModules,
     BaseChartDirective,
   ],
-  templateUrl: './tax-slab-calculator.component.html',
-  styleUrls: ['./tax-slab-calculator.component.scss'],
+  templateUrl: './nps-calculator.component.html',
+  styleUrls: ['./nps-calculator.component.scss'],
 })
-export class TaxSlabCalculatorComponent {
+export class NPSCalculatorComponent {
   years = ['2023–2024', '2024–2025', '2025–2026'];
   selectedYear = '2025–2026';
   
