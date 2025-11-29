@@ -1,0 +1,280 @@
+<!-- BANNER SECTION -->
+<app-banner-section title="Market" gradientText="Insights"
+  subtitle="Stay informed with real-time market data, expert analysis, and actionable intelligence for smarter investment decisions."
+  badge="Updated Live" badgeIcon="show_chart" [features]="bannerFeatures" [visualCards]="bannerCards"
+  illustration="/assets/images/market_insights.svg">
+</app-banner-section>
+
+<!-- LAST UPDATED INDICATOR -->
+<div class="last-updated-wrapper">
+  <div class="last-updated-badge">
+    <mat-icon class="pulse-icon">update</mat-icon>
+    <span class="update-label">Last Updated:</span>
+    <span class="update-time">{{ lastUpdated() }}</span>
+    <div class="live-indicator">
+      <span class="live-dot"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE MARKET INDICES -->
+<section class="market-indices">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Live Market Indices</h2>
+      <p class="section-subtitle">Real-time tracking of major Indian indices</p>
+    </div>
+    <div class="indices-grid">
+      @for (index of majorIndices(); track index.name) {
+      <mat-card class="index-card">
+        <div class="index-header">
+          <div class="index-info">
+            <h3 class="index-name">{{ index.name }}</h3>
+            <p class="index-description">{{ index.description }}</p>
+          </div>
+          <mat-icon [class]="index.isPositive ? 'positive' : 'negative'">
+            {{ index.icon }}
+          </mat-icon>
+        </div>
+        <div class="index-value">{{ index.value }}</div>
+        <div class="index-change" [class.positive]="index.isPositive" [class.negative]="!index.isPositive">
+          <span class="change-value">{{ index.change }}</span>
+          <span class="change-percent">({{ index.changePercent }})</span>
+        </div>
+        <div class="index-footer">
+          <span class="index-timestamp">
+            <mat-icon>schedule</mat-icon>
+            {{ index.timestamp }}
+          </span>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- MARKET MOVERS -->
+<section class="market-movers">
+  <div class="section-container">
+    <div class="movers-grid">
+      <div class="movers-section">
+        <h3 class="movers-title">
+          <mat-icon>trending_up</mat-icon>
+          Top Gainers
+        </h3>
+        <div class="movers-list">
+          @for (stock of topGainers; track stock.symbol) {
+          <div class="mover-item gainer">
+            <div class="mover-info">
+              <span class="mover-symbol">{{ stock.symbol }}</span>
+              <span class="mover-name">{{ stock.name }}</span>
+            </div>
+            <div class="mover-data">
+              <span class="mover-price">₹{{ stock.price }}</span>
+              <span class="mover-change positive">+{{ stock.change }}%</span>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="movers-section">
+        <h3 class="movers-title">
+          <mat-icon>trending_down</mat-icon>
+          Top Losers
+        </h3>
+        <div class="movers-list">
+          @for (stock of topLosers; track stock.symbol) {
+          <div class="mover-item loser">
+            <div class="mover-info">
+              <span class="mover-symbol">{{ stock.symbol }}</span>
+              <span class="mover-name">{{ stock.name }}</span>
+            </div>
+            <div class="mover-data">
+              <span class="mover-price">₹{{ stock.price }}</span>
+              <span class="mover-change negative">{{ stock.change }}%</span>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="movers-section">
+        <h3 class="movers-title">
+          <mat-icon>flash_on</mat-icon>
+          Most Active
+        </h3>
+        <div class="movers-list">
+          @for (stock of mostActive; track stock.symbol) {
+          <div class="mover-item active">
+            <div class="mover-info">
+              <span class="mover-symbol">{{ stock.symbol }}</span>
+              <span class="mover-name">{{ stock.name }}</span>
+            </div>
+            <div class="mover-data">
+              <span class="mover-price">₹{{ stock.price }}</span>
+              <span class="mover-volume">Vol: {{ stock.volume }}</span>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET STATISTICS -->
+<section class="market-stats">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Market Overview</h2>
+      <p class="section-subtitle">Key statistics and market breadth indicators</p>
+    </div>
+    <div class="stats-grid">
+      @for (stat of marketStats; track stat.label) {
+      <mat-card class="stat-card">
+        <div class="stat-icon-wrapper" [ngClass]="stat.color">
+          <mat-icon>{{ stat.icon }}</mat-icon>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">{{ stat.label }}</div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-description">{{ stat.description }}</div>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- SECTORAL PERFORMANCE -->
+<section class="sectoral-performance">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Sectoral Performance</h2>
+      <p class="section-subtitle">How different sectors are performing today</p>
+    </div>
+    <div class="sectors-grid">
+      @for (sector of sectors; track sector.name) {
+      <mat-card class="sector-card" [class.positive]="sector.isPositive" [class.negative]="!sector.isPositive">
+        <div class="sector-header">
+          <div class="sector-icon-wrapper">
+            <mat-icon>{{ sector.icon }}</mat-icon>
+          </div>
+          <h3 class="sector-name">{{ sector.name }}</h3>
+        </div>
+        <div class="sector-change" [class.positive]="sector.isPositive" [class.negative]="!sector.isPositive">
+          <mat-icon>{{ sector.isPositive ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          <span>{{ sector.change }}</span>
+        </div>
+        <div class="sector-footer">
+          <span class="sector-index">{{ sector.index }}</span>
+          <span class="sector-value">{{ sector.value }}</span>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CURRENCY & COMMODITIES -->
+<section class="currencies-commodities">
+  <div class="section-container">
+    <div class="cc-grid">
+      <div class="cc-section">
+        <h3 class="cc-title">
+          <mat-icon>currency_exchange</mat-icon>
+          Currency Rates
+        </h3>
+        <div class="cc-list">
+          @for (currency of currencies; track currency.pair) {
+          <div class="cc-item">
+            <div class="cc-info">
+              <span class="cc-name">{{ currency.pair }}</span>
+              <span class="cc-description">{{ currency.description }}</span>
+            </div>
+            <div class="cc-data">
+              <span class="cc-rate">{{ currency.rate }}</span>
+              <span class="cc-change" [class.positive]="currency.isPositive" [class.negative]="!currency.isPositive">
+                {{ currency.change }}
+              </span>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="cc-section">
+        <h3 class="cc-title">
+          <mat-icon>inventory_2</mat-icon>
+          Commodities
+        </h3>
+        <div class="cc-list">
+          @for (commodity of commodities; track commodity.name) {
+          <div class="cc-item">
+            <div class="cc-info">
+              <span class="cc-name">{{ commodity.name }}</span>
+              <span class="cc-description">{{ commodity.unit }}</span>
+            </div>
+            <div class="cc-data">
+              <span class="cc-rate">{{ commodity.price }}</span>
+              <span class="cc-change" [class.positive]="commodity.isPositive" [class.negative]="!commodity.isPositive">
+                {{ commodity.change }}
+              </span>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET INSIGHTS & ANALYSIS -->
+<section class="insights-section">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Market Analysis & Insights</h2>
+      <p class="section-subtitle">Expert perspectives on current market trends</p>
+    </div>
+    <div class="insights-grid">
+      @for (insight of marketInsights; track insight.title) {
+      <mat-card class="insight-card">
+        <div class="insight-badge" [ngClass]="insight.category">
+          <mat-icon>{{ insight.icon }}</mat-icon>
+          <span>{{ insight.category }}</span>
+        </div>
+        <h3 class="insight-title">{{ insight.title }}</h3>
+        <p class="insight-content">{{ insight.content }}</p>
+        <div class="insight-footer">
+          <span class="insight-author">
+            <mat-icon>person</mat-icon>
+            {{ insight.author }}
+          </span>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2>Ready to Make Informed Investment Decisions?</h2>
+      <p>Use our professional calculators to plan your investments based on current market conditions</p>
+      <div class="cta-buttons">
+        <button mat-raised-button color="primary" class="cta-button-large" routerLink="/calculators/sip-calculator">
+          <mat-icon>trending_up</mat-icon>
+          Calculate SIP Returns
+        </button>
+        <button mat-raised-button class="cta-button-secondary" routerLink="/calculators/tax-calculator">
+          <mat-icon>calculate</mat-icon>
+          Plan Your Taxes
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

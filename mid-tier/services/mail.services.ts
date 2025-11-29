@@ -1,16 +1,24 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+// Ensure environment variables are loaded
+dotenv.config();
 
 // Create a transporter using SMTP server with error handling
 let transporter: nodemailer.Transporter | null = null;
 
 try {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    throw new Error('SMTP credentials not configured in .env file');
+  }
+  
   transporter = nodemailer.createTransport({
-    host: "smtpout.secureserver.net",
-    port: 465,
-    secure: true,
+    host: process.env.SMTP_HOST || "smtpout.secureserver.net",
+    port: parseInt(process.env.SMTP_PORT || '465', 10),
+    secure: process.env.SMTP_SECURE === 'true',
     auth: {
-      user: "support@amkrtech.com",
-      pass: "amkr@2025",
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   });
 } catch (error) {
@@ -25,7 +33,7 @@ const sendEmail = async (params: { email: string; message: string; subject?: str
 
   return new Promise((resolve, reject) => {
     const mailOptions = {
-      from: "support@amkrtech.com",
+      from: process.env.SMTP_FROM || "support@amkrtech.com",
       to: params.email,
       subject: params.subject || "Message from AMKRTech",
       text: params.message,

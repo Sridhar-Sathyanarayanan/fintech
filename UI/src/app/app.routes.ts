@@ -100,6 +100,14 @@ export const routes: Routes = [
     data: { title: 'About AMKR Tech', description: 'Learn about AMKR Tech and our mission' }
   },
   {
+    path: 'market-insights',
+    loadComponent: () =>
+      import('./market-insights/market-insights.component').then(
+        (m) => m.MarketInsightsComponent
+      ),
+    data: { title: 'Market Insights - Live Data & Analysis', description: 'Real-time market data, sectoral performance, and expert insights' }
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./page-not-found/page-not-found.component').then(

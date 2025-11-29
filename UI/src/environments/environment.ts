@@ -4,7 +4,20 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://localhost:8080/'
+  apiURL: 'http://localhost:3010',
+  apiEndpoints: {
+    feedback: '/feedback/sendMail',
+    market: '/api/market'
+  },
+  seo: {
+    domain: 'http://localhost:4200',
+    ogImage: 'http://localhost:4200/assets/images/og-tax-calculator.jpg',
+    twitterImage: 'http://localhost:4200/assets/images/twitter-tax-card.jpg'
+  },
+  marketPolling: {
+    openInterval: 60000,
+    closedInterval: 300000
+  }
 };
 
 /*

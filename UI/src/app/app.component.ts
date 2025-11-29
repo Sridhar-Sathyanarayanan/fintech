@@ -41,6 +41,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      label: 'Market Insights',
+      route: '/market-insights',
+      icon: 'insights'
+    },
+    {
       label: 'Calculators',
       icon: 'calculate',
       children: [

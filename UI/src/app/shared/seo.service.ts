@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { SEOConfig } from '../models/seo.models';
 import { SchemaMarkup } from '../models/chart.models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +28,9 @@ export class SEOService implements OnDestroy {
       'income tax slab',
       'free tax calculator'
     ],
-    ogImage: 'https://amkrtech.com/assets/images/og-tax-calculator.jpg',
-    ogUrl: 'https://amkrtech.com',
-    twitterImage: 'https://amkrtech.com/assets/images/twitter-tax-card.jpg'
+    ogImage: environment.seo.ogImage,
+    ogUrl: environment.seo.domain,
+    twitterImage: environment.seo.twitterImage
   };
 
   private pageConfigs: { [key: string]: SEOConfig } = {
@@ -198,7 +199,7 @@ export class SEOService implements OnDestroy {
       '@type': 'SoftwareApplication',
       'name': 'AMKRTech Income Tax Calculator',
       'description': 'Free online income tax calculator for FY 2025-26. Compare old vs new tax regimes.',
-      'url': 'https://amkrtech.com/income-tax-calculator',
+      'url': `${environment.seo.domain}/income-tax-calculator`,
       'applicationCategory': 'FinanceApplication',
       'operatingSystem': 'Web',
       'aggregateRating': {
@@ -247,7 +248,7 @@ export class SEOService implements OnDestroy {
       '@type': 'SoftwareApplication',
       'name': name,
       'description': description,
-      'url': `https://amkrtech.com${name.toLowerCase().replace(/ /g, '-')}`,
+      'url': `${environment.seo.domain}${name.toLowerCase().replace(/ /g, '-')}`,
       'applicationCategory': 'FinanceApplication',
       'operatingSystem': 'Web',
       'offers': {

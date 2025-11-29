@@ -1,1 +1,28 @@
-<p>page-not-found works!</p>
+<div class="not-found-container">
+  <div class="content-section">
+    <div class="text-content">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Oops! Page Not Found</h2>
+      <p class="error-message">
+        Looks like this page went on vacation! 🏖️
+      </p>
+      
+      <div class="action-buttons">
+        <a routerLink="/" class="btn-primary">
+          <mat-icon>home</mat-icon>
+          Take Me Home
+        </a>
+        <button (click)="goBack()" class="btn-secondary">
+          <mat-icon>arrow_back</mat-icon>
+          Go Back
+        </button>
+      </div>
+    </div>
+
+    <div class="illustration-section">
+      <img src="assets/images/page_not_found.jpg" 
+           alt="Page not found illustration" 
+           class="illustration-image">
+    </div>
+  </div>
+</div>

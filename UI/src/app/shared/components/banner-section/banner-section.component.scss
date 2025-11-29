@@ -62,12 +62,34 @@
 .banner {
   position: relative;
   overflow: hidden;
-  padding: 60px 24px;
-  min-height: 600px;
+  padding: 24px;
+  min-height: 500px;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   animation: fadeInUp 0.8s ease-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.4;
+    z-index: 1;
+  }
 
   &-background {
     position: absolute;
@@ -105,49 +127,60 @@
     flex-direction: column;
     gap: 24px;
     max-width: 600px;
+    justify-content: center;
   }
 
   &-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 24px;
     width: fit-content;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
     mat-icon {
       width: 18px;
       height: 18px;
       font-size: 18px;
       line-height: 18px;
+      color: #ffffff;
     }
   }
 
   &-title {
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 52px;
+    font-weight: 800;
     line-height: 1.2;
     margin: 0;
-    color: #1a1a1a;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 
     @media (max-width: 768px) {
-      font-size: 32px;
+      font-size: 36px;
     }
 
     .gradient-text {
-      @include gradient-text;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     }
   }
 
   &-subtitle {
     font-size: 18px;
-    line-height: 1.6;
-    color: #666;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.95);
     margin: 0;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 
     @media (max-width: 768px) {
       font-size: 16px;
@@ -157,7 +190,7 @@
   &-actions {
     display: flex;
     gap: 16px;
-    margin-top: 16px;
+    margin-top: 24px;
     flex-wrap: wrap;
 
     @media (max-width: 640px) {
@@ -171,22 +204,76 @@
     .action-button {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 32px;
-      border-radius: 8px;
+      gap: 10px;
+      padding: 14px 36px;
+      border-radius: 12px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.02em;
       @include smooth-transition;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
 
       &:hover {
-        transform: translateY(-2px);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+        &::before {
+          left: 100%;
+        }
       }
 
       mat-icon {
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
-        line-height: 20px;
+        width: 22px;
+        height: 22px;
+        font-size: 22px;
+        line-height: 22px;
+      }
+
+      // Primary button styling
+      &[color="primary"] {
+        background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%) !important;
+        color: #667eea !important;
+        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+
+        mat-icon {
+          color: #667eea;
+        }
+
+        &:hover {
+          background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%) !important;
+          box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+        }
+      }
+
+      // Secondary button styling
+      &:not([color="primary"]) {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        color: #ffffff;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+        mat-icon {
+          color: #ffffff;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.25);
+          border-color: rgba(255, 255, 255, 0.5);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
       }
     }
   }
@@ -201,15 +288,19 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.7);
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 20px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
+      color: #ffffff;
       @include smooth-transition;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.4);
         transform: translateY(-2px);
       }
 
@@ -218,24 +309,25 @@
         height: 16px;
         font-size: 16px;
         line-height: 16px;
-        color: var(--color-primary);
+        color: #ffffff;
       }
     }
   }
 
   &-visual {
     position: relative;
-    height: 400px;
+    min-height: 400px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 
     @media (max-width: 1024px) {
-      height: 300px;
+      min-height: 300px;
     }
 
     @media (max-width: 768px) {
-      height: 250px;
+      min-height: 250px;
     }
   }
 
@@ -244,15 +336,18 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 16px 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 18px 24px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     @include smooth-transition;
 
     &:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      transform: translateY(-6px);
     }
 
     mat-icon {
@@ -282,8 +377,9 @@
     }
 
     &.card-1 {
-      top: 20%;
-      left: 10%;
+      top: 0%;
+      left: 30%;
+      animation: floatCard 6s ease-in-out infinite;
 
       @media (max-width: 1024px) {
         top: 10%;
@@ -294,6 +390,7 @@
     &.card-2 {
       top: 50%;
       right: 15%;
+      animation: floatCard 7s ease-in-out infinite 0.5s;
 
       @media (max-width: 1024px) {
         top: 45%;
@@ -304,6 +401,7 @@
     &.card-3 {
       bottom: 15%;
       left: 15%;
+      animation: floatCard 8s ease-in-out infinite 1s;
 
       @media (max-width: 1024px) {
         bottom: 5%;
@@ -324,6 +422,7 @@
       max-width: 100%;
       height: auto;
       object-fit: contain;
+      border-radius: 10px;
     }
   }
 }

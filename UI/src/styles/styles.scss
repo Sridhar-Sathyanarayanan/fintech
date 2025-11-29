@@ -57,6 +57,8 @@ $mobile-header-height: 64px;
 html,
 body {
   font-family: "ThemeFont-Regular", "Trebuchet MS", "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 * {
