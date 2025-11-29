@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   FormControl,
@@ -15,18 +16,8 @@ import {
 } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModules } from '../../shared/material.standalone';
-
-interface TaxBreakdown {
-  slab: string;
-  rate: string;
-  amount: number;
-}
-
-interface ChartData {
-  label: string;
-  value: number;
-  color: string;
-}
+import { TaxBreakdown, ChartData } from '../../models/calculator.models';
+import { OldRegimeSlabsByYear, NewRegimeSlabsByYear, OldRegimeSlabs } from '../../models/chart.models';
 
 @Component({
   selector: 'app-tax-calculator',
@@ -34,6 +25,7 @@ interface ChartData {
   styleUrls: ['./tax-calculator.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MaterialModules],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxCalculatorComponent implements OnInit {
   @ViewChild('resultSection') resultSection!: ElementRef;
@@ -240,7 +232,7 @@ export class TaxCalculatorComponent implements OnInit {
     income: number,
     regime: 'old' | 'new'
   ): { tax: number; breakdown: TaxBreakdown[] } {
-    const oldRegimeSlabsByYear: any = {
+    const oldRegimeSlabsByYear: OldRegimeSlabsByYear = {
       '2023-24': {
         below60: [
           { upTo: 250000, rate: 0, label: 'Up to ₹2.5L' },
@@ -285,7 +277,7 @@ export class TaxCalculatorComponent implements OnInit {
       },
     };
 
-    const newRegimeSlabsByYear: any = {
+    const newRegimeSlabsByYear: NewRegimeSlabsByYear = {
       '2023-24': [
         { upTo: 300000, rate: 0, label: 'Up to ₹3L' },
         { upTo: 600000, rate: 0.05, label: '₹3L - ₹6L' },
@@ -315,10 +307,10 @@ export class TaxCalculatorComponent implements OnInit {
 
     const slabs =
       regime === 'old'
-        ? oldRegimeSlabsByYear[year]?.[
-            this.basicFormGroup.get('ageGroup')?.value
+        ? oldRegimeSlabsByYear[year as keyof OldRegimeSlabsByYear]?.[
+            this.basicFormGroup.get('ageGroup')?.value as keyof OldRegimeSlabs
           ] || []
-        : newRegimeSlabsByYear[year] || [];
+        : newRegimeSlabsByYear[year as keyof NewRegimeSlabsByYear] || [];
 
     const result = this.calculateTaxBySlabs(income, slabs);
     const taxAfterRebate = this.applyRebate(income, result.tax, year, regime);

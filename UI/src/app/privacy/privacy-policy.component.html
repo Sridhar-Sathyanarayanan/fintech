@@ -2,39 +2,14 @@
 <div class="scroll-progress" [style.width.%]="scrollProgress"></div>
 
 <!-- HERO SECTION -->
-<section class="hero">
-  <div class="hero-background"></div>
-  <div class="hero-container">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <mat-icon>shield</mat-icon>
-        <span>Last Updated: {{ lastUpdated }}</span>
-      </div>
-      <h1 class="hero-title">
-        Privacy
-        <span class="gradient-text">Policy</span>
-      </h1>
-      <p class="hero-subtitle">
-        At <strong>AMKRTech</strong>, we are committed to protecting your
-        privacy and ensuring the security of your personal information.
-      </p>
-      <div class="hero-features">
-        <div class="feature-chip">
-          <mat-icon>check_circle</mat-icon>
-          <span>Secure Data Storage</span>
-        </div>
-        <div class="feature-chip">
-          <mat-icon>block</mat-icon>
-          <span>No Third-Party Sharing</span>
-        </div>
-        <div class="feature-chip">
-          <mat-icon>visibility</mat-icon>
-          <span>Full Transparency</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<app-hero-section
+  title="Privacy"
+  gradientText="Policy"
+  subtitle="At AMKRTech, we are committed to protecting your privacy and ensuring the security of your personal information."
+  [badge]="'Last Updated: ' + lastUpdated"
+  badgeIcon="shield"
+  [features]="privacyFeatures">
+</app-hero-section>
 
 <!-- MAIN CONTENT -->
 <div class="policy-content">

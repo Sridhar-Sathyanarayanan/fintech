@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
@@ -11,6 +11,12 @@ interface YearlyBreakdown {
   invested: number;
   value: number;
   gain: number;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+  expanded: boolean;
 }
 
 @Component({
@@ -25,6 +31,7 @@ interface YearlyBreakdown {
     BaseChartDirective,
     MaterialModules,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SipCalculatorComponent implements OnInit {
   amount = signal(5000);
@@ -38,6 +45,50 @@ export class SipCalculatorComponent implements OnInit {
   monthlyGrowth = signal(0);
 
   yearlyBreakdown: YearlyBreakdown[] = [];
+
+  // FAQ Section
+  faqs: FAQItem[] = [
+    {
+      question: 'What is SIP and how does it work?',
+      answer: 'SIP (Systematic Investment Plan) is a method of investing a fixed amount regularly in mutual funds. It works by automatically deducting a set amount from your bank account at regular intervals (monthly, quarterly) and investing it in your chosen mutual fund scheme. This disciplined approach helps in wealth creation through the power of compounding and rupee cost averaging.',
+      expanded: false
+    },
+    {
+      question: 'What is the minimum amount required to start a SIP?',
+      answer: 'Most mutual funds in India allow you to start a SIP with as little as ₹500 per month. However, some funds may have higher minimum amounts (₹1,000 or ₹5,000). The amount can be increased or decreased based on your financial capacity and investment goals.',
+      expanded: false
+    },
+    {
+      question: 'Can I stop or pause my SIP anytime?',
+      answer: 'Yes, SIPs offer complete flexibility. You can pause, stop, or modify your SIP amount at any time without any penalty (subject to fund house guidelines). However, it\'s recommended to stay invested for the long term to maximize returns through compounding. You can also temporarily pause your SIP for a few months if needed.',
+      expanded: false
+    },
+    {
+      question: 'What returns can I expect from SIP investments?',
+      answer: 'Returns on SIP investments depend on market performance and the type of mutual fund chosen. Historically, equity mutual funds have delivered 12-15% annual returns over long periods (10+ years). Debt funds typically offer 7-9% returns. However, past performance doesn\'t guarantee future returns. The calculator provides estimates based on expected returns, but actual returns may vary.',
+      expanded: false
+    },
+    {
+      question: 'Is SIP better than lumpsum investment?',
+      answer: 'Both have their advantages. SIP is ideal for salaried individuals as it promotes disciplined investing, reduces market timing risk through rupee cost averaging, and requires smaller regular amounts. Lumpsum works better when you have a large amount available and markets are at lower levels. For most investors, SIP is recommended as it reduces the impact of market volatility.',
+      expanded: false
+    },
+    {
+      question: 'How is SIP taxed in India?',
+      answer: 'Tax treatment depends on the fund type and holding period. For Equity Funds: Long-term gains (>1 year) above ₹1 lakh are taxed at 10%; short-term gains are taxed at 15%. For Debt Funds: Gains are taxed as per your income tax slab. ELSS (tax-saving) funds offer deduction up to ₹1.5 lakh under Section 80C with a 3-year lock-in period.',
+      expanded: false
+    },
+    {
+      question: 'Can I invest in multiple SIPs?',
+      answer: 'Yes, you can invest in multiple SIPs across different mutual fund schemes. This helps in diversification and spreading risk. You can have SIPs in equity funds, debt funds, hybrid funds, and sector-specific funds based on your risk appetite and financial goals. However, ensure you don\'t over-diversify as it can dilute returns.',
+      expanded: false
+    },
+    {
+      question: 'What is Step-Up SIP?',
+      answer: 'Step-Up SIP allows you to increase your SIP amount periodically (yearly or half-yearly) by a fixed percentage or amount. For example, if you start with ₹5,000 per month and increase it by 10% annually, your wealth accumulation accelerates significantly. This is ideal for salaried individuals expecting salary increments and helps achieve financial goals faster.',
+      expanded: false
+    }
+  ];
 
   // Doughnut Chart
   doughnutChartData: ChartConfiguration<'doughnut'>['data'] = {
@@ -199,7 +250,8 @@ export class SipCalculatorComponent implements OnInit {
     const monthlyRate = rate / 100 / 12;
     const months = years * 12;
 
-    // SIP Future Value Formula
+    // SIP Future Value Formula: FV = P × [((1 + r)^n - 1) / r] × (1 + r)
+    // Where: P = Monthly investment, r = Monthly rate, n = Number of months
     const futureValue =
       amount *
       ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
@@ -218,6 +270,7 @@ export class SipCalculatorComponent implements OnInit {
   }
 
   private calculateLumpsum(amount: number, years: number, rate: number): void {
+    // Compound Interest Formula: FV = P × (1 + r)^n
     const futureValue = amount * Math.pow(1 + rate / 100, years);
     const returns = futureValue - amount;
 
@@ -319,5 +372,9 @@ export class SipCalculatorComponent implements OnInit {
     this.interestRate.set(12);
     this.investmentType.set('monthly');
     this.calculate();
+  }
+
+  toggleFAQ(index: number): void {
+    this.faqs[index].expanded = !this.faqs[index].expanded;
   }
 }

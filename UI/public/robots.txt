@@ -1,0 +1,41 @@
+# robots.txt for AMKRTech - Income Tax Calculator
+# This file helps search engines crawl and index your website efficiently
+
+# Allow all bots by default
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+Disallow: /temp
+Disallow: *.pdf$
+Disallow: *.doc$
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://amkrtech.com/sitemap.xml
+Sitemap: https://amkrtech.com/sitemap-news.xml
+
+# Crawl delay (in seconds) - adjust based on server capacity
+Crawl-delay: 0.5
+
+# Request rate
+Request-rate: 1/10

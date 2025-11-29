@@ -1,38 +1,49 @@
 {
   "name": "amkrtech-midtier",
   "version": "1.0.0",
-  "description": "This is the middle tier for our application",
-  "main": "server.ts",
+  "description": "AMKRTech Mid-tier API Server - Express API with TypeScript",
+  "main": "build/server.js",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
   },
   "type": "module",
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "test": "test",
+    "build": "build"
   },
   "scripts": {
-    "start:dev": "SET NODE_ENV=development&&nodemon --exec node --loader ts-node/esm server.ts",
-    "start:prod": "SET NODE_ENV=production&&node build/server.js"
+    "start:dev": "SET NODE_ENV=development && nodemon --exec node --loader ts-node/esm server.ts",
+    "start:prod": "SET NODE_ENV=production && node build/server.js",
+    "build": "tsc",
+    "clean": "rimraf build",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.ts\""
   },
-  "author": "",
-  "license": "ISC",
+  "author": "AMKRTech Team",
+  "license": "MIT",
   "dependencies": {
-    "amkrtech": "file:..",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
+    "express": "^4.18.2",
     "node-fetch": "^3.3.2",
     "nodemailer": "^7.0.10"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.4",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.6",
     "@types/nodemailer": "^7.0.3",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
     "dotenv": "^17.2.3",
-    "nodemon": "^3.1.10",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.1.1",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.3.3"
   }
 }

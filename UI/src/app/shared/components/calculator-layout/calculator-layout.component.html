@@ -1,0 +1,17 @@
+<div class="calculator-layout">
+  <div class="calculator-content">
+    @if (title) {
+      <h1 class="calculator-title">{{ title }}</h1>
+    }
+    @if (subtitle) {
+      <p class="calculator-subtitle">{{ subtitle }}</p>
+    }
+    <div class="calculator-form">
+      <ng-content select="[calculator-inputs]"></ng-content>
+    </div>
+  </div>
+
+  <div class="calculator-results">
+    <ng-content select="[calculator-results]"></ng-content>
+  </div>
+</div>

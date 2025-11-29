@@ -40,7 +40,7 @@
         <div class="visual-decoration decoration-1"></div>
         <div class="visual-decoration decoration-2"></div>
         <div class="hero-image-wrapper">
-          <img src="assets/images/PPF_Calculator.png" alt="PPF Investment" class="hero-image" />
+          <img src="assets/images/PPF.jpeg" alt="PPF Investment" class="hero-image" />
         </div>
         <div class="floating-card card-1">
           <mat-icon>percent</mat-icon>
@@ -113,7 +113,7 @@
                 Yearly Investment Amount
               </label>
               <mat-form-field appearance="outline" class="amount-field">
-                <span matPrefix>₹&nbsp;</span>
+                <span matPrefix>&nbsp;&nbsp;₹&nbsp;</span>
                 <input matInput type="number" [value]="investmentAmount()"
                   (input)="onAmountChange($event)" min="500" max="150000" />
                 <mat-icon matSuffix>account_balance_wallet</mat-icon>
@@ -402,10 +402,10 @@
         Plan your secure financial future with India's most trusted savings
         scheme
       </p>
-      <button mat-raised-button color="primary" class="cta-button" (click)="calculatePPF()">
+      <!-- <button mat-raised-button color="primary" class="cta-button" (click)="calculatePPF()">
         <mat-icon>calculate</mat-icon>
         Calculate Your Returns
-      </button>
+      </button> -->
     </div>
   </section>
 </div>

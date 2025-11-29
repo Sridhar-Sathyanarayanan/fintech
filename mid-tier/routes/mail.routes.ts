@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import mailServices from "../services/mail.services.ts";
+import { NextFunction, Request, Response, Router } from "express";
+import mailServices from "../services/mail.services";
 
-export default (router: any) => {
+export default (router: Router) => {
   router.post(
     "/feedback/sendMail",
     async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +12,10 @@ export default (router: any) => {
           data: { message: "Message sent successfully" },
         });
       } catch (e) {
-        res.status(e.status || 500).send(e.message || e)
+        const error = e instanceof Error ? e : new Error(String(e));
+        const statusCode = (e as { status?: number }).status || 500;
+        res.status(statusCode).send(error.message || error);
+        next(error);
       }
     }
   );

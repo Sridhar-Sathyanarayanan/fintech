@@ -1,0 +1,409 @@
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-background"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>verified</mat-icon>
+        <span>Income Tax Act - Section 10(13A)</span>
+      </div>
+      <h1 class="hero-title">
+        HRA Tax Exemption
+        <span class="gradient-text">Calculator</span>
+      </h1>
+      <p class="hero-subtitle">
+        Calculate your House Rent Allowance (HRA) tax exemption instantly and
+        maximize your tax savings with our accurate calculator designed for
+        Indian salaried employees.
+      </p>
+      <div class="hero-features">
+        <div class="feature-chip">
+          <mat-icon>check_circle</mat-icon>
+          <span>Section 10(13A) Compliant</span>
+        </div>
+        <div class="feature-chip">
+          <mat-icon>calculate</mat-icon>
+          <span>Instant Calculation</span>
+        </div>
+        <div class="feature-chip">
+          <mat-icon>trending_up</mat-icon>
+          <span>Maximize Savings</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card card-1">
+        <mat-icon>home</mat-icon>
+        <div class="card-content">
+          <span class="card-label">HRA Received</span>
+          <span class="card-value">₹2.4L</span>
+        </div>
+      </div>
+      <div class="hero-card card-2">
+        <mat-icon>savings</mat-icon>
+        <div class="card-content">
+          <span class="card-label">Tax Exemption</span>
+          <span class="card-value">₹1.8L</span>
+        </div>
+      </div>
+      <div class="hero-card card-3">
+        <mat-icon>account_balance_wallet</mat-icon>
+        <div class="card-content">
+          <span class="card-label">Tax Saved</span>
+          <span class="card-value">₹54K</span>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <img src="/assets/images/HRA.jpeg" alt="HRA Calculator" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR SECTION -->
+<section class="calculator-section">
+  <div class="calculator-container">
+    <!-- Calculator Card -->
+    <div class="calculator-card">
+      <div class="card-header">
+        <div class="header-icon">
+          <mat-icon>calculate</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="card-title">Calculate Your HRA Exemption</h2>
+          <p class="card-subtitle">
+            Enter your salary details to calculate tax-exempt HRA
+          </p>
+        </div>
+      </div>
+
+      <form [formGroup]="hraForm" (ngSubmit)="calculateHRA()" class="calculator-form">
+        <!-- Basic Salary -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Monthly Basic Salary</mat-label>
+          <input matInput type="number" formControlName="basicSalary" placeholder="Enter monthly basic salary" />
+          <span matPrefix>&nbsp;&nbsp;₹&nbsp;</span>
+          <mat-icon matSuffix>account_balance_wallet</mat-icon>
+          <mat-hint>Your basic salary per month</mat-hint>
+          <mat-error *ngIf="hraForm.get('basicSalary')?.invalid">
+            {{ getErrorMessage('basicSalary') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Dearness Allowance -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Monthly Dearness Allowance (DA)</mat-label>
+          <input matInput type="number" formControlName="dearnessAllowance"
+            placeholder="Enter monthly DA (if applicable)" />
+          <span matPrefix>&nbsp;&nbsp;₹&nbsp;</span>
+          <mat-icon matSuffix>payments</mat-icon>
+          <mat-hint>Leave as 0 if not applicable</mat-hint>
+          <mat-error *ngIf="hraForm.get('dearnessAllowance')?.invalid">
+            {{ getErrorMessage('dearnessAllowance') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- HRA Received -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Monthly HRA Received</mat-label>
+          <input matInput type="number" formControlName="hraReceived" placeholder="Enter monthly HRA" />
+          <span matPrefix>&nbsp;&nbsp;₹&nbsp;</span>
+          <mat-icon matSuffix>home</mat-icon>
+          <mat-hint>HRA component in your salary</mat-hint>
+          <mat-error *ngIf="hraForm.get('hraReceived')?.invalid">
+            {{ getErrorMessage('hraReceived') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Rent Paid -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Monthly Rent Paid</mat-label>
+          <input matInput type="number" formControlName="rentPaid" placeholder="Enter monthly rent" />
+          <span matPrefix>&nbsp;&nbsp;₹&nbsp;</span>
+          <mat-icon matSuffix>receipt</mat-icon>
+          <mat-hint>Actual rent you pay per month</mat-hint>
+          <mat-error *ngIf="hraForm.get('rentPaid')?.invalid">
+            {{ getErrorMessage('rentPaid') }}
+          </mat-error>
+        </mat-form-field>
+
+        <!-- City Type -->
+        <div class="city-type-section">
+          <label class="city-type-label">Select City Type</label>
+          <mat-radio-group formControlName="cityType" class="city-type-group">
+            <mat-radio-button *ngFor="let city of cityTypes" [value]="city.value" class="city-radio">
+              <div class="city-option">
+                <div class="city-name">{{ city.label }}</div>
+                <div class="city-percentage">
+                  {{ city.percentage }}% of Basic Salary
+                </div>
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" class="calculate-button">
+            <mat-icon>calculate</mat-icon>
+            Calculate HRA Exemption
+          </button>
+          <button mat-button type="button" (click)="resetForm()" class="reset-button">
+            <mat-icon>refresh</mat-icon>
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Card -->
+    <div class="results-card" *ngIf="showResult()" id="results-section">
+      <div class="results-header">
+        <div class="header-icon success">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+        <div class="header-content">
+          <h2 class="results-title">Your HRA Calculation Results</h2>
+          <p class="results-subtitle">
+            Detailed breakdown of your HRA tax exemption
+          </p>
+        </div>
+      </div>
+
+      <div class="results-content" *ngIf="calculationResult()">
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+          <div class="summary-card primary">
+            <div class="summary-icon">
+              <mat-icon>home</mat-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-label">Total HRA Received</div>
+              <div class="summary-value">
+                {{ formatCurrency(calculationResult()!.actualHRA) }}
+              </div>
+              <div class="summary-period">Annually</div>
+            </div>
+          </div>
+
+          <div class="summary-card success">
+            <div class="summary-icon">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-label">Exempt HRA</div>
+              <div class="summary-value">
+                {{ formatCurrency(calculationResult()!.exemptHRA) }}
+              </div>
+              <div class="summary-period">Tax Free</div>
+            </div>
+          </div>
+
+          <div class="summary-card warning">
+            <div class="summary-icon">
+              <mat-icon>receipt_long</mat-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-label">Taxable HRA</div>
+              <div class="summary-value">
+                {{ formatCurrency(calculationResult()!.taxableHRA) }}
+              </div>
+              <div class="summary-period">Added to Income</div>
+            </div>
+          </div>
+
+          <div class="summary-card accent">
+            <div class="summary-icon">
+              <mat-icon>savings</mat-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-label">Potential Tax Saved</div>
+              <div class="summary-value">
+                {{ formatCurrency(calculationResult()!.exemptHRA * 0.30) }}
+              </div>
+              <div class="summary-period">@30% Tax Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculation Breakdown -->
+        <div class="breakdown-section">
+          <h3 class="breakdown-title">
+            <mat-icon>analytics</mat-icon>
+            Calculation Breakdown
+          </h3>
+
+          <div class="breakdown-info">
+            <mat-icon class="info-icon">info</mat-icon>
+            <p class="info-text">
+              HRA exemption is calculated as the <strong>minimum</strong> of the
+              following three amounts:
+            </p>
+          </div>
+
+          <div class="breakdown-grid">
+            <div class="breakdown-item">
+              <div class="breakdown-number">1</div>
+              <div class="breakdown-content">
+                <h4 class="breakdown-label">Actual HRA Received</h4>
+                <p class="breakdown-value">
+                  {{ formatCurrency(calculationResult()!.actualHRA) }}
+                </p>
+                <p class="breakdown-desc">
+                  Total HRA component in your annual salary
+                </p>
+              </div>
+            </div>
+
+            <div class="breakdown-item">
+              <div class="breakdown-number">2</div>
+              <div class="breakdown-content">
+                <h4 class="breakdown-label">Rent Paid minus 10% of Basic</h4>
+                <p class="breakdown-value">
+                  {{ formatCurrency(calculationResult()!.excessRent) }}
+                </p>
+                <p class="breakdown-desc">
+                  Rent: {{ formatCurrency(calculationResult()!.rentPaid) }} -
+                  10% Basic: {{
+                  formatCurrency(calculationResult()!.tenPercentBasic) }}
+                </p>
+              </div>
+            </div>
+
+            <div class="breakdown-item">
+              <div class="breakdown-number">3</div>
+              <div class="breakdown-content">
+                <h4 class="breakdown-label">
+                  {{ calculationResult()!.cityType === 'metro' ? '50%' : '40%'
+                  }} of Basic Salary
+                </h4>
+                <p class="breakdown-value">
+                  {{ formatCurrency(calculationResult()!.cityType === 'metro' ?
+                  calculationResult()!.fiftyPercentBasic :
+                  calculationResult()!.fortyPercentBasic) }}
+                </p>
+                <p class="breakdown-desc">
+                  For {{ calculationResult()!.cityType === 'metro' ? 'Metro' :
+                  'Non-Metro' }} cities
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="final-result">
+            <div class="result-box">
+              <mat-icon class="result-icon">verified</mat-icon>
+              <div class="result-content">
+                <h4 class="result-label">
+                  Final HRA Exemption (Minimum of above)
+                </h4>
+                <p class="result-value">
+                  {{ formatCurrency(calculationResult()!.exemptHRA) }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="results-actions">
+          <button mat-raised-button color="primary" (click)="downloadReport()" class="action-button">
+            <mat-icon>download</mat-icon>
+            Download Report
+          </button>
+          <button mat-button (click)="shareResults()" class="action-button-outline">
+            <mat-icon>share</mat-icon>
+            Share Results
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLES SECTION -->
+<section class="examples-section">
+  <div class="examples-container">
+    <div class="section-header">
+      <h2 class="section-title">HRA Calculation Examples</h2>
+      <p class="section-subtitle">
+        Understand how HRA exemption works with real-world scenarios
+      </p>
+    </div>
+
+    <div class="examples-grid">
+      <mat-card class="example-card" *ngFor="let example of hraExamples">
+        <div class="example-icon-wrapper" [ngClass]="example.color">
+          <mat-icon class="example-icon">{{ example.icon }}</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="example-title">{{ example.title }}</h3>
+          <p class="example-desc">{{ example.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- TAX TIPS SECTION -->
+<section class="tips-section">
+  <div class="tips-container">
+    <div class="section-header">
+      <h2 class="section-title">Important Tax Tips</h2>
+      <p class="section-subtitle">
+        Essential information to maximize your HRA benefits
+      </p>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card" *ngFor="let tip of taxTips">
+        <div class="tip-icon-wrapper">
+          <mat-icon>{{ tip.icon }}</mat-icon>
+        </div>
+        <h3 class="tip-title">{{ tip.title }}</h3>
+        <p class="tip-desc">{{ tip.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq-section">
+  <div class="faq-container">
+    <div class="section-header">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">
+        Everything you need to know about HRA tax exemption
+      </p>
+    </div>
+
+    <mat-accordion class="faq-accordion">
+      <mat-expansion-panel *ngFor="let faq of faqs" class="faq-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="faq-question">
+            <mat-icon class="faq-icon">{{ faq.icon }}</mat-icon>
+            <span>{{ faq.question }}</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="faq-answer">{{ faq.answer }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2>Need Expert Tax Consultation?</h2>
+      <p>
+        Our certified tax consultants can help you optimize your tax planning
+        and maximize savings
+      </p>
+      <button mat-raised-button color="primary" class="cta-button-large" routerLink="/contact">
+        <mat-icon>support_agent</mat-icon>
+        Talk to an Expert
+      </button>
+    </div>
+  </div>
+</section>

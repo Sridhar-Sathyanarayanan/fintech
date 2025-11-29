@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
+import { ChartData, ChartOptions, TaxSlab, ComparisonData } from '../../models/chart.models';
 
 @Component({
   selector: 'app-tax-slab-calculator',
@@ -13,6 +14,7 @@ import { MaterialModules } from '../../shared/material.standalone';
   ],
   templateUrl: './tax-slab-calculator.component.html',
   styleUrls: ['./tax-slab-calculator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxSlabCalculatorComponent {
   years = ['2023–2024', '2024–2025', '2025–2026'];
@@ -20,7 +22,7 @@ export class TaxSlabCalculatorComponent {
   
   @ViewChild('comparisonChart') chart!: BaseChartDirective;
 
-  comparisonData: any = {
+  comparisonData: Record<string, ComparisonData[]> = {
     '2023-2024': [
       { range: 'Up to ₹2,50,000', oldRate: 'Nil', newRate: 'Nil' },
       { range: '₹2,50,001 – ₹5,00,000', oldRate: '5%', newRate: '5%' },
@@ -50,7 +52,7 @@ export class TaxSlabCalculatorComponent {
     ],
   };
 
-  slabData: any = {
+  slabData: Record<string, { old: TaxSlab[]; new: TaxSlab[] }> = {
     '2023–2024': {
       old: [
         { range: '₹0 - ₹2.5L', rate: '0%' },
@@ -104,12 +106,12 @@ export class TaxSlabCalculatorComponent {
 
   comparisonChartType: any = 'bar';
 
-  comparisonChartData: any = {
+  comparisonChartData: ChartData = {
     labels: [],
     datasets: [],
   };
 
-  comparisonChartOptions: any = {
+  comparisonChartOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -185,8 +187,8 @@ export class TaxSlabCalculatorComponent {
   }
 
   updateComparisonChart() {
-    const oldSlabs: any = this.slabData[this.selectedYear].old;
-    const newSlabs: any = this.slabData[this.selectedYear].new;
+    const oldSlabs: TaxSlab[] = this.slabData[this.selectedYear].old;
+    const newSlabs: TaxSlab[] = this.slabData[this.selectedYear].new;
 
     // Use the union of all ranges for labels
     const labelsSet = new Set<string>();
@@ -238,7 +240,8 @@ export class TaxSlabCalculatorComponent {
   exportChart() {
     if (!this.chart) return;
     const base64Image = this.chart.toBase64Image();
-    const link: any = document.createElement('a');
+    if (!base64Image) return;
+    const link = document.createElement('a') as HTMLAnchorElement;
     link.href = base64Image;
     link.download = `tax-comparison-${this.selectedYear}.png`;
     link.click();

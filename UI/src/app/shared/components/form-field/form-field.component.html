@@ -1,0 +1,55 @@
+<mat-form-field class="form-field" [class]="'mat-' + variant" appearance="outline">
+  <mat-label>{{ label }}</mat-label>
+  
+  @switch (type) {
+    @case ('textarea') {
+      <textarea 
+        matInput 
+        [formControl]="control"
+        [placeholder]="placeholder || ''"
+        [rows]="rows">
+      </textarea>
+    }
+    @case ('select') {
+      <mat-select [formControl]="control">
+        @for (option of options; track option.value) {
+          <mat-option [value]="option.value">
+            {{ option.label }}
+          </mat-option>
+        }
+      </mat-select>
+    }
+    @case ('date') {
+      <input 
+        matInput 
+        type="date"
+        [formControl]="control"
+        [placeholder]="placeholder || ''">
+    }
+    @case ('number') {
+      <input 
+        matInput 
+        type="number"
+        [formControl]="control"
+        [placeholder]="placeholder || ''"
+        [min]="min ?? null"
+        [max]="max ?? null"
+        [step]="step ?? 1">
+    }
+    @default {
+      <input 
+        matInput 
+        [type]="type"
+        [formControl]="control"
+        [placeholder]="placeholder || ''">
+    }
+  }
+
+  @if (hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
+
+  @if (control.invalid && control.touched) {
+    <mat-error>{{ errorMessage }}</mat-error>
+  }
+</mat-form-field>

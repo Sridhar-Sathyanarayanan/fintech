@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,29 +8,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { forkJoin } from 'rxjs';
 import { AppService } from '../services/app.service';
 import { MaterialModules } from '../shared/material.standalone';
-
-interface ContactInfo {
-  icon: string;
-  title: string;
-  value: string;
-  link?: string;
-}
-
-interface SocialLink {
-  icon: string;
-  name: string;
-  url: string;
-  color: string;
-}
+import { HeroSectionComponent } from '../shared/components';
+import { ContactInfo, SocialLink } from '../models/calculator.models';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModules],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModules, HeroSectionComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactComponent {
   contactForm: FormGroup;
@@ -148,50 +138,40 @@ export class ContactComponent {
     this.loading.set(true);
     const formValue = this.contactForm.value;
 
-    // Send confirmation to user
-    this.service
-      .submitFeedback({
+    // Send both emails in parallel using forkJoin
+    forkJoin([
+      this.service.submitFeedback({
         message: `Thank you ${formValue.name} for contacting us regarding "${formValue.subject}". We will get back to you soon.`,
         email: formValue.email,
-      })
-      .subscribe({
-        next: () => {
-          // Send notification to support
-          this.service
-            .submitFeedback({
-              message: `New contact form submission:\n\nName: ${formValue.name}\nEmail: ${formValue.email}\nSubject: ${formValue.subject}\nMessage: ${formValue.message}`,
-              email: 'support@amkrtech.com',
-            })
-            .subscribe({
-              next: () => {
-                this.loading.set(false);
-                this.formSubmitted.set(true);
-                this.snackBar.open(
-                  "Message sent successfully! We'll be in touch soon.",
-                  'Close',
-                  {
-                    duration: 5000,
-                    horizontalPosition: 'center',
-                    verticalPosition: 'top',
-                    panelClass: ['success-snackbar'],
-                  }
-                );
-                this.contactForm.reset();
+      }),
+      this.service.submitFeedback({
+        message: `New contact form submission:\n\nName: ${formValue.name}\nEmail: ${formValue.email}\nSubject: ${formValue.subject}\nMessage: ${formValue.message}`,
+        email: 'support@amkrtech.com',
+      }),
+    ]).subscribe({
+      next: () => {
+        this.loading.set(false);
+        this.formSubmitted.set(true);
+        this.snackBar.open(
+          "Message sent successfully! We'll be in touch soon.",
+          'Close',
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['success-snackbar'],
+          }
+        );
+        this.contactForm.reset();
 
-                // Reset success state after animation
-                setTimeout(() => this.formSubmitted.set(false), 3000);
-              },
-              error: () => {
-                this.loading.set(false);
-                this.showError();
-              },
-            });
-        },
-        error: () => {
-          this.loading.set(false);
-          this.showError();
-        },
-      });
+        // Reset success state after animation
+        setTimeout(() => this.formSubmitted.set(false), 3000);
+      },
+      error: () => {
+        this.loading.set(false);
+        this.showError();
+      },
+    });
   }
 
   private showError() {

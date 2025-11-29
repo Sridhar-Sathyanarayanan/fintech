@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
+import { 
+  HeroSectionComponent, 
+  StatCardComponent, 
+  FeatureCardComponent
+} from '../shared/components';
 
 interface FinancialTool {
   icon: string;
@@ -29,14 +34,35 @@ interface Statistic {
   imports: [
     CommonModule,
     RouterModule,
-    MaterialModules
+    MaterialModules,
+    HeroSectionComponent,
+    StatCardComponent,
+    FeatureCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit, OnDestroy {
   currentSlide = signal(0);
-  intervalId: any;
+  intervalId: ReturnType<typeof setInterval> | null = null;
+
+  heroActions = [
+    { label: 'Start Planning', icon: 'rocket_launch', route: '/calculator', variant: 'primary' as const },
+    { label: 'Watch Demo', icon: 'play_circle', route: '/learn', variant: 'secondary' as const }
+  ];
+
+  heroFeatures = [
+    { icon: 'check_circle', label: 'Free Forever' },
+    { icon: 'security', label: '100% Secure' },
+    { icon: 'speed', label: 'Instant Results' }
+  ];
+
+  heroCards = [
+    { icon: 'trending_up', label: 'Portfolio Growth', value: '+24.5%' },
+    { icon: 'savings', label: 'Tax Saved', value: '₹45,000' },
+    { icon: 'account_balance_wallet', label: 'Monthly Savings', value: '₹12,500' }
+  ];
 
   financeImages = [
     '/assets/images/slide1.jpg',
@@ -99,10 +125,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   statistics: Statistic[] = [
-    { value: '10K+', label: 'Active Users', icon: 'people' },
-    { value: '₹50Cr+', label: 'Wealth Managed', icon: 'account_balance_wallet' },
-    { value: '25K+', label: 'Calculations Done', icon: 'calculate' },
-    { value: '4.8★', label: 'User Rating', icon: 'star' },
+    { value: '1000+', label: 'Active Users', icon: 'people' },
+    { value: '₹5Cr+', label: 'Wealth Managed', icon: 'account_balance_wallet' },
+    { value: '10K+', label: 'Calculations Done', icon: 'calculate' },
+    { value: '4.8★', label: 'Loved By Our Users', icon: 'star' },
   ];
 
   ngOnInit(): void {
@@ -131,7 +157,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onSlideIndicatorClick(index: number): void {
     this.currentSlide.set(index);
-    clearInterval(this.intervalId);
+    if (this.intervalId !== null) {
+      clearInterval(this.intervalId);
+    }
     this.startAutoSlide();
   }
 }

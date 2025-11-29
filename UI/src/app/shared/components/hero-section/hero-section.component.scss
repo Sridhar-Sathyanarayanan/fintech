@@ -1,0 +1,363 @@
+@use '../../../../styles/mixins' as *;
+@use '../../../../styles/animations' as *;
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes floatImage {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 60px 24px;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  animation: fadeInUp 0.8s ease-out;
+
+  &-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 16px;
+    }
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 600px;
+  }
+
+  &-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+
+    mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      line-height: 18px;
+    }
+  }
+
+  &-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: #1a1a1a;
+
+    @media (max-width: 768px) {
+      font-size: 32px;
+    }
+
+    .gradient-text {
+      @include gradient-text;
+    }
+  }
+
+  &-subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  &-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+      }
+    }
+
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      @include smooth-transition;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      mat-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  &-features {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+
+    .feature-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      @include smooth-transition;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+      }
+
+      mat-icon {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        line-height: 16px;
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  &-visual {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 1024px) {
+      height: 300px;
+    }
+
+    @media (max-width: 768px) {
+      height: 250px;
+    }
+  }
+
+  &-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    @include smooth-transition;
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    mat-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 32px;
+      line-height: 32px;
+      color: var(--color-primary);
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .card-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    &.card-1 {
+      top: 20%;
+      left: 10%;
+
+      @media (max-width: 1024px) {
+        top: 10%;
+        left: 5%;
+      }
+    }
+
+    &.card-2 {
+      top: 50%;
+      right: 15%;
+
+      @media (max-width: 1024px) {
+        top: 45%;
+        right: 5%;
+      }
+    }
+
+    &.card-3 {
+      bottom: 15%;
+      left: 15%;
+
+      @media (max-width: 1024px) {
+        bottom: 5%;
+        left: 5%;
+      }
+    }
+  }
+
+  &-illustration {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+
+  &.orb-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    top: -100px;
+    left: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  &.orb-2 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    top: 50%;
+    right: -50px;
+    animation: floatImage 10s ease-in-out infinite;
+  }
+
+  &.orb-3 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    bottom: -50px;
+    left: 10%;
+    animation: floatCard 12s ease-in-out infinite;
+  }
+}

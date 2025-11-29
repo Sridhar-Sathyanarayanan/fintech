@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatRippleModule } from '@angular/material/core';
 import { MaterialModules } from '../shared/material.standalone';
+import { HeroSectionComponent } from '../shared/components/hero-section/hero-section.component';
 
 interface TeamMember {
   name: string;
@@ -42,11 +37,40 @@ interface Feature {
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModules],
+  imports: [CommonModule, RouterModule, MaterialModules, HeroSectionComponent],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutUsComponent {
+  heroActions = [
+    {
+      label: 'Our Mission',
+      icon: 'explore',
+      route: '#mission',
+      variant: 'primary' as const,
+    },
+    {
+      label: 'Meet the Team',
+      icon: 'groups',
+      route: '#team',
+      variant: 'secondary' as const,
+    },
+  ];
+
+  heroCards = [
+    {
+      icon: 'school',
+      label: 'Financial Literacy',
+      value: 'For Everyone',
+    },
+    {
+      icon: 'security',
+      label: 'Data Security',
+      value: '100% Safe',
+    },
+  ];
+
   stats = [
     { value: '50K+', label: 'Active Users', icon: 'people' },
     { value: '100K+', label: 'Calculations Done', icon: 'calculate' },

@@ -1,31 +1,34 @@
 import nodemailer from "nodemailer";
 
-// Create a transporter using Gmail's SMTP server
+// Create a transporter using SMTP server
 const transporter = nodemailer.createTransport({
   host: "smtpout.secureserver.net",
-  port:465,
+  port: 465,
   auth: {
-    user: "support@amkrtech.com", // Email from environment variable
-    pass: "amkr@2025", // Password from environment variable
+    user: "support@amkrtech.com",
+    pass: "amkr@2025",
   },
 });
 
-// Function to send an email
-const sendEmail = async (params) => {
-  const mailOptions = {
-    from: "support@amkrtech.com",
-    to: params.email,
-    subject: "Test mail",
-    text: params.message,
-  };
+// Function to send an email with Promise support
+const sendEmail = async (params: { email: string; message: string; subject?: string }): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: "support@amkrtech.com",
+      to: params.email,
+      subject: params.subject || "Message from AMKRTech",
+      text: params.message,
+    };
 
-  // Send the email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("Error sending email:", error);
-    } else {
-      console.log("Email sent:", info.response);
-    }
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        reject(new Error(`Failed to send email: ${error.message}`));
+      } else {
+        console.log("Email sent successfully:", info.response);
+        resolve();
+      }
+    });
   });
 };
 

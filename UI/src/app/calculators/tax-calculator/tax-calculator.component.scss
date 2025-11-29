@@ -1,59 +1,7 @@
 @use "@angular/material" as mat;
 @use "../../../styles/styles.scss" as *;
-
-// Mixins
-@mixin smooth-transition {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@mixin card-hover {
-  @include smooth-transition;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-  }
-}
-
-// Animations
-@keyframes float {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+@use "../../../styles/mixins" as *;
+@use "../../../styles/animations" as *;
 
 // Tax Calculator Page
 .tax-calculator-page {
@@ -164,6 +112,8 @@
 
       .gradient-text {
         display: block;
+          font-weight: 700;
+        font-size: 36px;
         background: linear-gradient(90deg, #fff 0%, #ffd4e5 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -487,7 +437,8 @@
 
 // Form Styles
 .form-grid {
-  display: grid;
+  display: block;
+  width: 45%;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
@@ -554,6 +505,7 @@
           width: 2rem;
           height: 2rem;
           color: #667eea;
+          cursor: pointer;
         }
 
         span {

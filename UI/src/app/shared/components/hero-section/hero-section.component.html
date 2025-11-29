@@ -1,0 +1,90 @@
+<section class="hero">
+  <div class="hero-background">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+  
+  <div class="hero-container">
+    <div class="hero-content">
+      @if (badge) {
+        <div class="hero-badge">
+          @if (badgeIcon) {
+            <mat-icon>{{ badgeIcon }}</mat-icon>
+          }
+          <span>{{ badge }}</span>
+        </div>
+      }
+      
+      <h1 class="hero-title">
+        {{ title }}
+        @if (gradientText) {
+          <span class="gradient-text">{{ gradientText }}</span>
+        }
+      </h1>
+      
+      @if (subtitle) {
+        <p class="hero-subtitle">{{ subtitle }}</p>
+      }
+      
+      @if (actions && actions.length > 0) {
+        <div class="hero-actions">
+          @for (action of actions; track action.label) {
+            @if (action.variant === 'primary') {
+              <button 
+                mat-raised-button
+                color="primary"
+                class="action-button"
+                [routerLink]="action.route">
+                <mat-icon>{{ action.icon }}</mat-icon>
+                {{ action.label }}
+              </button>
+            }
+            @if (action.variant === 'secondary') {
+              <button 
+                mat-button
+                class="action-button"
+                [routerLink]="action.route">
+                <mat-icon>{{ action.icon }}</mat-icon>
+                {{ action.label }}
+              </button>
+            }
+          }
+        </div>
+      }
+      
+      @if (features && features.length > 0) {
+        <div class="hero-features">
+          @for (feature of features; track feature.label) {
+            <div class="feature-chip">
+              <mat-icon>{{ feature.icon }}</mat-icon>
+              <span>{{ feature.label }}</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
+    
+    @if (visualCards || illustration) {
+      <div class="hero-visual">
+        @if (visualCards) {
+          @for (card of visualCards; let i = $index; track i) {
+            <div class="hero-card" [ngClass]="'card-' + (i + 1)">
+              <mat-icon>{{ card.icon }}</mat-icon>
+              <div class="card-content">
+                <span class="card-label">{{ card.label }}</span>
+                <span class="card-value">{{ card.value }}</span>
+              </div>
+            </div>
+          }
+        }
+        
+        @if (illustration) {
+          <div class="hero-illustration">
+            <img [src]="illustration" alt="Hero Illustration" loading="lazy" />
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
+import { Router } from '@angular/router';
+import { ChartData, ChartOptions, TaxSlab, ComparisonData } from '../../models/chart.models';
 
 @Component({
   selector: 'app-tax-slab-calculator',
@@ -13,6 +15,7 @@ import { MaterialModules } from '../../shared/material.standalone';
   ],
   templateUrl: './nps-calculator.component.html',
   styleUrls: ['./nps-calculator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NPSCalculatorComponent {
   years = ['2023–2024', '2024–2025', '2025–2026'];
@@ -20,7 +23,7 @@ export class NPSCalculatorComponent {
   
   @ViewChild('comparisonChart') chart!: BaseChartDirective;
 
-  comparisonData: any = {
+  comparisonData: Record<string, ComparisonData[]> = {
     '2023-2024': [
       { range: 'Up to ₹2,50,000', oldRate: 'Nil', newRate: 'Nil' },
       { range: '₹2,50,001 – ₹5,00,000', oldRate: '5%', newRate: '5%' },
@@ -50,7 +53,7 @@ export class NPSCalculatorComponent {
     ],
   };
 
-  slabData: any = {
+  slabData: Record<string, { old: TaxSlab[]; new: TaxSlab[] }> = {
     '2023–2024': {
       old: [
         { range: '₹0 - ₹2.5L', rate: '0%' },
@@ -104,12 +107,12 @@ export class NPSCalculatorComponent {
 
   comparisonChartType: any = 'bar';
 
-  comparisonChartData: any = {
+  comparisonChartData: ChartData = {
     labels: [],
     datasets: [],
   };
 
-  comparisonChartOptions: any = {
+  comparisonChartOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -169,7 +172,7 @@ export class NPSCalculatorComponent {
             weight: '500'
           },
           color: '#666',
-          callback: function(value: any) {
+          callback: function(value: number) {
             return value + '%';
           }
         },
@@ -180,13 +183,13 @@ export class NPSCalculatorComponent {
     },
   };
 
-  constructor() {
+  constructor(private router: Router) {
     this.updateComparisonChart();
   }
 
   updateComparisonChart() {
-    const oldSlabs: any = this.slabData[this.selectedYear].old;
-    const newSlabs: any = this.slabData[this.selectedYear].new;
+    const oldSlabs = this.slabData[this.selectedYear].old;
+    const newSlabs = this.slabData[this.selectedYear].new;
 
     // Use the union of all ranges for labels
     const labelsSet = new Set<string>();
@@ -238,7 +241,8 @@ export class NPSCalculatorComponent {
   exportChart() {
     if (!this.chart) return;
     const base64Image = this.chart.toBase64Image();
-    const link: any = document.createElement('a');
+    if (!base64Image) return;
+    const link = document.createElement('a') as HTMLAnchorElement;
     link.href = base64Image;
     link.download = `tax-comparison-${this.selectedYear}.png`;
     link.click();
@@ -262,5 +266,14 @@ export class NPSCalculatorComponent {
     
     const absDiff = Math.abs(diff);
     return diff > 0 ? `+${absDiff}%` : `${diff}%`;
+  }
+
+  navigateToIncomeTaxCalculator() {
+    this.router.navigate(['/income-tax-calculator']);
+    this.scrollToTop();
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

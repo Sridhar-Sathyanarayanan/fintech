@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CalculatorHomeComponent } from './calculator-home.component';
+import { HraCalculator } from './hra-calculator';
 
-describe('CalculatorHomeComponent', () => {
-  let component: CalculatorHomeComponent;
-  let fixture: ComponentFixture<CalculatorHomeComponent>;
+describe('HraCalculator', () => {
+  let component: HraCalculator;
+  let fixture: ComponentFixture<HraCalculator>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalculatorHomeComponent]
+      imports: [HraCalculator]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CalculatorHomeComponent);
+    fixture = TestBed.createComponent(HraCalculator);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
+import { HeroSectionComponent } from '../shared/components/hero-section/hero-section.component';
 
 interface PolicySection {
   id: string;
@@ -40,11 +41,27 @@ interface CookieInfo {
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModules],
+  imports: [CommonModule, RouterModule, MaterialModules, HeroSectionComponent],
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrivacyPolicyComponent implements OnInit {
+  privacyFeatures = [
+    {
+      icon: 'check_circle',
+      label: 'Secure Data Storage',
+    },
+    {
+      icon: 'block',
+      label: 'No Third-Party Sharing',
+    },
+    {
+      icon: 'visibility',
+      label: 'Full Transparency',
+    },
+  ];
+
   activeSection: string = '';
   scrollProgress: number = 0;
   lastUpdated: string = 'October 27, 2025';

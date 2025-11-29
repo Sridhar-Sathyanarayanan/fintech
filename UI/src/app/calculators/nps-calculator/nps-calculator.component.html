@@ -46,7 +46,7 @@
         <div class="visual-decoration decoration-2"></div>
 
         <div class="hero-image-wrapper">
-          <img src="assets/images/tax-illustration.svg" alt="Tax Calculator" class="hero-image" />
+          <img src="assets/images/NPS.jpeg" alt="Tax Calculator" class="hero-image" />
         </div>
 
         <div class="floating-card card-1">
@@ -406,7 +406,8 @@
         Use our advanced tax calculator to determine which regime saves you more
         money
       </p>
-      <button mat-raised-button color="accent" class="cta-button">
+      <!-- Updated the button to call a function for navigation -->
+      <button mat-raised-button color="accent" class="cta-button" (click)="navigateToIncomeTaxCalculator()">
         <mat-icon>arrow_forward</mat-icon>
         <span>Calculate Now</span>
       </button>

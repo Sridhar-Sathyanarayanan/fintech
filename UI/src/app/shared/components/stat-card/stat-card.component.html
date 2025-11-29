@@ -1,0 +1,13 @@
+<div class="stat-card">
+  @if (icon) {
+    <mat-icon class="stat-icon">{{ icon }}</mat-icon>
+  }
+  <div class="stat-content">
+    @if (value) {
+      <div class="stat-value">{{ value }}</div>
+    }
+    @if (label) {
+      <div class="stat-label">{{ label }}</div>
+    }
+  </div>
+</div>

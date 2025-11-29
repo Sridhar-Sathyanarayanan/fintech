@@ -40,7 +40,7 @@
         <div class="visual-decoration decoration-1"></div>
         <div class="visual-decoration decoration-2"></div>
         <div class="hero-image-wrapper">
-          <img src="assets/images/SIP_Calculator.jpg" alt="SIP Investment" class="hero-image" />
+          <img src="assets/images/SIP.jpeg" alt="SIP Investment" class="hero-image" />
         </div>
         <div class="floating-card card-1">
           <mat-icon>savings</mat-icon>
@@ -114,7 +114,7 @@
                 Amount
               </label>
               <mat-form-field appearance="outline" class="amount-field">
-                <span matPrefix>₹&nbsp;</span>
+                <span matPrefix>&nbsp;₹&nbsp;</span>
                 <input matInput type="number" [value]="amount()" (input)="onAmountChange($event)" min="500"
                   max="1000000" />
                 <mat-icon matSuffix>account_balance_wallet</mat-icon>
@@ -291,6 +291,119 @@
     </div>
   </section>
 
+  <!-- Pro Tips Section -->
+  <section class="pro-tips-section">
+    <div class="pro-tips-container">
+      <div class="section-header">
+        <div class="header-badge">
+          <mat-icon>lightbulb</mat-icon>
+          <span>Expert Advice</span>
+        </div>
+        <h2 class="section-title">Pro Tips for SIP Success</h2>
+        <p class="section-subtitle">Master these strategies to maximize your SIP returns and achieve your financial goals faster</p>
+      </div>
+
+      <div class="tips-grid">
+        <mat-card class="tip-card">
+          <div class="tip-number">01</div>
+          <div class="tip-icon">
+            <mat-icon>event_available</mat-icon>
+          </div>
+          <h3 class="tip-title">Start Early, Stay Invested</h3>
+          <p class="tip-description">
+            Time is your greatest asset in investing. Starting a SIP early, even with a small amount, 
+            can create significantly more wealth than starting late with larger amounts. A 25-year-old 
+            investing ₹5,000/month will accumulate more than a 35-year-old investing ₹10,000/month 
+            by retirement age.
+          </p>
+          <div class="tip-highlight">
+            <mat-icon>insights</mat-icon>
+            <span>The first 10 years contribute to 60% of your final corpus</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="tip-card">
+          <div class="tip-number">02</div>
+          <div class="tip-icon">
+            <mat-icon>trending_up</mat-icon>
+          </div>
+          <h3 class="tip-title">Increase SIP with Salary Hikes</h3>
+          <p class="tip-description">
+            Implement a Step-Up SIP by increasing your investment by 10-15% annually or with every 
+            salary increment. This accelerates wealth creation without straining your budget. If you 
+            increase a ₹5,000 monthly SIP by 10% annually, you could accumulate 40-50% more wealth 
+            over 20 years.
+          </p>
+          <div class="tip-highlight">
+            <mat-icon>auto_awesome</mat-icon>
+            <span>Step-Up SIP can boost returns by 40-50% over regular SIP</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="tip-card">
+          <div class="tip-number">03</div>
+          <div class="tip-icon">
+            <mat-icon>donut_large</mat-icon>
+          </div>
+          <h3 class="tip-title">Diversify Across Asset Classes</h3>
+          <p class="tip-description">
+            Don't put all eggs in one basket. Allocate your SIPs across large-cap, mid-cap, small-cap, 
+            and debt funds based on your risk profile. A balanced portfolio of 60% equity and 40% debt 
+            can provide stable returns while managing volatility effectively.
+          </p>
+          <div class="tip-highlight">
+            <mat-icon>shield</mat-icon>
+            <span>Diversification reduces risk by 30-40% without sacrificing returns</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="tip-card">
+          <div class="tip-number">04</div>
+          <div class="tip-icon">
+            <mat-icon>crisis_alert</mat-icon>
+          </div>
+          <h3 class="tip-title">Don't Stop During Market Crashes</h3>
+          <p class="tip-description">
+            Market corrections are opportunities, not threats. Continuing your SIP during bear markets 
+            allows you to buy more units at lower prices (rupee cost averaging). Historical data shows 
+            that investors who stayed invested during 2008 and 2020 crashes earned significantly higher 
+            returns.
+          </p>
+          <div class="tip-highlight">
+            <mat-icon>show_chart</mat-icon>
+            <span>SIPs started during crashes can generate 2-3x better returns</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="tip-card">
+          <div class="tip-number">05</div>
+          <div class="tip-icon">
+            <mat-icon>track_changes</mat-icon>
+          </div>
+          <h3 class="tip-title">Review and Rebalance Annually</h3>
+          <p class="tip-description">
+            Review your SIP portfolio at least once a year. Check if your funds are consistently 
+            underperforming their benchmark or peers for 3+ years. Rebalance your asset allocation 
+            to maintain your desired risk level. However, avoid making changes based on short-term 
+            market movements.
+          </p>
+          <div class="tip-highlight">
+            <mat-icon>sync</mat-icon>
+            <span>Annual rebalancing can improve returns by 1-2% per year</span>
+          </div>
+        </mat-card>
+      </div>
+
+      <div class="tips-footer">
+        <mat-icon>info</mat-icon>
+        <p>
+          <strong>Remember:</strong> These tips are general guidelines. Always consult with a certified 
+          financial advisor before making investment decisions. Past performance doesn't guarantee future returns.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- Info Section -->
   <section class="info-section">
     <div class="info-container">
@@ -337,6 +450,49 @@
             <mat-chip>Goal Planning</mat-chip>
           </mat-chip-set>
         </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-container">
+      <div class="section-header">
+        <div class="header-badge">
+          <mat-icon>help_outline</mat-icon>
+          <span>Got Questions?</span>
+        </div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about SIP investments in India</p>
+      </div>
+
+      <div class="faq-list">
+        @for (faq of faqs; track $index) {
+          <mat-card class="faq-item" [class.expanded]="faq.expanded">
+            <div class="faq-question" (click)="toggleFAQ($index)">
+              <div class="question-content">
+                <mat-icon class="question-icon">help_center</mat-icon>
+                <h3>{{ faq.question }}</h3>
+              </div>
+              <mat-icon class="expand-icon">
+                {{ faq.expanded ? 'expand_less' : 'expand_more' }}
+              </mat-icon>
+            </div>
+            @if (faq.expanded) {
+              <div class="faq-answer">
+                <mat-divider></mat-divider>
+                <p>{{ faq.answer }}</p>
+              </div>
+            }
+          </mat-card>
+        }
+      </div>
+
+      <div class="faq-footer">
+        <mat-icon>contact_support</mat-icon>
+        <p>
+          Still have questions? Our support team is here to help you with your investment journey.
+        </p>
       </div>
     </div>
   </section>
@@ -413,10 +569,6 @@
         Use our calculator to plan your SIP investments and watch your wealth
         grow systematically
       </p>
-      <button mat-raised-button color="primary" class="cta-button" (click)="calculate()">
-        <mat-icon>calculate</mat-icon>
-        Calculate Your Returns
-      </button>
     </div>
   </section>
 </div>

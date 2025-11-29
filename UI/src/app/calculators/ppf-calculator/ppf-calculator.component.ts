@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
@@ -28,6 +28,7 @@ type FrequencyType = 'yearly' | 'halfyearly' | 'quarterly' | 'monthly';
     BaseChartDirective,
     MaterialModules,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PpfCalculatorComponent implements OnInit {
   frequency = signal<FrequencyType>('yearly');

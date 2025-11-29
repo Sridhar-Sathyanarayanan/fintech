@@ -1,84 +1,22 @@
 <!-- HERO SECTION -->
-<section class="hero">
-  <div class="hero-background"></div>
-  <div class="hero-container">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <mat-icon>verified</mat-icon>
-        <span>Trusted by 10,000+ users</span>
-      </div>
-      <h1 class="hero-title">
-        Master Your
-        <span class="gradient-text">Financial Future</span>
-      </h1>
-      <p class="hero-subtitle">
-        Intelligent tools and insights to help you make smarter tax decisions,
-        track investments, and build lasting wealth with confidence.
-      </p>
-      <div class="hero-actions">
-        <button mat-raised-button color="primary" class="cta-button" routerLink="/calculator">
-          <mat-icon>rocket_launch</mat-icon>
-          Start Planning
-        </button>
-        <button mat-button class="secondary-button" routerLink="/learn">
-          <mat-icon>play_circle</mat-icon>
-          Watch Demo
-        </button>
-      </div>
-      <div class="hero-features">
-        <div class="feature-chip">
-          <mat-icon>check_circle</mat-icon>
-          <span>Free Forever</span>
-        </div>
-        <div class="feature-chip">
-          <mat-icon>security</mat-icon>
-          <span>100% Secure</span>
-        </div>
-        <div class="feature-chip">
-          <mat-icon>speed</mat-icon>
-          <span>Instant Results</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-card card-1">
-        <mat-icon>trending_up</mat-icon>
-        <div class="card-content">
-          <span class="card-label">Portfolio Growth</span>
-          <span class="card-value">+24.5%</span>
-        </div>
-      </div>
-      <div class="hero-card card-2">
-        <mat-icon>savings</mat-icon>
-        <div class="card-content">
-          <span class="card-label">Tax Saved</span>
-          <span class="card-value">₹45,000</span>
-        </div>
-      </div>
-      <div class="hero-card card-3">
-        <mat-icon>account_balance_wallet</mat-icon>
-        <div class="card-content">
-          <span class="card-label">Monthly Savings</span>
-          <span class="card-value">₹12,500</span>
-        </div>
-      </div>
-      <div class="hero-illustration">
-        <img src="/assets/images/illustration1.svg" alt="Financial Planning" />
-      </div>
-    </div>
-  </div>
-</section>
+<app-hero-section
+  title="Master Your"
+  gradientText="Financial Future"
+  [subtitle]="'Intelligent tools and insights to help you make smarter tax decisions, track investments, and build lasting wealth with confidence.'"
+  badge="Trusted by 10,000+ users"
+  badgeIcon="verified"
+  [actions]="heroActions"
+  [features]="heroFeatures"
+  [visualCards]="heroCards"
+  illustration="/assets/images/illustration1.svg">
+</app-hero-section>
 
 <!-- STATISTICS SECTION -->
 <section class="statistics">
   <div class="statistics-container">
-    <div class="stat-item" *ngFor="let stat of statistics">
-      <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
-      <div class="stat-content">
-        <div class="stat-value">{{ stat.value }}</div>
-        <div class="stat-label">{{ stat.label }}</div>
-      </div>
-    </div>
+    @for (stat of statistics; track stat.label) {
+      <app-stat-card [value]="stat.value" [label]="stat.label" [icon]="stat.icon"></app-stat-card>
+    }
   </div>
 </section>
 
@@ -92,23 +30,15 @@
       </p>
     </div>
     <div class="feature-grid">
-      <mat-card 
-        class="feature-card" 
-        *ngFor="let tool of financialTools"
-        [routerLink]="tool.route"
-        matRipple>
-        <div class="feature-icon-wrapper" [ngClass]="tool.color">
-          <mat-icon class="feature-icon">{{ tool.icon }}</mat-icon>
-        </div>
-        <mat-card-content>
-          <h3 class="feature-title">{{ tool.title }}</h3>
-          <p class="feature-desc">{{ tool.desc }}</p>
-          <div class="feature-link">
-            <span>Explore tool</span>
-            <mat-icon>arrow_forward</mat-icon>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      @for (tool of financialTools; track tool.title) {
+        <app-feature-card 
+          [icon]="tool.icon"
+          [title]="tool.title"
+          [description]="tool.desc"
+          [color]="tool.color"
+          [route]="tool.route">
+        </app-feature-card>
+      }
     </div>
   </div>
 </section>
@@ -117,15 +47,17 @@
 <section class="carousel-section">
   <div class="carousel-wrapper">
     <div class="carousel-container" [style.transform]="'translateX(-' + currentSlide() * 100 + '%)'">
-      <div class="carousel-slide" *ngFor="let image of financeImages">
-        <img [src]="image" alt="Financial insights" />
-        <div class="carousel-overlay">
-          <div class="carousel-content">
-            <h3>Smart Financial Planning</h3>
-            <p>Discover expert insights and strategies</p>
+      @for (image of financeImages; track image) {
+        <div class="carousel-slide">
+          <img [src]="image" alt="Financial insights" loading="lazy" />
+          <div class="carousel-overlay">
+            <div class="carousel-content">
+              <h3>Smart Financial Planning</h3>
+              <p>Discover expert insights and strategies</p>
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
     <div class="carousel-controls">
       <button 
@@ -144,13 +76,14 @@
       </button>
     </div>
     <div class="carousel-indicators">
-      <button 
-        *ngFor="let image of financeImages; let i = index"
-        class="indicator"
-        [class.active]="currentSlide() === i"
-        (click)="onSlideIndicatorClick(i)"
-        [attr.aria-label]="'Go to slide ' + (i + 1)">
-      </button>
+      @for (image of financeImages; let i = $index; track image) {
+        <button 
+          class="indicator"
+          [class.active]="currentSlide() === i"
+          (click)="onSlideIndicatorClick(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)">
+        </button>
+      }
     </div>
   </div>
 </section>
@@ -165,15 +98,17 @@
       </p>
     </div>
     <div class="facts-grid">
-      <mat-card class="fact-card" *ngFor="let fact of financialFacts">
-        <div class="fact-icon-wrapper">
-          <mat-icon>{{ fact.icon }}</mat-icon>
-        </div>
-        <mat-card-content>
-          <h3 class="fact-title">{{ fact.title }}</h3>
-          <p class="fact-content">{{ fact.content }}</p>
-        </mat-card-content>
-      </mat-card>
+      @for (fact of financialFacts; track fact.title) {
+        <mat-card class="fact-card">
+          <div class="fact-icon-wrapper">
+            <mat-icon>{{ fact.icon }}</mat-icon>
+          </div>
+          <mat-card-content>
+            <h3 class="fact-title">{{ fact.title }}</h3>
+            <p class="fact-content">{{ fact.content }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
     </div>
   </div>
 </section>

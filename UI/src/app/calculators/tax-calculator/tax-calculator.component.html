@@ -118,6 +118,8 @@
                     </div>
                   </div>
 
+                  
+
                   <div class="step-actions">
                     <button mat-raised-button color="primary" (click)="stepper.next()"
                       [disabled]="basicFormGroup.invalid" class="action-button">
@@ -147,7 +149,7 @@
                     <mat-form-field appearance="outline" class="modern-field">
                       <mat-label>Annual Income</mat-label>
                       <input matInput type="number" formControlName="income" placeholder="0" />
-                      <span matPrefix>₹&nbsp;</span>
+                      <span matPrefix>&nbsp;₹&nbsp;</span>
                       <mat-icon matSuffix>trending_up</mat-icon>
                       @if (incomeFormGroup.get('income')?.hasError('required') &&
                       incomeFormGroup.get('income')?.touched) {
@@ -158,7 +160,7 @@
                     <mat-form-field appearance="outline" class="modern-field">
                       <mat-label>Other Income</mat-label>
                       <input matInput type="number" formControlName="otherIncome" placeholder="0" />
-                      <span matPrefix>₹&nbsp;</span>
+                      <span matPrefix>&nbsp;₹&nbsp;</span>
                       <mat-icon matSuffix>add_circle</mat-icon>
                     </mat-form-field>
                   </div>
@@ -214,7 +216,7 @@
                     <mat-form-field appearance="outline" class="modern-field deduction-field">
                       <mat-label>{{ deduction.label }}</mat-label>
                       <input matInput type="number" [formControlName]="deduction.control" placeholder="0" />
-                      <span matPrefix>₹&nbsp;</span>
+                      <span matPrefix>&nbsp;₹&nbsp;</span>
                       <mat-icon matSuffix>{{ deduction.icon }}</mat-icon>
                       @if (deduction.max) {
                       <mat-hint>Max: ₹{{ deduction.max | number }}</mat-hint>

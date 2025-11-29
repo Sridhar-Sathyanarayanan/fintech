@@ -1,0 +1,21 @@
+<mat-card class="feature-card" [routerLink]="route" matRipple>
+  <div class="feature-header">
+    <div class="icon-wrapper" [ngClass]="color || 'primary'">
+      <mat-icon class="feature-icon">{{ icon }}</mat-icon>
+    </div>
+  </div>
+  <div class="feature-body">
+    @if (title) {
+      <h3 class="feature-title">{{ title }}</h3>
+    }
+    @if (description) {
+      <p class="feature-description">{{ description }}</p>
+    }
+    @if (route) {
+      <div class="feature-link">
+        <span>Learn More</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </div>
+    }
+  </div>
+</mat-card>

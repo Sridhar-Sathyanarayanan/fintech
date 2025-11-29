@@ -1,0 +1,517 @@
+<div class="gratuity-calculator-page">
+  <!-- Hero Section -->
+  <section class="gratuity-hero">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="hero-content-wrapper">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <mat-icon>verified</mat-icon>
+          <span>Indian Gratuity Calculator</span>
+        </div>
+
+        <h1 class="hero-title">
+          Calculate Your
+          <span class="gradient-text">Gratuity Amount</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Instantly calculate your gratuity entitlement as per the Payment of
+          Gratuity Act, 1972. Get accurate results for both covered and
+          non-covered organizations.
+        </p>
+
+        <div class="hero-features">
+          <div class="feature-chip">
+            <mat-icon>gavel</mat-icon>
+            <span>Act Compliant</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>calculate</mat-icon>
+            <span>Accurate Formula</span>
+          </div>
+          <div class="feature-chip">
+            <mat-icon>verified_user</mat-icon>
+            <span>20L Cap Applied</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-decoration decoration-1"></div>
+        <div class="visual-decoration decoration-2"></div>
+
+        <div class="hero-image-wrapper">
+          <img src="/assets/images/gratuity.jpeg" alt="Gratuity Calculator" class="hero-image" />
+        </div>
+
+        <div class="floating-card card-1">
+          <mat-icon>account_balance_wallet</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Max Gratuity</span>
+            <span class="card-value">₹20L</span>
+          </div>
+        </div>
+
+        <div class="floating-card card-2">
+          <mat-icon>schedule</mat-icon>
+          <div class="card-text">
+            <span class="card-label">Min Service</span>
+            <span class="card-value">5 Years</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section class="calculator-section">
+    <div class="calculator-container">
+      <div class="calculator-grid">
+        <!-- Input Card -->
+        <mat-card class="input-card">
+          <div class="card-header">
+            <div class="header-icon">
+              <mat-icon>calculate</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="card-title">Gratuity Calculator</h2>
+              <p class="card-subtitle">Enter your employment details</p>
+            </div>
+          </div>
+
+          <div class="input-controls">
+            <!-- Organization Type -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>business</mat-icon>
+                Organization Type
+              </label>
+              <mat-radio-group class="org-type-group" [formControl]="organizationTypeControl">
+                <mat-radio-button value="covered" class="type-option"
+                  [class.mat-mdc-radio-checked]="organizationTypeControl.value === 'covered'">
+                  Covered
+                  <div class="option-content">
+                    <mat-icon>domain</mat-icon>
+                    <div>
+                      <strong>Covered under Act</strong>
+                      <span>10+ employees, applies 26 days/year</span>
+                    </div>
+                  </div>
+                </mat-radio-button>
+
+                <mat-radio-button value="uncovered" class="type-option"
+                  [class.mat-mdc-radio-checked]="organizationTypeControl.value === 'uncovered'">
+                  Uncovered
+                  <div class="option-content">
+                    <mat-icon>store</mat-icon>
+                    <div>
+                      <strong>Not Covered under Act</strong>
+                      <span>Less than 10 employees, applies 30 days/year</span>
+                    </div>
+                  </div>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <!-- Last Drawn Salary -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>currency_rupee</mat-icon>
+                Last Drawn Salary (Monthly)
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ formatCurrency(lastSalaryControl.value || 0) }}</span>
+              </div>
+              <mat-form-field appearance="outline" class="amount-field">
+                <mat-label>Monthly Salary</mat-label>
+                <span matTextPrefix>₹&nbsp;</span>
+                <input matInput type="number" [formControl]="lastSalaryControl"
+                  (input)="onSalaryInput($event)" placeholder="50000" />
+                <mat-icon matIconSuffix>account_balance_wallet</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Years of Service -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>event</mat-icon>
+                Years of Service
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ yearsControl.value }}</span>
+                <span class="value-unit">{{ yearsControl.value === 1 ? "Year" : "Years" }}</span>
+              </div>
+              <mat-slider class="custom-slider" [min]="yearsMin" [max]="yearsMax" [step]="1"
+                [discrete]="true" [showTickMarks]="true">
+                <input matSliderThumb [formControl]="yearsControl" (valueChange)="onYearsChange($event)" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>{{ yearsMin }} years</span>
+                <span>{{ yearsMax }} years</span>
+              </div>
+            </div>
+
+            <!-- Months of Service -->
+            <div class="control-group">
+              <label class="control-label">
+                <mat-icon>calendar_today</mat-icon>
+                Additional Months
+              </label>
+              <div class="value-display">
+                <span class="value-number">{{ monthsControl.value }}</span>
+                <span class="value-unit">{{ monthsControl.value === 1 ? "Month" : "Months" }}</span>
+              </div>
+              <mat-slider class="custom-slider" [min]="monthsMin" [max]="monthsMax" [step]="1"
+                [discrete]="true" [showTickMarks]="true">
+                <input matSliderThumb [formControl]="monthsControl" (valueChange)="onMonthsChange($event)" />
+              </mat-slider>
+              <div class="slider-labels">
+                <span>{{ monthsMin }} months</span>
+                <span>{{ monthsMax }} months</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button mat-raised-button color="primary" class="calc-button" (click)="calculateGratuity()">
+              <mat-icon>calculate</mat-icon>
+              Calculate Gratuity
+            </button>
+
+            <button mat-stroked-button class="reset-button" (click)="resetCalculator()">
+              <mat-icon>refresh</mat-icon>
+              Reset
+            </button>
+          </div>
+        </mat-card>
+
+        <!-- Results Section -->
+        @if (showResults && result) {
+        <div class="results-section">
+          <!-- Summary Cards -->
+          <div class="summary-cards">
+            <mat-card class="summary-card gratuity">
+              <div class="card-icon">
+                <mat-icon>account_balance_wallet</mat-icon>
+              </div>
+              <div class="card-content">
+                <p class="card-label">Gratuity Amount</p>
+                <h3 class="card-value highlight">
+                  {{ formatCurrency(result.gratuityAmount) }}
+                </h3>
+                @if (isGratuityCapped()) {
+                <p class="card-subtext">(Capped at maximum limit)</p>
+                }
+              </div>
+            </mat-card>
+
+            <mat-card class="summary-card service">
+              <div class="card-icon">
+                <mat-icon>event_available</mat-icon>
+              </div>
+              <div class="card-content">
+                <p class="card-label">Service Period</p>
+                <h3 class="card-value">{{ result.totalService }}</h3>
+                <p class="card-subtext">{{ getEligibilityText() }}</p>
+              </div>
+            </mat-card>
+          </div>
+
+          <!-- Details Card -->
+          <mat-card class="details-card">
+            <h3 class="details-title">
+              <mat-icon>description</mat-icon>
+              Calculation Details
+            </h3>
+
+            <div class="details-content">
+              <div class="detail-row">
+                <span class="detail-label">
+                  <mat-icon>business</mat-icon>
+                  Organization Type
+                </span>
+                <span class="detail-value">{{ result.organizationType }}</span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">
+                  <mat-icon>currency_rupee</mat-icon>
+                  Last Drawn Salary
+                </span>
+                <span class="detail-value">{{ formatCurrency(result.lastDrawnSalary) }}</span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">
+                  <mat-icon>event</mat-icon>
+                  Years of Service
+                </span>
+                <span class="detail-value">{{ result.yearsOfService }} years</span>
+              </div>
+
+              <div class="detail-row">
+                <span class="detail-label">
+                  <mat-icon>calendar_today</mat-icon>
+                  Additional Months
+                </span>
+                <span class="detail-value">{{ result.monthsOfService }} months</span>
+              </div>
+
+              <div class="detail-row highlight">
+                <span class="detail-label">
+                  <mat-icon>payments</mat-icon>
+                  Total Gratuity Payable
+                </span>
+                <span class="detail-value">{{ formatCurrency(result.gratuityAmount) }}</span>
+              </div>
+            </div>
+          </mat-card>
+
+          <!-- Formula Card -->
+          @if (result.isEligible) {
+          <mat-card class="formula-card">
+            <h3 class="formula-title">
+              <mat-icon>functions</mat-icon>
+              Calculation Formula
+            </h3>
+
+            <div class="formula-content">
+              <div class="formula-text">{{ result.formula }}</div>
+
+              <div class="formula-breakdown">
+                @for (item of getFormulaBreakdown(); track $index) {
+                <div class="breakdown-item">
+                  <mat-icon>arrow_right</mat-icon>
+                  <span><strong>{{ item.label }}:</strong> {{ item.value }}</span>
+                </div>
+                }
+              </div>
+            </div>
+          </mat-card>
+          }
+
+          <!-- Ineligibility Message -->
+          @if (!result.isEligible) {
+          <mat-card class="details-card">
+            <div class="details-content">
+              <div class="detail-row highlight">
+                <span class="detail-label">
+                  <mat-icon>info</mat-icon>
+                  Eligibility Status
+                </span>
+                <span class="detail-value" style="color: #ff9800">Not Eligible</span>
+              </div>
+              <div style="padding: 1rem; text-align: center; color: #666">
+                <p>
+                  You need to complete at least 5 years of continuous service to
+                  be eligible for gratuity.
+                </p>
+                <p>Current service: {{ result.totalService }}</p>
+              </div>
+            </div>
+          </mat-card>
+          }
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="info-section">
+    <div class="info-container">
+      <h2 class="info-title">Understanding Gratuity in India</h2>
+
+      <div class="info-grid">
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">gavel</mat-icon>
+          <h3>Eligibility Criteria</h3>
+          <p>
+            Gratuity is payable to employees who have completed 5 years of
+            continuous service with an organization.
+          </p>
+          <div class="info-list">
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Minimum 5 years of continuous service</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Payable on retirement, resignation, or termination</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Death or disablement exempts 5-year rule</span>
+            </div>
+          </div>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">calculate</mat-icon>
+          <h3>Calculation Method</h3>
+          <p>
+            Gratuity is calculated based on your last drawn salary and years of
+            service as per the formula.
+          </p>
+          <div class="info-list">
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>15 days' salary for each year of service</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>26 working days for covered organizations</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>30 calendar days for non-covered organizations</span>
+            </div>
+          </div>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">account_balance</mat-icon>
+          <h3>Maximum Limit</h3>
+          <p>
+            The Payment of Gratuity Act, 1972 specifies a maximum limit on
+            gratuity amount payable.
+          </p>
+          <div class="info-list">
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Maximum gratuity: ₹20,00,000 (20 Lakhs)</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Limit revised from ₹10L in 2010</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Tax-free up to ₹20 lakhs</span>
+            </div>
+          </div>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-icon class="info-icon">business</mat-icon>
+          <h3>Covered Organizations</h3>
+          <p>
+            Organizations with 10 or more employees are covered under the
+            Payment of Gratuity Act, 1972.
+          </p>
+          <div class="info-list">
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Factories, mines, oilfields, plantations</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Ports, railways, motor transport</span>
+            </div>
+            <div class="list-item">
+              <mat-icon>check_circle</mat-icon>
+              <span>Shops, establishments with 10+ employees</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example Section -->
+  <section class="example-section">
+    <div class="example-container">
+      <div class="example-content">
+        <div class="example-badge">
+          <mat-icon>lightbulb</mat-icon>
+          <span>Example Calculation</span>
+        </div>
+
+        <h2 class="example-title">See How Gratuity Works</h2>
+
+        <p class="example-description">
+          Let's calculate gratuity for an employee who has worked for 10 years
+          in an organization covered under the Gratuity Act.
+        </p>
+
+        <div class="example-stats">
+          <div class="example-stat">
+            <mat-icon>currency_rupee</mat-icon>
+            <div>
+              <span class="stat-label">Last Drawn Salary</span>
+              <span class="stat-value">₹60,000/month</span>
+            </div>
+          </div>
+
+          <div class="example-stat">
+            <mat-icon>event</mat-icon>
+            <div>
+              <span class="stat-label">Years of Service</span>
+              <span class="stat-value">10 years</span>
+            </div>
+          </div>
+
+          <div class="example-stat">
+            <mat-icon>business</mat-icon>
+            <div>
+              <span class="stat-label">Organization Type</span>
+              <span class="stat-value">Covered under Act</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-result">
+          <div class="result-item">
+            <span class="result-label">Formula Applied</span>
+            <span class="result-value">(60,000 × 15 × 10) / 26</span>
+          </div>
+
+          <div class="result-item">
+            <span class="result-label">Calculation</span>
+            <span class="result-value">(9,00,000) / 26</span>
+          </div>
+
+          <div class="result-item highlight">
+            <span class="result-label">Gratuity Amount</span>
+            <span class="result-value success large">₹3,46,154</span>
+          </div>
+        </div>
+
+        <div class="example-note">
+          <mat-icon>info</mat-icon>
+          <div>
+            <strong>Note:</strong> This employee is eligible for gratuity as
+            they have completed more than 5 years of continuous service. The
+            amount is calculated using 26 working days per year as the
+            organization is covered under the Payment of Gratuity Act.
+          </div>
+        </div>
+      </div>
+
+      <div class="example-visual">
+        <img src="/assets/images/gratuity-example.svg" alt="Gratuity Example" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <mat-icon class="cta-icon">calculate</mat-icon>
+      <h2>Ready to Calculate Your Gratuity?</h2>
+      <p>
+        Use our accurate calculator to determine your gratuity entitlement
+        today!
+      </p>
+      <button mat-raised-button class="cta-button" (click)="scrollToCalculator()">
+        <mat-icon>arrow_upward</mat-icon>
+        Calculate Now
+      </button>
+    </div>
+  </section>
+</div>

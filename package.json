@@ -1,11 +1,29 @@
 {
   "name": "amkrtech",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "AMKRTech - Intelligent Financial Planning Tools and Calculators",
+  "author": "AMKRTech Team",
+  "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sridhar-Sathyanarayanan/fintech.git"
+  },
+  "workspaces": [
+    "UI",
+    "mid-tier"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
-    "install:all": "npm i && npm --prefix ui i && npm --prefix mid-tier i",
-    "dev": "concurrently -n mid-tier,ui --kill-others \"npm --prefix mid-tier run start:dev\" \"npm --prefix ui run start\"",
-    "check-for-updates:all": "ncu -u &&ncu --prefix ui -u && ncu --prefix mid-tier -u"
+    "install:all": "npm install && npm --prefix UI install && npm --prefix mid-tier install",
+    "dev": "concurrently -n mid-tier,ui --kill-others \"npm --prefix mid-tier run start:dev\" \"npm --prefix UI run start\"",
+    "build:all": "npm --prefix mid-tier run build && npm --prefix UI run build",
+    "lint:all": "npm --prefix mid-tier run lint && npm --prefix UI run lint",
+    "check-for-updates:all": "ncu -u && ncu --prefix UI -u && ncu --prefix mid-tier -u",
+    "clean:all": "npm --prefix mid-tier run clean && npm --prefix UI run clean"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

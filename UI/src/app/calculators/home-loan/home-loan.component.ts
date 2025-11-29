@@ -1,15 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSliderModule } from '@angular/material/slider';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { MaterialModules } from '../../shared/material.standalone';
@@ -35,6 +27,7 @@ interface YearlyBreakdown {
   ],
   templateUrl: './home-loan.component.html',
   styleUrls: ['./home-loan.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeLoanCalculatorComponent implements OnInit {
   loanAmount = signal(5000000);

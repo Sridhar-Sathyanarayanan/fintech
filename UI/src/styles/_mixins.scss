@@ -1,0 +1,78 @@
+// Global Mixins - Consolidated from all component files
+
+// Smooth transition with customizable duration and easing
+@mixin smooth-transition($duration: 0.3s, $easing: cubic-bezier(0.4, 0, 0.2, 1)) {
+  transition: all $duration $easing;
+}
+
+// Card hover effect
+@mixin card-hover(
+  $duration: 0.3s,
+  $offset: -4px,
+  $shadow: 0 12px 40px rgba(0, 0, 0, 0.12)
+) {
+  @include smooth-transition($duration);
+  &:hover {
+    transform: translateY($offset);
+    box-shadow: $shadow;
+  }
+}
+
+// Glass morphism effect
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Responsive breakpoints
+@mixin breakpoint-desktop {
+  @media (min-width: 1201px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-tablet-lg {
+  @media (max-width: 1200px) and (min-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-tablet {
+  @media (max-width: 1024px) and (min-width: 769px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-mobile-lg {
+  @media (max-width: 768px) and (min-width: 481px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-mobile {
+  @media (max-width: 480px) {
+    @content;
+  }
+}
+
+// Gradient text effect
+@mixin gradient-text($gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%)) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Flexbox centered
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Grid centered
+@mixin grid-center {
+  display: grid;
+  place-items: center;
+}

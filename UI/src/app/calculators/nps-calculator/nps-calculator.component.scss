@@ -1,63 +1,7 @@
 @use "@angular/material" as mat;
 @use "../../../styles/styles.scss" as *;
-
-// Mixins
-@mixin smooth-transition {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@mixin card-hover {
-  @include smooth-transition;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-  }
-}
-
-// Animations
-@keyframes float {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatImage {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-15px) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(-25px) rotate(0deg);
-  }
-  75% {
-    transform: translateY(-15px) rotate(2deg);
-  }
-}
-
-@keyframes floatCard {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
+@use "../../../styles/mixins" as *;
+@use "../../../styles/animations" as *;
 
 @keyframes pulse {
   0%, 100% {
@@ -165,6 +109,7 @@
 
       .gradient-text {
         display: block;
+        font-size: 36px;
         background: linear-gradient(90deg, #fff 0%, #bbdefb 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -304,13 +249,13 @@
       }
 
       &.card-1 {
-        top: 15%;
-        right: 10%;
+        top: 5%;
+        right: 5%;
       }
 
       &.card-2 {
-        bottom: 20%;
-        left: 10%;
+        bottom: 5%;
+        left: 5%;
         animation-delay: 2s;
       }
     }

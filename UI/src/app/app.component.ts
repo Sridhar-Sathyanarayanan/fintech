@@ -1,24 +1,12 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
-import { RouterOutlet, RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, signal, ViewChild, effect } from '@angular/core';
+import { RouterOutlet, RouterModule, RouterLink, RouterLinkActive, ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatRippleModule } from '@angular/material/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MaterialModules } from './shared/material.standalone';
-
-interface NavItem {
-  label: string;
-  route?: string;
-  icon: string;
-  children?: NavItem[];
-}
+import { SEOService } from './shared/seo.service';
+import { NavItem } from './models/calculator.models';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +26,9 @@ export class AppComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   
   private breakpointObserver = inject(BreakpointObserver);
+  private seoService = inject(SEOService);
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
   
   title = 'tax-calculator';
   isMobile = signal(false);
@@ -66,6 +57,10 @@ export class AppComponent {
         {
           label: 'PPF Calculator',
           route: '/ppf-calculator',
+          icon: 'lock'
+        },{
+          label: 'HRA Calculator',
+          route: '/hra-calculator',
           icon: 'savings'
         },
         {
@@ -76,7 +71,12 @@ export class AppComponent {
         {
           label: 'NPS Calculator',
           route: '/nps-calculator',
-          icon: 'home_work'
+          icon: 'elderly'
+        },
+        {
+          label: 'Gratuity Calculator',
+          route: '/gratuity-calculator',
+          icon: 'business_center'
         }
       ]
     },
@@ -111,6 +111,29 @@ export class AppComponent {
         this.isScrolled.set(window.scrollY > 50);
       });
     }
+
+    // Update page title and meta tags based on route data
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => this.activatedRoute),
+        map((route) => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        })
+      )
+      .subscribe(route => {
+        const data = route.snapshot.data;
+        if (data['title'] && data['description']) {
+          this.seoService.updateSEO({
+            title: data['title'],
+            description: data['description'],
+            keywords: []
+          });
+        }
+      });
   }
 
   toggleSidenav(): void {

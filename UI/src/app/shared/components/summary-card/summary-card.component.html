@@ -1,0 +1,23 @@
+<mat-card class="summary-card">
+  <div class="card-header">
+    @if (icon) {
+      <mat-icon class="card-icon">{{ icon }}</mat-icon>
+    }
+    @if (title) {
+      <h4 class="card-title">{{ title }}</h4>
+    }
+  </div>
+  
+  <div class="card-body">
+    <ng-content></ng-content>
+  </div>
+
+  @if (summary) {
+    <div class="card-footer">
+      <div class="summary-item">
+        <span class="summary-label">{{ summary.label }}</span>
+        <span class="summary-value">{{ summary.value }}</span>
+      </div>
+    </div>
+  }
+</mat-card>

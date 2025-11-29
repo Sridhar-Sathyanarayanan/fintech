@@ -1,71 +1,12 @@
 @use "@angular/material" as mat;
+@use "../../styles/mixins" as *;
+@use "../../styles/animations" as *;
 
 // Design Tokens
 $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 $accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 $success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
 $hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-
-// Mixins
-@mixin smooth-transition {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@mixin card-hover {
-  @include smooth-transition;
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  }
-}
-
-// Animations
-@keyframes float {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatImage {
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-15px) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(-25px) rotate(0deg);
-  }
-  75% {
-    transform: translateY(-15px) rotate(2deg);
-  }
-}
-
-@keyframes floatCard {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
 
 @keyframes pulse {
   0%,
