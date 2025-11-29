@@ -110,13 +110,18 @@
       </div>
     </mat-sidenav>
 
-    <!-- Main Content Area -->
+      <!-- Main Content Area -->
     <mat-sidenav-content class="main-content">
       <div class="content-wrapper">
         <router-outlet></router-outlet>
       </div>
 
-      <!-- Modern Footer -->
+      <!-- Scroll to Top Button -->
+      @if (showScrollTop()) {
+      <button mat-fab class="scroll-to-top" (click)="scrollToTop()" animate.enter="fade-in-scale" animate.leave="fade-out-scale">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      }      <!-- Modern Footer -->
       <footer class="app-footer">
         <div class="footer-content">
           <div class="footer-grid">

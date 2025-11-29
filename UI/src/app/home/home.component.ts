@@ -52,6 +52,12 @@ interface EconomicIndicator {
   color: string;
 }
 
+interface CarouselSlide {
+  image: string;
+  title: string;
+  subtitle: string;
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -148,13 +154,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     { label: 'USD/INR', value: '₹83.12', trend: 'up', icon: 'currency_exchange', color: 'primary' }
   ];
 
-  financeImages = [
-    '/assets/images/slide1.webp',
-    '/assets/images/slide2.webp',
-    '/assets/images/slide3.webp',
-    '/assets/images/slide4.webp',
-    '/assets/images/slide5.webp',
-    '/assets/images/slide6.webp',
+  carouselSlides: CarouselSlide[] = [
+    {
+      image: '/assets/images/slide1.webp',
+      title: 'Master Your Investments',
+      subtitle: 'Build wealth with data-driven investment strategies'
+    },
+    {
+      image: '/assets/images/slide2.webp',
+      title: 'Tax Planning Made Easy',
+      subtitle: 'Maximize savings with smart tax optimization tools'
+    },
+    {
+      image: '/assets/images/slide3.webp',
+      title: 'Retirement Planning',
+      subtitle: 'Secure your future with strategic retirement corpus'
+    },
+    {
+      image: '/assets/images/slide4.webp',
+      title: 'Real Estate Finance',
+      subtitle: 'Calculate EMIs and plan your dream home purchase'
+    },
+    {
+      image: '/assets/images/slide5.webp',
+      title: 'Wealth Management',
+      subtitle: 'Diversify and grow your portfolio effectively'
+    },
+    {
+      image: '/assets/images/slide6.webp',
+      title: 'Financial Independence',
+      subtitle: 'Achieve your goals with disciplined financial planning'
+    }
   ];
 
   financialTools: FinancialTool[] = [
@@ -163,56 +193,56 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Income Tax Calculator',
       desc: 'Compare old vs new tax regimes, get instant tax calculations with detailed breakdowns and smart recommendations.',
       color: 'primary',
-      route: '/calculators/tax-calculator'
+      route: '/income-tax-calculator'
     },
     {
       icon: 'payments',
       title: 'SIP Calculator',
       desc: 'Plan your systematic investments, project wealth creation with power of compounding over time.',
       color: 'accent',
-      route: '/calculators/sip-calculator'
+      route: '/sip-calculator'
     },
     {
       icon: 'account_balance_wallet',
       title: 'PPF Calculator',
       desc: 'Calculate Public Provident Fund maturity, tax benefits, and long-term wealth accumulation.',
       color: 'primary',
-      route: '/calculators/ppf-calculator'
+      route: '/ppf-calculator'
     },
     {
       icon: 'home',
       title: 'Home Loan EMI',
       desc: 'Calculate home loan EMIs, compare interest rates, and plan your home financing strategy.',
       color: 'accent',
-      route: '/calculators/home-loan'
+      route: '/home-loan-calculator'
     },
     {
       icon: 'card_giftcard',
       title: 'Gratuity Calculator',
       desc: 'Estimate gratuity amount based on salary and years of service under Payment of Gratuity Act.',
       color: 'primary',
-      route: '/calculators/gratuity-calculator'
+      route: '/gratuity-calculator'
     },
     {
       icon: 'savings',
       title: 'NPS Calculator',
       desc: 'Plan retirement with National Pension System, calculate corpus, and monthly pension amount.',
       color: 'accent',
-      route: '/calculators/nps-calculator'
+      route: '/nps-calculator'
     },
     {
       icon: 'home_work',
       title: 'HRA Calculator',
       desc: 'Calculate House Rent Allowance tax exemption based on salary, rent paid, and metro classification.',
       color: 'primary',
-      route: '/calculators/hra-calculator'
+      route: '/hra-calculator'
     },
     {
       icon: 'assessment',
       title: 'Tax Slab Calculator',
       desc: 'Understand applicable tax slabs, rates, surcharges, and total tax liability for your income.',
       color: 'accent',
-      route: '/calculators/tax-slab-calculator'
+      route: '/tax-slabs'
     }
   ];
 
@@ -315,17 +345,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.currentQuoteIndex.set(index);
   }
 
+  nextQuote(): void {
+    this.currentQuoteIndex.update(val => (val + 1) % this.quotes.length);
+  }
+
+  prevQuote(): void {
+    this.currentQuoteIndex.update(val =>
+      (val - 1 + this.quotes.length) % this.quotes.length
+    );
+  }
+
   startAutoSlide(): void {
     this.intervalId = setInterval(() => this.nextSlide(), 5000);
   }
 
   nextSlide(): void {
-    this.currentSlide.update(val => (val + 1) % this.financeImages.length);
+    this.currentSlide.update(val => (val + 1) % this.carouselSlides.length);
   }
 
   prevSlide(): void {
     this.currentSlide.update(val =>
-      (val - 1 + this.financeImages.length) % this.financeImages.length
+      (val - 1 + this.carouselSlides.length) % this.carouselSlides.length
     );
   }
 

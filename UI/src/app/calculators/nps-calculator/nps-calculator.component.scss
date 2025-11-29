@@ -19,7 +19,7 @@
 }
 
 // BANNER SECTION
-.tax-slab-calculator-banner {
+.nps-calculator-banner {
   position: relative;
   padding: 2rem;
   overflow: hidden;
@@ -1003,7 +1003,7 @@
 
 // RESPONSIVE DESIGN
 @media (max-width: 1024px) {
-  .tax-slab-calculator-banner .banner-content-wrapper {
+  .nps-calculator-banner .banner-content-wrapper {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
@@ -1014,7 +1014,7 @@
 }
 
 @media (max-width: 768px) {
-  .tax-slab-calculator-banner {
+  .nps-calculator-banner {
     padding: 4rem 1.5rem 3rem;
 
     .banner-content-wrapper {
@@ -1098,7 +1098,7 @@
 }
 
 @media (max-width: 480px) {
-  .tax-slab-calculator-banner {
+  .nps-calculator-banner {
     padding: 3rem 1rem 2rem;
 
     .banner-content {
@@ -1416,7 +1416,7 @@
 
 // Print Styles
 @media print {
-  .tax-slab-calculator-banner,
+  .nps-calculator-banner,
   .info-section,
   .cta-section,
   .export-button {
@@ -1444,7 +1444,7 @@
     background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
   }
 
-  .tax-slab-calculator-banner {
+  .nps-calculator-banner {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   }
 

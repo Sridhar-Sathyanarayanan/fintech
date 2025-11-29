@@ -20,7 +20,7 @@ import { filter, map } from 'rxjs/operators';
     MaterialModules
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -33,6 +33,7 @@ export class AppComponent {
   title = 'tax-calculator';
   isMobile = signal(false);
   isScrolled = signal(false);
+  showScrollTop = signal(false);
 
   navItems: NavItem[] = [
     {
@@ -114,6 +115,7 @@ export class AppComponent {
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', () => {
         this.isScrolled.set(window.scrollY > 50);
+        this.showScrollTop.set(window.scrollY > 300);
       });
     }
 
@@ -148,6 +150,15 @@ export class AppComponent {
   closeSidenav(): void {
     if (this.isMobile()) {
       this.sidenav.close();
+    }
+  }
+
+  scrollToTop(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
   }
 }

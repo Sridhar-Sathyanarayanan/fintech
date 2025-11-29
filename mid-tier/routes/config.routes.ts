@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { defaultConfig, getConfig } from '../config/app-config';
+import { defaultConfig, getConfig } from '../config/app-config.js';
 
 const router = express.Router();
 
@@ -184,13 +184,13 @@ router.get('/social-media', (_req: Request, res: Response) => {
 });
 
 /**
- * GET /api/config/:path
+ * GET /api/config/path/:configPath
  * Returns configuration value by path
- * Example: /api/config/financialRates.ppf.currentRate
+ * Example: /api/config/path/financialRates.ppf.currentRate
  */
-router.get('/:path(*)', (req: Request, res: Response) => {
+router.get(/^\/path\/(.+)$/, (req: Request, res: Response) => {
   try {
-    const path = req.params.path;
+    const path = req.params[0];
     const value = getConfig(path);
     
     if (value === undefined) {

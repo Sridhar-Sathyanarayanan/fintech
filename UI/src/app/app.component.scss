@@ -451,6 +451,83 @@ $bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: calc(100vh - 400px);
 }
 
+// SCROLL TO TOP BUTTON
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  background: $primary-gradient;
+  box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+  @include smooth-transition;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.5);
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(0.98);
+  }
+
+  mat-icon {
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    color: white;
+  }
+
+  // Modern Angular animations using animate.enter/animate.leave
+  &.fade-in-scale {
+    animation: fadeInScale 300ms ease-out;
+  }
+
+  &.fade-out-scale {
+    animation: fadeOutScale 200ms ease-in;
+  }
+}
+
+// Animation keyframes for scroll-to-top button
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+// Mobile positioning for scroll to top
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+
+    mat-icon {
+      font-size: 1.75rem;
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+}
+
 // FOOTER
 .app-footer {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
