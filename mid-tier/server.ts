@@ -24,6 +24,7 @@ app.use(cors(corsOptions));
 
 import mailRoutes from "./routes/mail.routes.js";
 import marketRoutes from "./routes/market.routes.js";
+import configRoutes from "./routes/config.routes.js";
 
 // Create router and set up routes
 const router = Router();
@@ -32,6 +33,9 @@ app.use('/', router);
 
 // Market data routes
 app.use('/api/market', marketRoutes);
+
+// Configuration routes
+app.use('/api/config', configRoutes);
 
 // Error handling middleware
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
