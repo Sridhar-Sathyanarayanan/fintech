@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
-import { HeroSectionComponent } from '../shared/components/hero-section/hero-section.component';
+import { BannerSectionComponent } from '../shared/components';
 
 interface TeamMember {
   name: string;
@@ -37,13 +37,13 @@ interface Feature {
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModules, HeroSectionComponent],
+  imports: [CommonModule, RouterModule, MaterialModules, BannerSectionComponent],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutUsComponent {
-  heroActions = [
+  bannerActions = [
     {
       label: 'Our Mission',
       icon: 'explore',
@@ -58,7 +58,7 @@ export class AboutUsComponent {
     },
   ];
 
-  heroCards = [
+  bannerCards = [
     {
       icon: 'school',
       label: 'Financial Literacy',

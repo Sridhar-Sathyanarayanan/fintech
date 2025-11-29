@@ -3,34 +3,34 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../../material.standalone';
 
-export interface HeroAction {
+export interface BannerAction {
   label: string;
   icon: string;
   route: string;
   variant: 'primary' | 'secondary';
 }
 
-export interface HeroFeature {
+export interface BannerFeature {
   icon: string;
   label: string;
 }
 
 @Component({
-  selector: 'app-hero-section',
+  selector: 'app-banner-section',
   standalone: true,
   imports: [CommonModule, RouterModule, MaterialModules],
-  templateUrl: './hero-section.component.html',
-  styleUrls: ['./hero-section.component.scss'],
+  templateUrl: './banner-section.component.html',
+  styleUrls: ['./banner-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeroSectionComponent {
+export class BannerSectionComponent {
   @Input() title!: string;
   @Input() gradientText!: string;
   @Input() subtitle!: string;
   @Input() badge?: string;
   @Input() badgeIcon?: string;
-  @Input() actions: HeroAction[] = [];
-  @Input() features: HeroFeature[] = [];
+  @Input() actions: BannerAction[] = [];
+  @Input() features: BannerFeature[] = [];
   @Input() visualCards?: Array<{ icon: string; label: string; value: string }>;
   @Input() illustration?: string;
 }

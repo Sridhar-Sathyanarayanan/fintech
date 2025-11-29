@@ -9,15 +9,15 @@
   background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
 }
 
-// Hero Section
-.contact-hero {
+// Banner Section
+.contact-banner {
   position: relative;
   padding: 2rem;
   overflow: hidden;
-  background: $hero-gradient;
+  background: $banner-gradient;
   color: white;
 
-  .hero-background {
+  .banner-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -72,7 +72,7 @@
     }
   }
 
-  .hero-content-wrapper {
+  .banner-content-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
@@ -83,10 +83,10 @@
     z-index: 1;
   }
 
-  .hero-content {
+  .banner-content {
     animation: slideUp 0.6s ease-out;
 
-    .hero-badge {
+    .banner-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -104,13 +104,13 @@
       }
     }
 
-    .hero-title {
+    .banner-title {
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
       margin: 0 0 1.5rem;
     }
 
-    .hero-subtitle {
+    .banner-subtitle {
       font-size: clamp(1rem, 2vw, 1.25rem);
       line-height: 1.6;
       opacity: 0.95;
@@ -118,7 +118,7 @@
     }
   }
 
-  .hero-visual {
+  .banner-visual {
     position: relative;
     animation: slideUp 0.6s ease-out 0.2s both;
 
@@ -168,7 +168,7 @@
       }
     }
 
-    .hero-image-wrapper {
+    .banner-image-wrapper {
       position: relative;
       width: 100%;
       height: 100%;
@@ -177,7 +177,7 @@
       justify-content: center;
       z-index: 1;
 
-      .hero-image {
+      .banner-image {
         width: 90%;
         max-width: 500px;
         height: auto;
@@ -724,30 +724,30 @@
 }
 
 @media (max-width: 768px) {
-  .contact-hero {
+  .contact-banner {
     padding: 4rem 1.5rem 3rem;
 
-    .hero-content-wrapper {
+    .banner-content-wrapper {
       grid-template-columns: 1fr;
       gap: 3rem;
     }
 
-    .hero-content {
+    .banner-content {
       text-align: center;
 
-      .hero-title {
+      .banner-title {
         font-size: 2rem;
       }
 
-      .hero-subtitle {
+      .banner-subtitle {
         font-size: 1rem;
       }
     }
 
-    .hero-visual {
+    .banner-visual {
       height: 400px;
 
-      .hero-image-wrapper .hero-image {
+      .banner-image-wrapper .banner-image {
         max-width: 350px;
       }
 
@@ -842,15 +842,15 @@
 }
 
 @media (max-width: 480px) {
-  .contact-hero {
+  .contact-banner {
     padding: 3rem 1rem 2rem;
 
-    .hero-content-wrapper {
+    .banner-content-wrapper {
       gap: 2rem;
     }
 
-    .hero-content {
-      .hero-badge {
+    .banner-content {
+      .banner-badge {
         font-size: 0.75rem;
         padding: 0.4rem 1rem;
 
@@ -861,19 +861,19 @@
         }
       }
 
-      .hero-title {
+      .banner-title {
         font-size: 1.75rem;
       }
 
-      .hero-subtitle {
+      .banner-subtitle {
         font-size: 0.875rem;
       }
     }
 
-    .hero-visual {
+    .banner-visual {
       height: 15rem;
 
-      .hero-image-wrapper .hero-image {
+      .banner-image-wrapper .banner-image {
         max-width: 280px;
       }
 
@@ -999,7 +999,7 @@
 
 // Print Styles
 @media print {
-  .contact-hero,
+  .contact-banner,
   .support-section {
     display: none;
   }
@@ -1020,7 +1020,7 @@
     background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
   }
 
-  .contact-hero {
+  .contact-banner {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   }
 
@@ -1071,3 +1071,6 @@
     }
   }
 }
+
+
+

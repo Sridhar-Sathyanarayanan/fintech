@@ -3,8 +3,8 @@
 @use "../../styles/mixins" as *;
 @use "../../styles/animations" as *;
 
-// HERO SECTION
-.hero {
+// BANNER SECTION
+.banner {
   position: relative;
   min-height: 90vh;
   display: flex;
@@ -12,13 +12,13 @@
   overflow: hidden;
   padding: 1rem;
 
-  .hero-background {
+  .banner-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: $hero-gradient;
+    background: $banner-gradient;
     z-index: -1;
 
     &::before {
@@ -54,7 +54,7 @@
     }
   }
 
-  .hero-container {
+  .banner-container {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
@@ -65,11 +65,11 @@
     padding: 0 2%;
   }
 
-  .hero-content {
+  .banner-content {
     color: white;
     z-index: 1;
 
-    .hero-badge {
+    .banner-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -88,7 +88,7 @@
       }
     }
 
-    .hero-title {
+    .banner-title {
       font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
       line-height: 1.2;
@@ -104,7 +104,7 @@
       }
     }
 
-    .hero-subtitle {
+    .banner-subtitle {
       font-size: 1.25rem;
       line-height: 1.7;
       opacity: 0.95;
@@ -113,7 +113,7 @@
       animation: slideInLeft 0.8s ease-out 0.4s both;
     }
 
-    .hero-actions {
+    .banner-actions {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
@@ -154,7 +154,7 @@
       }
     }
 
-    .hero-features {
+    .banner-features {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
@@ -176,7 +176,7 @@
     }
   }
 
-  .hero-visual {
+  .banner-visual {
     position: relative;
     height: 600px;
     animation: slideInRight 0.8s ease-out;
@@ -184,7 +184,7 @@
     align-items: center;
     justify-content: center;
 
-    .hero-illustration {
+    .banner-illustration {
       position: relative;
       width: 100%;
       max-width: 550px;
@@ -242,7 +242,7 @@
       animation: pulse 4s ease-in-out infinite reverse;
     }
 
-    .hero-card {
+    .banner-card {
       position: absolute;
       @include glass-effect;
       padding: 1.5rem;
@@ -804,7 +804,7 @@
 // CTA SECTION
 .cta-section {
   padding: 5rem 1rem;
-  background: $hero-gradient;
+  background: $banner-gradient;
   position: relative;
   overflow: hidden;
 
@@ -863,12 +863,12 @@
 
 // RESPONSIVE DESIGN
 @media (max-width: 1024px) {
-  .hero .hero-container {
+  .banner .banner-container {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
 
-  .hero .hero-visual {
+  .banner .banner-visual {
     height: 400px;
   }
 
@@ -883,35 +883,35 @@
 }
 
 @media (max-width: 768px) {
-  .hero {
+  .banner {
     min-height: auto;
     padding: 3rem 1rem;
 
-    .hero-content {
+    .banner-content {
       text-align: center;
 
-      .hero-badge,
-      .hero-title,
-      .hero-subtitle,
-      .hero-actions,
-      .hero-features {
+      .banner-badge,
+      .banner-title,
+      .banner-subtitle,
+      .banner-actions,
+      .banner-features {
         animation: none;
       }
 
-      .hero-actions {
+      .banner-actions {
         justify-content: center;
       }
 
-      .hero-features {
+      .banner-features {
         justify-content: center;
       }
     }
 
-    .hero-visual {
+    .banner-visual {
       height: 300px;
       animation: none;
 
-      .hero-card {
+      .banner-card {
         padding: 1rem;
 
         &.card-1 {
@@ -975,8 +975,8 @@
 }
 
 @media (max-width: 480px) {
-  .hero .hero-content {
-    .hero-actions {
+  .banner .banner-content {
+    .banner-actions {
       flex-direction: column;
       width: 100%;
 
@@ -1005,3 +1005,6 @@
     font-size: 1.125rem;
   }
 }
+
+
+

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
-import { HeroSectionComponent } from '../shared/components/hero-section/hero-section.component';
+import { BannerSectionComponent } from '../shared/components';
 
 interface PolicySection {
   id: string;
@@ -41,7 +41,7 @@ interface CookieInfo {
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModules, HeroSectionComponent],
+  imports: [CommonModule, RouterModule, MaterialModules, BannerSectionComponent],
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

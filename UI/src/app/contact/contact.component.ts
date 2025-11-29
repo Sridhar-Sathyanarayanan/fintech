@@ -11,13 +11,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { forkJoin } from 'rxjs';
 import { AppService } from '../services/app.service';
 import { MaterialModules } from '../shared/material.standalone';
-import { HeroSectionComponent } from '../shared/components';
+import { BannerSectionComponent } from '../shared/components';
 import { ContactInfo, SocialLink } from '../models/calculator.models';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModules, HeroSectionComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModules, BannerSectionComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

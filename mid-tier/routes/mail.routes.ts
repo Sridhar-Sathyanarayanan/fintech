@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import mailServices from "../services/mail.services";
+import mailServices from "../services/mail.services.js";
 
 export default (router: Router) => {
   router.post(
@@ -14,9 +14,14 @@ export default (router: Router) => {
       } catch (e) {
         const error = e instanceof Error ? e : new Error(String(e));
         const statusCode = (e as { status?: number }).status || 500;
-        res.status(statusCode).send(error.message || error);
+        res.status(statusCode).json({
+          status: statusCode,
+          error: error.message || 'Failed to send email'
+        });
         next(error);
       }
     }
   );
+
+  return router;
 };

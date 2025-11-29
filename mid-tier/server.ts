@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, NextFunction, Request, Response, Router } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 
@@ -18,8 +18,21 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-import mailRoutes from "./routes/mail.routes.ts";
-mailRoutes(app);
+import mailRoutes from "./routes/mail.routes.js";
+
+// Create router and set up routes
+const router = Router();
+mailRoutes(router);
+app.use('/', router);
+
+// Error handling middleware
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  console.error('Server error:', err.message);
+  res.status(500).json({
+    status: 500,
+    error: err.message || 'Internal Server Error'
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on PORT ${port}`);

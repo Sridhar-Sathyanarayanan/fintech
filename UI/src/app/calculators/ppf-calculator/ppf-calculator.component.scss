@@ -19,15 +19,15 @@
   background: linear-gradient(180deg, #f5f7fa 0%, #ffffff 100%);
 }
 
-// Hero Section (similar to ppf but with blue theme)
-.ppf-hero {
+// BANNER SECTION (similar to ppf but with blue theme)
+.ppf-calculator-banner {
   position: relative;
   padding: 2rem;
   overflow: hidden;
   background: $primary-gradient;
   color: white;
 
-  .hero-background {
+  .banner-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@
     }
   }
 
-  .hero-content-wrapper {
+  .banner-content-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
@@ -93,10 +93,10 @@
     z-index: 1;
   }
 
-  .hero-content {
+  .banner-content {
     animation: slideUp 0.6s ease-out;
 
-    .hero-badge {
+    .banner-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -114,7 +114,7 @@
       }
     }
 
-    .hero-title {
+    .banner-title {
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
       margin: 0 0 1.5rem;
@@ -130,7 +130,7 @@
       }
     }
 
-    .hero-subtitle {
+    .banner-subtitle {
       font-size: clamp(1rem, 2vw, 1.25rem);
       line-height: 1.7;
       opacity: 0.95;
@@ -138,7 +138,7 @@
       max-width: 600px;
     }
 
-    .hero-features {
+    .banner-features {
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
@@ -169,7 +169,7 @@
     }
   }
 
-  .hero-visual {
+  .banner-visual {
     position: relative;
     
     animation: slideUp 0.6s ease-out 0.2s both;
@@ -205,7 +205,7 @@
       }
     }
 
-    .hero-image-wrapper {
+    .banner-image-wrapper {
       position: relative;
       width: 100%;
       height: 100%;
@@ -214,7 +214,7 @@
       justify-content: center;
       z-index: 1;
 
-      .hero-image {
+      .banner-image {
         width: 90%;
         max-width: 550px;
         height: auto;
@@ -1174,7 +1174,7 @@
 }
 
 @media (max-width: 1024px) {
-  .ppf-hero .hero-content-wrapper {
+  .ppf-calculator-banner .banner-content-wrapper {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
@@ -1198,29 +1198,29 @@
 }
 
 @media (max-width: 768px) {
-  .ppf-hero {
+  .ppf-calculator-banner {
     padding: 4rem 1.5rem 3rem;
 
-    .hero-content-wrapper {
+    .banner-content-wrapper {
       gap: 2rem;
     }
 
-    .hero-content {
+    .banner-content {
       text-align: center;
 
-      .hero-subtitle {
+      .banner-subtitle {
         max-width: 100%;
       }
 
-      .hero-features {
+      .banner-features {
         justify-content: center;
       }
     }
 
-    .hero-visual {
+    .banner-visual {
       height: 450px;
 
-      .hero-image-wrapper .hero-image {
+      .banner-image-wrapper .banner-image {
         max-width: 400px;
       }
 
@@ -1305,11 +1305,11 @@
 }
 
 @media (max-width: 480px) {
-  .ppf-hero {
+  .ppf-calculator-banner {
     padding: 3rem 1rem 2rem;
 
-    .hero-content {
-      .hero-badge {
+    .banner-content {
+      .banner-badge {
         font-size: 0.75rem;
         padding: 0.4rem 1rem;
 
@@ -1320,15 +1320,15 @@
         }
       }
 
-      .hero-title {
+      .banner-title {
         font-size: 1.75rem;
       }
 
-      .hero-subtitle {
+      .banner-subtitle {
         font-size: 1rem;
       }
 
-      .hero-features {
+      .banner-features {
         flex-direction: column;
         align-items: center;
 
@@ -1340,10 +1340,10 @@
       }
     }
 
-    .hero-visual {
+    .banner-visual {
       height: 350px;
 
-      .hero-image-wrapper .hero-image {
+      .banner-image-wrapper .banner-image {
         max-width: 300px;
       }
 
@@ -1566,7 +1566,7 @@
 
 // Print Styles
 @media print {
-  .ppf-hero,
+  .ppf-calculator-banner,
   .info-section,
   .example-section,
   .cta-section,
@@ -1598,7 +1598,7 @@
     background: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 100%);
   }
 
-  .ppf-hero {
+  .ppf-calculator-banner {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   }
 
@@ -1736,3 +1736,7 @@
     }
   }
 }
+
+
+
+

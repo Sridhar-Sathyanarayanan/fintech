@@ -1,4 +1,5 @@
-export * from './hero-section/hero-section.component';
+export { BannerSectionComponent } from './banner-section/banner-section.component';
+export type { BannerAction, BannerFeature } from './banner-section/banner-section.component';
 export * from './stat-card/stat-card.component';
 export * from './feature-card/feature-card.component';
 export * from './summary-card/summary-card.component';

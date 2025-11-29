@@ -1,14 +1,14 @@
-<section class="hero">
-  <div class="hero-background">
+<section class="banner">
+  <div class="banner-background">
     <div class="gradient-orb orb-1"></div>
     <div class="gradient-orb orb-2"></div>
     <div class="gradient-orb orb-3"></div>
   </div>
   
-  <div class="hero-container">
-    <div class="hero-content">
+  <div class="banner-container">
+    <div class="banner-content">
       @if (badge) {
-        <div class="hero-badge">
+        <div class="banner-badge">
           @if (badgeIcon) {
             <mat-icon>{{ badgeIcon }}</mat-icon>
           }
@@ -16,7 +16,7 @@
         </div>
       }
       
-      <h1 class="hero-title">
+      <h1 class="banner-title">
         {{ title }}
         @if (gradientText) {
           <span class="gradient-text">{{ gradientText }}</span>
@@ -24,11 +24,11 @@
       </h1>
       
       @if (subtitle) {
-        <p class="hero-subtitle">{{ subtitle }}</p>
+        <p class="banner-subtitle">{{ subtitle }}</p>
       }
       
       @if (actions && actions.length > 0) {
-        <div class="hero-actions">
+        <div class="banner-actions">
           @for (action of actions; track action.label) {
             @if (action.variant === 'primary') {
               <button 
@@ -54,7 +54,7 @@
       }
       
       @if (features && features.length > 0) {
-        <div class="hero-features">
+        <div class="banner-features">
           @for (feature of features; track feature.label) {
             <div class="feature-chip">
               <mat-icon>{{ feature.icon }}</mat-icon>
@@ -66,10 +66,10 @@
     </div>
     
     @if (visualCards || illustration) {
-      <div class="hero-visual">
+      <div class="banner-visual">
         @if (visualCards) {
           @for (card of visualCards; let i = $index; track i) {
-            <div class="hero-card" [ngClass]="'card-' + (i + 1)">
+            <div class="banner-card" [ngClass]="'card-' + (i + 1)">
               <mat-icon>{{ card.icon }}</mat-icon>
               <div class="card-content">
                 <span class="card-label">{{ card.label }}</span>
@@ -80,8 +80,8 @@
         }
         
         @if (illustration) {
-          <div class="hero-illustration">
-            <img [src]="illustration" alt="Hero Illustration" loading="lazy" />
+          <div class="banner-illustration">
+            <img [src]="illustration" alt="Banner Illustration" loading="lazy" />
           </div>
         }
       </div>

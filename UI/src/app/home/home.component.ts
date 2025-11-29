@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
-import { 
-  HeroSectionComponent, 
+import {
+  BannerSectionComponent,
   StatCardComponent, 
   FeatureCardComponent
 } from '../shared/components';
@@ -35,7 +35,7 @@ interface Statistic {
     CommonModule,
     RouterModule,
     MaterialModules,
-    HeroSectionComponent,
+    BannerSectionComponent,
     StatCardComponent,
     FeatureCardComponent
   ],
@@ -47,18 +47,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentSlide = signal(0);
   intervalId: ReturnType<typeof setInterval> | null = null;
 
-  heroActions = [
+  bannerActions = [
     { label: 'Start Planning', icon: 'rocket_launch', route: '/calculator', variant: 'primary' as const },
     { label: 'Watch Demo', icon: 'play_circle', route: '/learn', variant: 'secondary' as const }
   ];
 
-  heroFeatures = [
+  bannerFeatures = [
     { icon: 'check_circle', label: 'Free Forever' },
     { icon: 'security', label: '100% Secure' },
     { icon: 'speed', label: 'Instant Results' }
   ];
 
-  heroCards = [
+  bannerCards = [
     { icon: 'trending_up', label: 'Portfolio Growth', value: '+24.5%' },
     { icon: 'savings', label: 'Tax Saved', value: '₹45,000' },
     { icon: 'account_balance_wallet', label: 'Monthly Savings', value: '₹12,500' }
