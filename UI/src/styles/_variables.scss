@@ -1,0 +1,131 @@
+// ============================================
+// DESIGN SYSTEM VARIABLES
+// ============================================
+// Centralized variables for consistent theming
+// Import this file in both styles.scss and _utilities.scss
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+$font-family-base: "ThemeFont-Regular", "Trebuchet MS", "Helvetica Neue", sans-serif;
+$font-family-semibold: "ThemeFont-Semibold", "Trebuchet MS", "Helvetica Neue", sans-serif;
+
+// ============================================
+// COLOR SYSTEM
+// ============================================
+
+// Brand Colors
+$primary: #667eea;
+$primary-dark: #764ba2;
+$accent: #f093fb;
+$accent-dark: #f5576c;
+
+// Semantic Colors
+$success: #4caf50;
+$success-light: #8bc34a;
+$warning: #ff9800;
+$warning-light: #ffc107;
+$info: #4facfe;
+$info-light: #00f2fe;
+$error: #f44336;
+
+// Neutral Colors
+$white: #ffffff;
+$black: #000000;
+$gray-50: #f5f7fa;
+$gray-100: #f5f5f5;
+$gray-200: #e0e0e0;
+$gray-400: #999999;
+$gray-600: #666666;
+$gray-900: #1a1a1a;
+
+// Semantic Neutral Aliases
+$text-primary: $gray-900;
+$text-secondary: $gray-600;
+$text-muted: $gray-400;
+$border-light: $gray-200;
+$bg-light: $gray-50;
+$bg-white: $white;
+
+// ============================================
+// GRADIENTS
+// ============================================
+$primary-gradient: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+$accent-gradient: linear-gradient(135deg, $accent 0%, $accent-dark 100%);
+$success-gradient: linear-gradient(135deg, $info 0%, $info-light 100%);
+$banner-gradient: linear-gradient(135deg, $primary 0%, $primary-dark 50%, $accent 100%);
+
+// ============================================
+// SHADOWS
+// ============================================
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+$shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.12);
+$shadow-2xl: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+// ============================================
+// SPACING SCALE
+// ============================================
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-2xl: 3rem;     // 48px
+$spacing-3xl: 4rem;     // 64px
+$spacing-4xl: 5rem;     // 80px
+
+// ============================================
+// FONT SIZE SCALE
+// ============================================
+$font-xs: 0.75rem;      // 12px
+$font-sm: 0.875rem;     // 14px
+$font-base: 1rem;       // 16px
+$font-md: 1.125rem;     // 18px
+$font-lg: 1.25rem;      // 20px
+$font-xl: 1.5rem;       // 24px
+$font-2xl: 2rem;        // 32px
+$font-3xl: 2.5rem;      // 40px
+$font-4xl: 3rem;        // 48px
+
+// ============================================
+// FONT WEIGHTS
+// ============================================
+$font-regular: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+
+// ============================================
+// BORDER RADIUS SCALE
+// ============================================
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+$radius-2xl: 24px;
+$radius-pill: 50px;
+$radius-full: 50%;
+
+// ============================================
+// TRANSITION TIMING
+// ============================================
+$transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ============================================
+// LAYOUT
+// ============================================
+$container-max: 1400px;
+$header-height: 80px;
+$header-height-mobile: 64px;
+
+// ============================================
+// OPACITY
+// ============================================
+$opacity-disabled: 0.5;
+$opacity-subtle: 0.6;
+$opacity-high: 0.8;
+$opacity-full: 0.95;

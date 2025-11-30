@@ -9,16 +9,30 @@ import {
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../../shared/material.standalone';
 import { HRACalculation, FAQItem, HRAExample, TaxTip } from '../../models/calculator.models';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
+import { FeatureCardComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-hra-calculator',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, MaterialModules],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, MaterialModules, BannerSectionComponent, FeatureCardComponent],
   templateUrl: './hra-calculator.component.html',
   styleUrls: ['./hra-calculator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HRACalculatorComponent implements OnInit {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'check_circle', label: 'Section 10(13A) Compliant' },
+    { icon: 'calculate', label: 'Instant Calculation' },
+    { icon: 'trending_up', label: 'Maximize Savings' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'home', label: 'HRA Received', value: '₹2.4L' },
+    { icon: 'savings', label: 'Tax Exemption', value: '₹1.8L' },
+    { icon: 'account_balance_wallet', label: 'Tax Saved', value: '₹54K' }
+  ];
+
   hraForm!: FormGroup;
   calculationResult = signal<HRACalculation | null>(null);
   showResult = signal(false);

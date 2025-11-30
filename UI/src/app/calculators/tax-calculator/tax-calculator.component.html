@@ -1,71 +1,15 @@
 <div class="tax-calculator-page">
   <!-- BANNER SECTION -->
-  <section class="tax-calculator-banner">
-    <div class="banner-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
-    </div>
-    <div class="banner-content-wrapper">
-      <div class="banner-content">
-        <div class="banner-badge">
-          <mat-icon>calculate</mat-icon>
-          <span>Smart Tax Calculator</span>
-        </div>
-        <h1 class="banner-title">
-          Income Tax Calculator
-          <span class="gradient-text">2023-2026</span>
-        </h1>
-        <p class="banner-subtitle">
-          Compare old vs new tax regimes with intelligent recommendations.
-          Make informed decisions and maximize your savings effortlessly.
-        </p>
-        <div class="banner-features">
-          <div class="feature-chip">
-            <mat-icon>verified</mat-icon>
-            <span>100% Accurate</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>speed</mat-icon>
-            <span>Instant Results</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>trending_up</mat-icon>
-            <span>Smart Insights</span>
-          </div>
-        </div>
-      </div>
-      <div class="banner-visual">
-        <div class="visual-decoration decoration-1"></div>
-        <div class="visual-decoration decoration-2"></div>
-        <div class="visual-decoration decoration-3"></div>
-        <div class="banner-image-wrapper">
-          <img src="assets/images/Income_Tax_Calculator.jpg" alt="Tax Calculator" class="banner-image" />
-        </div>
-        <div class="floating-card card-1">
-          <mat-icon>account_balance</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Tax Saved</span>
-            <span class="card-value">₹45,000</span>
-          </div>
-        </div>
-        <div class="floating-card card-2">
-          <mat-icon>insights</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Smart Analysis</span>
-            <span class="card-value">AI Powered</span>
-          </div>
-        </div>
-        <div class="floating-card card-3">
-          <mat-icon>shield</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Data Security</span>
-            <span class="card-value">100% Safe</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-banner-section
+    title="Income Tax Calculator"
+    gradientText="2023-2026"
+    subtitle="Compare tax regimes and maximize your savings."
+    badge="Smart Tax Calculator"
+    badgeIcon="calculate"
+    [features]="bannerFeatures"
+    [visualCards]="bannerVisualCards"
+    illustration="assets/images/Income_Tax_Calculator.jpg">
+  </app-banner-section>
 
   <!-- Calculator Section -->
   <section class="calculator-section">
@@ -79,7 +23,7 @@
               <form [formGroup]="basicFormGroup">
                 <ng-template matStepLabel>
                   <div class="step-label">
-                    <mat-icon>person</mat-icon>
+                    <mat-icon aria-hidden="true">person</mat-icon>
                     <span>Basic Info</span>
                   </div>
                 </ng-template>
@@ -104,13 +48,13 @@
                       <mat-radio-group formControlName="ageGroup" class="age-radio-group">
                         <mat-radio-button value="below60" class="age-option">
                           <div class="option-content">
-                            <mat-icon>person</mat-icon>
+                            <mat-icon aria-hidden="true">person</mat-icon>
                             <span>Below 60</span>
                           </div>
                         </mat-radio-button>
                         <mat-radio-button value="senior" class="age-option">
                           <div class="option-content">
-                            <mat-icon>elderly</mat-icon>
+                            <mat-icon aria-hidden="true">elderly</mat-icon>
                             <span>Senior Citizen</span>
                           </div>
                         </mat-radio-button>
@@ -124,7 +68,7 @@
                     <button mat-raised-button color="primary" (click)="stepper.next()"
                       [disabled]="basicFormGroup.invalid" class="action-button">
                       Continue
-                      <mat-icon>arrow_forward</mat-icon>
+                      <mat-icon aria-hidden="true">arrow_forward</mat-icon>
                     </button>
                   </div>
                 </div>
@@ -136,7 +80,7 @@
               <form [formGroup]="incomeFormGroup">
                 <ng-template matStepLabel>
                   <div class="step-label">
-                    <mat-icon>account_balance_wallet</mat-icon>
+                    <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
                     <span>Income</span>
                   </div>
                 </ng-template>
@@ -177,13 +121,13 @@
 
                   <div class="step-actions">
                     <button mat-button (click)="stepper.previous()" class="back-button">
-                      <mat-icon>arrow_back</mat-icon>
+                      <mat-icon aria-hidden="true">arrow_back</mat-icon>
                       Back
                     </button>
                     <button mat-raised-button color="primary" (click)="stepper.next()"
                       [disabled]="incomeFormGroup.invalid" class="action-button">
                       Continue
-                      <mat-icon>arrow_forward</mat-icon>
+                      <mat-icon aria-hidden="true">arrow_forward</mat-icon>
                     </button>
                   </div>
                 </div>
@@ -195,7 +139,7 @@
               <form [formGroup]="deductionsFormGroup">
                 <ng-template matStepLabel>
                   <div class="step-label">
-                    <mat-icon>receipt_long</mat-icon>
+                    <mat-icon aria-hidden="true">receipt_long</mat-icon>
                     <span>Deductions</span>
                   </div>
                 </ng-template>
@@ -205,7 +149,7 @@
                   <p class="step-description">Add your eligible deductions (applicable only for Old Regime)</p>
 
                   <mat-card class="info-banner">
-                    <mat-icon>info</mat-icon>
+                    <mat-icon aria-hidden="true">info</mat-icon>
                     <div class="banner-content">
                       <strong>Standard Deduction:</strong> ₹50,000 is automatically applied
                     </div>
@@ -227,11 +171,11 @@
 
                   <div class="step-actions">
                     <button mat-button (click)="stepper.previous()" class="back-button">
-                      <mat-icon>arrow_back</mat-icon>
+                      <mat-icon aria-hidden="true">arrow_back</mat-icon>
                       Back
                     </button>
                     <button mat-raised-button color="accent" (click)="calculateTax()" class="calculate-button">
-                      <mat-icon>calculate</mat-icon>
+                      <mat-icon aria-hidden="true">calculate</mat-icon>
                       Calculate Tax
                     </button>
                   </div>
@@ -249,13 +193,13 @@
         <div class="comparison-cards">
           <mat-card class="regime-card old-regime" [class.recommended]="oldRegimeTax() < newRegimeTax()">
             @if (oldRegimeTax() < newRegimeTax()) { <div class="recommended-badge">
-              <mat-icon>recommend</mat-icon>
+              <mat-icon aria-hidden="true">recommend</mat-icon>
               <span>Recommended</span>
         </div>
         }
         <div class="card-header">
           <div class="regime-icon old">
-            <mat-icon>description</mat-icon>
+            <mat-icon aria-hidden="true">description</mat-icon>
           </div>
           <div class="regime-info">
             <h3>Old Tax Regime</h3>
@@ -281,13 +225,13 @@
 
         <mat-card class="regime-card new-regime" [class.recommended]="newRegimeTax() < oldRegimeTax()">
           @if (newRegimeTax() < oldRegimeTax()) { <div class="recommended-badge">
-            <mat-icon>recommend</mat-icon>
+            <mat-icon aria-hidden="true">recommend</mat-icon>
             <span>Recommended</span>
       </div>
       }
       <div class="card-header">
         <div class="regime-icon new">
-          <mat-icon>auto_awesome</mat-icon>
+          <mat-icon aria-hidden="true">auto_awesome</mat-icon>
         </div>
         <div class="regime-info">
           <h3>New Tax Regime</h3>
@@ -357,14 +301,14 @@
       <!-- Recommendation -->
       <div class="recommendation-box">
         @if (oldRegimeTax() < newRegimeTax()) { <div class="recommendation success">
-          <mat-icon>check_circle</mat-icon>
+          <mat-icon aria-hidden="true">check_circle</mat-icon>
           <div class="rec-content">
             <strong>Old Regime is Better for You!</strong>
             <p>You save ₹{{ taxDifference | number:'1.0-0' }} by choosing the old tax regime with deductions.</p>
           </div>
       </div>
       } @else if (newRegimeTax() < oldRegimeTax()) { <div class="recommendation success">
-        <mat-icon>check_circle</mat-icon>
+        <mat-icon aria-hidden="true">check_circle</mat-icon>
         <div class="rec-content">
           <strong>New Regime is Better for You!</strong>
           <p>You save ₹{{ taxDifference | number:'1.0-0' }} by choosing the new tax regime without hassle of deductions.
@@ -373,7 +317,7 @@
 </div>
 } @else {
 <div class="recommendation neutral">
-  <mat-icon>balance</mat-icon>
+  <mat-icon aria-hidden="true">balance</mat-icon>
   <div class="rec-content">
     <strong>Both Regimes are Equal!</strong>
     <p>Both tax regimes result in the same tax liability. Choose based on your convenience.</p>
@@ -386,11 +330,11 @@
 <!-- Action Buttons -->
 <div class="results-actions">
   <button mat-raised-button color="primary" (click)="calculateTax()">
-    <mat-icon>refresh</mat-icon>
+    <mat-icon aria-hidden="true">refresh</mat-icon>
     Recalculate
   </button>
   <button mat-stroked-button color="warn" (click)="resetCalculator()">
-    <mat-icon>restart_alt</mat-icon>
+    <mat-icon aria-hidden="true">restart_alt</mat-icon>
     Start Over
   </button>
 </div>

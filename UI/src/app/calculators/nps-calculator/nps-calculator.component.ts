@@ -4,6 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
 import { Router } from '@angular/router';
 import { ChartData, ChartOptions, TaxSlab, ComparisonData } from '../../models/chart.models';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 @Component({
   selector: 'app-tax-slab-calculator',
@@ -12,12 +13,24 @@ import { ChartData, ChartOptions, TaxSlab, ComparisonData } from '../../models/c
     CommonModule,
     MaterialModules,
     BaseChartDirective,
+    BannerSectionComponent,
   ],
   templateUrl: './nps-calculator.component.html',
   styleUrls: ['./nps-calculator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NPSCalculatorComponent {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'shield', label: 'Government Backed' },
+    { icon: 'savings', label: 'Tax Benefits' },
+    { icon: 'trending_up', label: 'Market Linked Returns' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'percent', label: 'Expected Returns', value: '10-12%' },
+    { icon: 'lock', label: 'Lock-in Till', value: 'Age 60' }
+  ];
+
   years = ['2023–2024', '2024–2025', '2025–2026'];
   selectedYear = '2025–2026';
   

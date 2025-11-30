@@ -18,16 +18,29 @@ import { MatStepper } from '@angular/material/stepper';
 import { MaterialModules } from '../../shared/material.standalone';
 import { TaxBreakdown, ChartData } from '../../models/calculator.models';
 import { OldRegimeSlabsByYear, NewRegimeSlabsByYear, OldRegimeSlabs } from '../../models/chart.models';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 @Component({
   selector: 'app-tax-calculator',
   templateUrl: './tax-calculator.component.html',
   styleUrls: ['./tax-calculator.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MaterialModules],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModules, BannerSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxCalculatorComponent implements OnInit {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'verified', label: '100% Accurate' },
+    { icon: 'speed', label: 'Instant Results' },
+    { icon: 'trending_up', label: 'Smart Insights' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'account_balance', label: 'Tax Saved', value: '₹45,000' },
+    { icon: 'insights', label: 'Smart Analysis', value: 'AI Powered' },
+    { icon: 'shield', label: 'Data Security', value: '100% Safe' }
+  ];
+
   @ViewChild('resultSection') resultSection!: ElementRef;
   @ViewChild('stepper') stepper!: MatStepper;
 

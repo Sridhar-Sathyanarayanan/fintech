@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 interface YearlyBreakdown {
   year: number;
@@ -30,10 +31,23 @@ interface FAQItem {
     RouterModule,
     BaseChartDirective,
     MaterialModules,
+    BannerSectionComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SipCalculatorComponent implements OnInit {
+  // Banner configuration
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'auto_graph', label: 'Power of Compounding' },
+    { icon: 'calendar_month', label: 'Monthly Discipline' },
+    { icon: 'account_balance_wallet', label: 'Wealth Creation' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'savings', label: 'Monthly SIP', value: '₹5,000' },
+    { icon: 'pie_chart', label: 'Returns', value: '12% p.a.' }
+  ];
+
   amount = signal(5000);
   years = signal(10);
   interestRate = signal(12);

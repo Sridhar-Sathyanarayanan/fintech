@@ -1,64 +1,15 @@
 <div class="loan-calculator-page">
   <!-- BANNER SECTION -->
-  <section class="loan-calculator-banner">
-    <div class="banner-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
-    </div>
-    <div class="banner-content-wrapper">
-      <div class="banner-content">
-        <div class="banner-badge">
-          <mat-icon>home</mat-icon>
-          <span>Home Loan Planner</span>
-        </div>
-        <h1 class="banner-title">
-          Home Loan Calculator
-          <span class="gradient-text">Your Dream Home Awaits</span>
-        </h1>
-        <p class="banner-subtitle">
-          Calculate your monthly EMI, plan your budget, and understand your home
-          loan journey. Make informed decisions with accurate projections and
-          detailed breakdowns.
-        </p>
-        <div class="banner-features">
-          <div class="feature-chip">
-            <mat-icon>calculate</mat-icon>
-            <span>Instant EMI Calculation</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>analytics</mat-icon>
-            <span>Detailed Breakdown</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>savings</mat-icon>
-            <span>Plan Better</span>
-          </div>
-        </div>
-      </div>
-      <div class="banner-visual">
-        <div class="visual-decoration decoration-1"></div>
-        <div class="visual-decoration decoration-2"></div>
-        <div class="banner-image-wrapper">
-          <img src="assets/images/Home_Loan_Calculator.jpeg" alt="Home Loan" class="banner-image" />
-        </div>
-        <div class="floating-card card-1">
-          <mat-icon>home_work</mat-icon>
-          <div class="card-text">
-            <span class="card-label">EMI Amount</span>
-            <span class="card-value">₹42,000</span>
-          </div>
-        </div>
-        <div class="floating-card card-2">
-          <mat-icon>trending_down</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Interest Rate</span>
-            <span class="card-value">8.5%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-banner-section
+    title="Home Loan"
+    gradientText="EMI Calculator"
+    subtitle="Calculate monthly EMI with detailed payment breakdowns."
+    badge="Home Loan Planner"
+    badgeIcon="home"
+    [features]="bannerFeatures"
+    [visualCards]="bannerVisualCards"
+    illustration="assets/images/Home_Loan_Calculator.jpeg">
+  </app-banner-section>
 
   <!-- Calculator Section -->
   <section class="calculator-section">
@@ -80,7 +31,7 @@
             <!-- Loan Amount -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>currency_rupee</mat-icon>
+                <mat-icon aria-hidden="true">currency_rupee</mat-icon>
                 Loan Amount
               </label>
               <mat-form-field appearance="outline" class="amount-field">
@@ -103,7 +54,7 @@
             <!-- Interest Rate -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>percent</mat-icon>
+                <mat-icon aria-hidden="true">percent</mat-icon>
                 Interest Rate (per annum)
               </label>
               <div class="value-display">
@@ -123,7 +74,7 @@
             <!-- Loan Tenure -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>schedule</mat-icon>
+                <mat-icon aria-hidden="true">schedule</mat-icon>
                 Loan Tenure
               </label>
               <div class="value-display">
@@ -143,11 +94,11 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
               <button mat-raised-button color="primary" (click)="calculateEMI()" class="calc-button">
-                <mat-icon>calculate</mat-icon>
+                <mat-icon aria-hidden="true">calculate</mat-icon>
                 Calculate EMI
               </button>
               <button mat-stroked-button (click)="resetCalculator()" class="reset-button">
-                <mat-icon>refresh</mat-icon>
+                <mat-icon aria-hidden="true">refresh</mat-icon>
                 Reset
               </button>
             </div>
@@ -160,7 +111,7 @@
           <div class="summary-cards">
             <mat-card class="summary-card emi">
               <div class="card-icon">
-                <mat-icon>payments</mat-icon>
+                <mat-icon aria-hidden="true">payments</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Monthly EMI</span>
@@ -170,7 +121,7 @@
 
             <mat-card class="summary-card principal">
               <div class="card-icon">
-                <mat-icon>account_balance</mat-icon>
+                <mat-icon aria-hidden="true">account_balance</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Principal Amount</span>
@@ -181,7 +132,7 @@
 
             <mat-card class="summary-card interest">
               <div class="card-icon">
-                <mat-icon>trending_up</mat-icon>
+                <mat-icon aria-hidden="true">trending_up</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Total Interest</span>
@@ -192,7 +143,7 @@
 
             <mat-card class="summary-card total">
               <div class="card-icon">
-                <mat-icon>account_balance_wallet</mat-icon>
+                <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Total Payment</span>
@@ -204,7 +155,7 @@
           <!-- Charts -->
           <mat-card class="chart-card">
             <h3 class="chart-title">
-              <mat-icon>pie_chart</mat-icon>
+              <mat-icon aria-hidden="true">pie_chart</mat-icon>
               Loan Breakdown
             </h3>
             <div class="chart-wrapper doughnut-wrapper">
@@ -231,7 +182,7 @@
 
           <mat-card class="chart-card">
             <h3 class="chart-title">
-              <mat-icon>show_chart</mat-icon>
+              <mat-icon aria-hidden="true">show_chart</mat-icon>
               Loan Amortization
             </h3>
             <div class="chart-wrapper line-wrapper">
@@ -246,7 +197,7 @@
       @if (yearlyBreakdown.length > 0) {
       <mat-card class="breakdown-card">
         <h3 class="breakdown-title">
-          <mat-icon>table_chart</mat-icon>
+          <mat-icon aria-hidden="true">table_chart</mat-icon>
           Year-wise Amortization Schedule
         </h3>
         <div class="breakdown-table-wrapper">
@@ -265,7 +216,7 @@
               @for (item of yearlyBreakdown; track item.year) {
               <tr>
                 <td class="year-cell">
-                  <mat-icon>calendar_today</mat-icon>
+                  <mat-icon aria-hidden="true">calendar_today</mat-icon>
                   Year {{ item.year }}
                 </td>
                 <td class="amount-cell">
@@ -345,7 +296,7 @@
     <div class="example-container">
       <div class="example-content">
         <div class="example-badge">
-          <mat-icon>home</mat-icon>
+          <mat-icon aria-hidden="true">home</mat-icon>
           <span>Real Example</span>
         </div>
         <h2 class="example-title">Plan Your Dream Home</h2>
@@ -354,21 +305,21 @@
         </p>
         <div class="example-stats">
           <div class="example-stat">
-            <mat-icon>currency_rupee</mat-icon>
+            <mat-icon aria-hidden="true">currency_rupee</mat-icon>
             <div>
               <span class="stat-label">Loan Amount</span>
               <span class="stat-value">₹50,00,000</span>
             </div>
           </div>
           <div class="example-stat">
-            <mat-icon>schedule</mat-icon>
+            <mat-icon aria-hidden="true">schedule</mat-icon>
             <div>
               <span class="stat-label">Loan Tenure</span>
               <span class="stat-value">20 Years</span>
             </div>
           </div>
           <div class="example-stat">
-            <mat-icon>percent</mat-icon>
+            <mat-icon aria-hidden="true">percent</mat-icon>
             <div>
               <span class="stat-label">Interest Rate</span>
               <span class="stat-value">8.5% p.a.</span>
@@ -391,13 +342,13 @@
           </div>
         </div>
         <p class="example-note">
-          <mat-icon>info</mat-icon>
+          <mat-icon aria-hidden="true">info</mat-icon>
           Plan your finances wisely to afford your
           <strong>dream home</strong> comfortably!
         </p>
       </div>
       <div class="example-visual">
-        <img src="assets/images/home_loan_illustration.jpg" alt="Dream Home" />
+        <img src="assets/images/home_loan_illustration.jpg" alt="Dream Home" loading="lazy" />
       </div>
     </div>
   </section>
@@ -411,7 +362,7 @@
         Use our calculator to plan your EMI and make your dream home a reality
       </p>
       <button mat-raised-button color="primary" class="cta-button" (click)="calculateEMI()">
-        <mat-icon>calculate</mat-icon>
+        <mat-icon aria-hidden="true">calculate</mat-icon>
         Calculate Now
       </button>
     </div>

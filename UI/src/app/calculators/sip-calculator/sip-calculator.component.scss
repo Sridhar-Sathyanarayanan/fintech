@@ -2,28 +2,18 @@
 @use "../../../styles/styles.scss" as *;
 @use "../../../styles/mixins" as *;
 @use "../../../styles/animations" as *;
+@use "../../../styles/utilities" as *;
 
 .sip-calculator-banner {
-  position: relative;
+  @extend .banner-section;
   padding: 6rem 2rem;
-  overflow: hidden;
   background: $primary-gradient;
-  color: white;
 
   .banner-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    @extend .banner-background-animated;
 
     .gradient-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.3;
-      animation: float 8s ease-in-out infinite;
+      @extend .gradient-orb-decorations;
 
       &.orb-1 {
         width: 400px;
@@ -54,28 +44,14 @@
   }
 
   .banner-content-wrapper {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
+    @extend .banner-two-column-layout;
   }
 
   .banner-content {
-    animation: slideUp 0.6s ease-out;
+    @extend .animate-slide-up;
 
     .banner-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      padding: 0.5rem 1.25rem;
-      border-radius: 50px;
-      font-size: 0.875rem;
+      @extend .badge-pill-glass;
       margin-bottom: 1.5rem;
 
       mat-icon {
@@ -116,21 +92,7 @@
       flex-wrap: nowrap;
 
       .feature-chip {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        padding: 0.75rem 1.25rem;
-        border-radius: 50px;
-        font-size: 0.875rem;
-        font-weight: 600;
-        @include smooth-transition;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.25);
-          transform: translateY(-2px);
-        }
+        @extend .feature-chip-interactive;
 
         mat-icon {
           font-size: 1.125rem;
@@ -189,17 +151,7 @@
     }
 
     .floating-card {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1.25rem;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      z-index: 2;
-      animation: floatCard 4s ease-in-out infinite;
+      @extend .floating-card-animated;
 
       mat-icon {
         font-size: 2rem;
@@ -212,21 +164,9 @@
       }
 
       .card-text {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-
-        .card-label {
-          font-size: 0.75rem;
-          color: #666;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
+        @extend .card-stat-display;
+        
         .card-value {
-          font-size: 1.25rem;
-          font-weight: 700;
           background: $success-gradient;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -256,8 +196,7 @@
   z-index: 2;
 
   .calculator-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    @extend .container-max-1400;
   }
 
   .calculator-grid {
@@ -319,42 +258,11 @@
 
   .control-group {
     .control-label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 1rem;
-      font-size: 0.9375rem;
-
-      mat-icon {
-        font-size: 1.25rem;
-        width: 1.25rem;
-        height: 1.25rem;
-        color: #667eea;
-      }
+      @extend .control-label-with-icon;
     }
 
     .value-display {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-
-      .value-number {
-        font-size: 2rem;
-        font-weight: 700;
-        background: $primary-gradient;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .value-unit {
-        font-size: 0.875rem;
-        color: #666;
-        font-weight: 500;
-      }
+      @extend .value-display-large;
     }
   }
 }
@@ -468,11 +376,7 @@
 }
 
 .slider-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  color: #666;
-  margin-top: 0.5rem;
+  @extend .slider-range-labels;
 }
 
 // Action Buttons
@@ -519,12 +423,8 @@
   gap: 1.5rem;
 
   .summary-card {
-    padding: 1.5rem;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    @include card-hover;
+    @extend .stat-card-horizontal;
+    @extend .card-hover-lift;
 
     .card-icon {
       width: 56px;
@@ -568,37 +468,37 @@
     }
 
     &.invested {
-      border-left: 4px solid $color3;
+      border-left: 4px solid $info;
 
       .card-icon {
         background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
 
         mat-icon {
-          color: $color3;
+          color: $info;
         }
       }
     }
 
     &.returns {
-      border-left: 4px solid $color11;
+      border-left: 4px solid $success;
 
       .card-icon {
         background: linear-gradient(135deg, #4caf5020 0%, #2e7d3220 100%);
 
         mat-icon {
-          color: $color11;
+          color: $success;
         }
       }
     }
 
     &.total {
-      border-left: 4px solid $color9;
+      border-left: 4px solid $warning;
 
       .card-icon {
         background: linear-gradient(135deg, #ff980020 0%, #f57c0020 100%);
 
         mat-icon {
-          color: $color9;
+          color: $warning;
         }
       }
     }
@@ -788,8 +688,7 @@
   }
 
   .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
+    @extend .section-header-centered;
 
     .header-badge {
       display: inline-flex;
@@ -818,18 +717,14 @@
     }
 
     .section-subtitle {
-      font-size: 1.125rem;
-      color: #666;
+      @extend .section-subtitle-constrained;
       max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.7;
     }
   }
 
   .tips-grid {
-    display: grid;
+    @extend .grid-auto-fit-300;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
     margin-bottom: 3rem;
   }
 
@@ -838,7 +733,7 @@
     border-radius: 20px;
     position: relative;
     overflow: hidden;
-    @include card-hover;
+    @extend .card-hover-lift;
 
     .tip-number {
       position: absolute;
@@ -959,15 +854,13 @@
   }
 
   .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    @extend .grid-auto-fit-300;
   }
 
   .info-card {
     padding: 2rem;
     border-radius: 20px;
-    @include card-hover;
+    @extend .card-hover-lift;
     text-align: center;
 
     .info-icon {

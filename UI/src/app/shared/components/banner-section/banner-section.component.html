@@ -10,7 +10,7 @@
       @if (badge) {
         <div class="banner-badge">
           @if (badgeIcon) {
-            <mat-icon>{{ badgeIcon }}</mat-icon>
+            <mat-icon aria-hidden="true">{{ badgeIcon }}</mat-icon>
           }
           <span>{{ badge }}</span>
         </div>
@@ -36,7 +36,7 @@
                 color="primary"
                 class="action-button"
                 [routerLink]="action.route">
-                <mat-icon>{{ action.icon }}</mat-icon>
+                <mat-icon aria-hidden="true">{{ action.icon }}</mat-icon>
                 {{ action.label }}
               </button>
             }
@@ -45,7 +45,7 @@
                 mat-button
                 class="action-button"
                 [routerLink]="action.route">
-                <mat-icon>{{ action.icon }}</mat-icon>
+                <mat-icon aria-hidden="true">{{ action.icon }}</mat-icon>
                 {{ action.label }}
               </button>
             }
@@ -57,7 +57,7 @@
         <div class="banner-features">
           @for (feature of features; track feature.label) {
             <div class="feature-chip">
-              <mat-icon>{{ feature.icon }}</mat-icon>
+              <mat-icon aria-hidden="true">{{ feature.icon }}</mat-icon>
               <span>{{ feature.label }}</span>
             </div>
           }
@@ -70,7 +70,7 @@
         @if (visualCards) {
           @for (card of visualCards; let i = $index; track i) {
             <div class="banner-card" [ngClass]="'card-' + (i + 1)">
-              <mat-icon>{{ card.icon }}</mat-icon>
+              <mat-icon aria-hidden="true">{{ card.icon }}</mat-icon>
               <div class="card-content">
                 <span class="card-label">{{ card.label }}</span>
                 <span class="card-value">{{ card.value }}</span>

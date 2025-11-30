@@ -1,23 +1,11 @@
-<!-- BANNER SECTION -->
-<app-banner-section
-  title="Grow Your Wealth"
-  gradientText="With Confidence"
-  subtitle="Expert financial calculators and live market insights tailored for India. Make data-driven decisions that maximize your returns."
-  badge="✨ Trusted by 25,000+ investors"
-  badgeIcon="verified"
-  [actions]="bannerActions"
-  [visualCards]="bannerCards"
-  illustration="/assets/images/illustration1.svg">
-</app-banner-section>
-
 <!-- MARKET INDICES TICKER -->
 <section class="market-ticker">
   <div class="ticker-container">
     <div class="ticker-label">
-      <mat-icon>show_chart</mat-icon>
-      <span>📊 Live Markets</span>
+      <mat-icon aria-hidden="true">show_chart</mat-icon>
+      <span>Live Markets</span>
       <div class="market-updated">
-        <mat-icon>schedule</mat-icon>
+        <mat-icon aria-hidden="true">schedule</mat-icon>
         <span>{{ lastUpdated() | date:'short' }}</span>
       </div>
     </div>
@@ -28,7 +16,7 @@
             <span class="ticker-name">{{ index.name }}</span>
             <span class="ticker-value">{{ index.value }}</span>
             <span class="ticker-change" [class.positive]="index.isPositive" [class.negative]="!index.isPositive">
-              <mat-icon>{{ index.icon }}</mat-icon>
+              <mat-icon aria-hidden="true">{{ index.icon }}</mat-icon>
               {{ index.change }}
             </span>
           </div>
@@ -38,19 +26,31 @@
             <span class="ticker-name">{{ index.name }}</span>
             <span class="ticker-value">{{ index.value }}</span>
             <span class="ticker-change" [class.positive]="index.isPositive" [class.negative]="!index.isPositive">
-              <mat-icon>{{ index.icon }}</mat-icon>
+              <mat-icon aria-hidden="true">{{ index.icon }}</mat-icon>
               {{ index.change }}
             </span>
           </div>
         }
       </div>
       <div class="scroll-hint">
-        <mat-icon>swipe</mat-icon>
+        <mat-icon aria-hidden="true">swipe</mat-icon>
         <span>Scroll</span>
       </div>
     </div>
   </div>
 </section>
+
+<!-- BANNER SECTION -->
+<app-banner-section
+  title="Smart Financial"
+  gradientText="Planning"
+  subtitle="Professional calculators and real-time market data for Indian investors."
+  badge="Trusted Platform"
+  badgeIcon="verified"
+  [actions]="bannerActions"
+  [visualCards]="bannerCards"
+  illustration="/assets/images/illustration1.svg">
+</app-banner-section>
 
 <!-- STATISTICS SECTION -->
 <section class="statistics">
@@ -65,7 +65,7 @@
 <section class="quote-section">
   <div class="quote-container">
     <div class="quote-icon">
-      <mat-icon>format_quote</mat-icon>
+      <mat-icon aria-hidden="true">format_quote</mat-icon>
     </div>
     <div class="quote-content-wrapper">
       <button 
@@ -73,10 +73,10 @@
         class="quote-nav-button quote-nav-prev"
         (click)="prevQuote()"
         aria-label="Previous quote">
-        <mat-icon>chevron_left</mat-icon>
+        <mat-icon aria-hidden="true">chevron_left</mat-icon>
       </button>
       <div class="quote-image-wrapper">
-        <img [src]="currentQuote().imageUrl" [alt]="currentQuote().author" class="quote-image">
+        <img [src]="currentQuote().imageUrl" [alt]="currentQuote().author" class="quote-image" loading="lazy">
       </div>
       <div class="quote-text-content">
         <blockquote class="quote-text">
@@ -92,7 +92,7 @@
         class="quote-nav-button quote-nav-next"
         (click)="nextQuote()"
         aria-label="Next quote">
-        <mat-icon>chevron_right</mat-icon>
+        <mat-icon aria-hidden="true">chevron_right</mat-icon>
       </button>
     </div>
     <div class="quote-indicators">
@@ -112,27 +112,27 @@
 <section class="economic-indicators">
   <div class="indicators-container">
     <div class="section-header">
-      <h2 class="section-title">Indian Economy at a Glance</h2>
-      <p class="section-subtitle">Key economic indicators affecting your investments</p>
+      <h2 class="section-title">Economic Overview</h2>
+      <p class="section-subtitle">Key indicators for investment decisions</p>
     </div>
     <div class="indicators-grid">
       @for (indicator of economicIndicators; track indicator.label) {
         <mat-card class="indicator-card">
           <div class="indicator-icon-wrapper" [ngClass]="indicator.color">
-            <mat-icon>{{ indicator.icon }}</mat-icon>
+            <mat-icon aria-hidden="true">{{ indicator.icon }}</mat-icon>
           </div>
           <div class="indicator-content">
             <div class="indicator-label">{{ indicator.label }}</div>
             <div class="indicator-value">{{ indicator.value }}</div>
             <div class="indicator-trend" [ngClass]="indicator.trend">
               @if (indicator.trend === 'up') {
-                <mat-icon>arrow_upward</mat-icon>
+                <mat-icon aria-hidden="true">arrow_upward</mat-icon>
                 <span>Increasing</span>
               } @else if (indicator.trend === 'down') {
-                <mat-icon>arrow_downward</mat-icon>
+                <mat-icon aria-hidden="true">arrow_downward</mat-icon>
                 <span>Decreasing</span>
               } @else {
-                <mat-icon>trending_flat</mat-icon>
+                <mat-icon aria-hidden="true">trending_flat</mat-icon>
                 <span>Stable</span>
               }
             </div>
@@ -147,9 +147,9 @@
 <section class="features">
   <div class="features-container">
     <div class="section-header">
-      <h2 class="section-title">🧰 Complete Financial Toolkit</h2>
+      <h2 class="section-title">Financial Calculators</h2>
       <p class="section-subtitle">
-        Professional-grade calculators designed for Indian tax laws and investment products
+        Accurate tools aligned with Indian tax laws and regulations
       </p>
     </div>
     <div class="feature-grid">
@@ -188,14 +188,14 @@
         color="primary" 
         (click)="prevSlide()"
         aria-label="Previous slide">
-        <mat-icon>chevron_left</mat-icon>
+        <mat-icon aria-hidden="true">chevron_left</mat-icon>
       </button>
       <button 
         mat-mini-fab 
         color="primary" 
         (click)="nextSlide()"
         aria-label="Next slide">
-        <mat-icon>chevron_right</mat-icon>
+        <mat-icon aria-hidden="true">chevron_right</mat-icon>
       </button>
     </div>
     <div class="carousel-indicators">
@@ -215,16 +215,16 @@
 <section class="facts">
   <div class="facts-container">
     <div class="section-header">
-      <h2 class="section-title">💡 Essential Financial Knowledge</h2>
+      <h2 class="section-title">Financial Insights</h2>
       <p class="section-subtitle">
-        Evidence-based insights from decades of financial research and market data
+        Evidence-based knowledge for smarter decisions
       </p>
     </div>
     <div class="facts-grid">
       @for (fact of financialFacts; track fact.title) {
         <mat-card class="fact-card">
           <div class="fact-icon-wrapper">
-            <mat-icon>{{ fact.icon }}</mat-icon>
+            <mat-icon aria-hidden="true">{{ fact.icon }}</mat-icon>
           </div>
           <mat-card-content>
             <h3 class="fact-title">{{ fact.title }}</h3>
@@ -241,30 +241,28 @@
   <div class="philosophy-container">
     <div class="philosophy-content">
       <div class="philosophy-badge">
-        <mat-icon>psychology</mat-icon>
+        <mat-icon aria-hidden="true">psychology</mat-icon>
         <span>Our Philosophy</span>
       </div>
       <h2 class="philosophy-title">
-        Data-Driven <span class="gradient-text">Financial Decisions</span>
+        Data-Driven <span class="gradient-text">Decisions</span>
       </h2>
       <p class="philosophy-description">
-        We believe in transparent, evidence-based financial planning. Our tools are built on proven 
-        financial principles, real market data, and decades of investment research. We empower you 
-        with accurate calculations, tax-saving strategies, and long-term wealth creation frameworks.
+        Our tools combine regulatory compliance, real market data, and proven financial principles to help you make informed investment decisions.
       </p>
       <div class="philosophy-principles">
         <div class="principle-item">
           <div class="principle-icon">
-            <mat-icon>verified</mat-icon>
+            <mat-icon aria-hidden="true">verified</mat-icon>
           </div>
           <div class="principle-content">
-            <h4>Regulatory Compliance</h4>
-            <p>Calculations aligned with IT Act, SEBI guidelines, and RBI regulations</p>
+            <h4>Regulatory Compliant</h4>
+            <p>Aligned with IT Act, SEBI, and RBI guidelines</p>
           </div>
         </div>
         <div class="principle-item">
           <div class="principle-icon">
-            <mat-icon>shield</mat-icon>
+            <mat-icon aria-hidden="true">shield</mat-icon>
           </div>
           <div class="principle-content">
             <h4>Data Privacy First</h4>
@@ -273,7 +271,7 @@
         </div>
         <div class="principle-item">
           <div class="principle-icon">
-            <mat-icon>trending_up</mat-icon>
+            <mat-icon aria-hidden="true">trending_up</mat-icon>
           </div>
           <div class="principle-content">
             <h4>Long-term Focus</h4>
@@ -283,32 +281,31 @@
       </div>
     </div>
     <div class="philosophy-visual">
-      <div class="stats-showcase">
-        <div class="stat-showcase-item">
-          <div class="stat-icon">
-            <mat-icon>timeline</mat-icon>
-          </div>
-          <div class="stat-data">
-            <div class="stat-number">12.6%</div>
-            <div class="stat-label">NIFTY 50 CAGR (20 years)</div>
-          </div>
+      <div class="did-you-know-section">
+        <div class="did-you-know-header">
+          <mat-icon aria-hidden="true">lightbulb</mat-icon>
+          <h3>Did You Know?</h3>
         </div>
-        <div class="stat-showcase-item">
-          <div class="stat-icon">
-            <mat-icon>account_balance_wallet</mat-icon>
+        <div class="fun-facts-list">
+          <div class="fun-fact-item">
+            <div class="fact-emoji">🍕</div>
+            <p>In 2010, someone bought 2 pizzas for 10,000 Bitcoins. Today that's worth over <strong>$400 million</strong>. Most expensive pizza ever!</p>
           </div>
-          <div class="stat-data">
-            <div class="stat-number">7.1%</div>
-            <div class="stat-label">PPF Returns (Tax-free)</div>
+          <div class="fun-fact-item">
+            <div class="fact-emoji">💰</div>
+            <p>The Indian stock market has created <strong>100+ billionaires</strong> since 1991 liberalization. Time in market beats timing the market!</p>
           </div>
-        </div>
-        <div class="stat-showcase-item">
-          <div class="stat-icon">
-            <mat-icon>savings</mat-icon>
+          <div class="fun-fact-item">
+            <div class="fact-emoji">🏦</div>
+            <p>Warren Buffett made <strong>99% of his wealth</strong> after turning 50. Compound interest is the 8th wonder of the world!</p>
           </div>
-          <div class="stat-data">
-            <div class="stat-number">💰 ₹1.95L</div>
-            <div class="stat-label">Max Tax Savings (80C+80D+NPS)</div>
+          <div class="fun-fact-item">
+            <div class="fact-emoji">📈</div>
+            <p>A ₹10,000 investment in Infosys IPO (1993) would be worth <strong>₹6+ Crores</strong> today. Early bird gets the returns!</p>
+          </div>
+          <div class="fun-fact-item">
+            <div class="fact-emoji">🎯</div>
+            <p>Missing just the <strong>10 best days</strong> in the stock market over 20 years cuts your returns by half. Stay invested!</p>
           </div>
         </div>
       </div>
@@ -321,33 +318,30 @@
   <div class="about-container">
     <div class="about-content">
       <div class="about-badge">
-        <mat-icon>rocket</mat-icon>
+        <mat-icon aria-hidden="true">rocket</mat-icon>
         <span>About Us</span>
       </div>
       <h2 class="about-title">Built by <span class="brand-name">AMKRTech</span></h2>
       <p class="about-description">
-        We're a team of financial analysts, software engineers, and tax experts passionate about 
-        democratizing financial literacy. Our platform combines cutting-edge technology with 
-        deep domain expertise to deliver tools that make complex financial decisions simple 
-        and accessible to everyone.
+        A team of financial experts and engineers dedicated to simplifying financial planning through accurate, user-friendly tools.
       </p>
       <div class="about-features">
         <div class="about-feature">
-          <mat-icon>verified_user</mat-icon>
+          <mat-icon aria-hidden="true">verified_user</mat-icon>
           <div>
             <strong>Bank-Grade Security</strong>
             <p>256-bit encryption and zero data storage policy</p>
           </div>
         </div>
         <div class="about-feature">
-          <mat-icon>update</mat-icon>
+          <mat-icon aria-hidden="true">update</mat-icon>
           <div>
             <strong>Always Current</strong>
             <p>Updated with latest tax slabs, rates, and regulations</p>
           </div>
         </div>
         <div class="about-feature">
-          <mat-icon>support_agent</mat-icon>
+          <mat-icon aria-hidden="true">support_agent</mat-icon>
           <div>
             <strong>Expert Backed</strong>
             <p>Validated by CA, CFP, and investment professionals</p>
@@ -365,7 +359,7 @@
     </div>
     <div class="about-visual">
       <div class="about-image-wrapper">
-        <img src="/assets/images/illustration2.svg" alt="AMKRTech Team" />
+        <img src="/assets/images/illustration2.svg" alt="AMKRTech Team" loading="lazy" />
       </div>
     </div>
   </div>
@@ -379,11 +373,11 @@
       <p>Join 25,000+ investors making smarter financial decisions with data-driven tools</p>
       <div class="cta-buttons">
         <button mat-raised-button color="primary" class="cta-button-large" routerLink="/income-tax-calculator">
-          <mat-icon>calculate</mat-icon>
+          <mat-icon aria-hidden="true">calculate</mat-icon>
           Calculate Your Taxes
         </button>
         <button mat-raised-button class="cta-button-secondary" routerLink="/sip-calculator">
-          <mat-icon>trending_up</mat-icon>
+          <mat-icon aria-hidden="true">trending_up</mat-icon>
           Plan Your SIP
         </button>
       </div>

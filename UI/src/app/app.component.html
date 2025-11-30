@@ -1,4 +1,7 @@
 <div class="app-container">
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+  
   <!-- Desktop Navigation -->
   @if (!isMobile()) {
   <header class="desktop-header" [class.scrolled]="isScrolled()">
@@ -6,7 +9,7 @@
       <div class="toolbar-content">
         <!-- Logo Section -->
         <div class="logo-section" routerLink="/">
-          <img src="assets/images/logo.png" alt="AMKRTech Logo" class="app-logo" />
+          <img src="assets/images/logo.png" alt="AMKRTech Logo" class="app-logo" loading="lazy" />
           <div class="logo-text">
             <span class="brand-name">AMKRTech</span>
             <span class="brand-tagline">Financial Solutions</span>
@@ -14,7 +17,7 @@
         </div>
 
         <!-- Navigation Links -->
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Main navigation">
           @for (item of navItems; track item.label) { @if (!item.children) {
           <a mat-button [routerLink]="item.route" routerLinkActive="active-link"
             [routerLinkActiveOptions]="{ exact: item.route === '/' }" class="nav-link">
@@ -47,17 +50,17 @@
   <!-- Mobile Navigation -->
   @if (isMobile()) {
   <mat-toolbar class="mobile-toolbar" [class.scrolled]="isScrolled()">
-    <button mat-icon-button (click)="toggleSidenav()" class="menu-button">
-      <mat-icon>menu</mat-icon>
+    <button mat-icon-button (click)="toggleSidenav()" class="menu-button" aria-label="Open navigation menu">
+      <mat-icon aria-hidden="true">menu</mat-icon>
     </button>
 
     <div class="mobile-logo" routerLink="/">
-      <img src="assets/images/logo.png" alt="AMKRTech" class="mobile-logo-img" />
+      <img src="assets/images/logo.png" alt="AMKRTech" class="mobile-logo-img" loading="lazy" />
       <span class="mobile-brand-name">AMKRTech</span>
     </div>
 
-    <button mat-icon-button routerLink="/income-tax-calculator" class="mobile-calc-button">
-      <mat-icon>calculate</mat-icon>
+    <button mat-icon-button routerLink="/income-tax-calculator" class="mobile-calc-button" aria-label="Go to income tax calculator">
+      <mat-icon aria-hidden="true">calculate</mat-icon>
     </button>
   </mat-toolbar>
   }
@@ -68,17 +71,18 @@
     <mat-sidenav #sidenav [mode]="isMobile() ? 'over' : 'side'" [opened]="false" class="mobile-sidenav">
       <div class="sidenav-header">
         <div class="sidenav-logo">
-          <img src="assets/images/logo.png" alt="AMKRTech" />
+          <img src="assets/images/logo.png" alt="AMKRTech" loading="lazy" />
         </div>
-        <button mat-icon-button (click)="closeSidenav()" class="close-button">
-          <mat-icon>close</mat-icon>
+        <button mat-icon-button (click)="closeSidenav()" class="close-button" aria-label="Close navigation menu">
+          <mat-icon aria-hidden="true">close</mat-icon>
         </button>
       </div>
 
       <mat-divider></mat-divider>
 
-      <mat-nav-list class="sidenav-list">
-        @for (item of navItems; track item.label) { @if (!item.children) {
+      <nav aria-label="Mobile navigation">
+        <mat-nav-list class="sidenav-list">
+          @for (item of navItems; track item.label) { @if (!item.children) {
         <a mat-list-item [routerLink]="item.route" routerLinkActive="active-sidenav-item"
           [routerLinkActiveOptions]="{ exact: item.route === '/' }" (click)="closeSidenav()" class="sidenav-item">
           <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
@@ -99,7 +103,8 @@
           }
         </div>
         } }
-      </mat-nav-list>
+        </mat-nav-list>
+      </nav>
 
       <div class="sidenav-footer">
         <button mat-raised-button color="primary" routerLink="/income-tax-calculator" (click)="closeSidenav()"
@@ -112,14 +117,14 @@
 
       <!-- Main Content Area -->
     <mat-sidenav-content class="main-content">
-      <div class="content-wrapper">
+      <main class="content-wrapper" id="main-content" role="main">
         <router-outlet></router-outlet>
-      </div>
+      </main>
 
       <!-- Scroll to Top Button -->
       @if (showScrollTop()) {
-      <button mat-fab class="scroll-to-top" (click)="scrollToTop()" animate.enter="fade-in-scale" animate.leave="fade-out-scale">
-        <mat-icon>keyboard_arrow_up</mat-icon>
+      <button mat-fab class="scroll-to-top" (click)="scrollToTop()" animate.enter="fade-in-scale" animate.leave="fade-out-scale" aria-label="Scroll to top">
+        <mat-icon aria-hidden="true">keyboard_arrow_up</mat-icon>
       </button>
       }      <!-- Modern Footer -->
       <footer class="app-footer">
@@ -127,7 +132,7 @@
           <div class="footer-grid">
             <div class="footer-section">
               <div class="footer-logo">
-                <img src="assets/images/logo.png" alt="AMKRTech" />
+                <img src="assets/images/logo.png" alt="AMKRTech" loading="lazy" />
                 <span class="footer-brand">AMKRTech</span>
               </div>
               <p class="footer-description">
@@ -135,14 +140,14 @@
                 insights.
               </p>
               <div class="footer-social">
-                <button mat-icon-button class="social-button">
-                  <mat-icon>facebook</mat-icon>
+                <button mat-icon-button class="social-button" aria-label="Visit our Facebook page">
+                  <mat-icon aria-hidden="true">facebook</mat-icon>
                 </button>
-                <button mat-icon-button class="social-button">
-                  <mat-icon>twitter</mat-icon>
+                <button mat-icon-button class="social-button" aria-label="Follow us on Twitter">
+                  <mat-icon aria-hidden="true">twitter</mat-icon>
                 </button>
-                <button mat-icon-button class="social-button">
-                  <mat-icon>linkedin</mat-icon>
+                <button mat-icon-button class="social-button" aria-label="Connect with us on LinkedIn">
+                  <mat-icon aria-hidden="true">linkedin</mat-icon>
                 </button>
               </div>
             </div>
@@ -183,7 +188,7 @@
           <div class="footer-bottom">
             <p class="copyright">&copy; 2025 AMKRTech. All rights reserved.</p>
             <p class="made-with">
-              Made with <mat-icon class="heart-icon">favorite</mat-icon> in
+              Made with <mat-icon class="heart-icon" aria-hidden="true">favorite</mat-icon> in
               India
             </p>
           </div>

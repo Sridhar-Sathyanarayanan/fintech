@@ -15,6 +15,12 @@ export interface BannerFeature {
   label: string;
 }
 
+export interface BannerVisualCard {
+  icon: string;
+  label: string;
+  value: string;
+}
+
 @Component({
   selector: 'app-banner-section',
   standalone: true,
@@ -31,6 +37,6 @@ export class BannerSectionComponent {
   @Input() badgeIcon?: string;
   @Input() actions: BannerAction[] = [];
   @Input() features: BannerFeature[] = [];
-  @Input() visualCards?: Array<{ icon: string; label: string; value: string }>;
+  @Input() visualCards?: BannerVisualCard[];
   @Input() illustration?: string;
 }

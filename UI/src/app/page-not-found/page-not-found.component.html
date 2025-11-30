@@ -8,12 +8,12 @@
       </p>
       
       <div class="action-buttons">
-        <a routerLink="/" class="btn-primary">
-          <mat-icon>home</mat-icon>
+        <a routerLink="/" class="btn-primary" aria-label="Return to homepage">
+          <mat-icon aria-hidden="true">home</mat-icon>
           Take Me Home
         </a>
-        <button (click)="goBack()" class="btn-secondary">
-          <mat-icon>arrow_back</mat-icon>
+        <button (click)="goBack()" class="btn-secondary" aria-label="Go back to previous page">
+          <mat-icon aria-hidden="true">arrow_back</mat-icon>
           Go Back
         </button>
       </div>
@@ -22,7 +22,8 @@
     <div class="illustration-section">
       <img src="assets/images/page_not_found.jpg" 
            alt="Page not found illustration" 
-           class="illustration-image">
+           class="illustration-image"
+           loading="lazy">
     </div>
   </div>
 </div>

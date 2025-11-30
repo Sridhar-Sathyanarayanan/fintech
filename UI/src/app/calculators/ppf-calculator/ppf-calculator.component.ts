@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 interface YearlyBreakdown {
   year: number;
@@ -27,14 +28,29 @@ type FrequencyType = 'yearly' | 'halfyearly' | 'quarterly' | 'monthly';
     RouterModule,
     BaseChartDirective,
     MaterialModules,
+    BannerSectionComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PpfCalculatorComponent implements OnInit {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'verified', label: '100% Safe' },
+    { icon: 'gavel', label: 'Govt Backed' },
+    { icon: 'money_off', label: 'Tax Free Returns' }
+  ];
+
   frequency = signal<FrequencyType>('yearly');
   investmentAmount = signal(150000);
   years = signal(15);
   interestRate = signal(7.1); // Current PPF rate
+
+  // Dynamic visual cards using computed values
+  get bannerVisualCards(): BannerVisualCard[] {
+    return [
+      { icon: 'percent', label: 'Interest Rate', value: `${this.interestRate()}%` },
+      { icon: 'lock', label: 'Lock-in Period', value: '15 Years' }
+    ];
+  }
 
   totalInvested = signal(0);
   interestEarned = signal(0);

@@ -1,72 +1,15 @@
 <!-- BANNER SECTION -->
 <div class="tax-slab-page">
-  <section class="tax-slab-calculator-banner">
-    <div class="banner-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
-    </div>
-
-    <div class="banner-content-wrapper">
-      <div class="banner-content">
-        <div class="banner-badge">
-          <mat-icon>account_balance</mat-icon>
-          <span>Income Tax Calculator</span>
-        </div>
-
-        <h1 class="banner-title">
-          Compare Tax Regimes
-          <span class="gradient-text">Choose What Saves More</span>
-        </h1>
-
-        <p class="banner-subtitle">
-          Understand India's income tax slabs for old and new regimes. Make
-          informed decisions about your tax planning with our comprehensive
-          comparison tool.
-        </p>
-
-        <div class="banner-features">
-          <div class="feature-chip">
-            <mat-icon>compare_arrows</mat-icon>
-            <span>Side-by-Side Comparison</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>trending_down</mat-icon>
-            <span>Tax Optimization</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>calendar_today</mat-icon>
-            <span>Multi-Year Data</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="banner-visual">
-        <div class="visual-decoration decoration-1"></div>
-        <div class="visual-decoration decoration-2"></div>
-
-        <div class="banner-image-wrapper">
-          <img src="assets/images/tax-illustration.svg" alt="Tax Calculator" class="banner-image" />
-        </div>
-
-        <div class="floating-card card-1">
-          <mat-icon>savings</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Save Up To</span>
-            <span class="card-value">₹1.5L</span>
-          </div>
-        </div>
-
-        <div class="floating-card card-2">
-          <mat-icon>verified</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Updated For</span>
-            <span class="card-value">FY 2025-26</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-banner-section
+    title="Tax Regime"
+    gradientText="Comparison"
+    subtitle="Compare old and new tax slabs to optimize your tax planning."
+    badge="Income Tax Calculator"
+    badgeIcon="account_balance"
+    [features]="bannerFeatures"
+    [visualCards]="bannerVisualCards"
+    illustration="assets/images/tax-illustration.svg">
+  </app-banner-section>
 
   <!-- Main Content Section -->
   <section class="content-section">
@@ -74,7 +17,7 @@
       <!-- Year Selector Card -->
       <div class="year-selector-card">
         <div class="selector-header">
-          <mat-icon>calendar_today</mat-icon>
+          <mat-icon aria-hidden="true">calendar_today</mat-icon>
           <div>
             <h3>Select Financial Year</h3>
             <p>Choose the assessment year for tax slab comparison</p>
@@ -84,7 +27,7 @@
         <div class="year-chips">
           <button mat-button *ngFor="let year of years" [class.selected]="selectedYear === year"
             (click)="selectedYear = year; updateComparisonChart()" class="year-chip">
-            <mat-icon>date_range</mat-icon>
+            <mat-icon aria-hidden="true">date_range</mat-icon>
             <span>{{ year }}</span>
           </button>
         </div>
@@ -96,7 +39,7 @@
         <div class="regime-card old-regime">
           <div class="regime-header">
             <div class="header-icon old-icon">
-              <mat-icon>account_balance_wallet</mat-icon>
+              <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
             </div>
             <div>
               <h3 class="regime-title">Old Tax Regime</h3>
@@ -106,15 +49,15 @@
 
           <div class="regime-features">
             <div class="feature-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>80C Deductions Available</span>
             </div>
             <div class="feature-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>HRA & LTA Benefits</span>
             </div>
             <div class="feature-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Home Loan Interest</span>
             </div>
           </div>
@@ -125,13 +68,13 @@
                 <tr>
                   <th>
                     <div class="th-content">
-                      <mat-icon>currency_rupee</mat-icon>
+                      <mat-icon aria-hidden="true">currency_rupee</mat-icon>
                       <span>Income Range</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-content">
-                      <mat-icon>percent</mat-icon>
+                      <mat-icon aria-hidden="true">percent</mat-icon>
                       <span>Tax Rate</span>
                     </div>
                   </th>
@@ -143,7 +86,7 @@
                     let i = index
                   ">
                   <td class="range-cell">
-                    <mat-icon>trending_flat</mat-icon>
+                    <mat-icon aria-hidden="true">trending_flat</mat-icon>
                     <span>{{ slab.range }}</span>
                   </td>
                   <td class="rate-cell">
@@ -161,7 +104,7 @@
         <div class="regime-card new-regime">
           <div class="regime-header">
             <div class="header-icon new-icon">
-              <mat-icon>auto_awesome</mat-icon>
+              <mat-icon aria-hidden="true">auto_awesome</mat-icon>
             </div>
             <div>
               <h3 class="regime-title">New Tax Regime</h3>
@@ -171,15 +114,15 @@
 
           <div class="regime-features">
             <div class="feature-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Simplified Tax Structure</span>
             </div>
             <div class="feature-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Lower Tax Rates</span>
             </div>
             <div class="feature-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Default Regime (FY 24-25)</span>
             </div>
           </div>
@@ -190,13 +133,13 @@
                 <tr>
                   <th>
                     <div class="th-content">
-                      <mat-icon>currency_rupee</mat-icon>
+                      <mat-icon aria-hidden="true">currency_rupee</mat-icon>
                       <span>Income Range</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-content">
-                      <mat-icon>percent</mat-icon>
+                      <mat-icon aria-hidden="true">percent</mat-icon>
                       <span>Tax Rate</span>
                     </div>
                   </th>
@@ -208,7 +151,7 @@
                     let i = index
                   ">
                   <td class="range-cell">
-                    <mat-icon>trending_flat</mat-icon>
+                    <mat-icon aria-hidden="true">trending_flat</mat-icon>
                     <span>{{ slab.range }}</span>
                   </td>
                   <td class="rate-cell">
@@ -226,7 +169,7 @@
       <!-- Detailed Comparison Table -->
       <div class="comparison-table-card">
         <div class="card-header">
-          <mat-icon>compare</mat-icon>
+          <mat-icon aria-hidden="true">compare</mat-icon>
           <div>
             <h3>Detailed Rate Comparison</h3>
             <p>Side-by-side tax rate analysis for {{ selectedYear }}</p>
@@ -240,19 +183,19 @@
                 <th>Income Range</th>
                 <th class="old-regime-col">
                   <div class="col-header">
-                    <mat-icon>account_balance_wallet</mat-icon>
+                    <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
                     <span>Old Regime</span>
                   </div>
                 </th>
                 <th class="new-regime-col">
                   <div class="col-header">
-                    <mat-icon>auto_awesome</mat-icon>
+                    <mat-icon aria-hidden="true">auto_awesome</mat-icon>
                     <span>New Regime</span>
                   </div>
                 </th>
                 <th class="difference-col">
                   <div class="col-header">
-                    <mat-icon>insights</mat-icon>
+                    <mat-icon aria-hidden="true">insights</mat-icon>
                     <span>Difference</span>
                   </div>
                 </th>
@@ -295,14 +238,14 @@
       <div class="chart-card">
         <div class="chart-header">
           <div class="header-left">
-            <mat-icon>bar_chart</mat-icon>
+            <mat-icon aria-hidden="true">bar_chart</mat-icon>
             <div>
               <h3>Visual Comparison</h3>
               <p>Tax rate distribution across income slabs</p>
             </div>
           </div>
           <button mat-stroked-button color="primary" (click)="exportChart()" class="export-button">
-            <mat-icon>download</mat-icon>
+            <mat-icon aria-hidden="true">download</mat-icon>
             <span>Export Chart</span>
           </button>
         </div>
@@ -335,7 +278,7 @@
       <div class="info-grid">
         <div class="info-card">
           <div class="info-icon">
-            <mat-icon>savings</mat-icon>
+            <mat-icon aria-hidden="true">savings</mat-icon>
           </div>
           <h3>Deductions & Exemptions</h3>
           <p>
@@ -351,7 +294,7 @@
 
         <div class="info-card">
           <div class="info-icon">
-            <mat-icon>speed</mat-icon>
+            <mat-icon aria-hidden="true">speed</mat-icon>
           </div>
           <h3>Simplified Filing</h3>
           <p>
@@ -366,7 +309,7 @@
 
         <div class="info-card">
           <div class="info-icon">
-            <mat-icon>trending_down</mat-icon>
+            <mat-icon aria-hidden="true">trending_down</mat-icon>
           </div>
           <h3>Lower Tax Rates</h3>
           <p>
@@ -381,7 +324,7 @@
 
         <div class="info-card">
           <div class="info-icon">
-            <mat-icon>people</mat-icon>
+            <mat-icon aria-hidden="true">people</mat-icon>
           </div>
           <h3>Who Benefits More?</h3>
           <p>
@@ -407,7 +350,7 @@
         money
       </p>
       <button mat-raised-button color="accent" class="cta-button">
-        <mat-icon>arrow_forward</mat-icon>
+        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
         <span>Calculate Now</span>
       </button>
     </div>

@@ -1,18 +1,18 @@
 <!-- BANNER SECTION -->
 <app-banner-section title="Market" gradientText="Insights"
-  subtitle="Stay informed with real-time market data, expert analysis, and actionable intelligence for smarter investment decisions."
+  subtitle="Real-time data and analysis for informed investment decisions."
   badge="Updated Live" badgeIcon="show_chart" [features]="bannerFeatures" [visualCards]="bannerCards"
   illustration="/assets/images/market_insights.svg">
 </app-banner-section>
 
 <!-- LAST UPDATED INDICATOR -->
 <div class="last-updated-wrapper">
-  <div class="last-updated-badge">
-    <mat-icon class="pulse-icon">update</mat-icon>
+  <div class="last-updated-badge" role="status" aria-live="polite" aria-label="Market data last updated">
+    <mat-icon class="pulse-icon" aria-hidden="true">update</mat-icon>
     <span class="update-label">Last Updated:</span>
     <span class="update-time">{{ lastUpdated() }}</span>
-    <div class="live-indicator">
-      <span class="live-dot"></span>
+    <div class="live-indicator" aria-label="Live market data">
+      <span class="live-dot" aria-hidden="true"></span>
       <span class="live-text">LIVE</span>
     </div>
   </div>
@@ -33,7 +33,7 @@
             <h3 class="index-name">{{ index.name }}</h3>
             <p class="index-description">{{ index.description }}</p>
           </div>
-          <mat-icon [class]="index.isPositive ? 'positive' : 'negative'">
+          <mat-icon [class]="index.isPositive ? 'positive' : 'negative'" aria-hidden="true">
             {{ index.icon }}
           </mat-icon>
         </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="index-footer">
           <span class="index-timestamp">
-            <mat-icon>schedule</mat-icon>
+            <mat-icon aria-hidden="true">schedule</mat-icon>
             {{ index.timestamp }}
           </span>
         </div>
@@ -60,7 +60,7 @@
     <div class="movers-grid">
       <div class="movers-section">
         <h3 class="movers-title">
-          <mat-icon>trending_up</mat-icon>
+          <mat-icon aria-hidden="true">trending_up</mat-icon>
           🔥 Top Gainers
         </h3>
         <div class="movers-list">
@@ -81,7 +81,7 @@
 
       <div class="movers-section">
         <h3 class="movers-title">
-          <mat-icon>trending_down</mat-icon>
+          <mat-icon aria-hidden="true">trending_down</mat-icon>
           📉 Top Losers
         </h3>
         <div class="movers-list">
@@ -102,7 +102,7 @@
 
       <div class="movers-section">
         <h3 class="movers-title">
-          <mat-icon>flash_on</mat-icon>
+          <mat-icon aria-hidden="true">flash_on</mat-icon>
           ⚡ Most Active
         </h3>
         <div class="movers-list">
@@ -135,7 +135,7 @@
       @for (stat of marketStats; track stat.label) {
       <mat-card class="stat-card">
         <div class="stat-icon-wrapper" [ngClass]="stat.color">
-          <mat-icon>{{ stat.icon }}</mat-icon>
+          <mat-icon aria-hidden="true">{{ stat.icon }}</mat-icon>
         </div>
         <div class="stat-content">
           <div class="stat-label">{{ stat.label }}</div>
@@ -160,12 +160,12 @@
       <mat-card class="sector-card" [class.positive]="sector.isPositive" [class.negative]="!sector.isPositive">
         <div class="sector-header">
           <div class="sector-icon-wrapper">
-            <mat-icon>{{ sector.icon }}</mat-icon>
+            <mat-icon aria-hidden="true">{{ sector.icon }}</mat-icon>
           </div>
           <h3 class="sector-name">{{ sector.name }}</h3>
         </div>
         <div class="sector-change" [class.positive]="sector.isPositive" [class.negative]="!sector.isPositive">
-          <mat-icon>{{ sector.isPositive ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+          <mat-icon aria-hidden="true">{{ sector.isPositive ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
           <span>{{ sector.change }}</span>
         </div>
         <div class="sector-footer">
@@ -184,7 +184,7 @@
     <div class="cc-grid">
       <div class="cc-section">
         <h3 class="cc-title">
-          <mat-icon>currency_exchange</mat-icon>
+          <mat-icon aria-hidden="true">currency_exchange</mat-icon>
           💱 Currency Rates
         </h3>
         <div class="cc-list">

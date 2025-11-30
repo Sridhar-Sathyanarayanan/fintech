@@ -1,64 +1,14 @@
 <!-- BANNER SECTION -->
-<section class="banner">
-  <div class="banner-background"></div>
-  <div class="banner-container">
-    <div class="banner-content">
-      <div class="banner-badge">
-        <mat-icon>verified</mat-icon>
-        <span>Income Tax Act - Section 10(13A)</span>
-      </div>
-      <h1 class="banner-title">
-        HRA Tax Exemption
-        <span class="gradient-text">Calculator</span>
-      </h1>
-      <p class="banner-subtitle">
-        Calculate your House Rent Allowance (HRA) tax exemption instantly and
-        maximize your tax savings with our accurate calculator designed for
-        Indian salaried employees.
-      </p>
-      <div class="banner-features">
-        <div class="feature-chip">
-          <mat-icon>check_circle</mat-icon>
-          <span>Section 10(13A) Compliant</span>
-        </div>
-        <div class="feature-chip">
-          <mat-icon>calculate</mat-icon>
-          <span>Instant Calculation</span>
-        </div>
-        <div class="feature-chip">
-          <mat-icon>trending_up</mat-icon>
-          <span>Maximize Savings</span>
-        </div>
-      </div>
-    </div>
-    <div class="banner-visual">
-      <div class="banner-card card-1">
-        <mat-icon>home</mat-icon>
-        <div class="card-content">
-          <span class="card-label">HRA Received</span>
-          <span class="card-value">₹2.4L</span>
-        </div>
-      </div>
-      <div class="banner-card card-2">
-        <mat-icon>savings</mat-icon>
-        <div class="card-content">
-          <span class="card-label">Tax Exemption</span>
-          <span class="card-value">₹1.8L</span>
-        </div>
-      </div>
-      <div class="banner-card card-3">
-        <mat-icon>account_balance_wallet</mat-icon>
-        <div class="card-content">
-          <span class="card-label">Tax Saved</span>
-          <span class="card-value">₹54K</span>
-        </div>
-      </div>
-      <div class="banner-illustration">
-        <img src="/assets/images/HRA.jpeg" alt="HRA Calculator" />
-      </div>
-    </div>
-  </div>
-</section>
+<app-banner-section
+  title="HRA Tax"
+  gradientText="Exemption Calculator"
+  subtitle="Calculate your House Rent Allowance tax exemption under Section 10(13A)."
+  badge="Income Tax Act - Section 10(13A)"
+  badgeIcon="verified"
+  [features]="bannerFeatures"
+  [visualCards]="bannerVisualCards"
+  illustration="/assets/images/HRA.jpeg">
+</app-banner-section>
 
 <!-- CALCULATOR SECTION -->
 <section class="calculator-section">
@@ -67,7 +17,7 @@
     <div class="calculator-card">
       <div class="card-header">
         <div class="header-icon">
-          <mat-icon>calculate</mat-icon>
+          <mat-icon aria-hidden="true">calculate</mat-icon>
         </div>
         <div class="header-content">
           <h2 class="card-title">Calculate Your HRA Exemption</h2>
@@ -145,11 +95,11 @@
         <!-- Action Buttons -->
         <div class="form-actions">
           <button mat-raised-button color="primary" type="submit" class="calculate-button">
-            <mat-icon>calculate</mat-icon>
+            <mat-icon aria-hidden="true">calculate</mat-icon>
             Calculate HRA Exemption
           </button>
           <button mat-button type="button" (click)="resetForm()" class="reset-button">
-            <mat-icon>refresh</mat-icon>
+            <mat-icon aria-hidden="true">refresh</mat-icon>
             Reset
           </button>
         </div>
@@ -160,7 +110,7 @@
     <div class="results-card" *ngIf="showResult()" id="results-section">
       <div class="results-header">
         <div class="header-icon success">
-          <mat-icon>check_circle</mat-icon>
+          <mat-icon aria-hidden="true">check_circle</mat-icon>
         </div>
         <div class="header-content">
           <h2 class="results-title">Your HRA Calculation Results</h2>
@@ -175,7 +125,7 @@
         <div class="summary-grid">
           <div class="summary-card primary">
             <div class="summary-icon">
-              <mat-icon>home</mat-icon>
+              <mat-icon aria-hidden="true">home</mat-icon>
             </div>
             <div class="summary-content">
               <div class="summary-label">Total HRA Received</div>
@@ -188,7 +138,7 @@
 
           <div class="summary-card success">
             <div class="summary-icon">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
             </div>
             <div class="summary-content">
               <div class="summary-label">Exempt HRA</div>
@@ -201,7 +151,7 @@
 
           <div class="summary-card warning">
             <div class="summary-icon">
-              <mat-icon>receipt_long</mat-icon>
+              <mat-icon aria-hidden="true">receipt_long</mat-icon>
             </div>
             <div class="summary-content">
               <div class="summary-label">Taxable HRA</div>
@@ -214,7 +164,7 @@
 
           <div class="summary-card accent">
             <div class="summary-icon">
-              <mat-icon>savings</mat-icon>
+              <mat-icon aria-hidden="true">savings</mat-icon>
             </div>
             <div class="summary-content">
               <div class="summary-label">Potential Tax Saved</div>
@@ -229,7 +179,7 @@
         <!-- Calculation Breakdown -->
         <div class="breakdown-section">
           <h3 class="breakdown-title">
-            <mat-icon>analytics</mat-icon>
+            <mat-icon aria-hidden="true">analytics</mat-icon>
             Calculation Breakdown
           </h3>
 
@@ -308,11 +258,11 @@
         <!-- Action Buttons -->
         <div class="results-actions">
           <button mat-raised-button color="primary" (click)="downloadReport()" class="action-button">
-            <mat-icon>download</mat-icon>
+            <mat-icon aria-hidden="true">download</mat-icon>
             Download Report
           </button>
           <button mat-button (click)="shareResults()" class="action-button-outline">
-            <mat-icon>share</mat-icon>
+            <mat-icon aria-hidden="true">share</mat-icon>
             Share Results
           </button>
         </div>
@@ -332,15 +282,13 @@
     </div>
 
     <div class="examples-grid">
-      <mat-card class="example-card" *ngFor="let example of hraExamples">
-        <div class="example-icon-wrapper" [ngClass]="example.color">
-          <mat-icon class="example-icon">{{ example.icon }}</mat-icon>
-        </div>
-        <mat-card-content>
-          <h3 class="example-title">{{ example.title }}</h3>
-          <p class="example-desc">{{ example.description }}</p>
-        </mat-card-content>
-      </mat-card>
+      <app-feature-card
+        *ngFor="let example of hraExamples"
+        [icon]="example.icon"
+        [title]="example.title"
+        [description]="example.description"
+        [color]="example.color">
+      </app-feature-card>
     </div>
   </div>
 </section>
@@ -356,13 +304,13 @@
     </div>
 
     <div class="tips-grid">
-      <div class="tip-card" *ngFor="let tip of taxTips">
-        <div class="tip-icon-wrapper">
-          <mat-icon>{{ tip.icon }}</mat-icon>
-        </div>
-        <h3 class="tip-title">{{ tip.title }}</h3>
-        <p class="tip-desc">{{ tip.description }}</p>
-      </div>
+      <app-feature-card
+        *ngFor="let tip of taxTips"
+        [icon]="tip.icon"
+        [title]="tip.title"
+        [description]="tip.description"
+        color="accent">
+      </app-feature-card>
     </div>
   </div>
 </section>
@@ -401,7 +349,7 @@
         and maximize savings
       </p>
       <button mat-raised-button color="primary" class="cta-button-large" routerLink="/contact">
-        <mat-icon>support_agent</mat-icon>
+        <mat-icon aria-hidden="true">support_agent</mat-icon>
         Talk to an Expert
       </button>
     </div>

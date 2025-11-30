@@ -2,6 +2,7 @@
 @use "../../../styles/styles.scss" as *;
 @use "../../../styles/mixins" as *;
 @use "../../../styles/animations" as *;
+@use "../../../styles/utilities" as *;
 
 @keyframes pulse {
   0%, 100% {
@@ -20,26 +21,14 @@
 
 // BANNER SECTION
 .tax-slab-calculator-banner {
-  position: relative;
-  padding: 2rem;
-  overflow: hidden;
+  @extend .banner-section;
   background: $primary-gradient;
-  color: white;
 
   .banner-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    @extend .banner-background-animated;
 
     .gradient-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.3;
-      animation: float 8s ease-in-out infinite;
+      @extend .gradient-orb-decorations;
 
       &.orb-1 {
         width: 400px;
@@ -70,28 +59,14 @@
   }
 
   .banner-content-wrapper {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
+    @extend .banner-two-column-layout;
   }
 
   .banner-content {
-    animation: slideUp 0.6s ease-out;
+    @extend .animate-slide-up;
 
     .banner-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      padding: 0.5rem 1.25rem;
-      border-radius: 50px;
-      font-size: 0.875rem;
+      @extend .badge-pill-glass;
       margin-bottom: 1.5rem;
 
       mat-icon {
@@ -132,21 +107,7 @@
       flex-wrap: wrap;
 
       .feature-chip {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        padding: 0.75rem 1.25rem;
-        border-radius: 50px;
-        font-size: 0.875rem;
-        font-weight: 600;
-        @include smooth-transition;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.25);
-          transform: translateY(-2px);
-        }
+        @extend .feature-chip-interactive;
 
         mat-icon {
           font-size: 1.125rem;
@@ -204,17 +165,7 @@
     }
 
     .floating-card {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1.25rem;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      z-index: 2;
-      animation: floatCard 4s ease-in-out infinite;
+      @extend .floating-card-animated;
 
       mat-icon {
         font-size: 2rem;
@@ -227,26 +178,7 @@
       }
 
       .card-text {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-
-        .card-label {
-          font-size: 0.75rem;
-          color: #666;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .card-value {
-          font-size: 1.25rem;
-          font-weight: 700;
-          background: $primary-gradient;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
+        @extend .card-stat-display;
       }
 
       &.card-1 {
@@ -271,8 +203,7 @@
   z-index: 2;
 
   .content-container {
-    max-width: 1400px;
-    margin: 0 auto;
+    @extend .container-max-1400;
   }
 }
 
@@ -877,9 +808,7 @@
   }
 
   .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    @extend .grid-auto-fit-300;
   }
 
   .info-card {
@@ -887,7 +816,7 @@
     border-radius: 20px;
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    @include card-hover;
+    @extend .card-hover-lift;
     text-align: center;
 
     .info-icon {
@@ -895,10 +824,7 @@
       height: 64px;
       font-size: 3rem;
       margin: 0 auto 1rem;
-      background: $primary-gradient;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      @extend .text-gradient-primary;
 
       mat-icon {
         font-size: 3rem;
@@ -937,29 +863,11 @@
 
 // CTA Section
 .cta-section {
-  padding: 5rem 1rem;
-  background: $primary-gradient;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    top: -300px;
-    right: -200px;
-  }
+  @extend .cta-section-gradient;
+  @extend .cta-radial-decoration;
 
   .cta-container {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    color: white;
+    @extend .cta-content-centered;
 
     .cta-icon {
       width: 80px;

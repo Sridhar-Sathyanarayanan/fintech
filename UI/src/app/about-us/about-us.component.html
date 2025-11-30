@@ -2,8 +2,8 @@
   <!-- Banner Section -->
   <app-banner-section
     title="Empowering Your"
-    gradientText="Financial Journey"
-    subtitle="We're on a mission to make financial planning accessible, understandable, and actionable for every Indian household through intelligent technology and education."
+    gradientText="Financial Future"
+    subtitle="Making financial planning accessible through intelligent technology and expert guidance."
     badge="About AMKRTech"
     badgeIcon="corporate_fare"
     [actions]="bannerActions"
@@ -15,13 +15,11 @@
   <section class="stats-section">
     <div class="stats-container">
       @for (stat of stats; track stat.label) {
-      <div class="stat-card" matRipple>
-        <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
-        <div class="stat-content">
-          <div class="stat-value">{{ stat.value }}</div>
-          <div class="stat-label">{{ stat.label }}</div>
-        </div>
-      </div>
+      <app-stat-card
+        [value]="stat.value"
+        [label]="stat.label"
+        [icon]="stat.icon">
+      </app-stat-card>
       }
     </div>
   </section>
@@ -31,33 +29,21 @@
     <div class="mission-container">
       <div class="mission-content">
         <div class="section-badge">
-          <mat-icon>flag</mat-icon>
+          <mat-icon aria-hidden="true">flag</mat-icon>
           <span>Our Mission</span>
         </div>
         <h2 class="section-title">
-          Building Financial Confidence for Indian Families
+          Financial Confidence for Indian Families
         </h2>
         <p class="mission-text">
-          In a rapidly evolving economy, financial literacy has become more
-          crucial than ever. At AMKRTech, we believe that every family deserves
-          access to professional-grade financial planning tools without the
-          complexity or cost.
+          Every family deserves access to professional financial planning tools. We provide accurate calculators that simplify complex decisions—from tax planning to investment strategies.
         </p>
         <p class="mission-text">
-          <strong>Why Financial Planning Matters:</strong> A well-planned family
-          budget is the foundation of financial security. It helps you track
-          expenses, save for goals, prepare for emergencies, and build long-term
-          wealth. Our calculators demystify complex financial decisions—from
-          choosing the right tax regime to planning your home loan EMIs.
-        </p>
-        <p class="mission-text">
-          Through innovative technology and user-friendly design, we're
-          transforming how Indians approach personal finance, one calculation at
-          a time.
+          Our platform helps you track expenses, optimize taxes, plan investments, and build long-term wealth with confidence.
         </p>
       </div>
       <div class="mission-visual">
-        <img src="assets/images/mission.svg" alt="Our Mission" />
+        <img src="assets/images/mission.svg" alt="Our Mission" loading="lazy" />
       </div>
     </div>
   </section>
@@ -67,7 +53,7 @@
     <div class="values-container">
       <div class="section-header">
         <div class="section-badge">
-          <mat-icon>favorite</mat-icon>
+          <mat-icon aria-hidden="true">favorite</mat-icon>
           <span>Our Values</span>
         </div>
         <h2 class="section-title">What Drives Us Forward</h2>
@@ -78,13 +64,12 @@
       </div>
       <div class="values-grid">
         @for (value of values; track value.title) {
-        <mat-card class="value-card">
-          <div class="value-icon-wrapper">
-            <mat-icon class="value-icon">{{ value.icon }}</mat-icon>
-          </div>
-          <h3 class="value-title">{{ value.title }}</h3>
-          <p class="value-description">{{ value.description }}</p>
-        </mat-card>
+        <app-feature-card
+          [icon]="value.icon"
+          [title]="value.title"
+          [description]="value.description"
+          color="primary">
+        </app-feature-card>
         }
       </div>
     </div>
@@ -95,7 +80,7 @@
     <div class="features-container">
       <div class="section-header">
         <div class="section-badge">
-          <mat-icon>widgets</mat-icon>
+          <mat-icon aria-hidden="true">widgets</mat-icon>
           <span>Our Solutions</span>
         </div>
         <h2 class="section-title">Comprehensive Financial Tools</h2>
@@ -105,19 +90,13 @@
       </div>
       <div class="features-grid">
         @for (feature of features; track feature.title) {
-        <mat-card class="feature-card" [class]="feature.color">
-          <div class="feature-icon-wrapper">
-            <mat-icon>{{ feature.icon }}</mat-icon>
-          </div>
-          <mat-card-content>
-            <h3 class="feature-title">{{ feature.title }}</h3>
-            <p class="feature-description">{{ feature.description }}</p>
-            <button mat-button class="feature-link">
-              <span>Explore</span>
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-          </mat-card-content>
-        </mat-card>
+        <app-feature-card
+          [icon]="feature.icon"
+          [title]="feature.title"
+          [description]="feature.description"
+          [color]="feature.color"
+          linkText="Explore">
+        </app-feature-card>
         }
       </div>
     </div>
@@ -127,28 +106,28 @@
   <section class="budget-importance-section">
     <div class="budget-container">
       <div class="budget-visual">
-        <img src="assets/images/budget-illustration.svg" alt="Family Budget" />
+        <img src="assets/images/budget-illustration.svg" alt="Family Budget" loading="lazy" />
         <div class="budget-stats">
           <div class="budget-stat">
-            <mat-icon>trending_up</mat-icon>
+            <mat-icon aria-hidden="true">trending_up</mat-icon>
             <span>30% Average Savings Increase</span>
           </div>
           <div class="budget-stat">
-            <mat-icon>emergency</mat-icon>
+            <mat-icon aria-hidden="true">emergency</mat-icon>
             <span>Better Emergency Preparedness</span>
           </div>
         </div>
       </div>
       <div class="budget-content">
         <div class="section-badge">
-          <mat-icon>account_balance_wallet</mat-icon>
+          <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
           <span>Financial Wellness</span>
         </div>
         <h2 class="section-title">The Importance of Family Budget Planning</h2>
         <div class="budget-points">
           <div class="budget-point">
             <div class="point-icon">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
             </div>
             <div class="point-content">
               <h4>Control Your Spending</h4>
@@ -160,7 +139,7 @@
           </div>
           <div class="budget-point">
             <div class="point-icon">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
             </div>
             <div class="point-content">
               <h4>Build Emergency Fund</h4>
@@ -172,7 +151,7 @@
           </div>
           <div class="budget-point">
             <div class="point-icon">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
             </div>
             <div class="point-content">
               <h4>Achieve Goals Faster</h4>
@@ -184,7 +163,7 @@
           </div>
           <div class="budget-point">
             <div class="point-icon">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
             </div>
             <div class="point-content">
               <h4>Reduce Financial Stress</h4>
@@ -196,7 +175,7 @@
           </div>
         </div>
         <button mat-raised-button color="primary" routerLink="/calculator">
-          <mat-icon>calculate</mat-icon>
+          <mat-icon aria-hidden="true">calculate</mat-icon>
           Start Budgeting Now
         </button>
       </div>
@@ -208,7 +187,7 @@
     <div class="timeline-container">
       <div class="section-header">
         <div class="section-badge">
-          <mat-icon>timeline</mat-icon>
+          <mat-icon aria-hidden="true">timeline</mat-icon>
           <span>Our Journey</span>
         </div>
         <h2 class="section-title">Milestones That Define Us</h2>
@@ -235,7 +214,7 @@
     <div class="team-container">
       <div class="section-header">
         <div class="section-badge">
-          <mat-icon>groups</mat-icon>
+          <mat-icon aria-hidden="true">groups</mat-icon>
           <span>Our Team</span>
         </div>
         <h2 class="section-title">Meet the People Behind AMKRTech</h2>
@@ -257,11 +236,11 @@
             <div class="member-social">
               @if (member.social.linkedin) {
               <a [href]="member.social.linkedin" target="_blank" mat-icon-button>
-                <mat-icon>linkedin</mat-icon>
+                <mat-icon aria-hidden="true">linkedin</mat-icon>
               </a>
               } @if (member.social.twitter) {
               <a [href]="member.social.twitter" target="_blank" mat-icon-button>
-                <mat-icon>twitter</mat-icon>
+                <mat-icon aria-hidden="true">twitter</mat-icon>
               </a>
               }
             </div>
@@ -283,11 +262,11 @@
       </p>
       <div class="cta-actions">
         <button mat-raised-button color="primary" routerLink="/calculator">
-          <mat-icon>calculate</mat-icon>
+          <mat-icon aria-hidden="true">calculate</mat-icon>
           Start Calculating
         </button>
         <button mat-stroked-button routerLink="/contact">
-          <mat-icon>contact_mail</mat-icon>
+          <mat-icon aria-hidden="true">contact_mail</mat-icon>
           Get in Touch
         </button>
       </div>

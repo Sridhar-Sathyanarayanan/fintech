@@ -1,64 +1,15 @@
 <div class="sip-calculator-page">
   <!-- BANNER SECTION -->
-  <section class="sip-calculator-banner">
-    <div class="banner-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
-    </div>
-    <div class="banner-content-wrapper">
-      <div class="banner-content">
-        <div class="banner-badge">
-          <mat-icon>trending_up</mat-icon>
-          <span>Investment Planner</span>
-        </div>
-        <h1 class="banner-title">
-          SIP Calculator
-          <span class="gradient-text">Build Wealth Systematically</span>
-        </h1>
-        <p class="banner-subtitle">
-          Plan your systematic investments with precision. Calculate returns,
-          visualize growth, and make informed investment decisions for your
-          financial future.
-        </p>
-        <div class="banner-features">
-          <div class="feature-chip">
-            <mat-icon>auto_graph</mat-icon>
-            <span>Power of Compounding</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>calendar_month</mat-icon>
-            <span>Monthly Discipline</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>account_balance_wallet</mat-icon>
-            <span>Wealth Creation</span>
-          </div>
-        </div>
-      </div>
-      <div class="banner-visual">
-        <div class="visual-decoration decoration-1"></div>
-        <div class="visual-decoration decoration-2"></div>
-        <div class="banner-image-wrapper">
-          <img src="assets/images/SIP.jpeg" alt="SIP Investment" class="banner-image" />
-        </div>
-        <div class="floating-card card-1">
-          <mat-icon>savings</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Monthly SIP</span>
-            <span class="card-value">₹5,000</span>
-          </div>
-        </div>
-        <div class="floating-card card-2">
-          <mat-icon>pie_chart</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Returns</span>
-            <span class="card-value">12% p.a.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-banner-section
+    title="SIP Calculator"
+    gradientText="Systematic Investment Plan"
+    subtitle="Calculate returns and visualize your investment growth."
+    badge="Investment Planner"
+    badgeIcon="trending_up"
+    [features]="bannerFeatures"
+    [visualCards]="bannerVisualCards"
+    illustration="/assets/images/SIP.jpeg">
+  </app-banner-section>
 
   <!-- Calculator Section -->
   <section class="calculator-section">
@@ -80,14 +31,14 @@
             <!-- Investment Type -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>account_balance</mat-icon>
+                <mat-icon aria-hidden="true">account_balance</mat-icon>
                 Investment Type
               </label>
               <mat-radio-group [value]="investmentType()" (change)="onInvestmentTypeChange($event.value)"
                 class="investment-type-group">
                 <mat-radio-button value="monthly" class="type-option">
                   <div class="option-content">
-                    <mat-icon>calendar_month</mat-icon>
+                    <mat-icon aria-hidden="true">calendar_month</mat-icon>
                     <div>
                       <strong>Monthly SIP</strong>
                       <span>Regular investments</span>
@@ -96,7 +47,7 @@
                 </mat-radio-button>
                 <mat-radio-button value="lumpsum" class="type-option">
                   <div class="option-content">
-                    <mat-icon>payments</mat-icon>
+                    <mat-icon aria-hidden="true">payments</mat-icon>
                     <div>
                       <strong>Lumpsum</strong>
                       <span>One-time investment</span>
@@ -109,7 +60,7 @@
             <!-- Amount Input -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>currency_rupee</mat-icon>
+                <mat-icon aria-hidden="true">currency_rupee</mat-icon>
                 {{ investmentType() === "monthly" ? "Monthly" : "Investment" }}
                 Amount
               </label>
@@ -131,7 +82,7 @@
             <!-- Years Slider -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>schedule</mat-icon>
+                <mat-icon aria-hidden="true">schedule</mat-icon>
                 Investment Period
               </label>
               <div class="value-display">
@@ -150,7 +101,7 @@
             <!-- Interest Rate Slider -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>percent</mat-icon>
+                <mat-icon aria-hidden="true">percent</mat-icon>
                 Expected Return Rate
               </label>
               <div class="value-display">
@@ -169,11 +120,11 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
               <button mat-raised-button color="primary" (click)="calculate()" class="calc-button">
-                <mat-icon>calculate</mat-icon>
+                <mat-icon aria-hidden="true">calculate</mat-icon>
                 Calculate Returns
               </button>
               <button mat-stroked-button (click)="resetCalculator()" class="reset-button">
-                <mat-icon>refresh</mat-icon>
+                <mat-icon aria-hidden="true">refresh</mat-icon>
                 Reset
               </button>
             </div>
@@ -186,7 +137,7 @@
           <div class="summary-cards">
             <mat-card class="summary-card invested">
               <div class="card-icon">
-                <mat-icon>account_balance_wallet</mat-icon>
+                <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Total Invested</span>
@@ -196,7 +147,7 @@
 
             <mat-card class="summary-card returns">
               <div class="card-icon">
-                <mat-icon>trending_up</mat-icon>
+                <mat-icon aria-hidden="true">trending_up</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Expected Returns</span>
@@ -206,7 +157,7 @@
 
             <mat-card class="summary-card total">
               <div class="card-icon">
-                <mat-icon>account_balance</mat-icon>
+                <mat-icon aria-hidden="true">account_balance</mat-icon>
               </div>
               <div class="card-content">
                 <span class="card-label">Total Value</span>
@@ -218,7 +169,7 @@
           <!-- Charts -->
           <mat-card class="chart-card">
             <h3 class="chart-title">
-              <mat-icon>pie_chart</mat-icon>
+              <mat-icon aria-hidden="true">pie_chart</mat-icon>
               Investment Distribution
             </h3>
             <div class="chart-wrapper doughnut-wrapper">
@@ -239,7 +190,7 @@
 
           <mat-card class="chart-card">
             <h3 class="chart-title">
-              <mat-icon>show_chart</mat-icon>
+              <mat-icon aria-hidden="true">show_chart</mat-icon>
               Growth Projection
             </h3>
             <div class="chart-wrapper line-wrapper">
@@ -254,7 +205,7 @@
       @if (yearlyBreakdown.length > 0) {
       <mat-card class="breakdown-card">
         <h3 class="breakdown-title">
-          <mat-icon>table_chart</mat-icon>
+          <mat-icon aria-hidden="true">table_chart</mat-icon>
           Year-wise Breakdown
         </h3>
         <div class="breakdown-table-wrapper">
@@ -271,7 +222,7 @@
               @for (item of yearlyBreakdown; track item.year) {
               <tr>
                 <td class="year-cell">
-                  <mat-icon>calendar_today</mat-icon>
+                  <mat-icon aria-hidden="true">calendar_today</mat-icon>
                   Year {{ item.year }}
                 </td>
                 <td class="amount-cell">
@@ -296,7 +247,7 @@
     <div class="pro-tips-container">
       <div class="section-header">
         <div class="header-badge">
-          <mat-icon>lightbulb</mat-icon>
+          <mat-icon aria-hidden="true">lightbulb</mat-icon>
           <span>Expert Advice</span>
         </div>
         <h2 class="section-title">Pro Tips for SIP Success</h2>
@@ -307,7 +258,7 @@
         <mat-card class="tip-card">
           <div class="tip-number">01</div>
           <div class="tip-icon">
-            <mat-icon>event_available</mat-icon>
+            <mat-icon aria-hidden="true">event_available</mat-icon>
           </div>
           <h3 class="tip-title">Start Early, Stay Invested</h3>
           <p class="tip-description">
@@ -317,7 +268,7 @@
             by retirement age.
           </p>
           <div class="tip-highlight">
-            <mat-icon>insights</mat-icon>
+            <mat-icon aria-hidden="true">insights</mat-icon>
             <span>The first 10 years contribute to 60% of your final corpus</span>
           </div>
         </mat-card>
@@ -325,7 +276,7 @@
         <mat-card class="tip-card">
           <div class="tip-number">02</div>
           <div class="tip-icon">
-            <mat-icon>trending_up</mat-icon>
+            <mat-icon aria-hidden="true">trending_up</mat-icon>
           </div>
           <h3 class="tip-title">Increase SIP with Salary Hikes</h3>
           <p class="tip-description">
@@ -335,7 +286,7 @@
             over 20 years.
           </p>
           <div class="tip-highlight">
-            <mat-icon>auto_awesome</mat-icon>
+            <mat-icon aria-hidden="true">auto_awesome</mat-icon>
             <span>Step-Up SIP can boost returns by 40-50% over regular SIP</span>
           </div>
         </mat-card>
@@ -343,7 +294,7 @@
         <mat-card class="tip-card">
           <div class="tip-number">03</div>
           <div class="tip-icon">
-            <mat-icon>donut_large</mat-icon>
+            <mat-icon aria-hidden="true">donut_large</mat-icon>
           </div>
           <h3 class="tip-title">Diversify Across Asset Classes</h3>
           <p class="tip-description">
@@ -352,7 +303,7 @@
             can provide stable returns while managing volatility effectively.
           </p>
           <div class="tip-highlight">
-            <mat-icon>shield</mat-icon>
+            <mat-icon aria-hidden="true">shield</mat-icon>
             <span>Diversification reduces risk by 30-40% without sacrificing returns</span>
           </div>
         </mat-card>
@@ -360,7 +311,7 @@
         <mat-card class="tip-card">
           <div class="tip-number">04</div>
           <div class="tip-icon">
-            <mat-icon>crisis_alert</mat-icon>
+            <mat-icon aria-hidden="true">crisis_alert</mat-icon>
           </div>
           <h3 class="tip-title">Don't Stop During Market Crashes</h3>
           <p class="tip-description">
@@ -370,7 +321,7 @@
             returns.
           </p>
           <div class="tip-highlight">
-            <mat-icon>show_chart</mat-icon>
+            <mat-icon aria-hidden="true">show_chart</mat-icon>
             <span>SIPs started during crashes can generate 2-3x better returns</span>
           </div>
         </mat-card>
@@ -378,7 +329,7 @@
         <mat-card class="tip-card">
           <div class="tip-number">05</div>
           <div class="tip-icon">
-            <mat-icon>track_changes</mat-icon>
+            <mat-icon aria-hidden="true">track_changes</mat-icon>
           </div>
           <h3 class="tip-title">Review and Rebalance Annually</h3>
           <p class="tip-description">
@@ -388,14 +339,14 @@
             market movements.
           </p>
           <div class="tip-highlight">
-            <mat-icon>sync</mat-icon>
+            <mat-icon aria-hidden="true">sync</mat-icon>
             <span>Annual rebalancing can improve returns by 1-2% per year</span>
           </div>
         </mat-card>
       </div>
 
       <div class="tips-footer">
-        <mat-icon>info</mat-icon>
+        <mat-icon aria-hidden="true">info</mat-icon>
         <p>
           <strong>Remember:</strong> These tips are general guidelines. Always consult with a certified 
           financial advisor before making investment decisions. Past performance doesn't guarantee future returns.
@@ -459,7 +410,7 @@
     <div class="faq-container">
       <div class="section-header">
         <div class="header-badge">
-          <mat-icon>help_outline</mat-icon>
+          <mat-icon aria-hidden="true">help_outline</mat-icon>
           <span>Got Questions?</span>
         </div>
         <h2 class="section-title">Frequently Asked Questions</h2>
@@ -489,7 +440,7 @@
       </div>
 
       <div class="faq-footer">
-        <mat-icon>contact_support</mat-icon>
+        <mat-icon aria-hidden="true">contact_support</mat-icon>
         <p>
           Still have questions? Our support team is here to help you with your investment journey.
         </p>
@@ -502,7 +453,7 @@
     <div class="example-container">
       <div class="example-content">
         <div class="example-badge">
-          <mat-icon>calculate</mat-icon>
+          <mat-icon aria-hidden="true">calculate</mat-icon>
           <span>Real Example</span>
         </div>
         <h2 class="example-title">See the Magic of SIP</h2>
@@ -512,21 +463,21 @@
         </p>
         <div class="example-stats">
           <div class="example-stat">
-            <mat-icon>currency_rupee</mat-icon>
+            <mat-icon aria-hidden="true">currency_rupee</mat-icon>
             <div>
               <span class="stat-label">Monthly Investment</span>
               <span class="stat-value">₹5,000</span>
             </div>
           </div>
           <div class="example-stat">
-            <mat-icon>schedule</mat-icon>
+            <mat-icon aria-hidden="true">schedule</mat-icon>
             <div>
               <span class="stat-label">Investment Period</span>
               <span class="stat-value">10 Years</span>
             </div>
           </div>
           <div class="example-stat">
-            <mat-icon>percent</mat-icon>
+            <mat-icon aria-hidden="true">percent</mat-icon>
             <div>
               <span class="stat-label">Expected Returns</span>
               <span class="stat-value">12% p.a.</span>
@@ -549,13 +500,13 @@
           </div>
         </div>
         <p class="example-note">
-          <mat-icon>info</mat-icon>
+          <mat-icon aria-hidden="true">info</mat-icon>
           That's nearly <strong>2x returns</strong> on your investment through
           the power of compounding!
         </p>
       </div>
       <div class="example-visual">
-        <img src="assets/images/sip_growth_illustration.svg" alt="SIP Growth" />
+        <img src="assets/images/sip_growth_illustration.svg" alt="SIP Growth" loading="lazy" />
       </div>
     </div>
   </section>

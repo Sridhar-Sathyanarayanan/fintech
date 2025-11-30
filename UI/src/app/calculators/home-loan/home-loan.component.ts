@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { MaterialModules } from '../../shared/material.standalone';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 interface YearlyBreakdown {
   year: number;
@@ -24,12 +25,24 @@ interface YearlyBreakdown {
     RouterModule,
     BaseChartDirective,
     MaterialModules,
+    BannerSectionComponent,
   ],
   templateUrl: './home-loan.component.html',
   styleUrls: ['./home-loan.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeLoanCalculatorComponent implements OnInit {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'calculate', label: 'Instant EMI Calculation' },
+    { icon: 'analytics', label: 'Detailed Breakdown' },
+    { icon: 'savings', label: 'Plan Better' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'home_work', label: 'EMI Amount', value: '₹42,000' },
+    { icon: 'trending_down', label: 'Interest Rate', value: '8.5%' }
+  ];
+
   loanAmount = signal(5000000);
   interestRate = signal(8.5);
   loanTenure = signal(20);

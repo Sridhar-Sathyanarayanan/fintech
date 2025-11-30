@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
 import { BannerSectionComponent } from '../shared/components';
 import { MarketDataService } from '../services/market-data.service';
-import { forkJoin, interval, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { forkJoin, interval, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 interface MarketIndex {
   name: string;
@@ -83,7 +83,7 @@ interface MarketInsight {
 })
 export class MarketInsightsComponent implements OnInit, OnDestroy {
   private marketDataService = inject(MarketDataService);
-  private pollingSubscription?: Subscription;
+  private destroy$ = new Subject<void>();
 
   lastUpdated = signal<string>(new Date().toLocaleString('en-IN', {
     dateStyle: 'medium',
@@ -301,7 +301,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
 
     // Start polling for updates every minute during market hours
     const pollingInterval = this.marketDataService.getPollingInterval();
-    this.pollingSubscription = interval(pollingInterval).pipe(
+    interval(pollingInterval).pipe(
       switchMap(() => forkJoin({
         indices: this.marketDataService.fetchMarketIndices(),
         movers: this.marketDataService.fetchStockMovers(),
@@ -309,7 +309,8 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
         sectors: this.marketDataService.fetchSectors(),
         currencies: this.marketDataService.fetchCurrencies(),
         commodities: this.marketDataService.fetchCommodities()
-      }))
+      })),
+      takeUntil(this.destroy$)
     ).subscribe({
       next: (data) => {
         this.updateMarketData(data);
@@ -325,10 +326,9 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Clean up polling subscription
-    if (this.pollingSubscription) {
-      this.pollingSubscription.unsubscribe();
-    }
+    // Clean up all subscriptions
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private loadAllMarketData(): void {
@@ -339,7 +339,9 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       sectors: this.marketDataService.fetchSectors(),
       currencies: this.marketDataService.fetchCurrencies(),
       commodities: this.marketDataService.fetchCommodities()
-    }).subscribe({
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
       next: (data) => {
         this.updateMarketData(data);
         this.lastUpdated.set(new Date().toLocaleString('en-IN', {

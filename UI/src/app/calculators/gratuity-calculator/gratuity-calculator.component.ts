@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MaterialModules } from '../../shared/material.standalone';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 interface GratuityResult {
   gratuityAmount: number;
@@ -17,10 +18,21 @@ interface GratuityResult {
   selector: 'app-gratuity-calculator',
   templateUrl: './gratuity-calculator.component.html',
   styleUrls: ['./gratuity-calculator.component.scss'],
-  imports: [MaterialModules],
+  imports: [MaterialModules, BannerSectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GratuityCalculatorComponent implements OnInit {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'gavel', label: 'Act Compliant' },
+    { icon: 'calculate', label: 'Accurate Formula' },
+    { icon: 'verified_user', label: '20L Cap Applied' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'account_balance_wallet', label: 'Max Gratuity', value: '₹20L' },
+    { icon: 'schedule', label: 'Min Service', value: '5 Years' }
+  ];
+
   // Form Controls
   lastSalaryControl = new FormControl(50000, [
     Validators.required,

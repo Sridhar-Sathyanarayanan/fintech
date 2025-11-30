@@ -5,7 +5,7 @@
 <app-banner-section
   title="Privacy"
   gradientText="Policy"
-  subtitle="At AMKRTech, we are committed to protecting your privacy and ensuring the security of your personal information."
+  subtitle="We protect your privacy and secure your personal information."
   [badge]="'Last Updated: ' + lastUpdated"
   badgeIcon="shield"
   [features]="privacyFeatures">
@@ -21,7 +21,7 @@
         <nav class="sidebar-nav">
           <button *ngFor="let section of policySections" (click)="scrollToSection(section.id)"
             [class.active]="isActiveSection(section.id)" class="nav-item" mat-button>
-            <mat-icon>{{ section.icon }}</mat-icon>
+            <mat-icon aria-hidden="true">{{ section.icon }}</mat-icon>
             <span>{{ section.title }}</span>
           </button>
         </nav>
@@ -34,7 +34,7 @@
       <div class="mobile-nav-grid">
         <button *ngFor="let section of policySections" (click)="scrollToSection(section.id)"
           [class.active]="isActiveSection(section.id)" class="mobile-nav-item" mat-button>
-          <mat-icon>{{ section.icon }}</mat-icon>
+          <mat-icon aria-hidden="true">{{ section.icon }}</mat-icon>
           <span>{{ section.title }}</span>
         </button>
       </div>
@@ -47,7 +47,7 @@
         <mat-card class="section-card">
           <div class="section-header">
             <div class="icon-wrapper primary">
-              <mat-icon>description</mat-icon>
+              <mat-icon aria-hidden="true">description</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title">Introduction</h2>
@@ -80,7 +80,7 @@
         <mat-card class="section-card">
           <div class="section-header">
             <div class="icon-wrapper accent">
-              <mat-icon>visibility</mat-icon>
+              <mat-icon aria-hidden="true">visibility</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title">Information We Collect</h2>
@@ -101,7 +101,7 @@
                 </h3>
                 <ul class="info-list">
                   <li *ngFor="let item of category.items">
-                    <mat-icon>chevron_right</mat-icon>
+                    <mat-icon aria-hidden="true">chevron_right</mat-icon>
                     <span>{{ item }}</span>
                   </li>
                 </ul>
@@ -109,7 +109,7 @@
             </div>
 
             <div class="alert-box info">
-              <mat-icon>info</mat-icon>
+              <mat-icon aria-hidden="true">info</mat-icon>
               <div class="alert-content">
                 <h4 class="alert-title">Important Note</h4>
                 <p class="alert-text">
@@ -128,7 +128,7 @@
         <mat-card class="section-card">
           <div class="section-header">
             <div class="icon-wrapper primary">
-              <mat-icon>settings</mat-icon>
+              <mat-icon aria-hidden="true">settings</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title">How We Use Your Information</h2>
@@ -152,7 +152,7 @@
             </div>
 
             <div class="alert-box success">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <div class="alert-content">
                 <h4 class="alert-title">No Third-Party Sharing</h4>
                 <p class="alert-text">
@@ -171,7 +171,7 @@
         <mat-card class="section-card">
           <div class="section-header">
             <div class="icon-wrapper accent">
-              <mat-icon>lock</mat-icon>
+              <mat-icon aria-hidden="true">lock</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title">Data Security</h2>
@@ -186,11 +186,13 @@
             </p>
 
             <div class="security-grid">
-              <div class="security-card" *ngFor="let feature of securityFeatures">
-                <mat-icon class="security-icon">{{ feature.icon }}</mat-icon>
-                <h3 class="security-title">{{ feature.title }}</h3>
-                <p class="security-desc">{{ feature.desc }}</p>
-              </div>
+              <app-feature-card
+                *ngFor="let feature of securityFeatures"
+                [icon]="feature.icon"
+                [title]="feature.title"
+                [description]="feature.desc"
+                color="accent">
+              </app-feature-card>
             </div>
 
             <div class="alert-box warning">
@@ -213,7 +215,7 @@
         <mat-card class="section-card">
           <div class="section-header">
             <div class="icon-wrapper primary">
-              <mat-icon>verified_user</mat-icon>
+              <mat-icon aria-hidden="true">verified_user</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title">Your Rights</h2>
@@ -252,7 +254,7 @@
         <mat-card class="section-card">
           <div class="section-header">
             <div class="icon-wrapper accent">
-              <mat-icon>cookie</mat-icon>
+              <mat-icon aria-hidden="true">cookie</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title">Cookies & Analytics</h2>
@@ -274,7 +276,7 @@
                 <p class="cookie-desc">{{ info.desc }}</p>
                 <ul class="cookie-list" *ngIf="info.items && info.items.length">
                   <li *ngFor="let item of info.items">
-                    <mat-icon>chevron_right</mat-icon>
+                    <mat-icon aria-hidden="true">chevron_right</mat-icon>
                     <span>{{ item }}</span>
                   </li>
                 </ul>
@@ -289,7 +291,7 @@
         <mat-card class="section-card contact-card">
           <div class="section-header">
             <div class="icon-wrapper light">
-              <mat-icon>contact_support</mat-icon>
+              <mat-icon aria-hidden="true">contact_support</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="section-title light">Contact Us</h2>
@@ -304,7 +306,7 @@
 
             <div class="contact-info">
               <div class="contact-item">
-                <mat-icon>business</mat-icon>
+                <mat-icon aria-hidden="true">business</mat-icon>
                 <div class="contact-content">
                   <h4 class="contact-label">Company Name</h4>
                   <p class="contact-value">AMKRTech</p>
@@ -312,7 +314,7 @@
               </div>
 
               <div class="contact-item">
-                <mat-icon>mail</mat-icon>
+                <mat-icon aria-hidden="true">mail</mat-icon>
                 <div class="contact-content">
                   <h4 class="contact-label">Email Address</h4>
                   <p class="contact-value">
@@ -322,7 +324,7 @@
               </div>
 
               <div class="contact-item">
-                <mat-icon>location_on</mat-icon>
+                <mat-icon aria-hidden="true">location_on</mat-icon>
                 <div class="contact-content">
                   <h4 class="contact-label">Location</h4>
                   <p class="contact-value">India</p>
@@ -330,7 +332,7 @@
               </div>
 
               <div class="contact-item">
-                <mat-icon>schedule</mat-icon>
+                <mat-icon aria-hidden="true">schedule</mat-icon>
                 <div class="contact-content">
                   <h4 class="contact-label">Response Time</h4>
                   <p class="contact-value">Within 30 days</p>
@@ -340,11 +342,11 @@
 
             <div class="contact-actions">
               <button mat-raised-button color="accent" class="contact-button">
-                <mat-icon>mail</mat-icon>
+                <mat-icon aria-hidden="true">mail</mat-icon>
                 Email Us
               </button>
               <button mat-button class="contact-button-outline" routerLink="/">
-                <mat-icon>home</mat-icon>
+                <mat-icon aria-hidden="true">home</mat-icon>
                 Back to Home
               </button>
             </div>
@@ -365,7 +367,7 @@
         privacy practices.
       </p>
       <button mat-raised-button color="primary" class="cta-button-large">
-        <mat-icon>contact_support</mat-icon>
+        <mat-icon aria-hidden="true">contact_support</mat-icon>
         Get in Touch
       </button>
     </div>

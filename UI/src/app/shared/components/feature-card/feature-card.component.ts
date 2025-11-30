@@ -17,4 +17,5 @@ export class FeatureCardComponent {
   @Input() description?: string;
   @Input() color?: string;
   @Input() route?: string;
+  @Input() linkText?: string = 'Learn More';
 }

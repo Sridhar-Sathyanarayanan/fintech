@@ -1,72 +1,15 @@
 <div class="gratuity-calculator-page">
   <!-- BANNER SECTION -->
-  <section class="gratuity-calculator-banner">
-    <div class="banner-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
-    </div>
-
-    <div class="banner-content-wrapper">
-      <div class="banner-content">
-        <div class="banner-badge">
-          <mat-icon>verified</mat-icon>
-          <span>Indian Gratuity Calculator</span>
-        </div>
-
-        <h1 class="banner-title">
-          Calculate Your
-          <span class="gradient-text">Gratuity Amount</span>
-        </h1>
-
-        <p class="banner-subtitle">
-          Instantly calculate your gratuity entitlement as per the Payment of
-          Gratuity Act, 1972. Get accurate results for both covered and
-          non-covered organizations.
-        </p>
-
-        <div class="banner-features">
-          <div class="feature-chip">
-            <mat-icon>gavel</mat-icon>
-            <span>Act Compliant</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>calculate</mat-icon>
-            <span>Accurate Formula</span>
-          </div>
-          <div class="feature-chip">
-            <mat-icon>verified_user</mat-icon>
-            <span>20L Cap Applied</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="banner-visual">
-        <div class="visual-decoration decoration-1"></div>
-        <div class="visual-decoration decoration-2"></div>
-
-        <div class="banner-image-wrapper">
-          <img src="/assets/images/gratuity.jpeg" alt="Gratuity Calculator" class="banner-image" />
-        </div>
-
-        <div class="floating-card card-1">
-          <mat-icon>account_balance_wallet</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Max Gratuity</span>
-            <span class="card-value">₹20L</span>
-          </div>
-        </div>
-
-        <div class="floating-card card-2">
-          <mat-icon>schedule</mat-icon>
-          <div class="card-text">
-            <span class="card-label">Min Service</span>
-            <span class="card-value">5 Years</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <app-banner-section
+    title="Gratuity"
+    gradientText="Calculator"
+    subtitle="Calculate gratuity as per Payment of Gratuity Act, 1972."
+    badge="Indian Gratuity Calculator"
+    badgeIcon="verified"
+    [features]="bannerFeatures"
+    [visualCards]="bannerVisualCards"
+    illustration="/assets/images/gratuity.jpeg">
+  </app-banner-section>
 
   <!-- Calculator Section -->
   <section class="calculator-section">
@@ -76,7 +19,7 @@
         <mat-card class="input-card">
           <div class="card-header">
             <div class="header-icon">
-              <mat-icon>calculate</mat-icon>
+              <mat-icon aria-hidden="true">calculate</mat-icon>
             </div>
             <div class="header-content">
               <h2 class="card-title">Gratuity Calculator</h2>
@@ -88,7 +31,7 @@
             <!-- Organization Type -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>business</mat-icon>
+                <mat-icon aria-hidden="true">business</mat-icon>
                 Organization Type
               </label>
               <mat-radio-group class="org-type-group" [formControl]="organizationTypeControl">
@@ -96,7 +39,7 @@
                   [class.mat-mdc-radio-checked]="organizationTypeControl.value === 'covered'">
                   Covered
                   <div class="option-content">
-                    <mat-icon>domain</mat-icon>
+                    <mat-icon aria-hidden="true">domain</mat-icon>
                     <div>
                       <strong>Covered under Act</strong>
                       <span>10+ employees, applies 26 days/year</span>
@@ -108,7 +51,7 @@
                   [class.mat-mdc-radio-checked]="organizationTypeControl.value === 'uncovered'">
                   Uncovered
                   <div class="option-content">
-                    <mat-icon>store</mat-icon>
+                    <mat-icon aria-hidden="true">store</mat-icon>
                     <div>
                       <strong>Not Covered under Act</strong>
                       <span>Less than 10 employees, applies 30 days/year</span>
@@ -121,7 +64,7 @@
             <!-- Last Drawn Salary -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>currency_rupee</mat-icon>
+                <mat-icon aria-hidden="true">currency_rupee</mat-icon>
                 Last Drawn Salary (Monthly)
               </label>
               <div class="value-display">
@@ -139,7 +82,7 @@
             <!-- Years of Service -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>event</mat-icon>
+                <mat-icon aria-hidden="true">event</mat-icon>
                 Years of Service
               </label>
               <div class="value-display">
@@ -159,7 +102,7 @@
             <!-- Months of Service -->
             <div class="control-group">
               <label class="control-label">
-                <mat-icon>calendar_today</mat-icon>
+                <mat-icon aria-hidden="true">calendar_today</mat-icon>
                 Additional Months
               </label>
               <div class="value-display">
@@ -179,12 +122,12 @@
 
           <div class="action-buttons">
             <button mat-raised-button color="primary" class="calc-button" (click)="calculateGratuity()">
-              <mat-icon>calculate</mat-icon>
+              <mat-icon aria-hidden="true">calculate</mat-icon>
               Calculate Gratuity
             </button>
 
             <button mat-stroked-button class="reset-button" (click)="resetCalculator()">
-              <mat-icon>refresh</mat-icon>
+              <mat-icon aria-hidden="true">refresh</mat-icon>
               Reset
             </button>
           </div>
@@ -197,7 +140,7 @@
           <div class="summary-cards">
             <mat-card class="summary-card gratuity">
               <div class="card-icon">
-                <mat-icon>account_balance_wallet</mat-icon>
+                <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
               </div>
               <div class="card-content">
                 <p class="card-label">Gratuity Amount</p>
@@ -212,7 +155,7 @@
 
             <mat-card class="summary-card service">
               <div class="card-icon">
-                <mat-icon>event_available</mat-icon>
+                <mat-icon aria-hidden="true">event_available</mat-icon>
               </div>
               <div class="card-content">
                 <p class="card-label">Service Period</p>
@@ -225,14 +168,14 @@
           <!-- Details Card -->
           <mat-card class="details-card">
             <h3 class="details-title">
-              <mat-icon>description</mat-icon>
+              <mat-icon aria-hidden="true">description</mat-icon>
               Calculation Details
             </h3>
 
             <div class="details-content">
               <div class="detail-row">
                 <span class="detail-label">
-                  <mat-icon>business</mat-icon>
+                  <mat-icon aria-hidden="true">business</mat-icon>
                   Organization Type
                 </span>
                 <span class="detail-value">{{ result.organizationType }}</span>
@@ -240,7 +183,7 @@
 
               <div class="detail-row">
                 <span class="detail-label">
-                  <mat-icon>currency_rupee</mat-icon>
+                  <mat-icon aria-hidden="true">currency_rupee</mat-icon>
                   Last Drawn Salary
                 </span>
                 <span class="detail-value">{{ formatCurrency(result.lastDrawnSalary) }}</span>
@@ -248,7 +191,7 @@
 
               <div class="detail-row">
                 <span class="detail-label">
-                  <mat-icon>event</mat-icon>
+                  <mat-icon aria-hidden="true">event</mat-icon>
                   Years of Service
                 </span>
                 <span class="detail-value">{{ result.yearsOfService }} years</span>
@@ -256,7 +199,7 @@
 
               <div class="detail-row">
                 <span class="detail-label">
-                  <mat-icon>calendar_today</mat-icon>
+                  <mat-icon aria-hidden="true">calendar_today</mat-icon>
                   Additional Months
                 </span>
                 <span class="detail-value">{{ result.monthsOfService }} months</span>
@@ -264,7 +207,7 @@
 
               <div class="detail-row highlight">
                 <span class="detail-label">
-                  <mat-icon>payments</mat-icon>
+                  <mat-icon aria-hidden="true">payments</mat-icon>
                   Total Gratuity Payable
                 </span>
                 <span class="detail-value">{{ formatCurrency(result.gratuityAmount) }}</span>
@@ -276,7 +219,7 @@
           @if (result.isEligible) {
           <mat-card class="formula-card">
             <h3 class="formula-title">
-              <mat-icon>functions</mat-icon>
+              <mat-icon aria-hidden="true">functions</mat-icon>
               Calculation Formula
             </h3>
 
@@ -286,7 +229,7 @@
               <div class="formula-breakdown">
                 @for (item of getFormulaBreakdown(); track $index) {
                 <div class="breakdown-item">
-                  <mat-icon>arrow_right</mat-icon>
+                  <mat-icon aria-hidden="true">arrow_right</mat-icon>
                   <span><strong>{{ item.label }}:</strong> {{ item.value }}</span>
                 </div>
                 }
@@ -301,7 +244,7 @@
             <div class="details-content">
               <div class="detail-row highlight">
                 <span class="detail-label">
-                  <mat-icon>info</mat-icon>
+                  <mat-icon aria-hidden="true">info</mat-icon>
                   Eligibility Status
                 </span>
                 <span class="detail-value" style="color: #ff9800">Not Eligible</span>
@@ -337,15 +280,15 @@
           </p>
           <div class="info-list">
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Minimum 5 years of continuous service</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Payable on retirement, resignation, or termination</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Death or disablement exempts 5-year rule</span>
             </div>
           </div>
@@ -360,15 +303,15 @@
           </p>
           <div class="info-list">
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>15 days' salary for each year of service</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>26 working days for covered organizations</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>30 calendar days for non-covered organizations</span>
             </div>
           </div>
@@ -383,15 +326,15 @@
           </p>
           <div class="info-list">
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Maximum gratuity: ₹20,00,000 (20 Lakhs)</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Limit revised from ₹10L in 2010</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Tax-free up to ₹20 lakhs</span>
             </div>
           </div>
@@ -406,15 +349,15 @@
           </p>
           <div class="info-list">
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Factories, mines, oilfields, plantations</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Ports, railways, motor transport</span>
             </div>
             <div class="list-item">
-              <mat-icon>check_circle</mat-icon>
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
               <span>Shops, establishments with 10+ employees</span>
             </div>
           </div>
@@ -428,7 +371,7 @@
     <div class="example-container">
       <div class="example-content">
         <div class="example-badge">
-          <mat-icon>lightbulb</mat-icon>
+          <mat-icon aria-hidden="true">lightbulb</mat-icon>
           <span>Example Calculation</span>
         </div>
 
@@ -441,7 +384,7 @@
 
         <div class="example-stats">
           <div class="example-stat">
-            <mat-icon>currency_rupee</mat-icon>
+            <mat-icon aria-hidden="true">currency_rupee</mat-icon>
             <div>
               <span class="stat-label">Last Drawn Salary</span>
               <span class="stat-value">₹60,000/month</span>
@@ -449,7 +392,7 @@
           </div>
 
           <div class="example-stat">
-            <mat-icon>event</mat-icon>
+            <mat-icon aria-hidden="true">event</mat-icon>
             <div>
               <span class="stat-label">Years of Service</span>
               <span class="stat-value">10 years</span>
@@ -457,7 +400,7 @@
           </div>
 
           <div class="example-stat">
-            <mat-icon>business</mat-icon>
+            <mat-icon aria-hidden="true">business</mat-icon>
             <div>
               <span class="stat-label">Organization Type</span>
               <span class="stat-value">Covered under Act</span>
@@ -483,7 +426,7 @@
         </div>
 
         <div class="example-note">
-          <mat-icon>info</mat-icon>
+          <mat-icon aria-hidden="true">info</mat-icon>
           <div>
             <strong>Note:</strong> This employee is eligible for gratuity as
             they have completed more than 5 years of continuous service. The
@@ -509,7 +452,7 @@
         today!
       </p>
       <button mat-raised-button class="cta-button" (click)="scrollToCalculator()">
-        <mat-icon>arrow_upward</mat-icon>
+        <mat-icon aria-hidden="true">arrow_upward</mat-icon>
         Calculate Now
       </button>
     </div>

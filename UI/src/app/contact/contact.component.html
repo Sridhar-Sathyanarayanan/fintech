@@ -1,10 +1,10 @@
 <div class="contact-page">
   <!-- Banner Section -->
   <app-banner-section
-    title="Get in Touch"
+    title="Contact Us"
     gradientText=""
-    subtitle="Have questions or feedback? We'd love to hear from you. Send us a message and we'll respond as soon as possible."
-    badge="We're Here to Help"
+    subtitle="Questions or feedback? We're here to help."
+    badge="Get in Touch"
     badgeIcon="support_agent">
   </app-banner-section>
 
@@ -15,11 +15,11 @@
       <div class="form-section">
         <mat-card class="form-card">
           <div class="card-header">
-            <mat-icon class="header-icon">email</mat-icon>
+            <mat-icon class="header-icon" aria-hidden="true">email</mat-icon>
             <div>
               <h2 class="card-title">Send us a Message</h2>
               <p class="card-subtitle">
-                Fill out the form below and we'll get back to you shortly
+                We'll respond within 24 hours
               </p>
             </div>
           </div>
@@ -82,13 +82,13 @@
                 Send Message
               </button>
               } @else {
-              <button mat-raised-button color="primary" type="button" class="submit-button" disabled>
-                <mat-spinner diameter="24" strokeWidth="3"></mat-spinner>
+              <button mat-raised-button color="primary" type="button" class="submit-button" disabled aria-busy="true" aria-label="Sending message">
+                <mat-spinner diameter="24" strokeWidth="3" aria-hidden="true"></mat-spinner>
                 Sending...
               </button>
               } @if (formSubmitted()) {
-              <div class="success-message">
-                <mat-icon>check_circle</mat-icon>
+              <div class="success-message" role="status" aria-live="polite">
+                <mat-icon aria-hidden="true">check_circle</mat-icon>
                 <span>Message sent successfully!</span>
               </div>
               }
@@ -102,7 +102,7 @@
         <!-- Contact Details -->
         <mat-card class="info-card">
           <h3 class="info-title">
-            <mat-icon>contact_phone</mat-icon>
+            <mat-icon aria-hidden="true">contact_phone</mat-icon>
             Contact Information
           </h3>
           <div class="contact-details">
@@ -123,14 +123,15 @@
         <!-- Social Links -->
         <mat-card class="social-card">
           <h3 class="info-title">
-            <mat-icon>share</mat-icon>
+            <mat-icon aria-hidden="true">share</mat-icon>
             Connect With Us
           </h3>
           <div class="social-links">
             @for (social of socialLinks; track social.name) {
-            <a [href]="social.url" target="_blank" class="social-link" [style.background-color]="social.color"
+            <a [href]="social.url" target="_blank" rel="noopener noreferrer" class="social-link" [style.background-color]="social.color"
+              [attr.aria-label]="'Connect with us on ' + social.name"
               matRipple>
-              <mat-icon>{{ social.icon }}</mat-icon>
+              <mat-icon aria-hidden="true">{{ social.icon }}</mat-icon>
               <span>{{ social.name }}</span>
             </a>
             }
@@ -144,15 +145,15 @@
   <div class="support info-section">
     <section class="support-section">
       <div class="support-container">
-        <mat-icon class="support-icon">headset_mic</mat-icon>
+        <mat-icon class="support-icon" aria-hidden="true">headset_mic</mat-icon>
         <h2>Need Immediate Assistance?</h2>
         <p>
           Our support team is available during business hours to help you with
           any urgent queries.
         </p>
         <div class="support-actions">
-          <button mat-raised-button color="primary">
-            <mat-icon>phone</mat-icon>
+          <button mat-raised-button color="primary" aria-label="Call support now">
+            <mat-icon aria-hidden="true">phone</mat-icon>
             Call Now
           </button>
         </div>
@@ -160,7 +161,7 @@
     </section>
     <mat-card class="faq-card">
       <h3 class="info-title">
-        <mat-icon>help_outline</mat-icon>
+        <mat-icon aria-hidden="true">help_outline</mat-icon>
         Quick FAQs
       </h3>
       <div class="faq-list">

@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
-import { BannerSectionComponent } from '../shared/components';
+import { BannerSectionComponent, FeatureCardComponent, StatCardComponent } from '../shared/components';
 
 interface TeamMember {
   name: string;
@@ -37,7 +37,7 @@ interface Feature {
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModules, BannerSectionComponent],
+  imports: [CommonModule, RouterModule, MaterialModules, BannerSectionComponent, FeatureCardComponent, StatCardComponent],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

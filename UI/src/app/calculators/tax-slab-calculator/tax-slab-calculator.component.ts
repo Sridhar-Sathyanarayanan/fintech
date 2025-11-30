@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
 import { ChartData, ChartOptions, TaxSlab, ComparisonData } from '../../models/chart.models';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 
 @Component({
   selector: 'app-tax-slab-calculator',
@@ -11,12 +12,24 @@ import { ChartData, ChartOptions, TaxSlab, ComparisonData } from '../../models/c
     CommonModule,
     MaterialModules,
     BaseChartDirective,
+    BannerSectionComponent,
   ],
   templateUrl: './tax-slab-calculator.component.html',
   styleUrls: ['./tax-slab-calculator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxSlabCalculatorComponent {
+  readonly bannerFeatures: BannerFeature[] = [
+    { icon: 'compare_arrows', label: 'Side-by-Side Comparison' },
+    { icon: 'trending_down', label: 'Tax Optimization' },
+    { icon: 'calendar_today', label: 'Multi-Year Data' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'savings', label: 'Save Up To', value: '₹1.5L' },
+    { icon: 'verified', label: 'Updated For', value: 'FY 2025-26' }
+  ];
+
   years = ['2023–2024', '2024–2025', '2025–2026'];
   selectedYear = '2025–2026';
   

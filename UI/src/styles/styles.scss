@@ -1,7 +1,16 @@
 @use "@angular/material" as mat;
+@forward "variables";
+@use "variables" as *;
+@forward "mixins";
 @use "mixins" as *;
+@forward "animations";
 @use "animations" as *;
+@forward "utilities";
+@use "utilities" as *;
 
+// ============================================
+// TYPOGRAPHY - FONT FACES
+// ============================================
 @font-face {
   font-family: ThemeFont-Regular;
   src: url(/assets/fonts/Lato-Regular.woff2);
@@ -11,52 +20,42 @@
   src: url(/assets/fonts/Lato-Semibold.woff2);
 }
 
-$color1: #f2e5dc;
-$color2: orange;
-$color3: #08545c;
-$color4: #e8dacb;
-$color5: yellow;
-$color6: #cda990;
-$black: #000000;
-$white: #ffffff;
-$color7: #dea883;
-$color8: #e6d7cd;
-$color9: #e2762d;
-$color10: #7bbdf0;
-$color11: #4a90e2;
-$color12: #50e3c2;
+// ============================================
+// CSS CUSTOM PROPERTIES
+// ============================================
+:root {
+  // Colors
+  --primary: #{$primary};
+  --primary-dark: #{$primary-dark};
+  --accent: #{$accent};
+  --accent-dark: #{$accent-dark};
+  --success: #{$success};
+  --warning: #{$warning};
+  --info: #{$info};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --bg-light: #{$bg-light};
+  
+  // Gradients
+  --primary-gradient: #{$primary-gradient};
+  --accent-gradient: #{$accent-gradient};
+  --success-gradient: #{$success-gradient};
+  --banner-gradient: #{$banner-gradient};
+  
+  // Shadows
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  --shadow-2xl: #{$shadow-2xl};
+}
 
-$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-$success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-$banner-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-
-// Shadow variables
-$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
-$shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.12);
-$shadow-2xl: 0 20px 60px rgba(0, 0, 0, 0.15);
-
-// Border radius variables
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 16px;
-$radius-xl: 20px;
-$radius-2xl: 24px;
-$radius-full: 50%;
-
-// Transition variables
-$transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-
-$header-height: 80px;
-$mobile-header-height: 64px;
-
+// ============================================
+// GLOBAL STYLES
+// ============================================
 html,
 body {
-  font-family: "ThemeFont-Regular", "Trebuchet MS", "Helvetica Neue", sans-serif;
+  font-family: $font-family-base;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -64,26 +63,67 @@ body {
 * {
   box-sizing: border-box;
 }
-.themeBGColor1 {
-  background-color: $color1 !important;
-}
-.themeBGColor3 {
-  background-color: $color3;
-}
-.height100vh {
-  height: 100vh;
-}
-.infoIcon {
-  color: $color2;
-}
-.color3 {
-  color: $color3;
-}
-.color9 {
-  color: $color9;
+
+// ============================================
+// ACCESSIBILITY
+// ============================================
+
+// Focus styles for keyboard navigation
+*:focus-visible {
+  outline: 3px solid $primary;
+  outline-offset: 2px;
+  border-radius: $radius-sm;
 }
 
-// Accessibility: Respect user's motion preferences
+// Remove default outline and use our custom one
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid $primary;
+  outline-offset: 2px;
+}
+
+// Skip to main content link
+.skip-to-main {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: $primary;
+  color: $white;
+  padding: $spacing-md $spacing-lg;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 $radius-md 0;
+  
+  &:focus {
+    top: 0;
+  }
+}
+
+// Screen reader only content
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Reduced motion preferences
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -91,5 +131,13 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  button,
+  a {
+    outline: 2px solid currentColor;
   }
 }

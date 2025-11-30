@@ -8,6 +8,8 @@ import {
   FeatureCardComponent
 } from '../shared/components';
 import { MarketDataService, MarketIndex as MarketIndexModel } from '../services/market-data.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 interface FinancialTool {
   icon: string;
@@ -75,13 +77,13 @@ interface CarouselSlide {
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private marketDataService = inject(MarketDataService);
+  private destroy$ = new Subject<void>();
   
   currentSlide = signal(0);
   currentQuoteIndex = signal(0);
   lastUpdated = signal(new Date());
   intervalId: ReturnType<typeof setInterval> | null = null;
   quoteIntervalId: ReturnType<typeof setInterval> | null = null;
-  marketDataSubscription: any = null;
   
   // Computed value for current quote
   currentQuote = computed(() => this.quotes[this.currentQuoteIndex()]);
@@ -90,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   marketIndices = this.marketDataService.getMarketIndices();
 
   bannerActions = [
-    { label: 'Explore Calculators', icon: 'calculate', route: '/income-tax-calculator', variant: 'primary' as const },
+    { label: 'Calculate Your Tax', icon: 'calculate', route: '/income-tax-calculator', variant: 'primary' as const },
     { label: 'Market Insights', icon: 'insights', route: '/market-insights', variant: 'secondary' as const }
   ];
 
@@ -309,25 +311,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.quoteIntervalId) {
       clearInterval(this.quoteIntervalId);
     }
-    if (this.marketDataSubscription) {
-      this.marketDataSubscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   initializeMarketData(): void {
     // Fetch initial market data
-    this.marketDataService.fetchMarketIndices().subscribe({
-      next: () => {
-        console.log('Market data loaded');
-        this.lastUpdated.set(new Date());
-      },
-      error: (err) => console.error('Market data error:', err)
-    });
+    this.marketDataService.fetchMarketIndices()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          console.log('Market data loaded');
+          this.lastUpdated.set(new Date());
+        },
+        error: (err) => console.error('Market data error:', err)
+      });
 
     // Start polling based on market status
     const pollingInterval = this.marketDataService.getPollingInterval();
-    this.marketDataSubscription = this.marketDataService.startPolling(pollingInterval).subscribe({
-      next: () => {
+    this.marketDataService.startPolling(pollingInterval)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
         console.log('Market data updated');
         this.lastUpdated.set(new Date());
       },
