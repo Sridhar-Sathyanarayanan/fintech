@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -258,15 +258,15 @@ export class HomeLoanCalculatorComponent implements OnInit {
     this.lineChartData.datasets[1].data = cumulativeInterest;
   }
 
-  get principalPercentage(): number {
+  principalPercentage = computed(() => {
     if (this.totalPayment() === 0) return 0;
     return (this.loanAmount() / this.totalPayment()) * 100;
-  }
+  });
 
-  get interestPercentage(): number {
+  interestPercentage = computed(() => {
     if (this.totalPayment() === 0) return 0;
     return (this.totalInterest() / this.totalPayment()) * 100;
-  }
+  });
 
   resetCalculator(): void {
     this.loanAmount.set(5000000);

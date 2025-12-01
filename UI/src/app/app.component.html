@@ -26,8 +26,8 @@
           </a>
           } @else {
           <button mat-button [matMenuTriggerFor]="calculatorMenu" class="nav-link">
-            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
             <span>{{ item.label }}</span>
+            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
             <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
           </button>
           <mat-menu #calculatorMenu="matMenu" class="calculator-menu">

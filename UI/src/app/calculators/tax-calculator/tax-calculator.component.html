@@ -262,22 +262,22 @@
         <mat-icon class="summary-icon">savings</mat-icon>
         <div>
           <h3>Your Tax Savings</h3>
-          <p>Choose {{ recommendedRegime }} to save more</p>
+          <p>Choose {{ recommendedRegime() }} to save more</p>
         </div>
       </div>
       <mat-divider></mat-divider>
       <div class="summary-stats">
         <div class="stat-item">
           <span class="stat-label">Tax Difference</span>
-          <span class="stat-value highlight">₹{{ taxDifference | number:'1.0-0' }}</span>
+          <span class="stat-value highlight">₹{{ taxDifference() | number:'1.0-0' }}</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Savings Percentage</span>
-          <span class="stat-value">{{ savingsPercentage | number:'1.2-2' }}%</span>
+          <span class="stat-value">{{ savingsPercentage() | number:'1.2-2' }}%</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Best Choice</span>
-          <span class="stat-value">{{ recommendedRegime }}</span>
+          <span class="stat-value">{{ recommendedRegime() }}</span>
         </div>
       </div>
 
@@ -285,7 +285,7 @@
       <div class="comparison-chart">
         <h4>Visual Comparison</h4>
         <div class="chart-bars">
-          @for (data of comparisonChartData; track data.label) {
+          @for (data of comparisonChartData(); track data.label) {
           <div class="chart-item">
             <div class="bar-label">{{ data.label }}</div>
             <div class="bar-container">
@@ -304,14 +304,14 @@
           <mat-icon aria-hidden="true">check_circle</mat-icon>
           <div class="rec-content">
             <strong>Old Regime is Better for You!</strong>
-            <p>You save ₹{{ taxDifference | number:'1.0-0' }} by choosing the old tax regime with deductions.</p>
+            <p>You save ₹{{ taxDifference() | number:'1.0-0' }} by choosing the old tax regime with deductions.</p>
           </div>
       </div>
       } @else if (newRegimeTax() < oldRegimeTax()) { <div class="recommendation success">
         <mat-icon aria-hidden="true">check_circle</mat-icon>
         <div class="rec-content">
           <strong>New Regime is Better for You!</strong>
-          <p>You save ₹{{ taxDifference | number:'1.0-0' }} by choosing the new tax regime without hassle of deductions.
+          <p>You save ₹{{ taxDifference() | number:'1.0-0' }} by choosing the new tax regime without hassle of deductions.
           </p>
         </div>
 </div>

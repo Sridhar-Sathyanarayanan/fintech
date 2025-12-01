@@ -118,10 +118,15 @@ $bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   @include smooth-transition;
   position: relative;
 
+  span {
+    order: 1;
+  }
+
   .nav-icon {
     font-size: 1.25rem;
     width: 1.25rem;
     height: 1.25rem;
+    order: 2;
   }
 
   .dropdown-icon {
@@ -129,6 +134,7 @@ $bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     width: 1.125rem;
     height: 1.125rem;
     margin-left: -0.25rem;
+    order: 3;
   }
 
   &:hover {

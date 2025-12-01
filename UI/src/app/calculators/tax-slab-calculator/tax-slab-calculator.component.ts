@@ -35,6 +35,189 @@ export class TaxSlabCalculatorComponent {
   
   @ViewChild('comparisonChart') chart!: BaseChartDirective;
 
+  // Tax Examples Data
+  taxExamples: Record<string, any[]> = {
+    '2023-2024': [
+      {
+        title: 'Entry Level Professional',
+        income: '₹5,00,000',
+        icon: 'work',
+        oldTax: '₹12,500',
+        newTax: '₹10,000',
+        savings: 2500,
+        recommendation: 'New Regime saves ₹2,500'
+      },
+      {
+        title: 'Mid-Level Executive',
+        income: '₹10,00,000',
+        icon: 'trending_up',
+        oldTax: '₹1,12,500',
+        newTax: '₹97,500',
+        savings: 15000,
+        recommendation: 'New Regime saves ₹15,000'
+      },
+      {
+        title: 'Senior Manager',
+        income: '₹20,00,000',
+        icon: 'business_center',
+        oldTax: '₹4,12,500',
+        newTax: '₹3,47,500',
+        savings: 65000,
+        recommendation: 'New Regime saves ₹65,000'
+      }
+    ],
+    '2024-2025': [
+      {
+        title: 'Entry Level Professional',
+        income: '₹5,00,000',
+        icon: 'work',
+        oldTax: '₹12,500',
+        newTax: '₹10,000',
+        savings: 2500,
+        recommendation: 'New Regime saves ₹2,500'
+      },
+      {
+        title: 'Mid-Level Executive',
+        income: '₹10,00,000',
+        icon: 'trending_up',
+        oldTax: '₹1,12,500',
+        newTax: '₹97,500',
+        savings: 15000,
+        recommendation: 'New Regime saves ₹15,000'
+      },
+      {
+        title: 'Senior Manager',
+        income: '₹20,00,000',
+        icon: 'business_center',
+        oldTax: '₹4,12,500',
+        newTax: '₹3,47,500',
+        savings: 65000,
+        recommendation: 'New Regime saves ₹65,000'
+      }
+    ],
+    '2025-2026': [
+      {
+        title: 'Entry Level Professional',
+        income: '₹6,00,000',
+        icon: 'work',
+        oldTax: '₹25,000',
+        newTax: '₹10,000',
+        savings: 15000,
+        recommendation: 'New Regime saves ₹15,000'
+      },
+      {
+        title: 'Mid-Level Executive',
+        income: '₹12,00,000',
+        icon: 'trending_up',
+        oldTax: '₹1,62,500',
+        newTax: '₹80,000',
+        savings: 82500,
+        recommendation: 'New Regime saves ₹82,500'
+      },
+      {
+        title: 'Senior Manager',
+        income: '₹25,00,000',
+        icon: 'business_center',
+        oldTax: '₹5,62,500',
+        newTax: '₹4,30,000',
+        savings: 132500,
+        recommendation: 'New Regime saves ₹1,32,500'
+      }
+    ]
+  };
+
+  // Tax Planning Tips
+  taxPlanningTips = [
+    {
+      icon: 'account_balance_wallet',
+      title: 'Evaluate Your Deductions',
+      description: 'Calculate total deductions under Section 80C, 80D, HRA, and home loan interest. If they exceed ₹2.5 lakhs, old regime might be better.',
+      tags: ['80C', '80D', 'HRA']
+    },
+    {
+      icon: 'compare_arrows',
+      title: 'Compare Both Regimes',
+      description: 'Always calculate tax under both regimes before filing. The difference can be substantial depending on your income and investments.',
+      tags: ['Comparison', 'Analysis']
+    },
+    {
+      icon: 'schedule',
+      title: 'Plan Investments Early',
+      description: 'Start tax planning at the beginning of the financial year. Last-minute investments often lead to suboptimal choices.',
+      tags: ['Planning', 'Investment']
+    },
+    {
+      icon: 'shield',
+      title: 'Consider Insurance Benefits',
+      description: 'Medical and life insurance premiums qualify for deductions under 80D and 80C respectively in old regime.',
+      tags: ['Insurance', '80D']
+    },
+    {
+      icon: 'home',
+      title: 'Home Loan Benefits',
+      description: 'If you have a home loan, the interest deduction (up to ₹2 lakhs) under Section 24 is available only in old regime.',
+      tags: ['Home Loan', 'Section 24']
+    },
+    {
+      icon: 'trending_up',
+      title: 'Review Annually',
+      description: 'Tax laws change frequently. Review your choice every year as your income, investments, and tax slabs may change.',
+      tags: ['Annual Review', 'Updates']
+    }
+  ];
+
+  // FAQs
+  faqs = [
+    {
+      icon: 'help_center',
+      question: 'Can I switch between tax regimes every year?',
+      answer: 'Yes, if you are a salaried employee, you can choose between the old and new tax regime every year. However, if you have business income, once you opt for the new regime, you cannot switch back to the old regime.',
+      tags: ['Switching', 'Flexibility']
+    },
+    {
+      icon: 'help_center',
+      question: 'Which regime is the default for FY 2024-25 onwards?',
+      answer: 'From FY 2024-25 onwards, the new tax regime is the default option. However, you can still opt for the old regime by explicitly choosing it while filing your tax return.',
+      tags: ['Default', 'FY 2024-25']
+    },
+    {
+      icon: 'help_center',
+      question: 'What is the standard deduction in the new tax regime?',
+      answer: 'The new tax regime offers a standard deduction of ₹50,000 for salaried individuals from FY 2023-24 onwards. Previously, no standard deduction was available in the new regime.',
+      tags: ['Standard Deduction', 'New Regime']
+    },
+    {
+      icon: 'help_center',
+      question: 'Are there any deductions available in the new tax regime?',
+      answer: 'The new tax regime does not allow most deductions like Section 80C, 80D, HRA, or home loan interest. Only the standard deduction of ₹50,000 and employer contributions to NPS under 80CCD(2) are allowed.',
+      tags: ['Deductions', 'Limitations']
+    },
+    {
+      icon: 'help_center',
+      question: 'What is the rebate under Section 87A?',
+      answer: 'Under the old regime, individuals with taxable income up to ₹5 lakhs get a rebate of up to ₹12,500. In the new regime for FY 2025-26, individuals with income up to ₹7 lakhs get a rebate of up to ₹75,000.',
+      tags: ['Section 87A', 'Rebate']
+    },
+    {
+      icon: 'help_center',
+      question: 'How do I decide which regime is better for me?',
+      answer: 'Compare your tax liability under both regimes after considering all applicable deductions in the old regime. If your deductions are substantial (above ₹2.5 lakhs), the old regime might be beneficial. Otherwise, the new regime with lower rates could be better.',
+      tags: ['Decision Making', 'Comparison']
+    },
+    {
+      icon: 'help_center',
+      question: 'What happens to my existing tax-saving investments?',
+      answer: 'Your existing tax-saving investments continue to be valid. If you choose the new regime, you simply won\'t claim deductions for them, but the investments remain. You can always switch back to the old regime in future years.',
+      tags: ['Investments', 'Tax Saving']
+    },
+    {
+      icon: 'help_center',
+      question: 'Is surcharge and cess applicable on both regimes?',
+      answer: 'Yes, surcharge (based on income level) and health & education cess (4%) are applicable on the tax computed under both regimes. These are over and above the base tax amount.',
+      tags: ['Surcharge', 'Cess']
+    }
+  ];
+
   comparisonData: Record<string, ComparisonData[]> = {
     '2023-2024': [
       { range: 'Up to ₹2,50,000', oldRate: 'Nil', newRate: 'Nil' },

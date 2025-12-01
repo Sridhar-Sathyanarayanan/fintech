@@ -2,8 +2,13 @@
 <section class="market-ticker">
   <div class="ticker-container">
     <div class="ticker-label">
-      <mat-icon aria-hidden="true">show_chart</mat-icon>
-      <span>Live Markets</span>
+      <div>
+        <mat-icon aria-hidden="true">show_chart</mat-icon>
+        <span>Live Markets</span>
+        <a routerLink="/privacy-policy" class="disclaimer-link" matTooltip="Disclaimer" matTooltipPosition="below">
+          <mat-icon aria-hidden="true">info_outline</mat-icon>
+        </a>
+      </div>
       <div class="market-updated">
         <mat-icon aria-hidden="true">schedule</mat-icon>
         <span>{{ lastUpdated() | date:'short' }}</span>
@@ -44,7 +49,7 @@
 <app-banner-section
   title="Smart Financial"
   gradientText="Planning"
-  subtitle="Professional calculators and real-time market data for Indian investors."
+  subtitle="Empowering Indian investors with comprehensive financial calculators, real-time market insights, and expert-validated tools. Make informed decisions with accurate calculations aligned to the latest tax regulations and compliance standards."
   badge="Trusted Platform"
   badgeIcon="verified"
   [actions]="bannerActions"

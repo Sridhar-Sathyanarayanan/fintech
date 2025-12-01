@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
@@ -360,14 +360,14 @@ export class SipCalculatorComponent implements OnInit {
     this.doughnutChartData.datasets[0].data = [0, 0];
   }
 
-  get returnPercentage(): number {
+  returnPercentage = computed(() => {
     if (this.investedAmount() === 0) return 0;
     return (this.expectedReturn() / this.investedAmount()) * 100;
-  }
+  });
 
-  get absoluteReturns(): number {
+  absoluteReturns = computed(() => {
     return this.expectedReturn();
-  }
+  });
 
   resetCalculator(): void {
     this.amount.set(5000);

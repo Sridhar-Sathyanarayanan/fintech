@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
@@ -36,12 +36,12 @@ export class PpfCalculatorComponent implements OnInit {
   interestRate = signal(7.1); // Current PPF rate
 
   // Dynamic visual cards using computed values
-  get bannerVisualCards(): BannerVisualCard[] {
+  bannerVisualCards = computed((): BannerVisualCard[] => {
     return [
       { icon: 'percent', label: 'Interest Rate', value: `${this.interestRate()}%` },
       { icon: 'lock', label: 'Lock-in Period', value: '15 Years' }
     ];
-  }
+  });
 
   totalInvested = signal(0);
   interestEarned = signal(0);
@@ -286,15 +286,15 @@ export class PpfCalculatorComponent implements OnInit {
     );
   }
 
-  get returnPercentage(): number {
+  returnPercentage = computed(() => {
     if (this.totalInvested() === 0) return 0;
     return (this.interestEarned() / this.totalInvested()) * 100;
-  }
+  });
 
-  get averageAnnualReturn(): number {
+  averageAnnualReturn = computed(() => {
     if (this.years() === 0) return 0;
     return this.interestEarned() / this.years();
-  }
+  });
 
   resetCalculator(): void {
     this.frequency.set('yearly');

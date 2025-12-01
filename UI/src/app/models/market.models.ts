@@ -13,6 +13,7 @@ export interface MarketIndex {
   change: string;
   isPositive: boolean;
   icon: string;
+  indexIcon?: string;
   description?: string;
   changePercent?: string;
   timestamp?: string;
@@ -66,6 +67,7 @@ export interface Currency {
   rate: string;
   change: string;
   isPositive: boolean;
+  icon?: string;
 }
 
 // ==================== COMMODITY MODELS ====================
@@ -76,6 +78,7 @@ export interface Commodity {
   price: string;
   change: string;
   isPositive: boolean;
+  icon?: string;
 }
 
 // ==================== MARKET INSIGHTS MODELS ====================

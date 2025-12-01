@@ -179,11 +179,11 @@
             <div class="chart-stats">
               <div class="stat-item">
                 <span class="stat-label">Return %</span>
-                <span class="stat-value">{{ returnPercentage | number : "1.2-2" }}%</span>
+                <span class="stat-value">{{ returnPercentage() | number : "1.2-2" }}%</span>
               </div>
               <div class="stat-item">
                 <span class="stat-label">Absolute Returns</span>
-                <span class="stat-value">₹{{ absoluteReturns | number : "1.0-0" }}</span>
+                <span class="stat-value">₹{{ absoluteReturns() | number : "1.0-0" }}</span>
               </div>
             </div>
           </mat-card>

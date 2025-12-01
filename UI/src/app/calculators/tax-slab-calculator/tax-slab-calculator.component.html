@@ -17,9 +17,8 @@
       <!-- Year Selector Card -->
       <div class="year-selector-card">
         <div class="selector-header">
-          <mat-icon aria-hidden="true">calendar_today</mat-icon>
           <div>
-            <h3>Select Financial Year</h3>
+            <h3>📅 Select Financial Year</h3>
             <p>Choose the assessment year for tax slab comparison</p>
           </div>
         </div>
@@ -38,27 +37,21 @@
         <!-- Old Regime Card -->
         <div class="regime-card old-regime">
           <div class="regime-header">
-            <div class="header-icon old-icon">
-              <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
-            </div>
             <div>
-              <h3 class="regime-title">Old Tax Regime</h3>
+              <h3 class="regime-title">📋 Old Tax Regime</h3>
               <p class="regime-subtitle">With Deductions & Exemptions</p>
             </div>
           </div>
 
           <div class="regime-features">
             <div class="feature-item">
-              <mat-icon aria-hidden="true">check_circle</mat-icon>
-              <span>80C Deductions Available</span>
+              <span>✅ 80C Deductions Available</span>
             </div>
             <div class="feature-item">
-              <mat-icon aria-hidden="true">check_circle</mat-icon>
-              <span>HRA & LTA Benefits</span>
+              <span>✅ HRA & LTA Benefits</span>
             </div>
             <div class="feature-item">
-              <mat-icon aria-hidden="true">check_circle</mat-icon>
-              <span>Home Loan Interest</span>
+              <span>✅ Home Loan Interest</span>
             </div>
           </div>
 
@@ -103,27 +96,21 @@
         <!-- New Regime Card -->
         <div class="regime-card new-regime">
           <div class="regime-header">
-            <div class="header-icon new-icon">
-              <mat-icon aria-hidden="true">auto_awesome</mat-icon>
-            </div>
             <div>
-              <h3 class="regime-title">New Tax Regime</h3>
+              <h3 class="regime-title">✨ New Tax Regime</h3>
               <p class="regime-subtitle">Lower Rates, No Deductions</p>
             </div>
           </div>
 
           <div class="regime-features">
             <div class="feature-item">
-              <mat-icon aria-hidden="true">check_circle</mat-icon>
-              <span>Simplified Tax Structure</span>
+              <span>✅ Simplified Tax Structure</span>
             </div>
             <div class="feature-item">
-              <mat-icon aria-hidden="true">check_circle</mat-icon>
-              <span>Lower Tax Rates</span>
+              <span>✅ Lower Tax Rates</span>
             </div>
             <div class="feature-item">
-              <mat-icon aria-hidden="true">check_circle</mat-icon>
-              <span>Default Regime (FY 24-25)</span>
+              <span>✅ Default Regime (FY 24-25)</span>
             </div>
           </div>
 
@@ -134,13 +121,13 @@
                   <th>
                     <div class="th-content">
                       <mat-icon aria-hidden="true">currency_rupee</mat-icon>
-                      <span>Income Range</span>
+                      <span>₹ Income Range</span>
                     </div>
                   </th>
                   <th>
                     <div class="th-content">
                       <mat-icon aria-hidden="true">percent</mat-icon>
-                      <span>Tax Rate</span>
+                      <span>% Tax Rate</span>
                     </div>
                   </th>
                 </tr>
@@ -169,9 +156,8 @@
       <!-- Detailed Comparison Table -->
       <div class="comparison-table-card">
         <div class="card-header">
-          <mat-icon aria-hidden="true">compare</mat-icon>
           <div>
-            <h3>Detailed Rate Comparison</h3>
+            <h3>🔍 Detailed Rate Comparison</h3>
             <p>Side-by-side tax rate analysis for {{ selectedYear }}</p>
           </div>
         </div>
@@ -180,23 +166,20 @@
           <table class="comparison-table">
             <thead>
               <tr>
-                <th>Income Range</th>
+                <th>₹ Income Range</th>
                 <th class="old-regime-col">
                   <div class="col-header">
-                    <mat-icon aria-hidden="true">account_balance_wallet</mat-icon>
-                    <span>Old Regime</span>
+                    <span>📋 Old Regime</span>
                   </div>
                 </th>
                 <th class="new-regime-col">
                   <div class="col-header">
-                    <mat-icon aria-hidden="true">auto_awesome</mat-icon>
-                    <span>New Regime</span>
+                    <span>✨ New Regime</span>
                   </div>
                 </th>
                 <th class="difference-col">
                   <div class="col-header">
-                    <mat-icon aria-hidden="true">insights</mat-icon>
-                    <span>Difference</span>
+                    <span>🔍 Difference</span>
                   </div>
                 </th>
               </tr>
@@ -238,15 +221,13 @@
       <div class="chart-card">
         <div class="chart-header">
           <div class="header-left">
-            <mat-icon aria-hidden="true">bar_chart</mat-icon>
             <div>
-              <h3>Visual Comparison</h3>
+              <h3>📊 Visual Comparison</h3>
               <p>Tax rate distribution across income slabs</p>
             </div>
           </div>
           <button mat-stroked-button color="primary" (click)="exportChart()" class="export-button">
-            <mat-icon aria-hidden="true">download</mat-icon>
-            <span>Export Chart</span>
+            <span>📥 Export Chart</span>
           </button>
         </div>
 
@@ -259,11 +240,11 @@
         <div class="chart-legend">
           <div class="legend-item old">
             <div class="legend-color"></div>
-            <span>Old Tax Regime</span>
+            <span>📋 Old Tax Regime</span>
           </div>
           <div class="legend-item new">
             <div class="legend-color"></div>
-            <span>New Tax Regime</span>
+            <span>✨ New Tax Regime</span>
           </div>
         </div>
       </div>
@@ -273,14 +254,11 @@
   <!-- Info Section -->
   <section class="info-section">
     <div class="info-container">
-      <h2 class="info-title">Key Differences Between Regimes</h2>
+      <h2 class="info-title">🔑 Key Differences Between Regimes</h2>
 
       <div class="info-grid">
         <div class="info-card">
-          <div class="info-icon">
-            <mat-icon aria-hidden="true">savings</mat-icon>
-          </div>
-          <h3>Deductions & Exemptions</h3>
+          <h3>🏦 Deductions & Exemptions</h3>
           <p>
             Old regime allows various deductions under 80C, 80D, HRA, and LTA.
             New regime offers lower rates but no deductions.
@@ -293,10 +271,7 @@
         </div>
 
         <div class="info-card">
-          <div class="info-icon">
-            <mat-icon aria-hidden="true">speed</mat-icon>
-          </div>
-          <h3>Simplified Filing</h3>
+          <h3>🚀 Simplified Filing</h3>
           <p>
             New tax regime simplifies the tax filing process with fewer forms
             and calculations, saving time and reducing complexity.
@@ -308,10 +283,7 @@
         </div>
 
         <div class="info-card">
-          <div class="info-icon">
-            <mat-icon aria-hidden="true">trending_down</mat-icon>
-          </div>
-          <h3>Lower Tax Rates</h3>
+          <h3>📉 Lower Tax Rates</h3>
           <p>
             New regime features reduced tax rates across multiple income slabs,
             especially beneficial for higher income groups.
@@ -323,10 +295,7 @@
         </div>
 
         <div class="info-card">
-          <div class="info-icon">
-            <mat-icon aria-hidden="true">people</mat-icon>
-          </div>
-          <h3>Who Benefits More?</h3>
+          <h3>👥 Who Benefits More?</h3>
           <p>
             Salaried individuals with fewer investments may benefit from new
             regime. Those with significant deductions should choose old regime.
@@ -340,18 +309,132 @@
     </div>
   </section>
 
+  <!-- Example Section -->
+  <section class="example-section">
+    <div class="example-container">
+      <div class="section-header">
+        <div class="header-badge">
+          <mat-icon aria-hidden="true">calculate</mat-icon>
+          <span>Real Example</span>
+        </div>
+        <h2 class="section-title">💼 Practical Tax Comparison</h2>
+        <p class="section-subtitle">
+          See how different income levels are taxed under both regimes for {{ selectedYear }}
+        </p>
+      </div>
+
+      <div class="examples-grid">
+        <mat-card class="example-card" *ngFor="let example of taxExamples[selectedYear.replace('–', '-')]">
+          <div class="example-header">
+            <div class="example-icon">
+              <mat-icon aria-hidden="true">{{ example.icon }}</mat-icon>
+            </div>
+            <div>
+              <h3>{{ example.title }}</h3>
+              <p class="example-income">Annual Income: {{ example.income }}</p>
+            </div>
+          </div>
+          
+          <mat-divider></mat-divider>
+          
+          <div class="example-comparison">
+            <div class="regime-result">
+              <span class="regime-label">💰 Old Regime</span>
+              <span class="tax-value">{{ example.oldTax }}</span>
+            </div>
+            <div class="regime-result">
+              <span class="regime-label">💸 New Regime</span>
+              <span class="tax-value better">{{ example.newTax }}</span>
+            </div>
+          </div>
+          
+          <div class="example-footer">
+            <mat-icon class="check-icon">{{ example.savings > 0 ? 'check_circle' : 'info' }}</mat-icon>
+            <span class="savings-text">{{ example.recommendation }}</span>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips Section -->
+  <section class="tips-section">
+    <div class="tips-container">
+      <div class="section-header">
+        <div class="header-badge">
+          <mat-icon aria-hidden="true">lightbulb</mat-icon>
+          <span>Expert Advice</span>
+        </div>
+        <h2 class="section-title">💡 Smart Tax Planning Tips</h2>
+        <p class="section-subtitle">
+          Make informed decisions to optimize your tax liability
+        </p>
+      </div>
+
+      <div class="tips-grid">
+        <mat-card class="tip-card" *ngFor="let tip of taxPlanningTips">
+          <div class="tip-icon-wrapper">
+            <mat-icon class="tip-icon">{{ tip.icon }}</mat-icon>
+          </div>
+          <h3>{{ tip.title }}</h3>
+          <p>{{ tip.description }}</p>
+          <div class="tip-tags">
+            <mat-chip *ngFor="let tag of tip.tags">{{ tag }}</mat-chip>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-container">
+      <div class="section-header">
+        <div class="header-badge">
+          <mat-icon aria-hidden="true">help_outline</mat-icon>
+          <span>Got Questions?</span>
+        </div>
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+        <p class="section-subtitle">
+          Everything you need to know about tax regimes in India
+        </p>
+      </div>
+
+      <mat-accordion class="faq-accordion">
+        <mat-expansion-panel *ngFor="let faq of faqs" class="faq-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="faq-question">
+              <mat-icon class="faq-icon">{{ faq.icon }}</mat-icon>
+              <span>{{ faq.question }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="faq-answer">
+            <p>{{ faq.answer }}</p>
+            <mat-chip-set *ngIf="faq.tags" class="faq-tags">
+              <mat-chip *ngFor="let tag of faq.tags">{{ tag }}</mat-chip>
+            </mat-chip-set>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div class="faq-footer">
+        <p>
+          💬 Still have questions? Our tax experts are here to guide you through your tax planning journey.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="cta-section">
     <div class="cta-container">
-      <mat-icon class="cta-icon">calculate</mat-icon>
-      <h2>Ready to Calculate Your Tax?</h2>
+      <h2>🧮 Ready to Calculate Your Tax?</h2>
       <p>
         Use our advanced tax calculator to determine which regime saves you more
         money
       </p>
-      <button mat-raised-button color="accent" class="cta-button">
-        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
-        <span>Calculate Now</span>
+      <button mat-raised-button color="accent" class="cta-button" routerLink="/calculators/tax-calculator">
+        <span>🎯 Calculate Now</span>
       </button>
     </div>
   </section>

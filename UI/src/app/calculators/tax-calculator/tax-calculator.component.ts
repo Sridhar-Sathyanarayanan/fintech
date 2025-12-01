@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   signal,
+  computed,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import {
@@ -124,23 +125,23 @@ export class TaxCalculatorComponent implements OnInit {
     return this.taxCalcForm.get('basicDetails') as FormGroup;
   }
 
-  get taxDifference(): number {
+  taxDifference = computed(() => {
     return Math.abs(this.oldRegimeTax() - this.newRegimeTax());
-  }
+  });
 
-  get savingsPercentage(): number {
+  savingsPercentage = computed(() => {
     const totalIncome = this.incomeFormGroup.get('income')?.value || 0;
     if (totalIncome === 0) return 0;
-    return (this.taxDifference / totalIncome) * 100;
-  }
+    return (this.taxDifference() / totalIncome) * 100;
+  });
 
-  get recommendedRegime(): string {
+  recommendedRegime = computed(() => {
     if (this.oldRegimeTax() < this.newRegimeTax()) return 'Old Regime';
     if (this.newRegimeTax() < this.oldRegimeTax()) return 'New Regime';
     return 'Either Regime';
-  }
+  });
 
-  get comparisonChartData(): ComparisonChartData[] {
+  comparisonChartData = computed((): ComparisonChartData[] => {
     const total = this.oldRegimeTax() + this.newRegimeTax();
     return [
       {
@@ -154,7 +155,7 @@ export class TaxCalculatorComponent implements OnInit {
         color: '#4caf50',
       },
     ];
-  }
+  });
 
   constructor(private breakpointObserver: BreakpointObserver) {
     this.breakpointObserver

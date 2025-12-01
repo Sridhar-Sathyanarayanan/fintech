@@ -7,7 +7,7 @@
     badge="Government Backed"
     badgeIcon="account_balance"
     [features]="bannerFeatures"
-    [visualCards]="bannerVisualCards"
+    [visualCards]="bannerVisualCards()"
     illustration="assets/images/PPF.jpeg">
   </app-banner-section>
 
@@ -166,11 +166,11 @@
             <div class="chart-stats">
               <div class="stat-item">
                 <span class="stat-label">Return %</span>
-                <span class="stat-value">{{ returnPercentage | number : "1.2-2" }}%</span>
+                <span class="stat-value">{{ returnPercentage() | number : "1.2-2" }}%</span>
               </div>
               <div class="stat-item">
                 <span class="stat-label">Avg Annual Return</span>
-                <span class="stat-value">₹{{ averageAnnualReturn | number : "1.0-0" }}</span>
+                <span class="stat-value">₹{{ averageAnnualReturn() | number : "1.0-0" }}</span>
               </div>
             </div>
           </mat-card>

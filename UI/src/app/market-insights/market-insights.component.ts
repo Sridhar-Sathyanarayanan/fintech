@@ -59,6 +59,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       changePercent: '+1.21%',
       isPositive: true,
       icon: 'trending_up',
+      indexIcon: 'bar_chart',
       timestamp: '3:30 PM IST'
     },
     {
@@ -69,6 +70,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       changePercent: '+0.80%',
       isPositive: true,
       icon: 'trending_up',
+      indexIcon: 'show_chart',
       timestamp: '3:30 PM IST'
     },
     {
@@ -79,6 +81,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       changePercent: '-0.26%',
       isPositive: false,
       icon: 'trending_down',
+      indexIcon: 'account_balance',
       timestamp: '3:30 PM IST'
     },
     {
@@ -89,6 +92,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       changePercent: '+1.26%',
       isPositive: true,
       icon: 'trending_up',
+      indexIcon: 'computer',
       timestamp: '3:30 PM IST'
     },
     {
@@ -99,6 +103,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       changePercent: '+0.46%',
       isPositive: true,
       icon: 'trending_up',
+      indexIcon: 'candlestick_chart',
       timestamp: '3:30 PM IST'
     },
     {
@@ -109,6 +114,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       changePercent: '+0.36%',
       isPositive: true,
       icon: 'trending_up',
+      indexIcon: 'analytics',
       timestamp: '3:30 PM IST'
     }
   ]);
@@ -194,17 +200,17 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
   ];
 
   currencies: Currency[] = [
-    { pair: 'USD/INR', description: 'US Dollar', rate: '₹83.42', change: '+0.15%', isPositive: true },
-    { pair: 'EUR/INR', description: 'Euro', rate: '₹90.87', change: '+0.23%', isPositive: true },
-    { pair: 'GBP/INR', description: 'British Pound', rate: '₹106.34', change: '-0.08%', isPositive: false },
-    { pair: 'JPY/INR', description: 'Japanese Yen', rate: '₹0.56', change: '+0.12%', isPositive: true }
+    { pair: 'USD/INR', description: 'US Dollar', rate: '₹83.42', change: '+0.15%', isPositive: true, icon: 'attach_money' },
+    { pair: 'EUR/INR', description: 'Euro', rate: '₹90.87', change: '+0.23%', isPositive: true, icon: 'euro_symbol' },
+    { pair: 'GBP/INR', description: 'British Pound', rate: '₹106.34', change: '-0.08%', isPositive: false, icon: 'currency_pound' },
+    { pair: 'JPY/INR', description: 'Japanese Yen', rate: '₹0.56', change: '+0.12%', isPositive: true, icon: 'currency_yen' }
   ];
 
   commodities: Commodity[] = [
-    { name: 'Gold', unit: 'per 10g', price: '₹62,450', change: '+0.85%', isPositive: true },
-    { name: 'Silver', unit: 'per kg', price: '₹74,230', change: '+1.25%', isPositive: true },
-    { name: 'Crude Oil', unit: 'per barrel', price: '$82.45', change: '-0.65%', isPositive: false },
-    { name: 'Natural Gas', unit: 'per MMBtu', price: '$2.87', change: '+2.15%', isPositive: true }
+    { name: 'Gold', unit: 'per 10g', price: '₹62,450', change: '+0.85%', isPositive: true, icon: 'auto_awesome' },
+    { name: 'Silver', unit: 'per kg', price: '₹74,230', change: '+1.25%', isPositive: true, icon: 'toll' },
+    { name: 'Crude Oil', unit: 'per barrel', price: '$82.45', change: '-0.65%', isPositive: false, icon: 'water_drop' },
+    { name: 'Natural Gas', unit: 'per MMBtu', price: '$2.87', change: '+2.15%', isPositive: true, icon: 'local_fire_department' }
   ];
 
   marketInsights: MarketInsight[] = [
@@ -368,6 +374,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
         changePercent: index.change,
         isPositive: index.isPositive,
         icon: index.icon,
+        indexIcon: this.getIndexIcon(index.name),
         timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST'
       }));
       this.majorIndices.set(updatedIndices.slice(0, 6));
@@ -402,12 +409,18 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
 
     // Update currencies
     if (data.currencies && Array.isArray(data.currencies) && data.currencies.length > 0) {
-      this.currencies = data.currencies;
+      this.currencies = data.currencies.map((currency: any) => ({
+        ...currency,
+        icon: this.getCurrencyIcon(currency.pair)
+      }));
     }
 
     // Update commodities
     if (data.commodities && Array.isArray(data.commodities) && data.commodities.length > 0) {
-      this.commodities = data.commodities;
+      this.commodities = data.commodities.map((commodity: any) => ({
+        ...commodity,
+        icon: this.getCommodityIcon(commodity.name)
+      }));
     }
   }
 
@@ -421,6 +434,39 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       'NIFTY MIDCAP': 'Mid Cap Companies'
     };
     return descriptions[name] || 'Market Index';
+  }
+
+  private getIndexIcon(name: string): string {
+    const icons: { [key: string]: string } = {
+      'NIFTY 50': 'bar_chart',
+      'SENSEX': 'show_chart',
+      'BANK NIFTY': 'account_balance',
+      'NIFTY BANK': 'account_balance',
+      'NIFTY IT': 'computer',
+      'NIFTY NEXT 50': 'candlestick_chart',
+      'NIFTY MIDCAP': 'analytics'
+    };
+    return icons[name] || 'show_chart';
+  }
+
+  private getCurrencyIcon(pair: string): string {
+    const icons: { [key: string]: string } = {
+      'USD/INR': 'attach_money',
+      'EUR/INR': 'euro_symbol',
+      'GBP/INR': 'currency_pound',
+      'JPY/INR': 'currency_yen'
+    };
+    return icons[pair] || 'currency_exchange';
+  }
+
+  private getCommodityIcon(name: string): string {
+    const icons: { [key: string]: string } = {
+      'Gold': 'auto_awesome',
+      'Silver': 'toll',
+      'Crude Oil': 'water_drop',
+      'Natural Gas': 'local_fire_department'
+    };
+    return icons[name] || 'inventory_2';
   }
 
   private getSectorIcon(sectorName: string): string {

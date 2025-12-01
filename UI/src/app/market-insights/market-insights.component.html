@@ -21,10 +21,12 @@
         <a routerLink="/privacy-policy" class="disclaimer-link">View full disclaimer</a>
       </p>
     </div>
+    @if (showDisclaimer()) {
     <button mat-icon-button class="disclaimer-close" (click)="dismissDisclaimer()" 
-            aria-label="Dismiss disclaimer" *ngIf="showDisclaimer()">
+            aria-label="Dismiss disclaimer">
       <mat-icon>close</mat-icon>
     </button>
+    }
   </div>
 </div>
 
@@ -60,11 +62,14 @@
       @for (index of majorIndices(); track index.name) {
       <mat-card class="index-card">
         <div class="index-header">
+          <div class="index-icon-wrapper" [class.positive]="index.isPositive" [class.negative]="!index.isPositive">
+            <mat-icon aria-hidden="true">{{ index.indexIcon || 'show_chart' }}</mat-icon>
+          </div>
           <div class="index-info">
             <h3 class="index-name">{{ index.name }}</h3>
             <p class="index-description">{{ index.description }}</p>
           </div>
-          <mat-icon [class]="index.isPositive ? 'positive' : 'negative'" aria-hidden="true">
+          <mat-icon class="trend-icon" [class.positive]="index.isPositive" [class.negative]="!index.isPositive" aria-hidden="true">
             {{ index.icon }}
           </mat-icon>
         </div>
@@ -221,6 +226,9 @@
         <div class="cc-list">
           @for (currency of currencies; track currency.pair) {
           <div class="cc-item">
+            <div class="cc-icon-wrapper">
+              <mat-icon aria-hidden="true">{{ currency.icon || 'currency_exchange' }}</mat-icon>
+            </div>
             <div class="cc-info">
               <span class="cc-name">{{ currency.pair || 'N/A' }}</span>
               <span class="cc-description">{{ currency.description || 'N/A' }}</span>
@@ -244,6 +252,9 @@
         <div class="cc-list">
           @for (commodity of commodities; track commodity.name) {
           <div class="cc-item">
+            <div class="cc-icon-wrapper">
+              <mat-icon aria-hidden="true">{{ commodity.icon || 'inventory_2' }}</mat-icon>
+            </div>
             <div class="cc-info">
               <span class="cc-name">{{ commodity.name || 'N/A' }}</span>
               <span class="cc-description">{{ commodity.unit || 'N/A' }}</span>
