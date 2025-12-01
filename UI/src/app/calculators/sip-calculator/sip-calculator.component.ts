@@ -6,19 +6,8 @@ import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
-
-interface YearlyBreakdown {
-  year: number;
-  invested: number;
-  value: number;
-  gain: number;
-}
-
-interface FAQItem {
-  question: string;
-  answer: string;
-  expanded: boolean;
-}
+import { YearlyBreakdown } from '../../models/calculator.models';
+import { FAQItem } from '../../models/ui.models';
 
 @Component({
   selector: 'app-sip-calculator',
@@ -358,7 +347,7 @@ export class SipCalculatorComponent implements OnInit {
       (item) => item.value
     );
     this.lineChartData.datasets[1].data = this.yearlyBreakdown.map(
-      (item) => item.invested
+      (item) => item.invested ?? 0
     );
   }
 

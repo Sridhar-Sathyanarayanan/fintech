@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
 import { AppService } from '../services/app.service';
 import { MaterialModules } from '../shared/material.standalone';
 import { BannerSectionComponent } from '../shared/components';
-import { ContactInfo, SocialLink } from '../models/calculator.models';
+import { ContactInfo, SocialLink } from '../models/ui.models';
 
 @Component({
   selector: 'app-contact',

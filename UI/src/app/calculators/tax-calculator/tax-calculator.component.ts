@@ -16,9 +16,15 @@ import {
 } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { MaterialModules } from '../../shared/material.standalone';
-import { TaxBreakdown, ChartData } from '../../models/calculator.models';
+import { TaxBreakdown } from '../../models/calculator.models';
 import { OldRegimeSlabsByYear, NewRegimeSlabsByYear, OldRegimeSlabs } from '../../models/chart.models';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
+
+interface ComparisonChartData {
+  label: string;
+  value: number;
+  color: string;
+}
 
 @Component({
   selector: 'app-tax-calculator',
@@ -134,7 +140,7 @@ export class TaxCalculatorComponent implements OnInit {
     return 'Either Regime';
   }
 
-  get comparisonChartData(): ChartData[] {
+  get comparisonChartData(): ComparisonChartData[] {
     const total = this.oldRegimeTax() + this.newRegimeTax();
     return [
       {

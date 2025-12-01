@@ -8,7 +8,8 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../../shared/material.standalone';
-import { HRACalculation, FAQItem, HRAExample, TaxTip } from '../../models/calculator.models';
+import { HRACalculation, HRAExample, TaxTip } from '../../models/calculator.models';
+import { FAQItem } from '../../models/ui.models';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
 import { FeatureCardComponent } from '../../shared/components';
 

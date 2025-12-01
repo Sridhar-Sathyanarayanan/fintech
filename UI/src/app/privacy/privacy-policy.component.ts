@@ -3,40 +3,15 @@ import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angul
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
 import { BannerSectionComponent, FeatureCardComponent } from '../shared/components';
-
-interface PolicySection {
-  id: string;
-  title: string;
-  icon: string;
-}
-
-interface InfoCategory {
-  title: string;
-  items: string[];
-}
-
-interface UsageItem {
-  title: string;
-  desc: string;
-}
-
-interface SecurityFeature {
-  icon: string;
-  title: string;
-  desc: string;
-}
-
-interface UserRight {
-  title: string;
-  desc: string;
-}
-
-interface CookieInfo {
-  title: string;
-  desc: string;
-  items?: string[];
-  type: 'info' | 'analytics' | 'manage';
-}
+import { PRIVACY_CONSTANTS, UI_CONSTANTS } from '../models/app.constants';
+import { 
+  PolicySection, 
+  InfoCategory, 
+  UsageItem, 
+  SecurityFeature, 
+  UserRight, 
+  CookieInfo 
+} from '../models/ui.models';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -64,7 +39,7 @@ export class PrivacyPolicyComponent implements OnInit {
 
   activeSection: string = '';
   scrollProgress: number = 0;
-  lastUpdated: string = 'October 27, 2025';
+  lastUpdated: string = PRIVACY_CONSTANTS.LAST_UPDATED;
 
   policySections: PolicySection[] = [
     { id: 'introduction', title: 'Introduction', icon: 'description' },
@@ -80,7 +55,8 @@ export class PrivacyPolicyComponent implements OnInit {
     },
     { id: 'data-security', title: 'Data Security', icon: 'lock' },
     { id: 'your-rights', title: 'Your Rights', icon: 'verified_user' },
-    { id: 'cookies', title: 'Cookies & Analytics', icon: 'cookie' },
+    { id: 'cookies', title: 'Cookies & Tracking', icon: 'cookie' },
+    { id: 'market-data', title: 'Market Data Disclaimer', icon: 'trending_up' },
     { id: 'contact', title: 'Contact Us', icon: 'contact_support' },
   ];
 
@@ -164,7 +140,12 @@ export class PrivacyPolicyComponent implements OnInit {
     {
       icon: 'cloud_done',
       title: 'Secure Storage',
-      desc: 'Data is stored on secure servers with regular backups and disaster recovery plans.',
+      desc: 'Data is stored on secure AWS cloud infrastructure with regular backups and disaster recovery plans.',
+    },
+    {
+      icon: 'cloud',
+      title: 'AWS Infrastructure',
+      desc: 'We use Amazon Web Services (AWS CloudFront and Elastic Beanstalk) for secure, reliable hosting with global content delivery.',
     },
     {
       icon: 'fact_check',
@@ -206,24 +187,59 @@ export class PrivacyPolicyComponent implements OnInit {
 
   cookieInfo: CookieInfo[] = [
     {
-      title: 'What Are Cookies?',
-      desc: 'Cookies are small text files stored on your device that help us recognize you and remember your preferences. They enable essential website functionality and help us improve our services.',
+      title: 'Current Cookie Usage',
+      desc: 'AMKRTech does NOT use cookies for tracking, analytics, or advertising. Our website operates entirely on client-side calculations without storing any personal information on your device. All tax calculations and financial projections happen locally in your browser.',
       type: 'info',
     },
     {
-      title: 'Analytics Tools',
-      desc: 'We use analytics tools to collect information about how visitors use our website. This helps us improve user experience and service quality. Information collected includes:',
+      title: 'Technical Infrastructure Cookies',
+      desc: 'Our hosting provider, Amazon Web Services (AWS), may use technical cookies through CloudFront CDN for:',
       items: [
-        'Page views and navigation patterns',
-        'Time spent on pages',
-        'Device and browser information',
-        'Geographic location (country/city level)',
+        'Load balancing and performance optimization',
+        'DDoS protection and security measures',
+        'Session management (temporary, no personal data stored)',
+        'Content delivery network (CDN) caching',
+      ],
+      type: 'info',
+    },
+    {
+      title: 'Planned Analytics & Tracking',
+      desc: 'We may implement analytics tools through AWS services (such as CloudWatch RUM, Pinpoint, or similar) and/or third-party platforms (Google Analytics, etc.) to better understand user behavior and improve our services. If implemented, we will:',
+      items: [
+        'Display a clear cookie consent banner before collecting any analytics data',
+        'Collect usage statistics: page views, session duration, feature usage, navigation patterns',
+        'Track user interactions: button clicks, form submissions, calculator usage',
+        'Gather device information: browser type, screen size, operating system',
+        'Record geographic data: country, region, city-level location (not precise location)',
+        'Monitor performance metrics: page load times, errors, API response times',
+        'Only process anonymized or pseudonymized data where possible',
+        'Provide clear opt-out mechanisms and honor Do Not Track signals',
+        'Update this policy with specific tools and data collection practices',
       ],
       type: 'analytics',
     },
     {
-      title: 'Managing Cookies',
-      desc: 'You can control and manage cookies through your browser settings. However, disabling cookies may affect the functionality of our website. Most browsers allow you to refuse cookies or delete existing cookies.',
+      title: 'AWS Analytics Services',
+      desc: 'We may use Amazon Web Services analytics and monitoring tools for:',
+      items: [
+        'Application Performance Monitoring (CloudWatch, X-Ray)',
+        'User behavior analytics and engagement tracking',
+        'Error logging and debugging (CloudWatch Logs)',
+        'A/B testing and feature rollouts',
+        'Marketing automation and user segmentation (if applicable)',
+      ],
+      type: 'analytics',
+    },
+    {
+      title: 'Your Control & Consent',
+      desc: 'Currently, only technical cookies from AWS infrastructure are used (no tracking). When we implement analytics, you will receive a prominent consent banner with granular controls. You will be able to:',
+      items: [
+        'Accept or reject non-essential cookies individually',
+        'Change your preferences at any time through our cookie settings',
+        'Use browser settings to block or delete cookies',
+        'Opt out of analytics while still using all calculator features',
+        'Request deletion of any collected analytics data',
+      ],
       type: 'manage',
     },
   ];
@@ -256,7 +272,7 @@ export class PrivacyPolicyComponent implements OnInit {
   scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) {
-      const offset = 100;
+      const offset = UI_CONSTANTS.SCROLL_OFFSET;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - offset;
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });

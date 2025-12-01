@@ -1,9 +1,40 @@
 <!-- BANNER SECTION -->
 <app-banner-section title="Market" gradientText="Insights"
-  subtitle="Real-time data and analysis for informed investment decisions."
+  subtitle="Comprehensive market intelligence and actionable insights to empower your investment strategy."
   badge="Updated Live" badgeIcon="show_chart" [features]="bannerFeatures" [visualCards]="bannerCards"
   illustration="/assets/images/market_insights.svg">
 </app-banner-section>
+
+<!-- DISCLAIMER BANNER -->
+<div class="disclaimer-banner">
+  <div class="disclaimer-container">
+    <div class="disclaimer-icon-wrapper">
+      <mat-icon class="disclaimer-icon">info</mat-icon>
+    </div>
+    <div class="disclaimer-content">
+      <h3 class="disclaimer-title">Market Data Disclaimer</h3>
+      <p class="disclaimer-text">
+        <strong>All market data displayed on this page is sourced from external third-party providers.</strong> 
+        While we strive to provide accurate and timely information, we do not independently verify this data. 
+        Market prices, indices, and statistics may be subject to delays, inaccuracies, or interruptions. 
+        This information is for informational purposes only and does not constitute investment advice. 
+        <a routerLink="/privacy-policy" class="disclaimer-link">View full disclaimer</a>
+      </p>
+    </div>
+    <button mat-icon-button class="disclaimer-close" (click)="dismissDisclaimer()" 
+            aria-label="Dismiss disclaimer" *ngIf="showDisclaimer()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- SUBTLE WARNING MESSAGE -->
+@if (hasPartialError()) {
+<div class="subtle-warning">
+  <mat-icon>info</mat-icon>
+  <span>Some data may be inaccurate as our servers are experiencing issues. We're working to resolve this.</span>
+</div>
+}
 
 <!-- LAST UPDATED INDICATOR -->
 <div class="last-updated-wrapper">
@@ -37,15 +68,15 @@
             {{ index.icon }}
           </mat-icon>
         </div>
-        <div class="index-value">{{ index.value }}</div>
+        <div class="index-value">{{ index.value || 'N/A' }}</div>
         <div class="index-change" [class.positive]="index.isPositive" [class.negative]="!index.isPositive">
-          <span class="change-value">{{ index.change }}</span>
-          <span class="change-percent">({{ index.changePercent }})</span>
+          <span class="change-value">{{ index.change || 'N/A' }}</span>
+          <span class="change-percent">({{ index.changePercent || 'N/A' }})</span>
         </div>
         <div class="index-footer">
           <span class="index-timestamp">
             <mat-icon aria-hidden="true">schedule</mat-icon>
-            {{ index.timestamp }}
+            {{ index.timestamp || 'N/A' }}
           </span>
         </div>
       </mat-card>
@@ -67,12 +98,12 @@
           @for (stock of topGainers; track stock.symbol) {
           <div class="mover-item gainer">
             <div class="mover-info">
-              <span class="mover-symbol">{{ stock.symbol }}</span>
-              <span class="mover-name">{{ stock.name }}</span>
+              <span class="mover-symbol">{{ stock.symbol || 'N/A' }}</span>
+              <span class="mover-name">{{ stock.name || 'N/A' }}</span>
             </div>
             <div class="mover-data">
-              <span class="mover-price">₹{{ stock.price }}</span>
-              <span class="mover-change positive">+{{ stock.change }}%</span>
+              <span class="mover-price">{{ stock.price ? '₹' + stock.price : 'N/A' }}</span>
+              <span class="mover-change positive">{{ stock.change ? '+' + stock.change + '%' : 'N/A' }}</span>
             </div>
           </div>
           }
@@ -88,12 +119,12 @@
           @for (stock of topLosers; track stock.symbol) {
           <div class="mover-item loser">
             <div class="mover-info">
-              <span class="mover-symbol">{{ stock.symbol }}</span>
-              <span class="mover-name">{{ stock.name }}</span>
+              <span class="mover-symbol">{{ stock.symbol || 'N/A' }}</span>
+              <span class="mover-name">{{ stock.name || 'N/A' }}</span>
             </div>
             <div class="mover-data">
-              <span class="mover-price">₹{{ stock.price }}</span>
-              <span class="mover-change negative">{{ stock.change }}%</span>
+              <span class="mover-price">{{ stock.price ? '₹' + stock.price : 'N/A' }}</span>
+              <span class="mover-change negative">{{ stock.change ? stock.change + '%' : 'N/A' }}</span>
             </div>
           </div>
           }
@@ -109,12 +140,12 @@
           @for (stock of mostActive; track stock.symbol) {
           <div class="mover-item active">
             <div class="mover-info">
-              <span class="mover-symbol">{{ stock.symbol }}</span>
-              <span class="mover-name">{{ stock.name }}</span>
+              <span class="mover-symbol">{{ stock.symbol || 'N/A' }}</span>
+              <span class="mover-name">{{ stock.name || 'N/A' }}</span>
             </div>
             <div class="mover-data">
-              <span class="mover-price">₹{{ stock.price }}</span>
-              <span class="mover-volume">Vol: {{ stock.volume }}</span>
+              <span class="mover-price">{{ stock.price ? '₹' + stock.price : 'N/A' }}</span>
+              <span class="mover-volume">Vol: {{ stock.volume || 'N/A' }}</span>
             </div>
           </div>
           }
@@ -139,7 +170,7 @@
         </div>
         <div class="stat-content">
           <div class="stat-label">{{ stat.label }}</div>
-          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-value">{{ stat.value || 'N/A' }}</div>
           <div class="stat-description">{{ stat.description }}</div>
         </div>
       </mat-card>
@@ -166,11 +197,11 @@
         </div>
         <div class="sector-change" [class.positive]="sector.isPositive" [class.negative]="!sector.isPositive">
           <mat-icon aria-hidden="true">{{ sector.isPositive ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
-          <span>{{ sector.change }}</span>
+          <span>{{ sector.change || 'N/A' }}</span>
         </div>
         <div class="sector-footer">
-          <span class="sector-index">{{ sector.index }}</span>
-          <span class="sector-value">{{ sector.value }}</span>
+          <span class="sector-index">{{ sector.index || 'N/A' }}</span>
+          <span class="sector-value">{{ sector.value || 'N/A' }}</span>
         </div>
       </mat-card>
       }
@@ -191,13 +222,13 @@
           @for (currency of currencies; track currency.pair) {
           <div class="cc-item">
             <div class="cc-info">
-              <span class="cc-name">{{ currency.pair }}</span>
-              <span class="cc-description">{{ currency.description }}</span>
+              <span class="cc-name">{{ currency.pair || 'N/A' }}</span>
+              <span class="cc-description">{{ currency.description || 'N/A' }}</span>
             </div>
             <div class="cc-data">
-              <span class="cc-rate">{{ currency.rate }}</span>
+              <span class="cc-rate">{{ currency.rate || 'N/A' }}</span>
               <span class="cc-change" [class.positive]="currency.isPositive" [class.negative]="!currency.isPositive">
-                {{ currency.change }}
+                {{ currency.change || 'N/A' }}
               </span>
             </div>
           </div>
@@ -214,13 +245,13 @@
           @for (commodity of commodities; track commodity.name) {
           <div class="cc-item">
             <div class="cc-info">
-              <span class="cc-name">{{ commodity.name }}</span>
-              <span class="cc-description">{{ commodity.unit }}</span>
+              <span class="cc-name">{{ commodity.name || 'N/A' }}</span>
+              <span class="cc-description">{{ commodity.unit || 'N/A' }}</span>
             </div>
             <div class="cc-data">
-              <span class="cc-rate">{{ commodity.price }}</span>
+              <span class="cc-rate">{{ commodity.price || 'N/A' }}</span>
               <span class="cc-change" [class.positive]="commodity.isPositive" [class.negative]="!commodity.isPositive">
-                {{ commodity.change }}
+                {{ commodity.change || 'N/A' }}
               </span>
             </div>
           </div>

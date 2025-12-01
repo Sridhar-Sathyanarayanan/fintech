@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MaterialModules } from './shared/material.standalone';
 import { SEOService } from './shared/seo.service';
-import { NavItem } from './models/calculator.models';
+import { NavItem } from './models/ui.models';
 import { filter, map } from 'rxjs/operators';
 
 @Component({

@@ -4,69 +4,9 @@ import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
 import { BannerSectionComponent } from '../shared/components';
 import { MarketDataService } from '../services/market-data.service';
-import { forkJoin, interval, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
-
-interface MarketIndex {
-  name: string;
-  description: string;
-  value: string;
-  change: string;
-  changePercent: string;
-  isPositive: boolean;
-  icon: string;
-  timestamp: string;
-}
-
-interface Stock {
-  symbol: string;
-  name: string;
-  price: string;
-  change: string;
-  volume?: string;
-}
-
-interface MarketStat {
-  label: string;
-  value: string;
-  description: string;
-  icon: string;
-  color: string;
-}
-
-interface Sector {
-  name: string;
-  icon: string;
-  change: string;
-  isPositive: boolean;
-  index: string;
-  value: string;
-}
-
-interface Currency {
-  pair: string;
-  description: string;
-  rate: string;
-  change: string;
-  isPositive: boolean;
-}
-
-interface Commodity {
-  name: string;
-  unit: string;
-  price: string;
-  change: string;
-  isPositive: boolean;
-}
-
-interface MarketInsight {
-  title: string;
-  content: string;
-  category: string;
-  icon: string;
-  author: string;
-  date: string;
-}
+import { forkJoin, interval, Subject, of } from 'rxjs';
+import { switchMap, takeUntil, catchError } from 'rxjs/operators';
+import { MarketIndex, Stock, MarketStat, Sector, Currency, Commodity, MarketInsight } from '../models/market.models';
 
 @Component({
   selector: 'app-market-insights',
@@ -89,6 +29,13 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
     dateStyle: 'medium',
     timeStyle: 'short'
   }) + ' IST');
+  
+  // Error handling signals
+  hasPartialError = signal<boolean>(false);
+  failedEndpoints = signal<string[]>([]);
+  
+  // Disclaimer signal
+  showDisclaimer = signal<boolean>(true);
 
   bannerFeatures = [
     { icon: 'update', label: 'Real-time Updates' },
@@ -303,12 +250,12 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
     const pollingInterval = this.marketDataService.getPollingInterval();
     interval(pollingInterval).pipe(
       switchMap(() => forkJoin({
-        indices: this.marketDataService.fetchMarketIndices(),
-        movers: this.marketDataService.fetchStockMovers(),
-        stats: this.marketDataService.fetchMarketStats(),
-        sectors: this.marketDataService.fetchSectors(),
-        currencies: this.marketDataService.fetchCurrencies(),
-        commodities: this.marketDataService.fetchCommodities()
+        indices: this.marketDataService.fetchMarketIndices().pipe(catchError(() => of(null))),
+        movers: this.marketDataService.fetchStockMovers().pipe(catchError(() => of(null))),
+        stats: this.marketDataService.fetchMarketStats().pipe(catchError(() => of(null))),
+        sectors: this.marketDataService.fetchSectors().pipe(catchError(() => of(null))),
+        currencies: this.marketDataService.fetchCurrencies().pipe(catchError(() => of(null))),
+        commodities: this.marketDataService.fetchCommodities().pipe(catchError(() => of(null)))
       })),
       takeUntil(this.destroy$)
     ).subscribe({
@@ -321,6 +268,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error polling market data:', error);
+        this.hasPartialError.set(true);
       }
     });
   }
@@ -331,19 +279,72 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  retryLoad(): void {
+    this.loadAllMarketData();
+  }
+
+  dismissDisclaimer(): void {
+    this.showDisclaimer.set(false);
+  }
+
   private loadAllMarketData(): void {
+    // Reset errors
+    this.hasPartialError.set(false);
+    this.failedEndpoints.set([]);
+    const failures: string[] = [];
+    
     forkJoin({
-      indices: this.marketDataService.fetchMarketIndices(),
-      movers: this.marketDataService.fetchStockMovers(),
-      stats: this.marketDataService.fetchMarketStats(),
-      sectors: this.marketDataService.fetchSectors(),
-      currencies: this.marketDataService.fetchCurrencies(),
-      commodities: this.marketDataService.fetchCommodities()
+      indices: this.marketDataService.fetchMarketIndices().pipe(
+        catchError((error: any) => {
+          console.warn('Failed to load market indices:', error);
+          failures.push('indices');
+          return of(null);
+        })
+      ),
+      movers: this.marketDataService.fetchStockMovers().pipe(
+        catchError((error: any) => {
+          console.warn('Failed to load stock movers:', error);
+          failures.push('movers');
+          return of(null);
+        })
+      ),
+      stats: this.marketDataService.fetchMarketStats().pipe(
+        catchError((error: any) => {
+          console.warn('Failed to load market stats:', error);
+          failures.push('stats');
+          return of(null);
+        })
+      ),
+      sectors: this.marketDataService.fetchSectors().pipe(
+        catchError((error: any) => {
+          console.warn('Failed to load sectors:', error);
+          failures.push('sectors');
+          return of(null);
+        })
+      ),
+      currencies: this.marketDataService.fetchCurrencies().pipe(
+        catchError((error: any) => {
+          console.warn('Failed to load currencies:', error);
+          failures.push('currencies');
+          return of(null);
+        })
+      ),
+      commodities: this.marketDataService.fetchCommodities().pipe(
+        catchError((error: any) => {
+          console.warn('Failed to load commodities:', error);
+          failures.push('commodities');
+          return of(null);
+        })
+      )
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
       next: (data) => {
         this.updateMarketData(data);
+        if (failures.length > 0) {
+          this.hasPartialError.set(true);
+          this.failedEndpoints.set(failures);
+        }
         this.lastUpdated.set(new Date().toLocaleString('en-IN', {
           dateStyle: 'medium',
           timeStyle: 'short'
@@ -351,13 +352,14 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error loading market data:', error);
+        this.hasPartialError.set(true);
       }
     });
   }
 
   private updateMarketData(data: any): void {
     // Update major indices
-    if (data.indices && data.indices.length > 0) {
+    if (data.indices && Array.isArray(data.indices) && data.indices.length > 0) {
       const updatedIndices = data.indices.map((index: any) => ({
         name: index.name,
         description: this.getIndexDescription(index.name),
@@ -372,14 +374,14 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
     }
 
     // Update stock movers
-    if (data.movers) {
+    if (data.movers && typeof data.movers === 'object') {
       this.topGainers = data.movers.topGainers || this.topGainers;
       this.topLosers = data.movers.topLosers || this.topLosers;
       this.mostActive = data.movers.mostActive || this.mostActive;
     }
 
     // Update market stats
-    if (data.stats) {
+    if (data.stats && typeof data.stats === 'object') {
       this.marketStats = [
         { label: 'Advances', value: data.stats.advances.toString(), description: 'Stocks moving up', icon: 'arrow_upward', color: 'green' },
         { label: 'Declines', value: data.stats.declines.toString(), description: 'Stocks moving down', icon: 'arrow_downward', color: 'red' },
@@ -391,7 +393,7 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
     }
 
     // Update sectors
-    if (data.sectors && data.sectors.length > 0) {
+    if (data.sectors && Array.isArray(data.sectors) && data.sectors.length > 0) {
       this.sectors = data.sectors.map((sector: any) => ({
         ...sector,
         icon: this.getSectorIcon(sector.name)
@@ -399,12 +401,12 @@ export class MarketInsightsComponent implements OnInit, OnDestroy {
     }
 
     // Update currencies
-    if (data.currencies && data.currencies.length > 0) {
+    if (data.currencies && Array.isArray(data.currencies) && data.currencies.length > 0) {
       this.currencies = data.currencies;
     }
 
     // Update commodities
-    if (data.commodities && data.commodities.length > 0) {
+    if (data.commodities && Array.isArray(data.commodities) && data.commodities.length > 0) {
       this.commodities = data.commodities;
     }
   }

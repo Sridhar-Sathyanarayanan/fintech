@@ -14,9 +14,11 @@
     "build": "build"
   },
   "scripts": {
-    "start:dev": "SET NODE_ENV=development && nodemon --exec node --loader ts-node/esm server.ts",
-    "start:prod": "SET NODE_ENV=production && node build/server.js",
+    "start": "node build/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon --exec tsx server.ts",
+    "start:prod": "cross-env NODE_ENV=production node build/server.js",
     "build": "tsc",
+    "prebuild": "rimraf build",
     "clean": "rimraf build",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"**/*.ts\""
@@ -24,27 +26,27 @@
   "author": "AMKRTech Team",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.6.2",
-    "body-parser": "^2.2.0",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^7.0.10"
+    "nodemailer": "^7.0.11"
   },
   "devDependencies": {
-    "@types/body-parser": "^1.19.6",
     "@types/cors": "^2.8.19",
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.10.6",
-    "@types/nodemailer": "^7.0.3",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "dotenv": "^17.2.3",
-    "eslint": "^8.56.0",
-    "nodemon": "^3.1.0",
-    "prettier": "^3.1.1",
-    "rimraf": "^5.0.5",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "@types/nodemailer": "^7.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "eslint": "^9.39.1",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.7.3",
+    "rimraf": "^6.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

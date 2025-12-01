@@ -2,11 +2,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MaterialModules } from '../../material.standalone';
-
-interface SelectOption {
-  label: string;
-  value: string | number | boolean;
-}
+import { SelectOption } from '../../../models/ui.models';
 
 @Component({
   selector: 'app-form-field',

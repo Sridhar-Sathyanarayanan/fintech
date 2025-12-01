@@ -3,7 +3,7 @@ import mailServices from "../services/mail.services.js";
 
 export default (router: Router) => {
   router.post(
-    "/feedback/sendMail",
+    "/send",
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         await mailServices.sendEmail(req.body);

@@ -2,17 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MaterialModules } from '../../shared/material.standalone';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
-
-interface GratuityResult {
-  gratuityAmount: number;
-  yearsOfService: number;
-  monthsOfService: number;
-  totalService: string;
-  lastDrawnSalary: number;
-  organizationType: string;
-  isEligible: boolean;
-  formula: string;
-}
+import { GRATUITY_CONSTANTS } from '../../models/app.constants';
+import { GratuityResult } from '../../models/calculator.models';
 
 @Component({
   selector: 'app-gratuity-calculator',
@@ -34,37 +25,37 @@ export class GratuityCalculatorComponent implements OnInit {
   ];
 
   // Form Controls
-  lastSalaryControl = new FormControl(50000, [
+  lastSalaryControl = new FormControl<number>(GRATUITY_CONSTANTS.DEFAULT_LAST_SALARY, [
     Validators.required,
     Validators.min(0),
   ]);
-  yearsControl = new FormControl(5, [
+  yearsControl = new FormControl<number>(GRATUITY_CONSTANTS.DEFAULT_SERVICE_YEARS, [
     Validators.required,
-    Validators.min(0),
-    Validators.max(50),
+    Validators.min(GRATUITY_CONSTANTS.MIN_YEARS),
+    Validators.max(GRATUITY_CONSTANTS.MAX_YEARS),
   ]);
-  monthsControl = new FormControl(0, [
+  monthsControl = new FormControl<number>(GRATUITY_CONSTANTS.DEFAULT_SERVICE_MONTHS, [
     Validators.required,
-    Validators.min(0),
-    Validators.max(11),
+    Validators.min(GRATUITY_CONSTANTS.MIN_MONTHS),
+    Validators.max(GRATUITY_CONSTANTS.MAX_MONTHS),
   ]);
-  organizationTypeControl = new FormControl('covered', [Validators.required]);
+  organizationTypeControl = new FormControl<string>('covered', [Validators.required]);
 
   // Slider configurations
-  yearsMin = 0;
-  yearsMax = 50;
-  monthsMin = 0;
-  monthsMax = 11;
+  yearsMin = GRATUITY_CONSTANTS.MIN_YEARS;
+  yearsMax = GRATUITY_CONSTANTS.MAX_YEARS;
+  monthsMin = GRATUITY_CONSTANTS.MIN_MONTHS;
+  monthsMax = GRATUITY_CONSTANTS.MAX_MONTHS;
 
   // Results
   result: GratuityResult | null = null;
   showResults = false;
 
   // Constants
-  readonly MIN_SERVICE_YEARS = 5;
-  readonly GRATUITY_CAP = 2000000; // 20 lakhs
-  readonly DAYS_IN_YEAR_COVERED = 26;
-  readonly DAYS_IN_YEAR_UNCOVERED = 30;
+  readonly MIN_SERVICE_YEARS = GRATUITY_CONSTANTS.MIN_SERVICE_YEARS;
+  readonly GRATUITY_CAP = GRATUITY_CONSTANTS.GRATUITY_CAP;
+  readonly DAYS_IN_YEAR_COVERED = GRATUITY_CONSTANTS.DAYS_IN_YEAR_COVERED;
+  readonly DAYS_IN_YEAR_UNCOVERED = GRATUITY_CONSTANTS.DAYS_IN_YEAR_UNCOVERED;
 
   ngOnInit(): void {
     // Calculate on load with default values

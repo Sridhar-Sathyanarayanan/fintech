@@ -3,74 +3,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, interval, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { MARKET_CONSTANTS, MARKET_INDEX_MAP, FALLBACK_MARKET_DATA } from '../models/app.constants';
+import { 
+  MarketIndex, 
+  Stock, 
+  MarketStats, 
+  Sector, 
+  Currency, 
+  Commodity,
+  NSEIndexResponse,
+  StockMoversResponse
+} from '../models/market.models';
 
-export interface MarketIndex {
-  name: string;
-  value: string;
-  change: string;
-  isPositive: boolean;
-  icon: string;
-}
-
-export interface Stock {
-  symbol: string;
-  name: string;
-  price: string;
-  change: string;
-  volume?: string;
-}
-
-export interface MarketStats {
-  advances: number;
-  declines: number;
-  unchanged: number;
-  fiftyTwoWeekHigh: number;
-  fiftyTwoWeekLow: number;
-  marketCap: string;
-}
-
-export interface Sector {
-  name: string;
-  index: string;
-  value: string;
-  change: string;
-  isPositive: boolean;
-}
-
-export interface Currency {
-  pair: string;
-  description: string;
-  rate: string;
-  change: string;
-  isPositive: boolean;
-}
-
-export interface Commodity {
-  name: string;
-  unit: string;
-  price: string;
-  change: string;
-  isPositive: boolean;
-}
-
-interface NSEIndexResponse {
-  success: boolean;
-  data: Array<{
-    index: string;
-    last: number;
-    variation: number;
-    percentChange: number;
-  }>;
-}
-
-interface StockMoversResponse {
-  success: boolean;
-  data: {
-    topGainers: Stock[];
-    topLosers: Stock[];
-    mostActive: Stock[];
-  };
-}
+// Re-export interfaces for backward compatibility
+export type { 
+  MarketIndex, 
+  Stock, 
+  MarketStats, 
+  Sector, 
+  Currency, 
+  Commodity,
+  NSEIndexResponse,
+  StockMoversResponse
+};
 
 @Injectable({
   providedIn: 'root'
@@ -80,12 +35,7 @@ export class MarketDataService {
   private marketIndices = signal<MarketIndex[]>([]);
   
   // Fallback data in case API fails
-  private readonly FALLBACK_DATA: MarketIndex[] = [
-    { name: 'NIFTY 50', value: '22,453.30', change: '+1.2%', isPositive: true, icon: 'trending_up' },
-    { name: 'SENSEX', value: '74,119.39', change: '+0.8%', isPositive: true, icon: 'trending_up' },
-    { name: 'BANK NIFTY', value: '48,567.25', change: '-0.3%', isPositive: false, icon: 'trending_down' },
-    { name: 'NIFTY IT', value: '35,234.80', change: '+2.1%', isPositive: true, icon: 'trending_up' }
-  ];
+  private readonly FALLBACK_DATA: MarketIndex[] = FALLBACK_MARKET_DATA as any;
 
   constructor(private http: HttpClient) {}
 
@@ -94,13 +44,13 @@ export class MarketDataService {
    */
   fetchMarketIndices(): Observable<MarketIndex[]> {
     return this.http.get<NSEIndexResponse>(`${this.API_BASE_URL}/indices`).pipe(
-      map(response => this.transformNSEData(response)),
-      tap(indices => this.marketIndices.set(indices)),
-      catchError(error => {
-        console.error('Failed to fetch market data, using fallback:', error);
-        this.marketIndices.set(this.FALLBACK_DATA);
-        return of(this.FALLBACK_DATA);
-      })
+      map(response => {
+        if (!response.success) {
+          throw new Error(response.error || 'Failed to fetch market indices');
+        }
+        return this.transformNSEData(response);
+      }),
+      tap(indices => this.marketIndices.set(indices))
     );
   }
 
@@ -109,15 +59,10 @@ export class MarketDataService {
    */
   private transformNSEData(response: NSEIndexResponse): MarketIndex[] {
     if (!response?.data || !Array.isArray(response.data)) {
-      return this.FALLBACK_DATA;
+      throw new Error('Invalid market data response');
     }
 
-    const indexMap: { [key: string]: string } = {
-      'NIFTY 50': 'NIFTY 50',
-      'NIFTY BANK': 'BANK NIFTY',
-      'INDIA VIX': 'INDIA VIX',
-      'NIFTY IT': 'NIFTY IT'
-    };
+    const indexMap = MARKET_INDEX_MAP as Record<string, string>;
 
     const indices: MarketIndex[] = [];
 
@@ -144,7 +89,10 @@ export class MarketDataService {
       icon: 'trending_up'
     });
 
-    return indices.length > 0 ? indices : this.FALLBACK_DATA;
+    if (indices.length === 0) {
+      throw new Error('No market data available');
+    }
+    return indices;
   }
 
   /**
@@ -181,7 +129,7 @@ export class MarketDataService {
    */
   isMarketOpen(): boolean {
     const now = new Date();
-    const istOffset = 330; // IST is UTC+5:30
+    const istOffset = MARKET_CONSTANTS.IST_OFFSET_MINUTES;
     const istTime = new Date(now.getTime() + (istOffset * 60000));
     
     const day = istTime.getDay(); // 0 = Sunday, 6 = Saturday
@@ -189,9 +137,9 @@ export class MarketDataService {
     const minutes = istTime.getMinutes();
     const timeInMinutes = hours * 60 + minutes;
 
-    // Market hours: Monday-Friday, 9:15 AM (555 min) to 3:30 PM (930 min)
-    const isWeekday = day >= 1 && day <= 5;
-    const isMarketHours = timeInMinutes >= 555 && timeInMinutes <= 930;
+    // Market hours: Monday-Friday, 9:15 AM to 3:30 PM
+    const isWeekday = day >= MARKET_CONSTANTS.WEEKDAY_START && day <= MARKET_CONSTANTS.WEEKDAY_END;
+    const isMarketHours = timeInMinutes >= MARKET_CONSTANTS.MARKET_OPEN_TIME_MINUTES && timeInMinutes <= MARKET_CONSTANTS.MARKET_CLOSE_TIME_MINUTES;
 
     return isWeekday && isMarketHours;
   }
@@ -210,14 +158,11 @@ export class MarketDataService {
    */
   fetchStockMovers(): Observable<{ topGainers: Stock[]; topLosers: Stock[]; mostActive: Stock[] }> {
     return this.http.get<StockMoversResponse>(`${this.API_BASE_URL}/stocks/movers`).pipe(
-      map(response => response.data),
-      catchError(error => {
-        console.error('Failed to fetch stock movers:', error);
-        return of({
-          topGainers: [],
-          topLosers: [],
-          mostActive: []
-        });
+      map(response => {
+        if (!response.success || !response.data) {
+          throw new Error(response.error || 'Failed to fetch stock movers');
+        }
+        return response.data;
       })
     );
   }
@@ -226,18 +171,12 @@ export class MarketDataService {
    * Fetch market statistics
    */
   fetchMarketStats(): Observable<MarketStats> {
-    return this.http.get<{ success: boolean; data: MarketStats }>(`${this.API_BASE_URL}/stats`).pipe(
-      map(response => response.data),
-      catchError(error => {
-        console.error('Failed to fetch market stats:', error);
-        return of({
-          advances: 0,
-          declines: 0,
-          unchanged: 0,
-          fiftyTwoWeekHigh: 0,
-          fiftyTwoWeekLow: 0,
-          marketCap: 'N/A'
-        });
+    return this.http.get<{ success: boolean; data: MarketStats; error?: string }>(`${this.API_BASE_URL}/stats`).pipe(
+      map(response => {
+        if (!response.success) {
+          throw new Error(response.error || 'Failed to fetch market statistics');
+        }
+        return response.data;
       })
     );
   }
@@ -246,11 +185,12 @@ export class MarketDataService {
    * Fetch sectoral performance
    */
   fetchSectors(): Observable<Sector[]> {
-    return this.http.get<{ success: boolean; data: Sector[] }>(`${this.API_BASE_URL}/sectors`).pipe(
-      map(response => response.data),
-      catchError(error => {
-        console.error('Failed to fetch sectors:', error);
-        return of([]);
+    return this.http.get<{ success: boolean; data: Sector[]; error?: string }>(`${this.API_BASE_URL}/sectors`).pipe(
+      map(response => {
+        if (!response.success) {
+          throw new Error(response.error || 'Failed to fetch sector data');
+        }
+        return response.data;
       })
     );
   }
@@ -259,11 +199,12 @@ export class MarketDataService {
    * Fetch currency rates
    */
   fetchCurrencies(): Observable<Currency[]> {
-    return this.http.get<{ success: boolean; data: Currency[] }>(`${this.API_BASE_URL}/currencies`).pipe(
-      map(response => response.data),
-      catchError(error => {
-        console.error('Failed to fetch currencies:', error);
-        return of([]);
+    return this.http.get<{ success: boolean; data: Currency[]; error?: string }>(`${this.API_BASE_URL}/currencies`).pipe(
+      map(response => {
+        if (!response.success) {
+          throw new Error(response.error || 'Failed to fetch currency rates');
+        }
+        return response.data;
       })
     );
   }
@@ -272,11 +213,12 @@ export class MarketDataService {
    * Fetch commodity prices
    */
   fetchCommodities(): Observable<Commodity[]> {
-    return this.http.get<{ success: boolean; data: Commodity[] }>(`${this.API_BASE_URL}/commodities`).pipe(
-      map(response => response.data),
-      catchError(error => {
-        console.error('Failed to fetch commodities:', error);
-        return of([]);
+    return this.http.get<{ success: boolean; data: Commodity[]; error?: string }>(`${this.API_BASE_URL}/commodities`).pipe(
+      map(response => {
+        if (!response.success) {
+          throw new Error(response.error || 'Failed to fetch commodity prices');
+        }
+        return response.data;
       })
     );
   }

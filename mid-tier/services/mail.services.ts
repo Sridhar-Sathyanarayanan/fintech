@@ -28,7 +28,9 @@ try {
 // Function to send an email with Promise support
 const sendEmail = async (params: { email: string; message: string; subject?: string }): Promise<void> => {
   if (!transporter) {
-    throw new Error('Mail service is not initialized. SMTP configuration failed.');
+    const error: any = new Error('Mail service is not configured. Please configure SMTP settings in environment variables.');
+    error.status = 503;
+    throw error;
   }
 
   return new Promise((resolve, reject) => {

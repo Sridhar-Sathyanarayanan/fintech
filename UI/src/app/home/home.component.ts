@@ -7,58 +7,18 @@ import {
   StatCardComponent, 
   FeatureCardComponent
 } from '../shared/components';
-import { MarketDataService, MarketIndex as MarketIndexModel } from '../services/market-data.service';
+import { MarketDataService } from '../services/market-data.service';
+import { 
+  FinancialTool, 
+  FinancialFact, 
+  Statistic, 
+  Quote, 
+  EconomicIndicator, 
+  CarouselSlide 
+} from '../models/ui.models';
+import { MarketIndex } from '../models/market.models';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-interface FinancialTool {
-  icon: string;
-  title: string;
-  desc: string;
-  color: string;
-  route: string;
-}
-
-interface FinancialFact {
-  title: string;
-  content: string;
-  icon: string;
-}
-
-interface Statistic {
-  value: string;
-  label: string;
-  icon: string;
-}
-
-interface Quote {
-  text: string;
-  author: string;
-  designation: string;
-  imageUrl: string;
-}
-
-interface MarketIndex {
-  name: string;
-  value: string;
-  change: string;
-  isPositive: boolean;
-  icon: string;
-}
-
-interface EconomicIndicator {
-  label: string;
-  value: string;
-  trend: string;
-  icon: string;
-  color: string;
-}
-
-interface CarouselSlide {
-  image: string;
-  title: string;
-  subtitle: string;
-}
 
 @Component({
   selector: 'app-home',

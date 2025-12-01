@@ -3,36 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
 import { BannerSectionComponent, FeatureCardComponent, StatCardComponent } from '../shared/components';
-
-interface TeamMember {
-  name: string;
-  role: string;
-  image: string;
-  bio: string;
-  social: {
-    linkedin?: string;
-    twitter?: string;
-  };
-}
-
-interface Value {
-  icon: string;
-  title: string;
-  description: string;
-}
-
-interface Milestone {
-  year: string;
-  title: string;
-  description: string;
-}
-
-interface Feature {
-  icon: string;
-  title: string;
-  description: string;
-  color: string;
-}
+import { TeamMember, Value, Milestone, Feature } from '../models/ui.models';
 
 @Component({
   selector: 'app-about-us',

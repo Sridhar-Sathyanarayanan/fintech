@@ -6,15 +6,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { MaterialModules } from '../../shared/material.standalone';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
-
-interface YearlyBreakdown {
-  year: number;
-  openingBalance: number;
-  emiPaid: number;
-  principal: number;
-  interest: number;
-  closingBalance: number;
-}
+import { YearlyLoanBreakdown as YearlyBreakdown } from '../../models/calculator.models';
 
 @Component({
   selector: 'app-home-loan-calculator',

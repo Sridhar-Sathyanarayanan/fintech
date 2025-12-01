@@ -1,6 +1,13 @@
 /**
- * Chart.js configuration models
+ * Chart.js Configuration Models
+ * 
+ * Contains:
+ * - Chart.js type definitions and configurations
+ * - Tax slab structures for visualization
+ * - Chart data and display models
  */
+
+// ==================== CHART.JS CONTEXT MODELS ====================
 
 export interface ChartLabelContext {
   dataset: {
@@ -23,6 +30,8 @@ export interface ChartTooltipCallbackContext {
 export interface ChartScaleCallbackContext {
   value: number;
 }
+
+// ==================== CHART OPTIONS MODELS ====================
 
 export interface ChartLegendOptions {
   position: 'top' | 'bottom' | 'left' | 'right';
@@ -89,6 +98,8 @@ export interface ChartOptions extends Record<string, any> {
   maintainAspectRatio?: boolean;
 }
 
+// ==================== CHART DATA MODELS ====================
+
 export interface ChartDataset {
   label: string;
   data: number[];
@@ -101,6 +112,8 @@ export interface ChartData {
   labels: string[];
   datasets: ChartDataset[];
 }
+
+// ==================== TAX SLAB MODELS ====================
 
 export interface TaxSlab {
   range: string;
@@ -118,19 +131,7 @@ export interface SlabYear {
   new: TaxSlab[];
 }
 
-export interface FeedbackData {
-  name?: string;
-  email?: string;
-  message?: string;
-  subject?: string;
-  [key: string]: any;
-}
-
-export interface SchemaMarkup {
-  '@context': string;
-  '@type': string;
-  [key: string]: any;
-}
+// ==================== TAX SLAB CALCULATION MODELS ====================
 
 export interface TaxSlabEntry {
   upTo: number;

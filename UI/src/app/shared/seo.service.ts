@@ -4,8 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
-import { SEOConfig } from '../models/seo.models';
-import { SchemaMarkup } from '../models/chart.models';
+import { SEOConfig, SchemaMarkup } from '../models/core.models';
 import { environment } from '../../environments/environment';
 
 @Injectable({

@@ -1,21 +1,19 @@
 /**
- * Shared calculator models and interfaces
+ * Calculator-specific Models
+ * 
+ * Contains interface definitions for all financial calculators
+ * Including Tax, Investment, HRA, Gratuity, PPF, Home Loan, SIP, NPS
  */
 
-// Tax Calculator Models
+// ==================== TAX CALCULATOR MODELS ====================
 export interface TaxBreakdown {
   slab: string;
   rate: string;
   amount: number;
 }
 
-export interface ChartData {
-  label: string;
-  value: number;
-  color: string;
-}
+// ==================== INVESTMENT CALCULATOR MODELS ====================
 
-// Investment Calculator Models
 export interface YearlyBreakdown {
   year: number;
   invested?: number;
@@ -30,7 +28,8 @@ export interface YearlyBreakdown {
   deposit?: number;
 }
 
-// Home Loan specific
+// ==================== HOME LOAN MODELS ====================
+
 export interface YearlyLoanBreakdown {
   year: number;
   openingBalance: number;
@@ -40,7 +39,8 @@ export interface YearlyLoanBreakdown {
   closingBalance: number;
 }
 
-// PPF Calculator
+// ==================== PPF CALCULATOR MODELS ====================
+
 export interface PPFYearlyBreakdown {
   year: number;
   opening: number;
@@ -51,28 +51,7 @@ export interface PPFYearlyBreakdown {
 
 export type FrequencyType = 'yearly' | 'halfyearly' | 'quarterly' | 'monthly';
 
-// FAQ Models
-export interface FAQItem {
-  question: string;
-  answer: string;
-  expanded?: boolean;
-  icon?: string;
-}
-
-// Contact Models
-export interface ContactInfo {
-  icon: string;
-  title: string;
-  value: string;
-  link?: string;
-}
-
-export interface SocialLink {
-  icon: string;
-  name: string;
-  url: string;
-  color: string;
-}
+// ==================== HRA CALCULATOR MODELS ====================
 
 export interface HRAExample {
   title: string;
@@ -87,7 +66,6 @@ export interface TaxTip {
   icon: string;
 }
 
-// HRA Calculation
 export interface HRACalculation {
   actualHRA: number;
   rentPaid: number;
@@ -100,10 +78,15 @@ export interface HRACalculation {
   cityType: string;
 }
 
-// Navigation
-export interface NavItem {
-  label: string;
-  route?: string;
-  icon: string;
-  children?: NavItem[];
+// ==================== GRATUITY CALCULATOR MODELS ====================
+
+export interface GratuityResult {
+  gratuityAmount: number;
+  yearsOfService: number;
+  monthsOfService: number;
+  totalService: string;
+  lastDrawnSalary: number;
+  organizationType: string;
+  isEligible: boolean;
+  formula: string;
 }

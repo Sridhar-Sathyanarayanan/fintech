@@ -6,16 +6,7 @@ import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { MaterialModules } from '../../shared/material.standalone';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
-
-interface YearlyBreakdown {
-  year: number;
-  opening: number;
-  deposit: number;
-  interest: number;
-  closing: number;
-}
-
-type FrequencyType = 'yearly' | 'halfyearly' | 'quarterly' | 'monthly';
+import { PPFYearlyBreakdown as YearlyBreakdown, FrequencyType } from '../../models/calculator.models';
 
 @Component({
   selector: 'app-ppf-calculator',
