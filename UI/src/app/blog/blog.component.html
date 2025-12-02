@@ -1,0 +1,197 @@
+<!-- Banner Section -->
+<app-banner-section
+  title="Financial Insights & Expert Advice"
+  subtitle="Explore our comprehensive guides on tax planning, investments, retirement, and wealth management"
+  [features]="bannerFeatures"
+/>
+
+<!-- Main Content -->
+<div class="blog-container">
+  <!-- Featured Articles Section -->
+  @if (featuredArticles().length > 0) {
+  <section class="featured-section">
+    <div class="section-header">
+      <h2>
+        <mat-icon>star</mat-icon>
+        Featured Articles
+      </h2>
+      <p>Must-read guides to enhance your financial knowledge</p>
+    </div>
+
+    <div class="featured-grid">
+      @for (article of featuredArticles(); track article.id) {
+      <article class="featured-card">
+        <a [routerLink]="['/blog', article.slug]" class="featured-link">
+          <div class="featured-image">
+            <img [src]="article.thumbnail" [alt]="article.title" loading="lazy">
+            <div class="featured-badge">
+              <mat-icon>star</mat-icon>
+              Featured
+            </div>
+          </div>
+          <div class="featured-content">
+            <div class="article-meta">
+              <mat-chip [class]="'category-chip ' + getCategoryColor(article.category)">
+                <mat-icon>{{ getCategoryIcon(article.category) }}</mat-icon>
+                {{ article.category }}
+              </mat-chip>
+              <span class="read-time">
+                <mat-icon>schedule</mat-icon>
+                {{ article.readTime }} min read
+              </span>
+            </div>
+            <h3>{{ article.title }}</h3>
+            <p class="excerpt">{{ article.excerpt }}</p>
+            <div class="article-footer">
+              <span class="author">
+                <mat-icon>person</mat-icon>
+                {{ article.author }}
+              </span>
+              <span class="date">{{ formatDate(article.publishDate) }}</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      }
+    </div>
+  </section>
+  }
+
+  <!-- Filter and Search Section -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <!-- Category Filter -->
+      <div class="category-filter">
+        <button 
+          mat-raised-button 
+          [color]="selectedCategory() === 'all' ? 'primary' : ''"
+          (click)="onCategoryChange('all')"
+          class="filter-btn">
+          <mat-icon>select_all</mat-icon>
+          All Articles
+        </button>
+        @for (category of categories(); track category.id) {
+        <button 
+          mat-raised-button 
+          [color]="selectedCategory() === category.name ? 'primary' : ''"
+          (click)="onCategoryChange(category.name)"
+          class="filter-btn">
+          <mat-icon>{{ category.icon }}</mat-icon>
+          {{ category.name }}
+        </button>
+        }
+      </div>
+
+      <!-- Search Bar -->
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search articles...</mat-label>
+        <input 
+          matInput 
+          [value]="searchQuery()"
+          (input)="onSearchChange($any($event.target).value)"
+          placeholder="Tax planning, SIP, home loan..."
+        >
+        <mat-icon matPrefix>search</mat-icon>
+        @if (searchQuery()) {
+        <button 
+          matSuffix 
+          mat-icon-button 
+          (click)="onSearchChange('')"
+          aria-label="Clear search">
+          <mat-icon>close</mat-icon>
+        </button>
+        }
+      </mat-form-field>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <section class="articles-section">
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading articles...</p>
+    </div>
+    } @else if (filteredArticles().length > 0) {
+    <!-- Articles Grid -->
+    <div class="articles-grid">
+      @for (article of filteredArticles(); track article.id) {
+      <article class="article-card">
+        <a [routerLink]="['/blog', article.slug]" class="article-link">
+          <div class="article-image">
+            <img [src]="article.thumbnail" [alt]="article.title" loading="lazy">
+            <mat-chip class="category-tag">{{ article.category }}</mat-chip>
+          </div>
+          <div class="article-body">
+            <h3>{{ article.title }}</h3>
+            <p class="article-excerpt">{{ article.excerpt }}</p>
+            <div class="article-tags">
+              @for (tag of article.tags.slice(0, 3); track tag) {
+              <mat-chip>
+                {{ tag }}
+              </mat-chip>
+              }
+            </div>
+          </div>
+          <div class="article-footer">
+            <div class="footer-left">
+              <span class="author">{{ article.author }}</span>
+              <span class="date">{{ formatDate(article.publishDate) }}</span>
+            </div>
+            <span class="read-time">
+              <mat-icon>schedule</mat-icon>
+              {{ article.readTime }} min
+            </span>
+          </div>
+        </a>
+      </article>
+      }
+    </div>
+    } @else {
+    <!-- Empty State -->
+    <div class="empty-state">
+      <mat-icon>search_off</mat-icon>
+      <h3>No articles found</h3>
+      @if (searchQuery()) {
+      <p>
+        No articles match "{{ searchQuery() }}". Try different keywords.
+      </p>
+      }
+      @if (!searchQuery() && selectedCategory() !== 'all') {
+      <p>
+        No articles in {{ selectedCategory() }} category yet.
+      </p>
+      }
+      <button mat-raised-button color="primary" (click)="onCategoryChange('all'); onSearchChange('')">
+        <mat-icon>refresh</mat-icon>
+        View All Articles
+      </button>
+    </div>
+    }
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-card">
+      <mat-icon class="newsletter-icon">mail</mat-icon>
+      <h3>Get Weekly Financial Insights</h3>
+      <p>Subscribe to our newsletter for expert tips, market updates, and exclusive guides</p>
+      <div class="newsletter-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Your email address</mat-label>
+          <input matInput type="email" placeholder="you@example.com">
+          <mat-icon matPrefix>email</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary">
+          Subscribe
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+      <p class="newsletter-note">
+        <mat-icon>check_circle</mat-icon>
+        No spam. Unsubscribe anytime. Weekly updates only.
+      </p>
+    </div>
+  </section>
+</div>

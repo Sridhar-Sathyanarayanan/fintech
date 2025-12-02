@@ -108,6 +108,22 @@ export const routes: Routes = [
     data: { title: 'Market Insights - Live Data & Analysis', description: 'Real-time market data, sectoral performance, and expert insights' }
   },
   {
+    path: 'blog',
+    loadComponent: () =>
+      import('./blog/blog.component').then(
+        (m) => m.BlogComponent
+      ),
+    data: { title: 'Financial Blog - Expert Insights & Guides', description: 'Expert articles on tax planning, investments, retirement, and wealth management' }
+  },
+  {
+    path: 'blog/:slug',
+    loadComponent: () =>
+      import('./blog-detail/blog-detail.component').then(
+        (m) => m.BlogDetailComponent
+      ),
+    data: { title: 'Article', description: 'Read our latest financial insights and expert advice' }
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./page-not-found/page-not-found.component').then(

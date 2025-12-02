@@ -1,0 +1,184 @@
+<!-- Loading State -->
+@if (isLoading()) {
+<div class="loading-container">
+  <mat-spinner diameter="50"></mat-spinner>
+  <p>Loading article...</p>
+</div>
+}
+
+<!-- Not Found State -->
+@if (notFound() && !isLoading()) {
+<div class="not-found-container">
+  <mat-icon>article</mat-icon>
+  <h2>Article Not Found</h2>
+  <p>The article you're looking for doesn't exist or has been removed.</p>
+  <button mat-raised-button color="primary" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Back to Blog
+  </button>
+</div>
+}
+
+<!-- Article Content -->
+@if (article() && !isLoading()) {
+<article class="article-container">
+  <!-- Hero Section -->
+  <div class="article-hero">
+    <div class="hero-content">
+      <button mat-icon-button class="back-button" (click)="goBack()" aria-label="Back to blog">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div class="article-meta">
+        <mat-chip class="category-chip">
+          <mat-icon>{{ article()!.category.toLowerCase().replace(' ', '_') }}</mat-icon>
+          {{ article()!.category }}
+        </mat-chip>
+        <span class="read-time">
+          <mat-icon>schedule</mat-icon>
+          {{ article()!.readTime }} min read
+        </span>
+      </div>
+
+      <h1 class="article-title">{{ article()!.title }}</h1>
+
+      <div class="article-info">
+        <div class="author-info">
+          <mat-icon>person</mat-icon>
+          <span class="author-name">{{ article()!.author }}</span>
+        </div>
+        <span class="separator">•</span>
+        <span class="publish-date">{{ article()!.formattedDate }}</span>
+        @if (article()!.isNew) {
+        <span class="new-badge">
+          <mat-icon>fiber_new</mat-icon>
+          New
+        </span>
+        }
+      </div>
+
+      <!-- Share Buttons -->
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <button mat-icon-button (click)="shareArticle('twitter')" aria-label="Share on Twitter">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button (click)="shareArticle('facebook')" aria-label="Share on Facebook">
+          <mat-icon>facebook</mat-icon>
+        </button>
+        <button mat-icon-button (click)="shareArticle('linkedin')" aria-label="Share on LinkedIn">
+          <mat-icon>link</mat-icon>
+        </button>
+        <button mat-icon-button (click)="shareArticle('whatsapp')" aria-label="Share on WhatsApp">
+          <mat-icon>chat</mat-icon>
+        </button>
+        <button mat-icon-button (click)="copyLink()" aria-label="Copy link">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img [src]="article()!.thumbnail" [alt]="article()!.thumbnailAlt || article()!.title" />
+    </div>
+  </div>
+
+  <!-- Article Body -->
+  <div class="article-body">
+    <div class="article-content" [innerHTML]="article()!.content"></div>
+
+    <!-- Tags -->
+    <div class="article-tags">
+      <mat-icon>label</mat-icon>
+      <span class="tags-label">Tags:</span>
+      @for (tag of article()!.tags; track tag) {
+      <mat-chip>{{ tag }}</mat-chip>
+      }
+    </div>
+
+    <!-- Bottom Share -->
+    <div class="article-share-bottom">
+      <h3>Found this helpful? Share it!</h3>
+      <div class="share-buttons-large">
+        <button mat-raised-button (click)="shareArticle('twitter')">
+          <mat-icon>share</mat-icon>
+          Twitter
+        </button>
+        <button mat-raised-button (click)="shareArticle('facebook')">
+          <mat-icon>facebook</mat-icon>
+          Facebook
+        </button>
+        <button mat-raised-button (click)="shareArticle('linkedin')">
+          <mat-icon>link</mat-icon>
+          LinkedIn
+        </button>
+        <button mat-raised-button (click)="shareArticle('whatsapp')">
+          <mat-icon>chat</mat-icon>
+          WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Articles -->
+  @if (relatedArticles().length > 0) {
+  <div class="related-articles">
+    <h3>
+      <mat-icon>library_books</mat-icon>
+      Related Articles
+    </h3>
+    <div class="related-grid">
+      @for (related of relatedArticles(); track related.id) {
+      <div class="related-card">
+        <a [routerLink]="['/blog', related.slug]" class="related-link">
+          <div class="related-image">
+            <img [src]="related.thumbnail" [alt]="related.title" loading="lazy" />
+            <mat-chip class="category-tag">{{ related.category }}</mat-chip>
+          </div>
+          <div class="related-content">
+            <h4>{{ related.title }}</h4>
+            <p>{{ related.excerpt }}</p>
+            <div class="related-meta">
+              <span class="read-time">
+                <mat-icon>schedule</mat-icon>
+                {{ related.readTime }} min
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- CTA Section -->
+  <div class="article-cta">
+    <mat-icon class="cta-icon">calculate</mat-icon>
+    <h3>Try Our Financial Calculators</h3>
+    <p>Make informed financial decisions with our free, easy-to-use calculators</p>
+    <div class="cta-buttons">
+      <a mat-raised-button color="primary" routerLink="/income-tax-calculator">
+        <mat-icon>receipt_long</mat-icon>
+        Tax Calculator
+      </a>
+      <a mat-raised-button color="accent" routerLink="/sip-calculator">
+        <mat-icon>trending_up</mat-icon>
+        SIP Calculator
+      </a>
+      <a mat-raised-button routerLink="/home-loan-calculator">
+        <mat-icon>home</mat-icon>
+        Home Loan EMI
+      </a>
+    </div>
+  </div>
+
+  <!-- Back to Blog -->
+  <div class="back-to-blog">
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to All Articles
+    </button>
+  </div>
+</article>
+}

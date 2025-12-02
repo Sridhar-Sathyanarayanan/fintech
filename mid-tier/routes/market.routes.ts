@@ -187,7 +187,7 @@ router.get('/stocks/movers', async (_req: Request, res: Response) => {
           price: parseFloat(stock.lastPrice || stock.ltp || 0).toFixed(2),
           change: parseFloat(stock.pChange || stock.perChange || 0).toFixed(2)
         })),
-        topLosers: topLosers.map((stock: any) => ({
+        topLosers: topLosers?.map((stock: any) => ({
           symbol: stock.symbol,
           name: stock.meta?.companyName || stock.symbol,
           price: parseFloat(stock.lastPrice || stock.ltp || 0).toFixed(2),

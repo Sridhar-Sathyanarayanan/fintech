@@ -47,6 +47,11 @@ export class AppComponent {
       icon: 'insights'
     },
     {
+      label: 'Blog',
+      route: '/blog',
+      icon: 'article'
+    },
+    {
       label: 'Calculators',
       icon: 'calculate',
       children: [
