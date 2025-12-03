@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialModules } from '../shared/material.standalone';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../shared/components/banner-section/banner-section.component';
+// import { AdsenseComponent, AdsenseConfig } from '../shared/components'; // Uncomment when adding ads to template
 import { BlogService } from '../services/blog.service';
 import { BlogArticleMetadata, BlogCategory } from '../models/blog.models';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -25,6 +26,9 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 export class BlogComponent implements OnInit {
   private blogService = inject(BlogService);
   private spinner = inject(NgxSpinnerService);
+
+  // Uncomment when adding ads to template:
+  // adsenseConfig = AdsenseConfig;
 
   // Signals for reactive state
   allArticles = signal<BlogArticleMetadata[]>([]);

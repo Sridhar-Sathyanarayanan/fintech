@@ -2,6 +2,7 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { MaterialModules } from '../shared/material.standalone';
+// import { AdsenseComponent, AdsenseConfig } from '../shared/components'; // Uncomment when adding ads to template
 import { BlogService } from '../services/blog.service';
 import { BlogArticleEnriched, BlogArticleMetadata } from '../models/blog.models';
 import { Meta, Title } from '@angular/platform-browser';
@@ -28,6 +29,9 @@ export class BlogDetailComponent implements OnInit {
   private metaService = inject(Meta);
   private spinner = inject(NgxSpinnerService);
   private snackBar = inject(MatSnackBar);
+
+  // Uncomment when adding ads to template:
+  // adsenseConfig = AdsenseConfig;
 
   article = signal<BlogArticleEnriched | null>(null);
   relatedArticles = signal<BlogArticleMetadata[]>([]);

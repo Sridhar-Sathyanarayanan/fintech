@@ -46,8 +46,8 @@ export interface DbConfig {
  */
 export const defaultDbConfig: DbConfig = {
   statistics: {
-    activeUsers: 25000,
-    activeUsersLabel: '25,000+ investors',
+    activeUsers: 10000,
+    activeUsersLabel: '10,000+ users',
     totalCalculations: 150000,
     wealthCreated: '₹2.4Cr+',
     averageReturns: '+18.2%',

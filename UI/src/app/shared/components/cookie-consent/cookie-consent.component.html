@@ -1,0 +1,171 @@
+<!-- COOKIE CONSENT BANNER -->
+@if (showBanner()) {
+  <div class="cookie-banner">
+    <div class="cookie-container">
+      <div class="cookie-content">
+        <div class="cookie-icon">
+          <mat-icon aria-hidden="true">cookie</mat-icon>
+        </div>
+        
+        <div class="cookie-text">
+          <h3 class="cookie-title">We Value Your Privacy</h3>
+          <p class="cookie-description">
+            We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. 
+            By clicking "Accept All", you consent to our use of cookies. You can also customize your preferences.
+            <a routerLink="/privacy-policy" class="cookie-link" (click)="closeBanner()">Learn more</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="cookie-actions">
+        <button mat-button class="btn-customize" (click)="openSettings()">
+          <mat-icon aria-hidden="true">settings</mat-icon>
+          Customize
+        </button>
+        <button mat-button class="btn-necessary" (click)="acceptNecessary()">
+          Necessary Only
+        </button>
+        <button mat-raised-button color="primary" class="btn-accept" (click)="acceptAll()">
+          <mat-icon aria-hidden="true">check_circle</mat-icon>
+          Accept All
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- COOKIE SETTINGS DIALOG -->
+@if (showSettings()) {
+  <div class="cookie-overlay" (click)="closeSettings()">
+    <div class="cookie-dialog" (click)="$event.stopPropagation()">
+      <div class="dialog-header">
+        <div class="header-content">
+          <mat-icon class="header-icon" aria-hidden="true">cookie</mat-icon>
+          <div>
+            <h2 class="dialog-title">Cookie Preferences</h2>
+            <p class="dialog-subtitle">Manage your cookie settings</p>
+          </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="closeSettings()">
+          <mat-icon aria-hidden="true">close</mat-icon>
+        </button>
+      </div>
+
+      <div class="dialog-content">
+        <!-- Necessary Cookies -->
+        <div class="cookie-category">
+          <div class="category-header">
+            <div class="category-info">
+              <div class="category-icon necessary">
+                <mat-icon aria-hidden="true">verified</mat-icon>
+              </div>
+              <div>
+                <h3 class="category-title">Necessary Cookies</h3>
+                <p class="category-description">
+                  Essential for the website to function properly. These cannot be disabled.
+                </p>
+              </div>
+            </div>
+            <div class="toggle-wrapper">
+              <mat-slide-toggle
+                [checked]="necessaryCookies()"
+                [disabled]="true"
+                color="primary">
+              </mat-slide-toggle>
+              <span class="toggle-status enabled">Always Enabled</span>
+            </div>
+          </div>
+          <div class="category-details">
+            <p><strong>Purpose:</strong> Website functionality, security, load balancing, and session management.</p>
+            <p><strong>Examples:</strong> Authentication tokens, security tokens, load balancer cookies.</p>
+          </div>
+        </div>
+
+        <!-- Analytics Cookies -->
+        <div class="cookie-category">
+          <div class="category-header">
+            <div class="category-info">
+              <div class="category-icon analytics">
+                <mat-icon aria-hidden="true">analytics</mat-icon>
+              </div>
+              <div>
+                <h3 class="category-title">Analytics Cookies</h3>
+                <p class="category-description">
+                  Help us understand how visitors interact with our website.
+                </p>
+              </div>
+            </div>
+            <div class="toggle-wrapper">
+              <mat-slide-toggle
+                [checked]="analyticsCookies()"
+                (change)="toggleAnalytics()"
+                color="primary">
+              </mat-slide-toggle>
+              <span class="toggle-status" [class.enabled]="analyticsCookies()">
+                {{ analyticsCookies() ? 'Enabled' : 'Disabled' }}
+              </span>
+            </div>
+          </div>
+          <div class="category-details">
+            <p><strong>Purpose:</strong> Collect anonymous statistics about page visits, user behavior, and performance metrics.</p>
+            <p><strong>Examples:</strong> Google Analytics, usage patterns, error tracking.</p>
+          </div>
+        </div>
+
+        <!-- Advertising Cookies -->
+        <div class="cookie-category">
+          <div class="category-header">
+            <div class="category-info">
+              <div class="category-icon advertising">
+                <mat-icon aria-hidden="true">ads_click</mat-icon>
+              </div>
+              <div>
+                <h3 class="category-title">Advertising Cookies</h3>
+                <p class="category-description">
+                  Used to display relevant advertisements and support website operations.
+                </p>
+              </div>
+            </div>
+            <div class="toggle-wrapper">
+              <mat-slide-toggle
+                [checked]="advertisingCookies()"
+                (change)="toggleAdvertising()"
+                color="primary">
+              </mat-slide-toggle>
+              <span class="toggle-status" [class.enabled]="advertisingCookies()">
+                {{ advertisingCookies() ? 'Enabled' : 'Disabled' }}
+              </span>
+            </div>
+          </div>
+          <div class="category-details">
+            <p><strong>Purpose:</strong> Serve personalized ads based on your interests and measure ad campaign effectiveness.</p>
+            <p><strong>Examples:</strong> Google AdSense, ad personalization, conversion tracking.</p>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="cookie-summary">
+          <mat-icon aria-hidden="true">info</mat-icon>
+          <div>
+            <strong>Your Selection:</strong> {{ getCookieCount() }} out of 3 cookie categories enabled.
+            <br>
+            <small>You can change your preferences at any time by clicking the cookie icon in the footer.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button mat-button class="action-secondary" (click)="closeSettings()">
+          Cancel
+        </button>
+        <button mat-button class="action-secondary" (click)="acceptNecessary(); closeSettings()">
+          Necessary Only
+        </button>
+        <button mat-raised-button color="primary" class="action-primary" (click)="savePreferences()">
+          <mat-icon aria-hidden="true">save</mat-icon>
+          Save Preferences
+        </button>
+      </div>
+    </div>
+  </div>
+}

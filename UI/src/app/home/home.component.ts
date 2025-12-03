@@ -5,7 +5,9 @@ import { MaterialModules } from '../shared/material.standalone';
 import {
   BannerSectionComponent,
   StatCardComponent, 
-  FeatureCardComponent
+  FeatureCardComponent,
+  AdsenseComponent,
+  AdsenseConfig
 } from '../shared/components';
 import { MarketDataService } from '../services/market-data.service';
 import { 
@@ -29,7 +31,8 @@ import { takeUntil } from 'rxjs/operators';
     MaterialModules,
     BannerSectionComponent,
     StatCardComponent,
-    FeatureCardComponent
+    FeatureCardComponent,
+    AdsenseComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -38,6 +41,9 @@ import { takeUntil } from 'rxjs/operators';
 export class HomeComponent implements OnInit, OnDestroy {
   private marketDataService = inject(MarketDataService);
   private destroy$ = new Subject<void>();
+  
+  // AdSense Configuration
+  adsenseConfig = AdsenseConfig;
   
   currentSlide = signal(0);
   currentQuoteIndex = signal(0);
@@ -64,8 +70,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   bannerCards = [
     { icon: 'trending_up', label: 'Avg. Returns', value: '+18.2%' },
-    { icon: 'account_balance_wallet', label: 'Wealth Created', value: '₹2.4Cr+' },
-    { icon: 'groups', label: 'Happy Users', value: '25K+' }
+    { icon: 'account_balance_wallet', label: 'Tax Savings Identified', value: '₹10Cr+' },
+    { icon: 'groups', label: 'Happy Users', value: '10K+' }
   ];
 
   // Famous economist and investor quotes
@@ -252,9 +258,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   statistics: Statistic[] = [
-    { value: '25,000+', label: 'Active Users', icon: 'people' },
-    { value: '₹150Cr+', label: 'Wealth Managed', icon: 'account_balance_wallet' },
-    { value: '5L+', label: 'Calculations Done', icon: 'calculate' },
+    { value: '10,000+', label: 'Active Users', icon: 'people' },
+    { value: '₹10Cr+', label: 'Tax Savings Identified', icon: 'account_balance_wallet' },
+    { value: '80K+', label: 'Calculations Done', icon: 'calculate' },
     { value: '4.9★', label: 'User Rating', icon: 'star' },
   ];
 

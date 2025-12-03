@@ -9,6 +9,7 @@ import { NavItem } from './models/ui.models';
 import { BlogService } from './services/blog.service';
 import { BlogArticleMetadata } from './models/blog.models';
 import { filter, map } from 'rxjs/operators';
+import { CookieConsentComponent, BreadcrumbComponent } from './shared/components';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,9 @@ import { filter, map } from 'rxjs/operators';
     RouterModule,
     RouterLink,
     RouterLinkActive,
-    MaterialModules
+    MaterialModules,
+    CookieConsentComponent,
+    BreadcrumbComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -46,17 +49,6 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      label: 'Market Insights',
-      route: '/market-insights',
-      icon: 'insights'
-    },
-    {
-      label: 'Blog',
-      route: '/blog',
-      icon: 'article',
-      children: []
-    },
-    {
       label: 'Calculators',
       icon: 'calculate',
       children: [
@@ -64,6 +56,21 @@ export class AppComponent {
           label: 'Income Tax Calculator',
           route: '/income-tax-calculator',
           icon: 'account_balance_wallet'
+        },
+        {
+          label: 'Tax Slabs',
+          route: '/tax-slabs',
+          icon: 'receipt_long'
+        },
+        {
+          label: 'HRA Calculator',
+          route: '/hra-calculator',
+          icon: 'savings'
+        },
+        {
+          label: 'Gratuity Calculator',
+          route: '/gratuity-calculator',
+          icon: 'business_center'
         },
         {
           label: 'SIP Calculator',
@@ -74,15 +81,6 @@ export class AppComponent {
           label: 'PPF Calculator',
           route: '/ppf-calculator',
           icon: 'lock'
-        },{
-          label: 'HRA Calculator',
-          route: '/hra-calculator',
-          icon: 'savings'
-        },
-        {
-          label: 'Home Loan Calculator',
-          route: '/home-loan-calculator',
-          icon: 'home_work'
         },
         {
           label: 'NPS Calculator',
@@ -90,26 +88,48 @@ export class AppComponent {
           icon: 'elderly'
         },
         {
-          label: 'Gratuity Calculator',
-          route: '/gratuity-calculator',
-          icon: 'business_center'
+          label: 'Home Loan Calculator',
+          route: '/home-loan-calculator',
+          icon: 'home_work'
         }
       ]
     },
     {
-      label: 'Tax Slabs',
-      route: '/tax-slabs',
-      icon: 'receipt_long'
+      label: 'Market Insights',
+      route: '/market-insights',
+      icon: 'insights'
     },
     {
-      label: 'About Us',
-      route: '/about-us',
-      icon: 'info'
+      label: 'Resources',
+      icon: 'library_books',
+      children: [
+        {
+          label: 'Blog',
+          route: '/blog',
+          icon: 'article'
+        },
+        {
+          label: 'Financial Glossary',
+          route: '/glossary',
+          icon: 'menu_book'
+        }
+      ]
     },
     {
-      label: 'Contact',
-      route: '/contact',
-      icon: 'contact_mail'
+      label: 'About',
+      icon: 'info',
+      children: [
+        {
+          label: 'About Us',
+          route: '/about-us',
+          icon: 'info'
+        },
+        {
+          label: 'Contact',
+          route: '/contact',
+          icon: 'contact_mail'
+        }
+      ]
     }
   ];
 
@@ -160,14 +180,17 @@ export class AppComponent {
     this.blogService.getAllArticles().subscribe({
       next: (articles) => {
         this.recentArticles.set(articles.slice(0, 5));
-        // Update blog nav item with recent articles
-        const blogNavItem = this.navItems.find(item => item.label === 'Blog');
-        if (blogNavItem && blogNavItem.children) {
-          blogNavItem.children = this.recentArticles().map(article => ({
-            label: article.title.length > 40 ? article.title.substring(0, 40) + '...' : article.title,
-            route: `/blog/${article.slug}`,
-            icon: 'article'
-          }));
+        // Update Resources -> Blog nav item with recent articles
+        const resourcesNavItem = this.navItems.find(item => item.label === 'Resources');
+        if (resourcesNavItem && resourcesNavItem.children) {
+          const blogNavItem = resourcesNavItem.children.find(item => item.label === 'Blog');
+          if (blogNavItem) {
+            blogNavItem.children = this.recentArticles().map(article => ({
+              label: article.title.length > 40 ? article.title.substring(0, 40) + '...' : article.title,
+              route: `/blog/${article.slug}`,
+              icon: 'article'
+            }));
+          }
         }
       },
       error: (error) => {

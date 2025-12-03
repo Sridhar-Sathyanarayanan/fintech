@@ -13,5 +13,9 @@ export const environment = {
   marketPolling: {
     openInterval: 60000,
     closedInterval: 300000
+  },
+  adsense: {
+    enabled: true, // Enable ads in production
+    publisherId: 'ca-pub-XXXXXXXXXXXXXXXX' // Replace with your AdSense publisher ID
   }
 };

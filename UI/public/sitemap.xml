@@ -6,97 +6,111 @@
   <!-- Homepage -->
   <url>
     <loc>https://amkrtech.com/</loc>
-    <lastmod>2025-11-28</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Income Tax Calculator -->
+  <!-- Calculators -->
   <url>
     <loc>https://amkrtech.com/income-tax-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tax Slabs -->
   <url>
     <loc>https://amkrtech.com/tax-slabs</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
-  <!-- SIP Calculator -->
   <url>
     <loc>https://amkrtech.com/sip-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- PPF Calculator -->
   <url>
     <loc>https://amkrtech.com/ppf-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Home Loan Calculator -->
   <url>
     <loc>https://amkrtech.com/home-loan-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- NPS Calculator -->
   <url>
     <loc>https://amkrtech.com/nps-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- HRA Calculator -->
   <url>
     <loc>https://amkrtech.com/hra-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
-  <!-- Gratuity Calculator -->
   <url>
     <loc>https://amkrtech.com/gratuity-calculator</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Market Insights & Blog -->
+  <url>
+    <loc>https://amkrtech.com/market-insights</loc>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://amkrtech.com/blog</loc>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Company Pages -->
+  <url>
+    <loc>https://amkrtech.com/about-us</loc>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- About Us -->
-  <url>
-    <loc>https://amkrtech.com/about-us</loc>
-    <lastmod>2025-11-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <!-- Contact -->
   <url>
     <loc>https://amkrtech.com/contact</loc>
-    <lastmod>2025-11-28</lastmod>
+    <lastmod>2025-12-03</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://amkrtech.com/privacy-policy</loc>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>quarterly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Privacy Policy -->
   <url>
-    <loc>https://amkrtech.com/privacy</loc>
-    <lastmod>2025-11-28</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <loc>https://amkrtech.com/terms</loc>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>quarterly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>

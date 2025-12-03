@@ -1,0 +1,935 @@
+<!-- PROGRESS BAR -->
+<div class="scroll-progress" [style.width.%]="scrollProgress"></div>
+
+<!-- BANNER SECTION -->
+<app-banner-section
+  title="Terms of"
+  gradientText="Service"
+  subtitle="Please read these terms carefully before using our services. These legally binding terms govern your use of AMKRTech's financial calculators, tools, and services."
+  [badge]="'Last Updated: ' + lastUpdated"
+  badgeIcon="gavel"
+  [features]="termsFeatures"
+  [visualCards]="visualCards"
+  illustration="assets/images/terms.jpg">
+</app-banner-section>
+
+<!-- MAIN CONTENT -->
+<div class="tos-content">
+  <div class="tos-container">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="tos-sidebar">
+      <div class="sidebar-sticky">
+        <h3 class="sidebar-title">Quick Navigation</h3>
+        <nav class="sidebar-nav">
+          <button *ngFor="let section of tosSections" (click)="scrollToSection(section.id)"
+            [class.active]="isActiveSection(section.id)" class="nav-item" mat-button>
+            <mat-icon aria-hidden="true">{{ section.icon }}</mat-icon>
+            <span>{{ section.title }}</span>
+          </button>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MOBILE NAVIGATION -->
+    <div class="mobile-nav">
+      <h3 class="mobile-nav-title">Quick Navigation</h3>
+      <div class="mobile-nav-grid">
+        <button *ngFor="let section of tosSections" (click)="scrollToSection(section.id)"
+          [class.active]="isActiveSection(section.id)" class="mobile-nav-item" mat-button>
+          <mat-icon aria-hidden="true">{{ section.icon }}</mat-icon>
+          <span>{{ section.title }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <main class="tos-main">
+      <!-- KEY HIGHLIGHTS -->
+      <div class="highlight-cards">
+        <div class="highlight-card">
+          <div class="highlight-icon primary">
+            <mat-icon aria-hidden="true">account_balance</mat-icon>
+          </div>
+          <h3>13 Comprehensive Sections</h3>
+          <p>Detailed coverage of all aspects of service usage</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon accent">
+            <mat-icon aria-hidden="true">verified_user</mat-icon>
+          </div>
+          <h3>User Rights Protected</h3>
+          <p>Clear guidelines on data protection and privacy</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon warn">
+            <mat-icon aria-hidden="true">policy</mat-icon>
+          </div>
+          <h3>Legal Compliance</h3>
+          <p>Governed by Indian laws with proper jurisdiction</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon success">
+            <mat-icon aria-hidden="true">update</mat-icon>
+          </div>
+          <h3>Regularly Updated</h3>
+          <p>Terms reviewed and updated to reflect current practices</p>
+        </div>
+      </div>
+
+      <!-- ACCEPTANCE OF TERMS -->
+      <section id="acceptance" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon aria-hidden="true">check_circle</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Acceptance of Terms</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              Welcome to AMKRTech ("we," "us," "our"). These Terms of Service ("Terms") govern your access to and use of our website, 
+              mobile applications, and services (collectively, the "Service"). By accessing or using the Service, you agree to be bound 
+              by these Terms.
+            </p>
+            <p class="section-text">
+              <strong>Effective Date:</strong> {{ effectiveDate }}
+            </p>
+            <p class="section-text">
+              If you do not agree to these Terms, please do not use our Service. Your continued use of the Service following the posting 
+              of any changes to these Terms constitutes acceptance of those changes.
+            </p>
+
+            <div class="alert-box info">
+              <mat-icon aria-hidden="true">info</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Important Notice</h4>
+                <p class="alert-text">
+                  By using AMKRTech, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service 
+                  and our Privacy Policy. If you are using the Service on behalf of an organization, you represent that you have the 
+                  authority to bind that organization to these Terms.
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- SERVICE DESCRIPTION -->
+      <section id="description" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon aria-hidden="true">description</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Service Description</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              AMKRTech provides online financial calculators, tools, and educational content related to:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span><strong>Tax Calculators:</strong> Income tax, HRA, gratuity, and tax slab calculators</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span><strong>Investment Calculators:</strong> SIP, PPF, NPS return calculators</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span><strong>Loan Calculators:</strong> Home loan EMI and amortization calculators</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span><strong>Market Insights:</strong> Real-time market data, indices, and financial news</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span><strong>Educational Content:</strong> Blog articles, guides, and financial literacy resources</span>
+              </li>
+            </ul>
+
+            <div class="alert-box warning">
+              <mat-icon aria-hidden="true">warning</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Not Financial Advice</h4>
+                <p class="alert-text">
+                  <strong>The Service is for informational and educational purposes only.</strong> AMKRTech does not provide financial, 
+                  investment, tax, or legal advice. All calculations, data, and information provided should not be considered as 
+                  professional advice. You should consult with qualified financial advisors, tax professionals, or legal counsel before 
+                  making any financial decisions.
+                </p>
+              </div>
+            </div>
+
+            <p class="section-text">
+              Our Service performs calculations based on the data you provide. We strive for accuracy but make no warranties regarding 
+              the completeness, reliability, or accuracy of calculations or information provided.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- USER ACCOUNTS -->
+      <section id="user-accounts" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon aria-hidden="true">account_circle</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">User Accounts</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              Currently, most features of AMKRTech are available without creating an account. However, certain features may require 
+              account registration in the future.
+            </p>
+
+            <h3 class="subsection-title">Account Creation (If Applicable)</h3>
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>You must provide accurate, complete, and current information</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>You are responsible for maintaining the confidentiality of your account credentials</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>You must be at least 18 years old to create an account</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>You are responsible for all activities that occur under your account</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>You must notify us immediately of any unauthorized use of your account</span>
+              </li>
+            </ul>
+
+            <h3 class="subsection-title">Account Termination</h3>
+            <p class="section-text">
+              We reserve the right to suspend or terminate your account at any time, with or without notice, for violating these Terms 
+              or for any other reason we deem appropriate.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- USER RESPONSIBILITIES -->
+      <section id="user-responsibilities" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon aria-hidden="true">assignment</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">User Responsibilities</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              As a user of AMKRTech, you agree to:
+            </p>
+
+            <div class="responsibility-grid">
+              <div class="responsibility-card">
+                <mat-icon class="responsibility-icon">verified</mat-icon>
+                <h4>Accurate Information</h4>
+                <p>Provide accurate and truthful information when using our calculators and tools</p>
+              </div>
+
+              <div class="responsibility-card">
+                <mat-icon class="responsibility-icon">gavel</mat-icon>
+                <h4>Comply with Laws</h4>
+                <p>Use the Service in compliance with all applicable local, state, national, and international laws</p>
+              </div>
+
+              <div class="responsibility-card">
+                <mat-icon class="responsibility-icon">security</mat-icon>
+                <h4>Secure Access</h4>
+                <p>Maintain the security and confidentiality of your account credentials (if applicable)</p>
+              </div>
+
+              <div class="responsibility-card">
+                <mat-icon class="responsibility-icon">contact_support</mat-icon>
+                <h4>Report Issues</h4>
+                <p>Notify us of any bugs, errors, or security vulnerabilities you discover</p>
+              </div>
+
+              <div class="responsibility-card">
+                <mat-icon class="responsibility-icon">school</mat-icon>
+                <h4>Understand Limitations</h4>
+                <p>Recognize that our tools are for educational purposes and not professional advice</p>
+              </div>
+
+              <div class="responsibility-card">
+                <mat-icon class="responsibility-icon">policy</mat-icon>
+                <h4>Respect Rights</h4>
+                <p>Respect the intellectual property rights of AMKRTech and third parties</p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- PROHIBITED USES -->
+      <section id="prohibited-uses" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper warn">
+              <mat-icon aria-hidden="true">block</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Prohibited Uses</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              You agree <strong>NOT</strong> to use the Service for any of the following purposes:
+            </p>
+
+            <div class="prohibited-list">
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Illegal Activities</h4>
+                  <p>Using the Service for any unlawful purpose or in violation of any applicable laws or regulations</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Unauthorized Access</h4>
+                  <p>Attempting to gain unauthorized access to any portion of the Service, other accounts, or computer systems</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Data Scraping</h4>
+                  <p>Using automated systems (bots, scrapers, crawlers) to access or collect data from the Service</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Reverse Engineering</h4>
+                  <p>Reverse engineering, decompiling, or disassembling any part of the Service</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Malicious Code</h4>
+                  <p>Transmitting viruses, malware, or any other malicious code or harmful content</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Service Disruption</h4>
+                  <p>Interfering with or disrupting the Service or servers/networks connected to the Service</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Impersonation</h4>
+                  <p>Impersonating any person or entity, or falsely stating or misrepresenting your affiliation</p>
+                </div>
+              </div>
+
+              <div class="prohibited-item">
+                <mat-icon class="prohibited-icon">close</mat-icon>
+                <div class="prohibited-content">
+                  <h4>Fraudulent Activity</h4>
+                  <p>Engaging in any fraudulent, abusive, or otherwise illegal activity</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert-box warning">
+              <mat-icon aria-hidden="true">report</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Consequences of Violation</h4>
+                <p class="alert-text">
+                  Violation of these prohibited uses may result in immediate termination of your access to the Service, legal action, 
+                  and reporting to appropriate law enforcement authorities.
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- INTELLECTUAL PROPERTY -->
+      <section id="intellectual-property" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon aria-hidden="true">copyright</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Intellectual Property Rights</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <h3 class="subsection-title">Our Content</h3>
+            <p class="section-text">
+              The Service and its original content, features, and functionality are owned by AMKRTech and are protected by international 
+              copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
+            </p>
+
+            <p class="section-text">
+              This includes but is not limited to:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Website design, layout, and visual elements</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Calculator algorithms and formulas</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Software code and architecture</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Text content, blog articles, and educational materials</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Graphics, logos, icons, and images</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Trademarks and service marks</span>
+              </li>
+            </ul>
+
+            <h3 class="subsection-title">Limited License</h3>
+            <p class="section-text">
+              We grant you a limited, non-exclusive, non-transferable, revocable license to access and use the Service for personal, 
+              non-commercial purposes. This license does not include any right to:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>close</mat-icon>
+                <span>Resell or make commercial use of the Service</span>
+              </li>
+              <li>
+                <mat-icon>close</mat-icon>
+                <span>Collect and use product listings or descriptions</span>
+              </li>
+              <li>
+                <mat-icon>close</mat-icon>
+                <span>Make derivative works based on the Service</span>
+              </li>
+              <li>
+                <mat-icon>close</mat-icon>
+                <span>Download or copy account information for others</span>
+              </li>
+              <li>
+                <mat-icon>close</mat-icon>
+                <span>Use data mining, robots, or similar data gathering tools</span>
+              </li>
+            </ul>
+
+            <h3 class="subsection-title">Third-Party Content</h3>
+            <p class="section-text">
+              Market data, financial information, and certain content on the Service are provided by third-party sources. We do not 
+              claim ownership of this third-party content and it remains the property of the respective owners.
+            </p>
+
+            <div class="alert-box info">
+              <mat-icon aria-hidden="true">copyright</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Copyright Infringement</h4>
+                <p class="alert-text">
+                  If you believe any content on our Service infringes your copyright, please contact us at 
+                  <a href="mailto:support@amkrtech.com">support&#64;amkrtech.com</a> with detailed information about the alleged 
+                  infringement.
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- DISCLAIMERS -->
+      <section id="disclaimers" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper warn">
+              <mat-icon aria-hidden="true">warning</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Disclaimers</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <div class="alert-box warning">
+              <mat-icon aria-hidden="true">warning</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Read Carefully</h4>
+                <p class="alert-text">
+                  <strong>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</strong>
+                </p>
+              </div>
+            </div>
+
+            <h3 class="subsection-title">No Warranty</h3>
+            <p class="section-text">
+              AMKRTech disclaims all warranties, express or implied, including but not limited to:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Warranties of merchantability and fitness for a particular purpose</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Warranties of title and non-infringement</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Warranties that the Service will be uninterrupted, secure, or error-free</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Warranties regarding the accuracy, reliability, or completeness of information</span>
+              </li>
+            </ul>
+
+            <h3 class="subsection-title">Financial Calculations Disclaimer</h3>
+            <p class="section-text">
+              All financial calculators and tools provided on the Service are for <strong>informational and educational purposes only</strong>. 
+              The results are estimates based on the data you provide and should not be relied upon as accurate predictions of actual 
+              financial outcomes.
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>error</mat-icon>
+                <span>Tax calculations may not reflect your complete tax situation</span>
+              </li>
+              <li>
+                <mat-icon>error</mat-icon>
+                <span>Investment return projections are hypothetical and not guaranteed</span>
+              </li>
+              <li>
+                <mat-icon>error</mat-icon>
+                <span>Loan calculations may differ from actual lender terms</span>
+              </li>
+              <li>
+                <mat-icon>error</mat-icon>
+                <span>Laws, regulations, and rates are subject to change</span>
+              </li>
+            </ul>
+
+            <h3 class="subsection-title">Market Data Disclaimer</h3>
+            <p class="section-text">
+              Market data displayed on the Service is sourced from third-party providers and may be delayed, inaccurate, or incomplete. 
+              We make no representations or warranties regarding the accuracy or timeliness of market data. This data is for informational 
+              purposes only and should not be used as the sole basis for investment decisions.
+            </p>
+
+            <h3 class="subsection-title">No Professional Advice</h3>
+            <p class="section-text">
+              <strong>AMKRTech does not provide financial, investment, tax, or legal advice.</strong> The Service is not a substitute 
+              for professional advice from qualified financial advisors, certified public accountants, tax professionals, or attorneys. 
+              Always consult with appropriate professionals before making financial decisions.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- LIMITATION OF LIABILITY -->
+      <section id="limitation-liability" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon aria-hidden="true">shield</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Limitation of Liability</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <div class="alert-box warning">
+              <mat-icon aria-hidden="true">report_problem</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Important Legal Notice</h4>
+                <p class="alert-text">
+                  <strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, AMKRTech SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, 
+                  SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES.</strong>
+                </p>
+              </div>
+            </div>
+
+            <p class="section-text">
+              This includes, but is not limited to, damages or losses resulting from:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Use or inability to use the Service</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Reliance on any calculations, data, or information provided</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Errors, inaccuracies, or omissions in content or data</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Financial losses or poor investment decisions</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Unauthorized access to your account or data</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Service interruptions or downtime</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Third-party actions or content</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Any other matter relating to the Service</span>
+              </li>
+            </ul>
+
+            <p class="section-text">
+              <strong>In no event shall AMKRTech's total liability to you for all damages exceed the amount of ₹1,000 (One Thousand 
+              Indian Rupees) or the amount you paid to us in the past 12 months (if any), whichever is greater.</strong>
+            </p>
+
+            <p class="section-text">
+              Some jurisdictions do not allow the exclusion or limitation of certain damages. In such jurisdictions, our liability will 
+              be limited to the greatest extent permitted by law.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- INDEMNIFICATION -->
+      <section id="indemnification" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon aria-hidden="true">security</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Indemnification</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text">
+              You agree to indemnify, defend, and hold harmless AMKRTech, its affiliates, officers, directors, employees, agents, 
+              licensors, and suppliers from and against all claims, losses, expenses, damages, and costs, including reasonable attorneys' 
+              fees, arising out of or relating to:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Your use or misuse of the Service</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Your violation of these Terms</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Your violation of any rights of another person or entity</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Your violation of any applicable laws or regulations</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Any content you submit or transmit through the Service</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Any financial decisions you make based on the Service</span>
+              </li>
+            </ul>
+
+            <p class="section-text">
+              We reserve the right to assume the exclusive defense and control of any matter subject to indemnification by you, and you 
+              agree to cooperate with our defense of such claims.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- MODIFICATIONS TO SERVICE -->
+      <section id="modifications" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper accent">
+              <mat-icon aria-hidden="true">edit</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Modifications to Service and Terms</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <h3 class="subsection-title">Service Modifications</h3>
+            <p class="section-text">
+              We reserve the right to modify, suspend, or discontinue the Service (or any part thereof) at any time, with or without 
+              notice, for any reason. We will not be liable to you or any third party for any modification, suspension, or discontinuation 
+              of the Service.
+            </p>
+
+            <h3 class="subsection-title">Terms Modifications</h3>
+            <p class="section-text">
+              We may revise and update these Terms from time to time at our sole discretion. All changes are effective immediately when 
+              posted and apply to all access to and use of the Service thereafter.
+            </p>
+
+            <p class="section-text">
+              Your continued use of the Service following the posting of revised Terms means that you accept and agree to the changes. 
+              You are expected to check this page regularly so you are aware of any changes.
+            </p>
+
+            <div class="alert-box info">
+              <mat-icon aria-hidden="true">notifications</mat-icon>
+              <div class="alert-content">
+                <h4 class="alert-title">Stay Informed</h4>
+                <p class="alert-text">
+                  We will indicate at the top of this page the date these Terms were last updated. Material changes to these Terms will 
+                  be notified to registered users via email or through a notice on our website.
+                </p>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- TERMINATION -->
+      <section id="termination" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper warn">
+              <mat-icon aria-hidden="true">cancel</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Termination</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <h3 class="subsection-title">Termination by Us</h3>
+            <p class="section-text">
+              We may terminate or suspend your access to the Service immediately, without prior notice or liability, for any reason, 
+              including without limitation if you breach these Terms.
+            </p>
+
+            <h3 class="subsection-title">Termination by You</h3>
+            <p class="section-text">
+              You may terminate your use of the Service at any time by discontinuing your access to the Service. If you have an account, 
+              you may request account deletion by contacting us.
+            </p>
+
+            <h3 class="subsection-title">Effect of Termination</h3>
+            <p class="section-text">
+              Upon termination:
+            </p>
+
+            <ul class="feature-list">
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>Your right to use the Service will immediately cease</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>We may delete your account and data (subject to legal retention requirements)</span>
+              </li>
+              <li>
+                <mat-icon>chevron_right</mat-icon>
+                <span>All provisions of these Terms that should survive termination shall survive, including disclaimers, limitations of 
+                liability, and indemnification provisions</span>
+              </li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- GOVERNING LAW -->
+      <section id="governing-law" class="tos-section">
+        <mat-card class="section-card">
+          <div class="section-header">
+            <div class="icon-wrapper primary">
+              <mat-icon aria-hidden="true">gavel</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title">Governing Law and Jurisdiction</h2>
+              <div class="title-underline"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <h3 class="subsection-title">Applicable Law</h3>
+            <p class="section-text">
+              These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of 
+              law principles.
+            </p>
+
+            <h3 class="subsection-title">Jurisdiction</h3>
+            <p class="section-text">
+              Any disputes arising out of or relating to these Terms or the Service shall be subject to the exclusive jurisdiction of 
+              the courts located in India. You agree to submit to the personal jurisdiction of such courts.
+            </p>
+
+            <h3 class="subsection-title">Dispute Resolution</h3>
+            <p class="section-text">
+              In the event of any dispute, claim, or controversy arising from or relating to these Terms or the Service, the parties 
+              agree to first attempt to resolve the dispute through good faith negotiations. If negotiations fail, the dispute may be 
+              resolved through arbitration or litigation as per applicable laws.
+            </p>
+
+            <h3 class="subsection-title">Waiver and Severability</h3>
+            <p class="section-text">
+              No waiver by AMKRTech of any term or condition set forth in these Terms shall be deemed a further or continuing waiver of 
+              such term or condition. If any provision of these Terms is held to be invalid or unenforceable, the remaining provisions 
+              will continue in full force and effect.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="tos-section">
+        <mat-card class="section-card contact-card">
+          <div class="section-header">
+            <div class="icon-wrapper light">
+              <mat-icon aria-hidden="true">contact_support</mat-icon>
+            </div>
+            <div class="header-content">
+              <h2 class="section-title light">Contact Information</h2>
+              <div class="title-underline light"></div>
+            </div>
+          </div>
+          <mat-card-content>
+            <p class="section-text light">
+              If you have any questions about these Terms of Service, please contact us:
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <mat-icon aria-hidden="true">business</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Company Name</h4>
+                  <p class="contact-value">AMKRTech</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <mat-icon aria-hidden="true">mail</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Email Address</h4>
+                  <p class="contact-value">
+                    <a href="mailto:support@amkrtech.com">support&#64;amkrtech.com</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <mat-icon aria-hidden="true">location_on</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Location</h4>
+                  <p class="contact-value">India</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <mat-icon aria-hidden="true">language</mat-icon>
+                <div class="contact-content">
+                  <h4 class="contact-label">Website</h4>
+                  <p class="contact-value">
+                    <a href="https://amkrtech.com">https://amkrtech.com</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <button mat-raised-button color="accent" routerLink="/contact" class="contact-button">
+                <mat-icon aria-hidden="true">mail</mat-icon>
+                Contact Us
+              </button>
+              <button mat-button class="contact-button-outline" routerLink="/privacy-policy">
+                <mat-icon aria-hidden="true">privacy_tip</mat-icon>
+                View Privacy Policy
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2>Ready to Use Our Financial Tools?</h2>
+      <p>
+        By using AMKRTech, you agree to these Terms of Service. Start calculating now!
+      </p>
+      <div class="cta-buttons">
+        <button mat-raised-button color="primary" class="cta-button-large" routerLink="/income-tax-calculator">
+          <mat-icon aria-hidden="true">calculate</mat-icon>
+          Start Calculating
+        </button>
+        <button mat-button class="cta-button-secondary" routerLink="/">
+          <mat-icon aria-hidden="true">home</mat-icon>
+          Back to Home
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

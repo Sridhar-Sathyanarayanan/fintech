@@ -20,6 +20,7 @@ import { MaterialModules } from '../../shared/material.standalone';
 import { TaxBreakdown } from '../../models/calculator.models';
 import { OldRegimeSlabsByYear, NewRegimeSlabsByYear, OldRegimeSlabs } from '../../models/chart.models';
 import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../../shared/components/banner-section/banner-section.component';
+// import { AdsenseComponent, AdsenseConfig } from '../../shared/components'; // Uncomment when adding ads to template
 
 interface ComparisonChartData {
   label: string;
@@ -36,6 +37,9 @@ interface ComparisonChartData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaxCalculatorComponent implements OnInit {
+  // Uncomment when adding ads to template:
+  // adsenseConfig = AdsenseConfig;
+  
   readonly bannerFeatures: BannerFeature[] = [
     { icon: 'verified', label: '100% Accurate' },
     { icon: 'speed', label: 'Instant Results' },

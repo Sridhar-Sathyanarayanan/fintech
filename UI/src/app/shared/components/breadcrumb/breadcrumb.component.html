@@ -1,0 +1,34 @@
+@if (breadcrumbs().length > 0) {
+<nav class="breadcrumb-container" aria-label="Breadcrumb">
+  <ol class="breadcrumb-list">
+    <li class="breadcrumb-item">
+      <a routerLink="/" class="breadcrumb-link home-link" aria-label="Home">
+        <mat-icon>home</mat-icon>
+        <span class="breadcrumb-text">Home</span>
+      </a>
+      <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+    </li>
+
+    @for (breadcrumb of breadcrumbs(); track breadcrumb.url; let i = $index) {
+    <li class="breadcrumb-item" [class.active]="isLastBreadcrumb(i)">
+      @if (!isLastBreadcrumb(i)) {
+        <a [routerLink]="breadcrumb.url" class="breadcrumb-link">
+          @if (breadcrumb.icon) {
+            <mat-icon>{{ breadcrumb.icon }}</mat-icon>
+          }
+          <span class="breadcrumb-text">{{ breadcrumb.label }}</span>
+        </a>
+        <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+      } @else {
+        <span class="breadcrumb-current">
+          @if (breadcrumb.icon) {
+            <mat-icon>{{ breadcrumb.icon }}</mat-icon>
+          }
+          <span class="breadcrumb-text">{{ breadcrumb.label }}</span>
+        </span>
+      }
+    </li>
+    }
+  </ol>
+</nav>
+}

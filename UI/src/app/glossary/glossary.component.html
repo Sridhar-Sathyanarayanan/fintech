@@ -1,0 +1,217 @@
+<!-- PROGRESS BAR -->
+<div class="scroll-progress" [style.width.%]="scrollProgress"></div>
+
+<!-- BANNER SECTION -->
+<app-banner-section
+  title="Financial"
+  gradientText="Glossary"
+  subtitle="Your comprehensive guide to financial terms and concepts. Browse through 100+ carefully curated definitions covering taxes, investments, loans, retirement planning, insurance, and more."
+  badge="100+ Financial Terms"
+  badgeIcon="menu_book"
+  [features]="glossaryFeatures"
+  [visualCards]="visualCards"
+  illustration="assets/images/glossary.jpg">
+</app-banner-section>
+
+<!-- MAIN CONTENT -->
+<div class="glossary-content">
+  <div class="glossary-container">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="glossary-sidebar">
+      <div class="sidebar-sticky">
+        <h3 class="sidebar-title">Categories</h3>
+        
+        <!-- SEARCH BOX -->
+        <div class="search-box">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input 
+            type="text" 
+            placeholder="Search terms..." 
+            class="search-input"
+            (input)="onSearchChange($any($event.target).value)"
+            [value]="searchQuery">
+        </div>
+
+        <nav class="sidebar-nav">
+          <button 
+            *ngFor="let category of categories" 
+            (click)="scrollToCategory(category.id)"
+            [class.active]="isActiveCategory(category.id)" 
+            class="nav-item" 
+            mat-button>
+            <mat-icon aria-hidden="true">{{ category.icon }}</mat-icon>
+            <span class="nav-text">
+              <span class="nav-title">{{ category.title }}</span>
+              <span class="nav-count">{{ getCategoryCount(category.id) }} terms</span>
+            </span>
+          </button>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- MOBILE NAVIGATION -->
+    <div class="mobile-nav">
+      <h3 class="mobile-nav-title">Categories</h3>
+      
+      <!-- MOBILE SEARCH -->
+      <div class="search-box mobile-search">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input 
+          type="text" 
+          placeholder="Search terms..." 
+          class="search-input"
+          (input)="onSearchChange($any($event.target).value)"
+          [value]="searchQuery">
+      </div>
+
+      <div class="mobile-nav-grid">
+        <button 
+          *ngFor="let category of categories" 
+          (click)="scrollToCategory(category.id)"
+          [class.active]="isActiveCategory(category.id)" 
+          class="mobile-nav-item" 
+          mat-button>
+          <mat-icon aria-hidden="true">{{ category.icon }}</mat-icon>
+          <span>{{ category.title }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="glossary-main">
+      <!-- SEARCH RESULTS MESSAGE -->
+      <div *ngIf="searchQuery" class="search-results-info">
+        <mat-icon>info</mat-icon>
+        <span>Found {{ filteredTerms.length }} term(s) matching "{{ searchQuery }}"</span>
+        <button mat-button (click)="onSearchChange('')" class="clear-search">
+          <mat-icon>close</mat-icon>
+          Clear
+        </button>
+      </div>
+
+      <!-- INTRO SECTION -->
+      <section class="intro-section" *ngIf="!searchQuery">
+        <mat-card class="intro-card">
+          <mat-card-content>
+            <div class="intro-header">
+              <mat-icon class="intro-icon">lightbulb</mat-icon>
+              <h2>Understanding Financial Terminology</h2>
+            </div>
+            <p class="intro-text">
+              Financial literacy begins with understanding the language of finance. This glossary provides clear, 
+              concise definitions of essential financial terms used in everyday financial planning, investing, and 
+              decision-making. Whether you're filing taxes, planning retirement, or investing in markets, these 
+              definitions will help you make informed financial decisions.
+            </p>
+            <div class="intro-stats">
+              <div class="stat-item">
+                <div class="stat-value">{{ glossaryTerms.length }}+</div>
+                <div class="stat-label">Total Terms</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">{{ categories.length }}</div>
+                <div class="stat-label">Categories</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">India-Focused</div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <!-- CATEGORY SECTIONS -->
+      <ng-container *ngFor="let category of categories">
+        <section 
+          *ngIf="getTermsByCategory(category.id).length > 0"
+          [id]="category.id" 
+          class="category-section">
+          <mat-card class="category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper">
+                <mat-icon aria-hidden="true">{{ category.icon }}</mat-icon>
+              </div>
+              <div class="category-header-content">
+                <h2 class="category-title">{{ category.title }}</h2>
+                <p class="category-description">{{ category.description }}</p>
+                <div class="category-count">{{ getTermsByCategory(category.id).length }} terms in this category</div>
+              </div>
+            </div>
+
+            <mat-card-content>
+              <div class="terms-grid">
+                <div *ngFor="let term of getTermsByCategory(category.id)" class="term-card">
+                  <div class="term-header">
+                    <h3 class="term-title">{{ term.term }}</h3>
+                    <mat-icon class="term-bookmark">bookmark_border</mat-icon>
+                  </div>
+                  
+                  <p class="term-definition">{{ term.definition }}</p>
+                  
+                  <div *ngIf="term.example" class="term-example">
+                    <div class="example-label">
+                      <mat-icon>tips_and_updates</mat-icon>
+                      <strong>Example:</strong>
+                    </div>
+                    <p>{{ term.example }}</p>
+                  </div>
+
+                  <div *ngIf="term.relatedTerms && term.relatedTerms.length > 0" class="related-terms">
+                    <div class="related-label">
+                      <mat-icon>link</mat-icon>
+                      <span>Related:</span>
+                    </div>
+                    <div class="related-tags">
+                      <span *ngFor="let relatedTerm of term.relatedTerms" class="related-tag">
+                        {{ relatedTerm }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </section>
+      </ng-container>
+
+      <!-- NO RESULTS -->
+      <div *ngIf="searchQuery && filteredTerms.length === 0" class="no-results">
+        <mat-icon>search_off</mat-icon>
+        <h3>No terms found</h3>
+        <p>Try searching with different keywords or browse by category.</p>
+        <button mat-raised-button color="primary" (click)="onSearchChange('')">
+          Clear Search
+        </button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <mat-icon class="cta-icon">calculate</mat-icon>
+      <h2>Ready to Apply Your Knowledge?</h2>
+      <p>
+        Now that you understand the terms, put them to use with our free financial calculators. 
+        Calculate taxes, plan investments, and make informed financial decisions.
+      </p>
+      <div class="cta-buttons">
+        <button mat-raised-button color="primary" class="cta-button-large" routerLink="/income-tax-calculator">
+          <mat-icon aria-hidden="true">calculate</mat-icon>
+          Try Tax Calculator
+        </button>
+        <button mat-raised-button color="accent" class="cta-button-large" routerLink="/sip-calculator">
+          <mat-icon aria-hidden="true">trending_up</mat-icon>
+          Try SIP Calculator
+        </button>
+        <button mat-button class="cta-button-secondary" routerLink="/">
+          <mat-icon aria-hidden="true">home</mat-icon>
+          Explore All Tools
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

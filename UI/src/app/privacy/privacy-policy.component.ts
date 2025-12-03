@@ -54,8 +54,10 @@ export class PrivacyPolicyComponent implements OnInit {
       icon: 'settings',
     },
     { id: 'data-security', title: 'Data Security', icon: 'lock' },
+    { id: 'advertising', title: 'Advertising & Third-Party Services', icon: 'ads_click' },
     { id: 'your-rights', title: 'Your Rights', icon: 'verified_user' },
     { id: 'cookies', title: 'Cookies & Tracking', icon: 'cookie' },
+    { id: 'data-sources', title: 'Data Source Attribution', icon: 'source' },
     { id: 'market-data', title: 'Market Data Disclaimer', icon: 'trending_up' },
     { id: 'contact', title: 'Contact Us', icon: 'contact_support' },
   ];
@@ -188,8 +190,21 @@ export class PrivacyPolicyComponent implements OnInit {
   cookieInfo: CookieInfo[] = [
     {
       title: 'Current Cookie Usage',
-      desc: 'AMKRTech does NOT use cookies for tracking, analytics, or advertising. Our website operates entirely on client-side calculations without storing any personal information on your device. All tax calculations and financial projections happen locally in your browser.',
+      desc: 'AMKRTech uses Google AdSense to display advertisements on our website. This service uses cookies and similar technologies to show you relevant ads based on your browsing activity. Our financial calculators and tools operate entirely on client-side calculations without storing personal calculation data.',
       type: 'info',
+    },
+    {
+      title: 'Google AdSense Cookies',
+      desc: 'Google AdSense uses cookies to serve ads based on your prior visits to our website or other websites. Google\'s use of advertising cookies enables it and its partners to serve ads based on your visit to AMKRTech and/or other sites on the Internet. These cookies:',
+      items: [
+        'Personalize ad content based on your interests and browsing behavior',
+        'Measure ad effectiveness and user engagement with advertisements',
+        'Help prevent the same ads from being shown repeatedly',
+        'Enable frequency capping (limiting how often you see specific ads)',
+        'Track conversions and campaign performance for advertisers',
+        'Provide aggregated reports to Google and advertisers',
+      ],
+      type: 'analytics',
     },
     {
       title: 'Technical Infrastructure Cookies',
@@ -203,8 +218,8 @@ export class PrivacyPolicyComponent implements OnInit {
       type: 'info',
     },
     {
-      title: 'Planned Analytics & Tracking',
-      desc: 'We may implement analytics tools through AWS services (such as CloudWatch RUM, Pinpoint, or similar) and/or third-party platforms (Google Analytics, etc.) to better understand user behavior and improve our services. If implemented, we will:',
+      title: 'Analytics & Tracking',
+      desc: 'We use Google AdSense for advertising, and we may implement additional analytics tools through AWS services (such as CloudWatch RUM, Pinpoint) and/or third-party platforms (Google Analytics) to better understand user behavior and improve our services. We:',
       items: [
         'Display a clear cookie consent banner before collecting any analytics data',
         'Collect usage statistics: page views, session duration, feature usage, navigation patterns',
@@ -232,13 +247,14 @@ export class PrivacyPolicyComponent implements OnInit {
     },
     {
       title: 'Your Control & Consent',
-      desc: 'Currently, only technical cookies from AWS infrastructure are used (no tracking). When we implement analytics, you will receive a prominent consent banner with granular controls. You will be able to:',
+      desc: 'You have full control over how cookies and ads work on our website. You can manage your preferences through:',
       items: [
-        'Accept or reject non-essential cookies individually',
-        'Change your preferences at any time through our cookie settings',
-        'Use browser settings to block or delete cookies',
-        'Opt out of analytics while still using all calculator features',
-        'Request deletion of any collected analytics data',
+        'Google Ad Settings: Visit https://www.google.com/settings/ads to customize ad preferences',
+        'Opt-out of personalized advertising: Use https://www.aboutads.info/ or https://www.youronlinechoices.eu/',
+        'Browser cookie settings: Block or delete cookies through your browser preferences',
+        'Cookie consent banner: Manage your cookie preferences through our consent interface',
+        'Do Not Track signals: We honor browser Do Not Track requests where applicable',
+        'NAI opt-out: Visit http://optout.networkadvertising.org/ to opt out of interest-based advertising',
       ],
       type: 'manage',
     },
