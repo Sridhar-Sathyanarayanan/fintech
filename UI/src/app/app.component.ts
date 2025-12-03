@@ -6,6 +6,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MaterialModules } from './shared/material.standalone';
 import { SEOService } from './shared/seo.service';
 import { NavItem } from './models/ui.models';
+import { BlogService } from './services/blog.service';
+import { BlogArticleMetadata } from './models/blog.models';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
@@ -29,11 +31,13 @@ export class AppComponent {
   private seoService = inject(SEOService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
+  private blogService = inject(BlogService);
   
   title = 'tax-calculator';
   isMobile = signal(false);
   isScrolled = signal(false);
   showScrollTop = signal(false);
+  recentArticles = signal<BlogArticleMetadata[]>([]);
 
   navItems: NavItem[] = [
     {
@@ -49,7 +53,8 @@ export class AppComponent {
     {
       label: 'Blog',
       route: '/blog',
-      icon: 'article'
+      icon: 'article',
+      children: []
     },
     {
       label: 'Calculators',
@@ -109,6 +114,9 @@ export class AppComponent {
   ];
 
   constructor() {
+    // Load recent articles for blog menu
+    this.loadRecentArticles();
+
     // Monitor screen size
     this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.TabletPortrait])
@@ -146,6 +154,26 @@ export class AppComponent {
           });
         }
       });
+  }
+
+  private loadRecentArticles(): void {
+    this.blogService.getAllArticles().subscribe({
+      next: (articles) => {
+        this.recentArticles.set(articles.slice(0, 5));
+        // Update blog nav item with recent articles
+        const blogNavItem = this.navItems.find(item => item.label === 'Blog');
+        if (blogNavItem && blogNavItem.children) {
+          blogNavItem.children = this.recentArticles().map(article => ({
+            label: article.title.length > 40 ? article.title.substring(0, 40) + '...' : article.title,
+            route: `/blog/${article.slug}`,
+            icon: 'article'
+          }));
+        }
+      },
+      error: (error) => {
+        console.error('Error loading articles for menu:', error);
+      }
+    });
   }
 
   toggleSidenav(): void {

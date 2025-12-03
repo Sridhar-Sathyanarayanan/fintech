@@ -116,35 +116,44 @@
 <!-- ECONOMIC INDICATORS -->
 <section class="economic-indicators">
   <div class="indicators-container">
-    <div class="section-header">
-      <h2 class="section-title">Economic Overview</h2>
-      <p class="section-subtitle">Key indicators for investment decisions</p>
-    </div>
-    <div class="indicators-grid">
-      @for (indicator of economicIndicators; track indicator.label) {
-        <mat-card class="indicator-card">
-          <div class="indicator-icon-wrapper" [ngClass]="indicator.color">
-            <mat-icon aria-hidden="true">{{ indicator.icon }}</mat-icon>
-          </div>
-          <div class="indicator-content">
-            <div class="indicator-label">{{ indicator.label }}</div>
-            <div class="indicator-value">{{ indicator.value }}</div>
-            <div class="indicator-trend" [ngClass]="indicator.trend">
-              @if (indicator.trend === 'up') {
-                <mat-icon aria-hidden="true">arrow_upward</mat-icon>
-                <span>Increasing</span>
-              } @else if (indicator.trend === 'down') {
-                <mat-icon aria-hidden="true">arrow_downward</mat-icon>
-                <span>Decreasing</span>
-              } @else {
-                <mat-icon aria-hidden="true">trending_flat</mat-icon>
-                <span>Stable</span>
-              }
+    <mat-card class="economic-overview-card">
+      <div class="card-icon-section">
+        <div class="icon-wrapper">
+          <mat-icon aria-hidden="true">account_balance</mat-icon>
+        </div>
+      </div>
+      <div class="card-content-section">
+        <div class="section-header">
+          <h2 class="section-title">Economic Overview</h2>
+          <p class="section-subtitle">Key indicators for investment decisions</p>
+        </div>
+        <div class="indicators-grid">
+          @for (indicator of economicIndicators; track indicator.label) {
+            <div class="indicator-item">
+              <div class="indicator-icon-wrapper" [ngClass]="indicator.color">
+                <mat-icon aria-hidden="true">{{ indicator.icon }}</mat-icon>
+              </div>
+              <div class="indicator-content">
+                <div class="indicator-label">{{ indicator.label }}</div>
+                <div class="indicator-value">{{ indicator.value }}</div>
+                <div class="indicator-trend" [ngClass]="indicator.trend">
+                  @if (indicator.trend === 'up') {
+                    <mat-icon aria-hidden="true">arrow_upward</mat-icon>
+                    <span>Increasing</span>
+                  } @else if (indicator.trend === 'down') {
+                    <mat-icon aria-hidden="true">arrow_downward</mat-icon>
+                    <span>Decreasing</span>
+                  } @else {
+                    <mat-icon aria-hidden="true">trending_flat</mat-icon>
+                    <span>Stable</span>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-        </mat-card>
-      }
-    </div>
+          }
+        </div>
+      </div>
+    </mat-card>
   </div>
 </section>
 

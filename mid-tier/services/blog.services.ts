@@ -106,7 +106,7 @@ export class BlogService {
   /**
    * Get all articles with filtering and pagination
    */
-  async getArticles(params: {
+  async getArticles(_params: {
     category?: string;
     tag?: string;
     featured?: boolean;
@@ -133,7 +133,7 @@ export class BlogService {
   /**
    * Get single article by slug
    */
-  async getArticleBySlug(slug: string) {
+  async getArticleBySlug(_slug: string) {
     // TODO: Implement DynamoDB GetItem
     // const result = await this.dynamoDb.send(new GetCommand({
     //   TableName: this.tableName,
@@ -150,7 +150,7 @@ export class BlogService {
   /**
    * Create new article
    */
-  async createArticle(articleData: any) {
+  async createArticle(_articleData: any) {
     // TODO: Implement article creation
     // 1. Create main article item
     // 2. Create index item for listing
@@ -163,7 +163,7 @@ export class BlogService {
   /**
    * Update existing article
    */
-  async updateArticle(slug: string, updates: any) {
+  async updateArticle(_slug: string, _updates: any) {
     // TODO: Implement article update
     // 1. Update main article item
     // 2. Update index item if metadata changed
@@ -176,7 +176,7 @@ export class BlogService {
   /**
    * Delete article
    */
-  async deleteArticle(slug: string) {
+  async deleteArticle(_slug: string) {
     // TODO: Implement article deletion
     // 1. Delete main article item
     // 2. Delete index item
@@ -206,7 +206,7 @@ export class BlogService {
   /**
    * Get featured articles
    */
-  async getFeaturedArticles(limit: number = 3) {
+  async getFeaturedArticles(_limit: number = 3) {
     // TODO: Query GSI3 for featured articles
     // const result = await this.dynamoDb.send(new QueryCommand({
     //   TableName: this.tableName,
@@ -225,7 +225,7 @@ export class BlogService {
   /**
    * Get related articles
    */
-  async getRelatedArticles(slug: string, limit: number = 3) {
+  async getRelatedArticles(_slug: string, _limit: number = 3) {
     // TODO: 
     // 1. Get current article
     // 2. Query articles in same category
@@ -238,7 +238,7 @@ export class BlogService {
   /**
    * Increment view count
    */
-  async incrementViews(slug: string) {
+  async incrementViews(_slug: string) {
     // TODO: Implement atomic counter update
     // await this.dynamoDb.send(new UpdateCommand({
     //   TableName: this.tableName,
@@ -254,7 +254,7 @@ export class BlogService {
   /**
    * Search articles
    */
-  async searchArticles(searchTerm: string) {
+  async searchArticles(_searchTerm: string) {
     // TODO: Implement search
     // Option 1: Use DynamoDB scan with filter (expensive)
     // Option 2: Integrate with AWS OpenSearch or Elasticsearch

@@ -1527,133 +1527,259 @@
     @extend .container-max-1400;
   }
 
-  .section-header {
-    @extend .section-header-centered;
-    margin-bottom: 2rem;
-
-    .section-title {
-      @extend .section-title-responsive;
-    }
-
-    .section-subtitle {
-      @extend .section-subtitle-constrained;
-    }
-  }
-
-  .indicators-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .indicator-card {
+  .economic-overview-card {
     @extend .card-hover-lift;
-    @extend .card-border-light;
-    border-radius: 12px;
-    padding: 1.25rem;
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    @extend .animate-slide-up;
+    flex-direction: row;
+    gap: 0;
 
-    .indicator-icon-wrapper {
-      width: 56px;
-      height: 56px;
-      border-radius: 10px;
+    .card-icon-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 3rem 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      min-width: 200px;
+      position: relative;
+      overflow: hidden;
 
-      &.primary {
-        background: linear-gradient(135deg, rgba($primary, 0.12) 0%, rgba($primary-dark, 0.12) 100%);
+      &::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
       }
 
-      &.accent {
-        background: linear-gradient(135deg, rgba($accent, 0.12) 0%, rgba($accent-dark, 0.12) 100%);
-      }
+      .icon-wrapper {
+        width: 120px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 1;
 
-      &.warn {
-        background: linear-gradient(135deg, rgba($warning, 0.12) 0%, rgba($warning-light, 0.04) 100%);
-      }
-
-      mat-icon {
-        @extend .text-gradient-primary;
-        font-size: 1.5rem;
-        width: 1.5rem;
-        height: 1.5rem;
+        mat-icon {
+          font-size: 4rem;
+          width: 4rem;
+          height: 4rem;
+          color: white;
+          filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
       }
     }
 
-    .indicator-content {
+    .card-content-section {
       flex: 1;
+      padding: 2.5rem;
+      background: white;
 
-      .indicator-label {
-        font-size: 0.875rem;
-        color: #666;
-        margin-bottom: 0.35rem;
-        font-weight: 500;
+      .section-header {
+        text-align: left;
+        margin-bottom: 2rem;
+
+        .section-title {
+          font-size: clamp(1.75rem, 3vw, 2.5rem);
+          font-weight: 700;
+          color: #1a1a1a;
+          margin: 0 0 0.5rem;
+          @extend .text-gradient-primary;
+        }
+
+        .section-subtitle {
+          font-size: 1rem;
+          color: #666;
+          margin: 0;
+          max-width: 100%;
+        }
       }
 
-      .indicator-value {
-        font-size: 1.35rem;
-        font-weight: 700;
-        color: #1a1a1a;
-        margin-bottom: 0.35rem;
+      .indicators-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.25rem;
       }
 
-      .indicator-trend {
+      .indicator-item {
         display: flex;
         align-items: center;
-        gap: 0.2rem;
-        font-size: 0.75rem;
-        font-weight: 600;
+        gap: 1rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        @include smooth-transition;
 
-        &.up {
-          color: #4caf50;
+        &:hover {
+          border-color: #667eea;
+          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+          transform: translateY(-2px);
         }
 
-        &.down {
-          color: #f44336;
+        .indicator-icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+
+          &.primary {
+            background: linear-gradient(135deg, rgba($primary, 0.15) 0%, rgba($primary-dark, 0.15) 100%);
+          }
+
+          &.accent {
+            background: linear-gradient(135deg, rgba($accent, 0.15) 0%, rgba($accent-dark, 0.15) 100%);
+          }
+
+          &.warn {
+            background: linear-gradient(135deg, rgba($warning, 0.15) 0%, rgba($warning-light, 0.08) 100%);
+          }
+
+          mat-icon {
+            @extend .text-gradient-primary;
+            font-size: 1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+          }
         }
 
-        &.stable {
-          color: #ff9800;
-        }
+        .indicator-content {
+          flex: 1;
 
-        mat-icon {
-          font-size: 0.875rem;
-          width: 0.875rem;
-          height: 0.875rem;
+          .indicator-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.35rem;
+            font-weight: 500;
+          }
+
+          .indicator-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.35rem;
+          }
+
+          .indicator-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+
+            &.up {
+              color: #4caf50;
+            }
+
+            &.down {
+              color: #f44336;
+            }
+
+            &.stable {
+              color: #ff9800;
+            }
+
+            mat-icon {
+              font-size: 0.875rem;
+              width: 0.875rem;
+              height: 0.875rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .economic-overview-card {
+      flex-direction: column;
+
+      .card-icon-section {
+        min-width: 100%;
+        padding: 2rem;
+
+        .icon-wrapper {
+          width: 100px;
+          height: 100px;
+
+          mat-icon {
+            font-size: 3rem;
+            width: 3rem;
+            height: 3rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .economic-overview-card {
+      .card-content-section {
+        padding: 1.5rem;
+
+        .indicators-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
         }
       }
     }
   }
 
   @media (max-width: 640px) {
-    .indicators-grid {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-    }
+    .economic-overview-card {
+      .card-icon-section {
+        padding: 1.5rem;
 
-    .indicator-card {
-      padding: 1rem;
-      gap: 0.75rem;
+        .icon-wrapper {
+          width: 80px;
+          height: 80px;
 
-      .indicator-icon-wrapper {
-        width: 40px;
-        height: 40px;
-
-        mat-icon {
-          font-size: 1.25rem;
-          width: 1.25rem;
-          height: 1.25rem;
+          mat-icon {
+            font-size: 2.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+          }
         }
       }
 
-      .indicator-content {
-        .indicator-value {
-          font-size: 1.15rem;
+      .card-content-section {
+        padding: 1.25rem;
+
+        .indicator-item {
+          padding: 0.875rem;
+          gap: 0.75rem;
+
+          .indicator-icon-wrapper {
+            width: 40px;
+            height: 40px;
+
+            mat-icon {
+              font-size: 1.25rem;
+              width: 1.25rem;
+              height: 1.25rem;
+            }
+          }
+
+          .indicator-content {
+            .indicator-value {
+              font-size: 1.1rem;
+            }
+          }
         }
       }
     }

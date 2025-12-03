@@ -1,9 +1,8 @@
 <!-- Banner Section -->
-<app-banner-section
-  title="Financial Insights & Expert Advice"
+<app-banner-section title="Financial Insights &" gradientText="Expert Advice"
   subtitle="Explore our comprehensive guides on tax planning, investments, retirement, and wealth management"
-  [features]="bannerFeatures"
-/>
+  badge="Knowledge Hub" badgeIcon="auto_stories" [features]="bannerFeatures" [visualCards]="bannerVisualCards"
+  illustration="/assets/images/blog.jpg" />
 
 <!-- Main Content -->
 <div class="blog-container">
@@ -20,35 +19,29 @@
 
     <div class="featured-grid">
       @for (article of featuredArticles(); track article.id) {
-      <article class="featured-card">
+      <article class="featured-card-compact">
         <a [routerLink]="['/blog', article.slug]" class="featured-link">
-          <div class="featured-image">
-            <img [src]="article.thumbnail" [alt]="article.title" loading="lazy">
+          <div class="featured-thumbnail">
+            <img [src]="article.thumbnail" [alt]="article.title" loading="lazy" />
             <div class="featured-badge">
               <mat-icon>star</mat-icon>
-              Featured
             </div>
           </div>
           <div class="featured-content">
-            <div class="article-meta">
-              <mat-chip [class]="'category-chip ' + getCategoryColor(article.category)">
+            <div class="article-header">
+              <mat-chip [class]="
+                      'category-chip ' + getCategoryColor(article.category)
+                    ">
                 <mat-icon>{{ getCategoryIcon(article.category) }}</mat-icon>
                 {{ article.category }}
               </mat-chip>
               <span class="read-time">
                 <mat-icon>schedule</mat-icon>
-                {{ article.readTime }} min read
+                {{ article.readTime }} min
               </span>
             </div>
             <h3>{{ article.title }}</h3>
-            <p class="excerpt">{{ article.excerpt }}</p>
-            <div class="article-footer">
-              <span class="author">
-                <mat-icon>person</mat-icon>
-                {{ article.author }}
-              </span>
-              <span class="date">{{ formatDate(article.publishDate) }}</span>
-            </div>
+            <p class="excerpt-compact">{{ article.excerpt }}</p>
           </div>
         </a>
       </article>
@@ -62,20 +55,14 @@
     <div class="filter-container">
       <!-- Category Filter -->
       <div class="category-filter">
-        <button 
-          mat-raised-button 
-          [color]="selectedCategory() === 'all' ? 'primary' : ''"
-          (click)="onCategoryChange('all')"
-          class="filter-btn">
+        <button mat-raised-button [color]="selectedCategory() === 'all' ? 'primary' : ''"
+          (click)="onCategoryChange('all')" class="filter-btn">
           <mat-icon>select_all</mat-icon>
           All Articles
         </button>
         @for (category of categories(); track category.id) {
-        <button 
-          mat-raised-button 
-          [color]="selectedCategory() === category.name ? 'primary' : ''"
-          (click)="onCategoryChange(category.name)"
-          class="filter-btn">
+        <button mat-raised-button [color]="selectedCategory() === category.name ? 'primary' : ''"
+          (click)="onCategoryChange(category.name)" class="filter-btn">
           <mat-icon>{{ category.icon }}</mat-icon>
           {{ category.name }}
         </button>
@@ -85,19 +72,11 @@
       <!-- Search Bar -->
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search articles...</mat-label>
-        <input 
-          matInput 
-          [value]="searchQuery()"
-          (input)="onSearchChange($any($event.target).value)"
-          placeholder="Tax planning, SIP, home loan..."
-        >
+        <input matInput [value]="searchQuery()" (input)="onSearchChange($any($event.target).value)"
+          placeholder="Tax planning, SIP, home loan..." />
         <mat-icon matPrefix>search</mat-icon>
         @if (searchQuery()) {
-        <button 
-          matSuffix 
-          mat-icon-button 
-          (click)="onSearchChange('')"
-          aria-label="Clear search">
+        <button matSuffix mat-icon-button (click)="onSearchChange('')" aria-label="Clear search">
           <mat-icon>close</mat-icon>
         </button>
         }
@@ -107,20 +86,24 @@
 
   <!-- Articles Grid -->
   <section class="articles-section">
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.1)"
+      size="medium"
+      color="#3f51b5"
+      type="ball-scale-multiple"
+      [fullScreen]="false"
+    >
+      <p style="color: #3f51b5; font-size: 1.1rem; margin-top: 1rem;">Loading articles...</p>
+    </ngx-spinner>
     <!-- Loading State -->
-    @if (isLoading()) {
-    <div class="loading-container">
-      <mat-spinner diameter="50"></mat-spinner>
-      <p>Loading articles...</p>
-    </div>
-    } @else if (filteredArticles().length > 0) {
+    @if (filteredArticles().length > 0) {
     <!-- Articles Grid -->
     <div class="articles-grid">
       @for (article of filteredArticles(); track article.id) {
       <article class="article-card">
         <a [routerLink]="['/blog', article.slug]" class="article-link">
           <div class="article-image">
-            <img [src]="article.thumbnail" [alt]="article.title" loading="lazy">
+            <img [src]="article.thumbnail" [alt]="article.title" loading="lazy" />
             <mat-chip class="category-tag">{{ article.category }}</mat-chip>
           </div>
           <div class="article-body">
@@ -137,7 +120,9 @@
           <div class="article-footer">
             <div class="footer-left">
               <span class="author">{{ article.author }}</span>
-              <span class="date">{{ formatDate(article.publishDate) }}</span>
+              <span class="date">{{
+                formatDate(article.publishDate)
+                }}</span>
             </div>
             <span class="read-time">
               <mat-icon>schedule</mat-icon>
@@ -158,10 +143,8 @@
         No articles match "{{ searchQuery() }}". Try different keywords.
       </p>
       }
-      @if (!searchQuery() && selectedCategory() !== 'all') {
-      <p>
-        No articles in {{ selectedCategory() }} category yet.
-      </p>
+      @if (!searchQuery() && selectedCategory() !== "all") {
+      <p>No articles in {{ selectedCategory() }} category yet.</p>
       }
       <button mat-raised-button color="primary" (click)="onCategoryChange('all'); onSearchChange('')">
         <mat-icon>refresh</mat-icon>
@@ -176,11 +159,14 @@
     <div class="newsletter-card">
       <mat-icon class="newsletter-icon">mail</mat-icon>
       <h3>Get Weekly Financial Insights</h3>
-      <p>Subscribe to our newsletter for expert tips, market updates, and exclusive guides</p>
+      <p>
+        Subscribe to our newsletter for expert tips, market updates, and
+        exclusive guides
+      </p>
       <div class="newsletter-form">
         <mat-form-field appearance="outline">
           <mat-label>Your email address</mat-label>
-          <input matInput type="email" placeholder="you@example.com">
+          <input matInput type="email" placeholder="you@example.com" />
           <mat-icon matPrefix>email</mat-icon>
         </mat-form-field>
         <button mat-raised-button color="primary">

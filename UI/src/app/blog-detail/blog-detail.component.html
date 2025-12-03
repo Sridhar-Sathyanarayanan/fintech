@@ -1,10 +1,12 @@
-<!-- Loading State -->
-@if (isLoading()) {
-<div class="loading-container">
-  <mat-spinner diameter="50"></mat-spinner>
-  <p>Loading article...</p>
-</div>
-}
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.1)"
+  size="medium"
+  color="#3f51b5"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+>
+  <p style="color: #3f51b5; font-size: 1.1rem; margin-top: 1rem;">Loading article...</p>
+</ngx-spinner>
 
 <!-- Not Found State -->
 @if (notFound() && !isLoading()) {
@@ -60,19 +62,43 @@
       <!-- Share Buttons -->
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button mat-icon-button (click)="shareArticle('twitter')" aria-label="Share on Twitter">
+        @if (canUseNativeShare) {
+        <button mat-icon-button (click)="shareArticle('native')" 
+                matTooltip="Share" 
+                matTooltipPosition="below"
+                aria-label="Share article">
           <mat-icon>share</mat-icon>
         </button>
-        <button mat-icon-button (click)="shareArticle('facebook')" aria-label="Share on Facebook">
-          <mat-icon>facebook</mat-icon>
+        } @else {
+        <button mat-icon-button (click)="shareArticle('twitter')" 
+                matTooltip="Share on X (Twitter)" 
+                matTooltipPosition="below"
+                aria-label="Share on Twitter">
+          <mat-icon>share</mat-icon>
         </button>
-        <button mat-icon-button (click)="shareArticle('linkedin')" aria-label="Share on LinkedIn">
-          <mat-icon>link</mat-icon>
+        <button mat-icon-button (click)="shareArticle('facebook')" 
+                matTooltip="Share on Facebook" 
+                matTooltipPosition="below"
+                aria-label="Share on Facebook">
+          <mat-icon>public</mat-icon>
         </button>
-        <button mat-icon-button (click)="shareArticle('whatsapp')" aria-label="Share on WhatsApp">
+        <button mat-icon-button (click)="shareArticle('linkedin')" 
+                matTooltip="Share on LinkedIn" 
+                matTooltipPosition="below"
+                aria-label="Share on LinkedIn">
+          <mat-icon>business</mat-icon>
+        </button>
+        <button mat-icon-button (click)="shareArticle('whatsapp')" 
+                matTooltip="Share on WhatsApp" 
+                matTooltipPosition="below"
+                aria-label="Share on WhatsApp">
           <mat-icon>chat</mat-icon>
         </button>
-        <button mat-icon-button (click)="copyLink()" aria-label="Copy link">
+        }
+        <button mat-icon-button (click)="copyLink()" 
+                matTooltip="Copy link to clipboard" 
+                matTooltipPosition="below"
+                aria-label="Copy link">
           <mat-icon>content_copy</mat-icon>
         </button>
       </div>
@@ -102,19 +128,23 @@
       <div class="share-buttons-large">
         <button mat-raised-button (click)="shareArticle('twitter')">
           <mat-icon>share</mat-icon>
-          Twitter
+          X (Twitter)
         </button>
         <button mat-raised-button (click)="shareArticle('facebook')">
-          <mat-icon>facebook</mat-icon>
+          <mat-icon>public</mat-icon>
           Facebook
         </button>
         <button mat-raised-button (click)="shareArticle('linkedin')">
-          <mat-icon>link</mat-icon>
+          <mat-icon>business</mat-icon>
           LinkedIn
         </button>
         <button mat-raised-button (click)="shareArticle('whatsapp')">
           <mat-icon>chat</mat-icon>
           WhatsApp
+        </button>
+        <button mat-raised-button (click)="copyLink()">
+          <mat-icon>content_copy</mat-icon>
+          Copy Link
         </button>
       </div>
     </div>

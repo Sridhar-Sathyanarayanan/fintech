@@ -5,6 +5,8 @@ import { MaterialModules } from '../shared/material.standalone';
 import { BlogService } from '../services/blog.service';
 import { BlogArticleEnriched, BlogArticleMetadata } from '../models/blog.models';
 import { Meta, Title } from '@angular/platform-browser';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-blog-detail',
@@ -12,10 +14,11 @@ import { Meta, Title } from '@angular/platform-browser';
   imports: [
     CommonModule,
     RouterModule,
-    MaterialModules
+    MaterialModules,
+    NgxSpinnerModule
   ],
   templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.scss']
+  styleUrl: './blog-detail.component.scss'
 })
 export class BlogDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -23,6 +26,8 @@ export class BlogDetailComponent implements OnInit {
   private blogService = inject(BlogService);
   private titleService = inject(Title);
   private metaService = inject(Meta);
+  private spinner = inject(NgxSpinnerService);
+  private snackBar = inject(MatSnackBar);
 
   article = signal<BlogArticleEnriched | null>(null);
   relatedArticles = signal<BlogArticleMetadata[]>([]);
@@ -41,6 +46,7 @@ export class BlogDetailComponent implements OnInit {
   private loadArticle(slug: string): void {
     this.isLoading.set(true);
     this.notFound.set(false);
+    this.spinner.show();
 
     this.blogService.getEnrichedArticle(slug).subscribe({
       next: (article) => {
@@ -52,11 +58,13 @@ export class BlogDetailComponent implements OnInit {
           this.notFound.set(true);
         }
         this.isLoading.set(false);
+        this.spinner.hide();
       },
       error: (error) => {
         console.error('Error loading article:', error);
         this.notFound.set(true);
         this.isLoading.set(false);
+        this.spinner.hide();
       }
     });
   }
@@ -126,8 +134,23 @@ export class BlogDetailComponent implements OnInit {
 
     const url = `https://amkrtech.com/blog/${article.slug}`;
     const text = article.title;
-    let shareUrl = '';
 
+    // Try native Web Share API first (mobile devices)
+    if (platform === 'native' && navigator.share) {
+      navigator.share({
+        title: article.title,
+        text: article.excerpt,
+        url: url
+      }).catch((error) => {
+        if (error.name !== 'AbortError') {
+          console.error('Error sharing:', error);
+        }
+      });
+      return;
+    }
+
+    // Fallback to platform-specific URLs
+    let shareUrl = '';
     switch (platform) {
       case 'twitter':
         shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
@@ -148,14 +171,28 @@ export class BlogDetailComponent implements OnInit {
     }
   }
 
+  // Check if native share is available
+  get canUseNativeShare(): boolean {
+    return typeof navigator !== 'undefined' && !!navigator.share;
+  }
+
   copyLink(): void {
     const article = this.article();
     if (!article) return;
 
     const url = `https://amkrtech.com/blog/${article.slug}`;
     navigator.clipboard.writeText(url).then(() => {
-      // Could show a snackbar notification here
-      console.log('Link copied to clipboard');
+      this.snackBar.open('Link copied to clipboard!', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      });
+    }).catch(() => {
+      this.snackBar.open('Failed to copy link', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      });
     });
   }
 }

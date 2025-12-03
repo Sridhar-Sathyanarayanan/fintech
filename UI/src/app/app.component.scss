@@ -117,6 +117,7 @@ $bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   border-radius: 12px;
   @include smooth-transition;
   position: relative;
+  background: rgba(103, 126, 234, 0.15);
 
   span {
     order: 1;
@@ -763,5 +764,43 @@ $bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
   .content-wrapper {
     background: #0f0f0f;
+  }
+}
+
+// ========================= MENU STYLES =========================
+::ng-deep .mat-mdc-menu-panel {
+  &.blog-menu {
+    max-width: 400px;
+
+    .mat-mdc-menu-item {
+      white-space: normal;
+      line-height: 1.4;
+      height: auto;
+      min-height: 48px;
+      padding: 12px 16px;
+      
+      .mat-icon {
+        align-self: flex-start;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .mat-mdc-menu-item.view-all-item {
+    font-weight: 600;
+    background-color: #f3f4f6;
+
+    &:hover {
+      background-color: #e5e7eb;
+    }
+  }
+}
+
+// Mobile sidenav blog link styling
+.submenu-header-link {
+  font-weight: 600;
+  
+  .expand-icon {
+    margin-left: auto;
   }
 }

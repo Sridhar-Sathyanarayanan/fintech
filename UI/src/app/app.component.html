@@ -18,27 +18,36 @@
 
         <!-- Navigation Links -->
         <nav class="nav-links" aria-label="Main navigation">
-          @for (item of navItems; track item.label) { @if (!item.children) {
-          <a mat-button [routerLink]="item.route" routerLinkActive="active-link"
-            [routerLinkActiveOptions]="{ exact: item.route === '/' }" class="nav-link">
-            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
-            <span>{{ item.label }}</span>
-          </a>
-          } @else {
-          <button mat-button [matMenuTriggerFor]="calculatorMenu" class="nav-link">
-            <span>{{ item.label }}</span>
-            <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
-            <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
-          </button>
-          <mat-menu #calculatorMenu="matMenu" class="calculator-menu">
-            @for (child of item.children; track child.label) {
-            <a mat-menu-item [routerLink]="child.route" routerLinkActive="active-menu-item" class="menu-item">
-              <mat-icon>{{ child.icon }}</mat-icon>
-              <span>{{ child.label }}</span>
-            </a>
-            }
-          </mat-menu>
-          } }
+          @for (item of navItems; track item.label) { 
+            @if (!item.children) {
+              <a mat-button [routerLink]="item.route" routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{ exact: item.route === '/' }" class="nav-link">
+                <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+                <span>{{ item.label }}</span>
+              </a>
+            } @else {
+              <button mat-button [matMenuTriggerFor]="menu" class="nav-link">
+                <span>{{ item.label }}</span>
+                <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
+                <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" [class]="item.label === 'Blog' ? 'blog-menu' : 'calculator-menu'">
+                @if (item.route) {
+                  <a mat-menu-item [routerLink]="item.route" class="menu-item view-all-item">
+                    <mat-icon>view_list</mat-icon>
+                    <span>View All {{ item.label }}</span>
+                  </a>
+                  <mat-divider></mat-divider>
+                }
+                @for (child of item.children; track child.label) {
+                  <a mat-menu-item [routerLink]="child.route" routerLinkActive="active-menu-item" class="menu-item">
+                    <mat-icon>{{ child.icon }}</mat-icon>
+                    <span>{{ child.label }}</span>
+                  </a>
+                }
+              </mat-menu>
+            } 
+          }
         </nav>
 
         <!-- CTA Button -->
@@ -90,10 +99,18 @@
         </a>
         } @else {
         <div class="sidenav-submenu">
-          <div class="submenu-header">
-            <mat-icon>{{ item.icon }}</mat-icon>
-            <span>{{ item.label }}</span>
-          </div>
+          @if (item.route) {
+            <a mat-list-item [routerLink]="item.route" routerLinkActive="active-sidenav-item" (click)="closeSidenav()" class="sidenav-item submenu-header-link">
+              <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+              <span matListItemTitle>{{ item.label }}</span>
+              <mat-icon matListItemIcon class="expand-icon">view_list</mat-icon>
+            </a>
+          } @else {
+            <div class="submenu-header">
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span>{{ item.label }}</span>
+            </div>
+          }
           @for (child of item.children; track child.label) {
           <a mat-list-item [routerLink]="child.route" routerLinkActive="active-sidenav-item" (click)="closeSidenav()"
             class="sidenav-subitem">

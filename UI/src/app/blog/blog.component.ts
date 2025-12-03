@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialModules } from '../shared/material.standalone';
-import { BannerSectionComponent } from '../shared/components';
+import { BannerSectionComponent, BannerFeature, BannerVisualCard } from '../shared/components/banner-section/banner-section.component';
 import { BlogService } from '../services/blog.service';
 import { BlogArticleMetadata, BlogCategory } from '../models/blog.models';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-blog',
@@ -15,13 +16,15 @@ import { BlogArticleMetadata, BlogCategory } from '../models/blog.models';
     RouterModule,
     FormsModule,
     MaterialModules,
-    BannerSectionComponent
+    BannerSectionComponent,
+    NgxSpinnerModule
   ],
   templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  styleUrl: './blog.component.scss'
 })
 export class BlogComponent implements OnInit {
   private blogService = inject(BlogService);
+  private spinner = inject(NgxSpinnerService);
 
   // Signals for reactive state
   allArticles = signal<BlogArticleMetadata[]>([]);
@@ -58,11 +61,16 @@ export class BlogComponent implements OnInit {
     this.allArticles().filter(a => a.featured).slice(0, 3)
   );
 
-  bannerFeatures = [
+  readonly bannerFeatures: BannerFeature[] = [
     { icon: 'article', label: 'Expert Articles' },
     { icon: 'trending_up', label: 'Market Analysis' },
     { icon: 'school', label: 'Financial Education' },
     { icon: 'tips_and_updates', label: 'Actionable Tips' }
+  ];
+
+  readonly bannerVisualCards: BannerVisualCard[] = [
+    { icon: 'library_books', label: 'Articles', value: '50+' },
+    { icon: 'people', label: 'Readers', value: '10K+' }
   ];
 
   ngOnInit(): void {
@@ -71,16 +79,19 @@ export class BlogComponent implements OnInit {
 
   private loadBlogData(): void {
     this.isLoading.set(true);
+    this.spinner.show();
 
     // Load articles
     this.blogService.getAllArticles().subscribe({
       next: (articles) => {
         this.allArticles.set(articles);
         this.isLoading.set(false);
+        this.spinner.hide();
       },
       error: (error) => {
         console.error('Error loading articles:', error);
         this.isLoading.set(false);
+        this.spinner.hide();
       }
     });
 
